@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DM1 - Exigences + analyse</title>
+</head>
+<body>
+<h1> Tâche 1 : Glossaire </h1>
+<ul>
+    <li><strong> Total: </strong> La somme des prix des produits achetés incluant les taxes.  </li>
+    <li><strong> Sous-total: </strong> La somme des prix des produits achetés sans les taxes.   </li>
+    <li><strong>Aime: </strong>Lorsqu'un client aime un objet acheté, cela le rendra plus découvrable aux potentiels acheteurs. </li>
+    <li><strong> Retour : </strong> Un client n'étant pas satisfait de son produit peut le retourner et recevoir un remboursement.   </li>
+    <li><strong> Échange: </strong> Un client pas satisfait du produit peut le renvoyer et choisir un
+        nouveau article. Il devra aussi payer la différence de prix, s'il y en a.</li>
+    <li><strong> Remboursement:</strong> Un client pas satisfait de son produit peut le renvoyer en échange
+        de l'argent. </li>
+    <li> <strong>TPS: </strong> La taxe appliquée du gouvernement fédéral au sous-total.  </li>
+    <li><strong>TVQ:</strong> La taxe appliquée du gouvernement provincial québecois  au sous-total. </li>
+    <li><strong> Article: </strong> Objet que l'on peut acheter sur le site.  </li>
+    <li><strong> Frais de livraison: </strong> Les frais appliqués afin de ce faire livrer le produit. </li>
+    <li><strong> Avis: </strong> Opinion sur le produit. </li>
+    <li><strong> Compte client: </strong> Le compte qui permet à quelqu'un de faire des achats en ligne.  </li>
+    <li><strong> Pseudo: </strong> Numéro d'identifiant unique de l'utilisateur. </li>
+    <li><strong> Adresse d'expédition: </strong> Adresse à laquelle le client souhaite avoir le produit. </li>
+    <li><strong> Adresse de facturation: </strong> Adresse où réside la personne qui effectue le paiement.  </li>
+    <li><strong> Revendeur: </strong> L'individu qui vend les produits  </li>
+    <li><strong> Catalogue:</strong> Liste des produits disponibles à l'achat avec les details.  </li>
+    <li><strong> Panier: </strong> Liste d'articles que le client souhaite acheter. </li>
+    <li><strong> Facture: </strong> Document qui contient l'information du paiement, l'adresse de livraison
+        et les articles achetés. </li>
+    <li><strong> Identifiant unique: </strong> Numéro unique associé à une commande ou à un produit (numéro, string ou UUID). </li>
+    <li><strong> Édition du livre: </strong> Nombre de la version d'un livre qui est offert.</li>
+    <li><strong> Métriques :  </strong> Indicateurs, ratios agrégés par période indiquant les tendances d'activités d'un
+    client ou d'un revendeur. </li>
+</ul>
+
+
+<h1> Tâche 3 : Cas d'utilisation </h1>
+
+<p>
+<strong> Cas d'utilisation : Modifier le profil  <br /></strong>
+    <strong> But : </strong> Mettre a jour les informations dans le compte <br />
+<strong> Préconditions : </strong> Avoir un compte <br />
+<strong>Acteurs : Acteur principale:  </strong>Le vendeur et le client. <strong> Acteur secondaire: </strong>
+    administrateur  <br />
+<strong>Scénario principal :</strong>
+<ol>
+    <li> Ouverture du site web  </li>
+    <li> Connection du compte </li>
+    <li> Appuyer sur modifier mon compte</li>
+    <li> Entrer les nouvelles donneés </li>
+    <li> Enregistrer les données </li>
+</ol>
+<strong>Scénarios alternatifs :</strong><br />
+
+    2.1 Connection en tant que revendeur <br />
+    2.2 Connection en tant que client <br />
+
+<strong>Postconditions : </strong> Enregistrement dans la base de données des nouvelles informations  <br />
+</p>
+
+
+<p>
+<strong> Cas d'utilisation : Suivre une commande <br /> </strong>
+<strong> But : </strong> Savoir où est rendu le colis <br />
+<strong> Préconditions : </strong> Avoir passé une commande   <br />
+<strong>Acteurs : </strong> Client <br />
+<strong>Scénario principal :</strong>
+<ol>
+    <li> Le client se connecte à son compte </li>
+    <li> Le client va dans ses historiques de commandes </li>
+    <li> Il appuie sur la commande qu'il souhaite suivre </li>
+    <li> La page s'ouvre avec les details de la livraison </li>
+</ol>
+<strong>Scénarios alternatifs :</strong>  <br />
+4.1 Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
+le rentrer à nouveau. <br />
+<strong>Postconditions : </strong>  <br />
+</p>
+
+<p>
+    <strong> Cas d'utilisation : Échange   <br /> </strong>
+    <strong> But : </strong> Retourner un objet et en recevoir un autre <br />
+    <strong> Préconditions : </strong>  Avoir commander un objet et l'avoir recu  <br />
+    <strong>Acteurs : Acteur principal : </strong> Client. <strong> Acteur secondaire: </strong> service entrepot<br />
+    <strong>Scénario principal :</strong>
+<ol>
+    <li> Le client se connecte à son compte </li>
+    <li> Le client va dans ses historiques de commandes </li>
+    <li> Il appuye sur la commande qu'il souhaite échanger </li>
+    <li> Il va selectionner l'objet qu'il souhaite avoir en échange </li>
+    <li> Suivre le coli retourné  </li>
+    <li> Le service entrepot va confirmer la reception</li>
+
+</ol>
+
+<strong>Scénarios alternatifs :</strong>   <br />
+<strong>Postconditions : </strong> Mise à jour l'inventaire du nouveau produit <br />
+</p>
+
+<p>
+    <strong> Cas d'utilisation : Retour   <br /> </strong>
+    <strong> But : </strong> Retourner un objet.  <br />
+    <strong> Préconditions : </strong> Avoir commander un produit  <br />
+    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire :  </strong> Service entrepot <br />
+    <strong>Scénario principal :</strong>
+<ol>
+    <li> Le client se connecte à son compte </li>
+    <li> Le client va dans ses historiques de commandes </li>
+    <li> Il appuie sur la commande qu'il souhaite changer </li>
+    <li> Il va selectionner l'objet </li>
+    <li> Suivre le coli retourné  </li>
+</ol>
+<strong>Scénarios alternatifs :</strong><br />
+4.1 Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher.
+<strong>Postconditions : </strong>  L'entrepos envois l'objet au client <br />
+</p>
+
+<p>
+    <strong> Cas d'utilisation : Remboursement   <br /> </strong>
+    <strong> But : </strong> Retourner un objet et avoir l'argent en retour  <br />
+    <strong> Préconditions : </strong>  Avoir commander un produit <br />
+    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepos
+    et service comptabilité </strong> <br />
+    <strong>Scénario principal :</strong>
+<ol>
+    <li> Le client se connecte à son compte </li>
+    <li> Le client va dans ses historiques de commandes </li>
+    <li> Il appuie sur la commande qu'il souhaite changer </li>
+    <li> Il va selectionner l'objet </li>
+    <li> Il confirme la carte de crédit </li>
+    <li> Suivre le coli retourné  </li>
+</ol>
+<strong>Scénarios alternatifs :</strong>  <br />
+5.1 Si le client n'est plus le propriétaire de la carte, il va pas pouvoir faire le remboursement <br />
+<strong>Postconditions : </strong> Depot de l'argent dans le compte par le service comptabilité   <br />
+</p>
+
+
+<h1> Tâche 4 : Risques </h1>
+<ul>
+    <li> Fuite de données </li>
+    <li> Problème de connection</li>
+    <li> Incapable d'enregistrer/ midifier les informations d'usager </li>
+    <li> Mal gérer l'inventaire </li>
+    <li> Problème avec le suivit de la commande </li>
+</ul>
+
+<h1> Tâche 5 : non-fonctionnelles </h1>
+<ul>
+    <li> Utilisabilité</li>
+    <li> Performance </li>
+    <li> Fiabilité</li>
+    <li> Sécurité </li>
+    <li>  Facilité de maintenance</li>
+</ul>
+
+</body>
+</html>
