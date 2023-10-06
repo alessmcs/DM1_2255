@@ -114,14 +114,14 @@ le rentrer à nouveau. <br />
 </ol>
 <strong>Scénarios alternatifs :</strong><br />
 4.1 Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher.
-<strong>Postconditions : </strong>  L'entrepos envois l'objet au client <br />
+<strong>Postconditions : </strong>  L'entrepôt envoie l'objet au client <br />
 
 
 <p>
     <strong> Cas d'utilisation : Remboursement   <br /> </strong>
     <strong> But : </strong> Retourner un objet et avoir l'argent en retour  <br />
     <strong> Préconditions : </strong>  Avoir commander un produit <br />
-    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepos
+    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepôt
     et service comptabilité </strong> <br />
     <strong>Scénario principal :</strong>
 <ol>
@@ -138,37 +138,185 @@ le rentrer à nouveau. <br />
 
 
 
-<p
-><strong>Cas d’utilisation: Signaler un problème   <br /> </strong>
-<strong>But :</strong> L’utilisateur signale un problème rencontré avec leur commande ou leur produit, dans le but de le
+<p>
+    <strong>Cas d’utilisation: Signaler un problème   <br /> </strong>
+    <strong>But :</strong> L’utilisateur signale un problème rencontré avec leur commande ou leur produit, dans le but de le
     remédier avec le revendeur.  <br />
-    <strong>Acteurs : </strong>
-    <ul>
-        <li>Principal: client et revendeur </li>
-        <li>Secondaire: administrateur du système </li>
-    </ul>
-    <strong>Préconditions : </strong>
-    <ul>
-        <li>L’utilisateur a un problème à signaler </li>
-    <li>L’utilisateur est un client membre de la plateforme Unishop</li></ul><p id="82e70755-efb4-4e50-a900-ce89556ad3ef" class=""><strong>Scénario principal:</strong></p><ol type="1" id="80c55a40-76af-4fff-8bb5-6fb306993966" class="numbered-list" start="1"><li>L’utilisateur se connecte sur la plateforme Unishop </li></ol><ol type="1" id="6fc4d786-a385-4935-a73d-161cdd652f43" class="numbered-list" start="2"><li>Il décide de signaler un problème</li></ol><ol type="1" id="103adc72-ec9a-4416-89cc-50808c6e5d16" class="numbered-list" start="3"><li>Le système lui demande s’il y a un problème avec un produit ou avec une commande<ol type="a" id="2154df33-3b07-4007-8a53-64ec0930a3de" class="numbered-list" start="1"><li>Si c’est une commande, l’utilisateur précise laquelle</li></ol><ol type="a" id="74c9e231-e5b1-4689-a5f5-66e0ff2214b7" class="numbered-list" start="2"><li>Si c’est un produit, l’utilisateur précise le produit qui lui pose problème </li></ol></li></ol><ol type="1" id="e2c423a3-b0d3-4f75-8edc-fd0948773243" class="numbered-list" start="4"><li>Le système demande au client de décrire son problème au revendeur.</li></ol><ol type="1" id="8cd43082-8b7a-4364-8dee-63ce8da3476a" class="numbered-list" start="5"><li>Le système crée une connection entre le client et le revendeur. </li></ol><ol type="1" id="f108a2f3-74ad-4ad8-ae8c-624e51185b4f" class="numbered-list" start="6"><li>Le revendeur propose une solution au client <ol type="a" id="fdc58d4b-5f65-49c9-b466-47975454c9a9" class="numbered-list" start="1"><li>Le client choisit d’effectuer un retour</li></ol><ol type="a" id="a0f85e1b-aeb1-45a0-b7b0-a92caf214c07" class="numbered-list" start="2"><li>Le client choisit d’effectuer un échange</li></ol></li></ol><ol type="1" id="76e5efba-e210-4695-99f2-26f38f55709a" class="numbered-list" start="7"><li>La correspondance entre le revendeur et le client est terminée</li></ol><ol type="1" id="8695f23c-904e-4ddb-b9ef-c29039301217" class="numbered-list" start="8"><li>Le client continue la session dans la plateforme UniShop </li></ol><p id="e675e5d1-a5fc-48e4-9741-0aa55bb2e8b5" class=""><strong>Scénarios alternatifs: </strong><div class="indented"><p id="60136855-d5aa-440f-83c2-16fe1313f2e1" class=""><em>SA1:</em> Le client n’a pas reçu sa commande, donc il ne peut pas faire de retour ou d’échange</p><p id="27c4bb81-8e38-44a8-aa07-69a0d50cb171" class="">Le scénario SA1 commence au point 6 du scénario principal</p><ol type="1" id="6163c129-d7e6-40cb-a4e1-2c39e88480d0" class="numbered-list" start="7"><li>Le revendeur propose une autre solution au client (voir CU “Gérer les problèmes”)</li></ol><ol type="1" id="8fa255ac-09e0-4f94-80b8-72ac686a6f15" class="numbered-list" start="8"><li>Une fois le problème résolu, le scénario reprend à la tâche 7 du scénario principal </li></ol></div><p id="d830f42b-22c8-4e35-9ed1-a02b8c9050a7" class="block-color-default"><strong>Postconditions: </strong></p><p id="1569d885-62c2-41de-9679-6ff60218e406" class="">Le système enregistre la plainte de l’utilisateur dans une base de données, ainsi que les données (métriques) mises à jour du client et de l’utilisateur (s’il y a eu un retour/échange/annulation)</p><p id="0133b9f2-e476-4a6a-87db-b26ac68c4d18" class="">
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> L’utilisateur a un problème à signaler et l’utilisateur est un client membre de la plateforme Unishop <br />
+    <strong>Scénario principal:</strong>
+    <p>
+    <ol>
+        <li>L’utilisateur se connecte sur la plateforme Unishop </li>
+        <li>Il décide de signaler un problème</li>
+        <li>Le système lui demande s’il y a un problème avec un produit ou avec une commande</li>
+        <li>Si c’est une commande, l’utilisateur précise laquelle</li>
+        <li>Si c’est un produit, l’utilisateur précise le produit qui lui pose problème </li>
+        <li>Le système demande au client de décrire son problème au revendeur.</li>
+        <li>Le système crée une connection entre le client et le revendeur. </li>
+        <li>Le revendeur propose une solution au client </li>
+            <ol type="a">
+                <li>Le client choisit d’effectuer un retour</li>
+                <li>Le client choisit d’effectuer un échange</li>
+             </ol>
+        <li>La correspondance entre le revendeur et le client est terminée</li>
+        <li>Le client continue la session dans la plateforme UniShop </li>
+    </ol>
+    </p>
+    <strong>Scénarios alternatifs: </strong><br/>
+    <italic>SA1:</italic> Le client n’a pas reçu sa commande, donc il ne peut pas faire de retour ou d’échange<br/>
+    Le scénario SA1 commence au point 6 du scénario principal<br/>
+<ol>
+    7. Le revendeur propose une autre solution au client (voir CU “Gérer les problèmes”)<br/>
+    8. Une fois le problème résolu, le scénario reprend à la tâche 7 du scénario principal <br/>
+</ol>
+    <strong>Postconditions: </strong> Le système enregistre la plainte de l’utilisateur dans une base de données, ainsi
+    que les données (métriques) mises à jour du client et de l’utilisateur (s’il y a eu un retour/échange/annulation)
 </p>
 
-<p id="b9004d6d-aefa-4234-a89f-b9653c691b3c" class=""><strong>Cas d’utilisation: Gérer les problèmes</strong></p><p id="7742c9a8-ea2f-4fb5-84e8-ac2fad90b103" class=""><strong>But</strong>: Le revendeur propose des solutions à un problème signalé par un utilisateur </p><p id="945c0c0a-4eba-40fa-908b-2bc77eb41285" class=""><strong>Acteurs: </strong></p><ul id="64b5ab05-e056-4576-be17-b5532e47eeba" class="bulleted-list"><li style="list-style-type:disc">Principaux: le revendeur &amp; le client </li></ul><ul id="4611ceec-62fc-4fc0-820e-c0b25d6288fe" class="bulleted-list"><li style="list-style-type:disc">Secondaire: l’administrateur </li></ul><p id="31b9ca4b-69ed-40e9-8b6b-657c5ace6c87" class=""><strong>Préconditions</strong>: </p><ul id="d3a1a662-49a8-4355-9658-3bee47b2b065" class="bulleted-list"><li style="list-style-type:disc">Le revendeur est connecté à la plateforme </li></ul><ul id="292ae647-9255-41fa-8802-a69feb4f8dc6" class="bulleted-list"><li style="list-style-type:disc">Le client a signalé un problème avec un produit ou une commande </li></ul><p id="505eeffd-806d-4aa8-82d0-e98fd96ed88e" class=""><strong>Scénario principal: </strong></p><ol type="1" id="34e1f4af-5fb8-458f-9bb0-75ef2eb2b2ea" class="numbered-list" start="1"><li>Le système (Admin) envoie un message au revendeur, le notifiant qu’un client a signalé un problème </li></ol><ol type="1" id="1c360480-8f4c-4634-84bb-5802d9261be6" class="numbered-list" start="2"><li>Le système ouvre une connection entre le revendeur et le client pour qu’ils puissent communiquer </li></ol><ol type="1" id="917ba643-2682-4fb1-93f7-9bffdec2f01d" class="numbered-list" start="3"><li>Le revendeur propose une solution au client<ol type="a" id="a24fbbff-2ed6-4d91-8785-1b0ec99b9931" class="numbered-list" start="1"><li>Il propose un retour <ol type="i" id="e84c019f-9acc-4fc2-a210-b73d1a3433f3" class="numbered-list" start="1"><li>Le client suit la procédure pour effectuer un retour (voir CU “<strong>Effectuer un retour</strong>”) </li></ol></li></ol><ol type="a" id="93981531-a088-4b21-afe6-197dfa89292b" class="numbered-list" start="2"><li>Il propose un échange (voir CU “<strong>Effectuer un échange</strong>”)<ol type="i" id="29dfe522-de86-4f36-9000-ee45ccd3ceb2" class="numbered-list" start="1"><li>Le client suit la procédure pour effectuer un échange (voir CU “<strong>Effectuer un échange</strong>”) </li></ol></li></ol><ol type="a" id="f07efc04-be05-438f-8243-c666b87e46e8" class="numbered-list" start="3"><li>Il entre en communication avec la compagnie de livraison si le client n’a pas reçu la commande </li></ol><ol type="a" id="e8c32c46-b32c-4112-b953-9d7fdec5fae4" class="numbered-list" start="4"><li>Il propose d’annuler la commande et/ou rembourser le client <ol type="i" id="b26d4077-0789-42cb-81ca-0fcccb06152e" class="numbered-list" start="1"><li>Le client suit la procédure pour demander un remboursement (voir CU “<strong>Demander un remboursement</strong>”)</li></ol></li></ol></li></ol><ol type="1" id="88782852-cab9-4acf-a8e3-9135f65f30f9" class="numbered-list" start="4"><li>La correspondance entre le client et le revendeur est terminée </li></ol><p id="fc275c84-c857-462d-b344-c5aced71d1b0" class=""><strong>Postconditions: </strong></p><ul id="07fcb79a-9e06-4f32-b901-47fde306bbc1" class="bulleted-list"><li style="list-style-type:disc">Le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client</li></ul><p id="8b628a5b-5c64-4555-b798-beeb3c2c00ab" class="">
-</p><p id="8e490595-0ec3-47db-b97b-e8f4a4d4e78e" class="">
-</p><p id="1dc47cb6-f302-4ffc-b62e-1bc96a2780b2" class="">
-</p><p id="132de7ed-4719-4d3d-aa83-7a23e8c12bf1" class=""><strong>Cas d’utilisation: Afficher métriques</strong></p><p id="3867939e-23f3-4060-a812-a90258a13318" class=""><strong>But:</strong> L’utilisateur veut avoir accès aux métriques liées à ses activités</p><p id="7a18a8f6-5c50-404e-8006-ead1f0eb2333" class=""><strong>Acteurs:</strong> Le client et le revendeur (principaux) ; L’administrateur (secondaire) </p><p id="e11fe347-bbc0-41ea-9a31-f9dc724ad4c1" class=""><strong>Préconditions: </strong></p><ul id="2311fa54-b220-424c-ad94-ca8a4d40c14d" class="bulleted-list"><li style="list-style-type:disc">L’utilisateur est un membre UniShop et a accès à son profil </li></ul><p id="9e2d2f4e-cb75-42cc-b4da-b5c053b141a3" class=""><strong>Scénario principal: </strong></p><ol type="1" id="cbe03fa9-05bf-49c5-b2bd-72a7cf246eb3" class="numbered-list" start="1"><li>L’utilisateur se connecte sur la plateforme UniShop</li></ol><ol type="1" id="f8ede592-22c9-444b-a839-4aef2b237474" class="numbered-list" start="2"><li>Il accède à son profil</li></ol><ol type="1" id="ce385b75-b157-4139-a279-28fd1c3eaf7c" class="numbered-list" start="3"><li>Le client sélectionne l’option “Afficher les métriques de mes activités” </li></ol><ol type="1" id="bbdbb951-9c19-46e7-b4b3-ccf6e964e0bf" class="numbered-list" start="4"><li>Le système affiche les informations complètes liées aux activités de l’utilisateur</li></ol><ol type="1" id="f3c7d34d-ada4-4b8c-96f8-b8ebf76a1388" class="numbered-list" start="5"><li>Le client quitte ou poursuit sa session dans la plateforme UniShop</li></ol><p id="fa9222d4-8b00-4efa-9bb9-c412684968c7" class=""><strong>Postconditions: </strong></p><ul id="da3dab0d-bf21-455c-8b38-9febf11839b3" class="bulleted-list"><li style="list-style-type:disc">Aucune, rien n’a changé dans l’état du système </li></ul><p id="e28e8b91-ec43-4b31-ac3d-a18442c8208c" class="">
-</p><p id="5855e353-69c8-407d-a5b2-99e4e7c69428" class=""><strong>Cas d’utilisation: Confirmer réception d’un retour</strong></p><p id="5d20bb93-92f2-4f8a-b6ab-9cb430d1c89c" class=""><strong>But:</strong> Le revendeur veut confirmer qu’un produit retourné par un client est bien arrivé à l’entrepôt </p><p id="5509d0b1-4fdf-4542-84cb-290a80ba7a32" class=""><strong>Acteurs</strong>: </p><ul id="7d56427d-bd56-4068-a70b-5f58c28b8262" class="bulleted-list"><li style="list-style-type:disc">Primaire: revendeur</li></ul><ul id="c7c8229c-b450-4345-a463-fa307b8a8ad6" class="bulleted-list"><li style="list-style-type:disc">Secondaire: service d’entrepôt </li></ul><p id="46885967-b0fa-4310-8744-0613124d07a3" class=""><strong>Préconditions: </strong></p><ul id="f8791434-6299-41fd-a499-8373211640be" class="bulleted-list"><li style="list-style-type:disc">Un acheteur a choisi de faire un retour (Voir CU “<strong>Faire un retour/échange</strong>”) </li></ul><p id="6d24c76b-fc58-428c-8c8e-cd41713870fc" class=""><strong>Scénario principal: </strong></p><ol type="1" id="05e23c91-0de2-4fef-9d27-72836e944617" class="numbered-list" start="1"><li>Le service d’entrepôt envoie un message au revendeur signalant que le produit à retourné est arrivé à l’entrepôt </li></ol><ol type="1" id="74454c0a-4402-4320-b282-435bbbfc1ac2" class="numbered-list" start="2"><li>Le revendeur accède à son profil </li></ol><ol type="1" id="1fe554a1-e652-4b00-bf23-337dd690ae92" class="numbered-list" start="3"><li>Il choisit l’option “Accéder à mes commandes” </li></ol><ol type="1" id="0206734e-958b-4471-b4f0-b7fe511c93ff" class="numbered-list" start="4"><li>Il sélectionne la commande sur laquelle le retour est effectué</li></ol><ol type="1" id="c8e31b97-bb57-436c-9155-15ed80d249cc" class="numbered-list" start="5"><li>Il choisit l’option de modifier l’état de la commande <ol type="a" id="01e81ae7-ccf8-4349-aca8-700e9c9e0470" class="numbered-list" start="1"><li>Il change l’état de la commande à “livré” </li></ol></li></ol><p id="936c91a8-fd59-4ebd-8b93-a169f4c3feed" class=""><strong>Postconditions: </strong></p><ul id="f2e62c85-491b-405c-bc4d-24c96aa77a77" class="bulleted-list"><li style="list-style-type:disc">Le retour sera entregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour </li></ul><p id="9be68690-58ee-4818-9194-99eb9f2fc317" class="">
-</p><p id="8e57e0f4-21d0-4c6e-bf9f-5dad996624f4" class=""><strong>Cas d’utilisation: Offrir un produit</strong></p><p id="6097dc01-badc-47dc-bbd1-49cfb1cd8aeb" class=""><strong>But</strong>: Le revendeur veut vendre un produit sur la plateforme UniShop</p><p id="6fa78153-552e-4e32-bb58-b37c821d44e5" class=""><strong>Acteurs</strong>: </p><ul id="18592a7a-46ca-4ac9-b7c7-372b33859498" class="bulleted-list"><li style="list-style-type:disc">Primaire: revendeur</li></ul><ul id="1219eb4a-e1f8-436d-944f-3d03be3373b3" class="bulleted-list"><li style="list-style-type:disc">Secondaire: service d’entrepôt et administrateur </li></ul><p id="fb6711f3-cb0a-459f-86ab-5ff1553aeba7" class=""><strong>Préconditions: </strong></p><ul id="d3da799c-a582-4c42-ae47-c6126cd39421" class="bulleted-list"><li style="list-style-type:disc">Le revendeur a un compte UniShop</li></ul><ul id="3bb1ddab-df38-4730-afab-d4f83711ce0c" class="bulleted-list"><li style="list-style-type:disc">Le revendeur a un produit à offrir</li></ul><p id="24394b83-cf12-4abf-8905-2a000cdc566b" class=""><strong>Scénario principal: </strong></p><ol type="1" id="d358e02b-b4c4-4d97-8fe5-f2e15a648ae6" class="numbered-list" start="1"><li>L’utilisateur se connecte en tant que revendeur sur la plateforme UniShop (voir CU “Se connecter”) </li></ol><ol type="1" id="1d64256b-be5a-45dd-8a9b-511a32e9faf7" class="numbered-list" start="2"><li>Il sélectionne l’option d’offrir un produit </li></ol><ol type="1" id="200a6e84-a8e8-4bf8-b7d9-e93f1e51bd08" class="numbered-list" start="3"><li>Le système lui affiche un formulaire pour mettre un produit en vente </li></ol><ol type="1" id="7e22a8ae-a527-41df-963e-e3915271025f" class="numbered-list" start="4"><li>Il entre les informations suivantes du produit à offrir <ol type="a" id="2a4ba81f-cf91-41be-8394-fdc3b2ac4201" class="numbered-list" start="1"><li>titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix</li></ol></li></ol><ol type="1" id="4beb23ac-3524-4cba-bc98-f415583c5e13" class="numbered-list" start="5"><li>Le revendeur publie le nouveau produit sur la plateforme UniShop</li></ol><p id="ae8825ab-3443-4e5a-bc6d-1ba468d74e54" class=""><strong>Scénarios alternatifs: </strong></p><p id="baff1622-2f87-4c6a-b1b5-a7a6062085dc" class=""><em>SA1</em>: Le revendeur veut promouvoir le produit davantage </p><p id="0a8a8872-e0f4-44f7-8398-f0e4c5722e5e" class="">Le scénario SA1 se passe à l’étape 4 du scénario principal. Le revendeur entre des informations additionnelles dans la description du produit. </p><p id="b76d436e-2d2c-46e7-9c52-7d47f7676fc5" class="">4.a: titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix, images et/ou vidéos du produit </p><p id="543deb6d-4240-4227-aa42-df6c1ec0d65f" class=""><strong>Postconditions: </strong></p><ul id="322b8dd9-afd6-4a8b-ae36-c52b203555ef" class="bulleted-list"><li style="list-style-type:disc">Le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop. </li></ul><p id="598b0790-b901-4256-afba-ebc9eb62b0ec" class="">
-</p><p id="4c07252d-200c-4485-92f0-d3b62ca864e7" class=""><strong>Cas d’utilisation: changer l’état d’une commande </strong></p><p id="160c3875-0060-498a-842c-ba870ef91e8b" class=""><strong>But</strong>: Le revendeur veut mettre à jour l’état de livraison d’une commande </p><p id="16c4a839-adcc-4438-aabd-980de5b2aa05" class=""><strong>Acteurs</strong>: </p><ul id="4108caed-4aeb-46af-a5b7-8ba73ff5f0d8" class="bulleted-list"><li style="list-style-type:disc">Primaires: client et revendeur</li></ul><ul id="4848d27a-38b1-48dd-9304-451b0cc8970c" class="bulleted-list"><li style="list-style-type:disc">Secondaire: Système de livraison (secondaire) Système </li></ul><p id="9eb4fb80-d0dd-4ce4-a461-21450cb787dd" class=""><strong>Préconditions: </strong></p><ul id="48ce55bf-1fe3-4f63-afc0-5ac602fb3f0c" class="bulleted-list"><li style="list-style-type:disc">Le revendeur a reçu une commande valide</li></ul><p id="ffb71eb5-a2e5-4139-94ec-f36c546a215e" class=""><strong>Scénario principal:</strong></p><ol type="1" id="fde3039b-61fb-48a6-a9b8-e10a6e5e37f7" class="numbered-list" start="1"><li>L’adminstrateur envoie une notification au revendeur indiquant qu’une commande a été passée </li></ol><ol type="1" id="e9d5f389-8748-4cb2-95f2-d582b096c5fc" class="numbered-list" start="2"><li>Le revendeur met l’état de la commande à “en production”</li></ol><ol type="1" id="044b5bea-62e3-4727-9be6-b68ae3fc9bbb" class="numbered-list" start="3"><li>Le revendeur lance une requête de livraison à la compagnie d’expédition</li></ol><ol type="1" id="868cc51e-0c40-44e2-a9a5-dda1b38b3b98" class="numbered-list" start="4"><li>Le système de livraison envoie l’information de la commande au revendeur</li></ol><ol type="1" id="7fb6cd51-8e53-4b1d-b162-22c150434cc2" class="numbered-list" start="5"><li>Le revendeur met l’état de la livraison à “en production” </li></ol><ol type="1" id="8fa850fd-f95e-4267-8246-5753e9fd0690" class="numbered-list" start="6"><li>Le revendeur transmet à l’acheteur l’information sur la commande au client (nom de la compagnie d’expédition, numério de suivi)</li></ol><ol type="1" id="aa09a4d3-b4d8-45e9-bc17-e9aeba7d0805" class="numbered-list" start="7"><li>La compagnie d’expédition livre le produit à l’adresse de l’acheteur </li></ol><ol type="1" id="c8a53e71-c8c5-4d80-8b9e-4cc117b8acf8" class="numbered-list" start="8"><li>L’acheteur confirme la réception de la commande (voir CU “confirmer la réception d’une commande”) </li></ol><ol type="1" id="97c54b6b-1091-4a6d-bbf7-ad0c54784486" class="numbered-list" start="9"><li>Le revendeur met enfin l’état de livraison à “livré” </li></ol><p id="a83d85d4-40dc-49e0-b4d7-1a1ddaf6f5b9" class=""><strong>Scénarios alternatifs: </strong></p><p id="0c0f2d38-a11f-4fc8-aa2f-1b0e10a7ad7d" class=""><em>SA1</em>: l’acheteur signale un problème avec la livraison (ex: pas reçu le colis)</p><p id="f42b4627-ca5b-4d3e-b0c7-ff4710950e63" class="">Le scénario SA1 se passe après l’étape 6 du scénario principal</p><ol type="1" id="e2ac71a4-ee7c-4d72-88b9-9d303041c279" class="numbered-list" start="7"><li>L’acheteur signale un problème avec sa commande (voir CU “signaler un problème”) <ol type="a" id="d21d09e4-e152-48ad-b053-e653e0666a65" class="numbered-list" start="1"><li>Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude</li></ol></li></ol><p id="e3728918-80ec-4aca-a6ce-335bba940506" class=""><strong>Postconditions:</strong></p><ul id="26150890-01ce-460b-a84e-cd31faf236f7" class="bulleted-list"><li style="list-style-type:disc">La commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour. </li></ul><p id="d08185bf-b430-4a19-87f4-afcbe4e3ed0c" class="">
-</p><p id="5120dbca-f547-434e-97ac-906687cc6bb8" class="">
-</p>
 
+<p>
+    <strong>Cas d’utilisation: Gérer les problèmes  <br /> </strong>
+    <strong>But :</strong> Le revendeur propose des solutions à un problème signalé par un utilisateur  <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> Le revendeur est connecté à la plateforme et Le client a signalé un problème avec
+    un produit ou une commande <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>Le système (Admin) envoie un message au revendeur, le notifiant qu’un client a signalé un problème </li>
+    <li>Le système ouvre une connection entre le revendeur et le client pour qu’ils puissent communiquer </li>
+    <li>Le revendeur propose une solution au client
+        <ol type="a">
+            <li>Il propose un retour
+            <ol type="i">
+                <li> Le client suit la procédure pour effectuer un retour (voir CU <strong>"Effectuer un retour"</strong>)</li>
+            </ol>
+            </li>
+            <li>
+                Il propose un échange
+                <ol type="i">
+                    <li> Le client suit la procédure pour effectuer un retour (voir CU <strong>"Effectuer un échange"</strong>)</li>
+                </ol>
+            </li>
+            <li> Il entre en communication avec la compagnie d'expédition si le client n’a pas reçu la commande  </li>
+
+            <li>Il propose d’annuler la commande et/ou rembourser le client
+                <ol type="i">
+                    <li> Le client suit la procédure pour effectuer un remboursement (voir CU <strong>"Demander un remboursement"</strong>)</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>La correspondance entre le client et le revendeur est terminée  </li>
+</ol>
+</p>
+<strong>Postconditions: </strong> Le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client
+</p><br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Afficher métriques <br /> </strong>
+    <strong>But :</strong> L’utilisateur veut avoir accès aux métriques liées à ses activités  <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> L’utilisateur est un membre UniShop et a accès à son profil  <br />
+    <strong>Scénario principal:</strong>
+    <p>
+    <ol>
+        <li>L’utilisateur se connecte sur la plateforme UniShop </li>
+        <li>Il accède à son profil </li>
+        <li>L'utilisateur sélectionne l’option “Afficher les métriques de mes activités” </li>
+        <li>Le système affiche les informations complètes liées aux activités de l’utilisateur</li>
+        <li>Il quitte ou poursuit sa session dans la plateforme UniShop</li>
+    </ol>
+    </p>
+    <strong>Postconditions: </strong> Aucune, rien n’a changé dans l’état du système
+</p> <br/>
+
+<p>
+    <strong>Cas d’utilisation: Confirmer réception d’un retour <br /> </strong>
+    <strong>But :</strong> Le revendeur veut confirmer qu’un produit retourné par un client est bien arrivé à l’entrepôt   <br />
+    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt <br />
+    <strong>Préconditions : </strong> Un acheteur a choisi de faire un retour (Voir CU <strong>“Faire un retour/échange”</strong>)  <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>Le service d’entrepôt envoie un message au revendeur signalant que le produit à retourner est arrivé à l’entrepôt  </li>
+    <li>Le revendeur accède à son profil </li>
+    <li>L'utilisateur sélectionne l’option “Accéder à mes commandes” </li>
+    <li>Il sélectionne la commande sur laquelle le retour est effectué </li>
+    <li>Il choisit l’option de modifier l’état de la commande
+        <ol type="a">
+        <li>Il change l’état de la commande à “livré” </li>
+        </ol>
+    </li>
+</ol>
+</p>
+<strong>Postconditions: </strong> Le retour sera enregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour
+</p> <br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Offrir un produit <br /> </strong>
+    <strong>But :</strong>Le revendeur veut vendre un produit sur la plateforme UniShop   <br />
+    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt et administrateur<br />
+    <strong>Préconditions : </strong> Le revendeur a un compte UniShop et il a un produit à offrir  <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>L’utilisateur se connecte en tant que revendeur sur la plateforme UniShop (voir CU <strong>“Se connecter”</strong>)  </li>
+    <li>Il sélectionne l’option d’offrir un produit  </li>
+    <li>Le système lui affiche un formulaire pour mettre un produit en vente  </li>
+    <li>Il entre les informations suivantes du produit à offrir
+        <ol type="a">
+            <li>titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix</li>
+        </ol>
+    </li>
+    <li>Le revendeur publie le nouveau produit sur la plateforme UniShop</li>
+</ol>
+</p>
+<strong>Scénarios alternatifs: </strong> <br/>
+<i>SA1:</i> Le revendeur veut promouvoir le produit davantage <br/>
+4.a: titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix, images et/ou vidéos du produit <br/>
+<strong>Postconditions: </strong> Le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop.
+</p> <br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Changer l’état d’une commande  <br /> </strong>
+    <strong>But :</strong>Le revendeur veut mettre à jour l’état de livraison d’une commande   <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> service de livraison, administrateur<br />
+    <strong>Préconditions : </strong> Le revendeur a reçu une commande valide <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>L’administrateur envoie une notification au revendeur indiquant qu’une commande a été passée </li>
+    <li>Le revendeur met l’état de la commande à “en production” </li>
+    <li>Le revendeur lance une requête de livraison à la compagnie d’expédition </li>
+    <li>Le système de livraison envoie l’information de la commande au revendeur</li>
+    <li>Le revendeur met l’état de la livraison à “en production” </li>
+    <li>Le revendeur transmet à l’acheteur l’information sur la commande au client (nom de la compagnie d’expédition, numéro de suivi)</li>
+    <li>La compagnie d’expédition livre le produit à l’adresse de l’acheteur </li>
+    <li>L’acheteur confirme la réception de la commande (voir CU <strong>“Confirmer la réception d’une commande”</strong>) </li>
+    <li>Le revendeur met enfin l’état de livraison à “livré” </li>
+</ol>
+</p>
+<strong>Scénarios alternatifs: </strong> <br/>
+<i>SA1:</i> l’acheteur signale un problème avec la livraison (ex: pas reçu le colis) <br/>
+Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
+7. L’acheteur signale un problème avec sa commande (voir CU “signaler un problème”) <br/>
+7.a Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude <br/>
+<strong>Postconditions: </strong> La commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
+</p> <br/>
 
 <h1> Tâche 4 : Risques </h1>
 <ul>
     <li> Fuite de données </li>
     <li> Problème de connection</li>
-    <li> Incapable d'enregistrer/ midifier les informations d'usager </li>
+    <li> Incapable d'enregistrer/ modifier les informations d'usager </li>
     <li> Mal gérer l'inventaire </li>
     <li> Problème avec le suivit de la commande </li>
 </ul>
