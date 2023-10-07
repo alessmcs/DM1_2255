@@ -58,7 +58,7 @@
     2.2 Connection en tant que client <br />
 
 <strong>Postconditions : </strong> Enregistrement dans la base de données des nouvelles informations  <br />
-</p>
+
 
 
 <p>
@@ -77,7 +77,7 @@
 4.1 Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
 le rentrer à nouveau. <br />
 <strong>Postconditions : </strong>  <br />
-</p>
+
 
 <p>
     <strong> Cas d'utilisation : Échange   <br /> </strong>
@@ -97,7 +97,7 @@ le rentrer à nouveau. <br />
 
 <strong>Scénarios alternatifs :</strong>   <br />
 <strong>Postconditions : </strong> Mise à jour l'inventaire du nouveau produit <br />
-</p>
+
 
 <p>
     <strong> Cas d'utilisation : Retour   <br /> </strong>
@@ -114,14 +114,14 @@ le rentrer à nouveau. <br />
 </ol>
 <strong>Scénarios alternatifs :</strong><br />
 4.1 Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher.
-<strong>Postconditions : </strong>  L'entrepos envois l'objet au client <br />
-</p>
+<strong>Postconditions : </strong>  L'entrepôt envoie l'objet au client <br />
+
 
 <p>
     <strong> Cas d'utilisation : Remboursement   <br /> </strong>
     <strong> But : </strong> Retourner un objet et avoir l'argent en retour  <br />
     <strong> Préconditions : </strong>  Avoir commander un produit <br />
-    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepos
+    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepôt
     et service comptabilité </strong> <br />
     <strong>Scénario principal :</strong>
 <ol>
@@ -135,14 +135,188 @@ le rentrer à nouveau. <br />
 <strong>Scénarios alternatifs :</strong>  <br />
 5.1 Si le client n'est plus le propriétaire de la carte, il va pas pouvoir faire le remboursement <br />
 <strong>Postconditions : </strong> Depot de l'argent dans le compte par le service comptabilité   <br />
+
+
+
+<p>
+    <strong>Cas d’utilisation: Signaler un problème   <br /> </strong>
+    <strong>But :</strong> L’utilisateur signale un problème rencontré avec leur commande ou leur produit, dans le but de le
+    remédier avec le revendeur.  <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> L’utilisateur a un problème à signaler et l’utilisateur est un client membre de la plateforme Unishop <br />
+    <strong>Scénario principal:</strong>
+    <p>
+    <ol>
+        <li>L’utilisateur se connecte sur la plateforme Unishop </li>
+        <li>Il décide de signaler un problème</li>
+        <li>Le système lui demande s’il y a un problème avec un produit ou avec une commande</li>
+        <li>Si c’est une commande, l’utilisateur précise laquelle</li>
+        <li>Si c’est un produit, l’utilisateur précise le produit qui lui pose problème </li>
+        <li>Le système demande au client de décrire son problème au revendeur.</li>
+        <li>Le système crée une connection entre le client et le revendeur. </li>
+        <li>Le revendeur propose une solution au client </li>
+            <ol type="a">
+                <li>Le client choisit d’effectuer un retour</li>
+                <li>Le client choisit d’effectuer un échange</li>
+             </ol>
+        <li>La correspondance entre le revendeur et le client est terminée</li>
+        <li>Le client continue la session dans la plateforme UniShop </li>
+    </ol>
+    </p>
+    <strong>Scénarios alternatifs: </strong><br/>
+    <italic>SA1:</italic> Le client n’a pas reçu sa commande, donc il ne peut pas faire de retour ou d’échange<br/>
+    Le scénario SA1 commence au point 6 du scénario principal<br/>
+<ol>
+    7. Le revendeur propose une autre solution au client (voir CU “Gérer les problèmes”)<br/>
+    8. Une fois le problème résolu, le scénario reprend à la tâche 7 du scénario principal <br/>
+</ol>
+    <strong>Postconditions: </strong> Le système enregistre la plainte de l’utilisateur dans une base de données, ainsi
+    que les données (métriques) mises à jour du client et de l’utilisateur (s’il y a eu un retour/échange/annulation)
 </p>
 
+
+<p>
+    <strong>Cas d’utilisation: Gérer les problèmes  <br /> </strong>
+    <strong>But :</strong> Le revendeur propose des solutions à un problème signalé par un utilisateur  <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> Le revendeur est connecté à la plateforme et Le client a signalé un problème avec
+    un produit ou une commande <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>Le système (Admin) envoie un message au revendeur, le notifiant qu’un client a signalé un problème </li>
+    <li>Le système ouvre une connection entre le revendeur et le client pour qu’ils puissent communiquer </li>
+    <li>Le revendeur propose une solution au client
+        <ol type="a">
+            <li>Il propose un retour
+            <ol type="i">
+                <li> Le client suit la procédure pour effectuer un retour (voir CU <strong>"Effectuer un retour"</strong>)</li>
+            </ol>
+            </li>
+            <li>
+                Il propose un échange
+                <ol type="i">
+                    <li> Le client suit la procédure pour effectuer un retour (voir CU <strong>"Effectuer un échange"</strong>)</li>
+                </ol>
+            </li>
+            <li> Il entre en communication avec la compagnie d'expédition si le client n’a pas reçu la commande  </li>
+
+            <li>Il propose d’annuler la commande et/ou rembourser le client
+                <ol type="i">
+                    <li> Le client suit la procédure pour effectuer un remboursement (voir CU <strong>"Demander un remboursement"</strong>)</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>La correspondance entre le client et le revendeur est terminée  </li>
+</ol>
+</p>
+<strong>Postconditions: </strong> Le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client
+</p><br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Afficher métriques <br /> </strong>
+    <strong>But :</strong> L’utilisateur veut avoir accès aux métriques liées à ses activités  <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+
+    <strong>Préconditions : </strong> L’utilisateur est un membre UniShop et a accès à son profil  <br />
+    <strong>Scénario principal:</strong>
+    <p>
+    <ol>
+        <li>L’utilisateur se connecte sur la plateforme UniShop </li>
+        <li>Il accède à son profil </li>
+        <li>L'utilisateur sélectionne l’option “Afficher les métriques de mes activités” </li>
+        <li>Le système affiche les informations complètes liées aux activités de l’utilisateur</li>
+        <li>Il quitte ou poursuit sa session dans la plateforme UniShop</li>
+    </ol>
+    </p>
+    <strong>Postconditions: </strong> Aucune, rien n’a changé dans l’état du système
+</p> <br/>
+
+<p>
+    <strong>Cas d’utilisation: Confirmer réception d’un retour <br /> </strong>
+    <strong>But :</strong> Le revendeur veut confirmer qu’un produit retourné par un client est bien arrivé à l’entrepôt   <br />
+    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt <br />
+    <strong>Préconditions : </strong> Un acheteur a choisi de faire un retour (Voir CU <strong>“Faire un retour/échange”</strong>)  <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>Le service d’entrepôt envoie un message au revendeur signalant que le produit à retourner est arrivé à l’entrepôt  </li>
+    <li>Le revendeur accède à son profil </li>
+    <li>L'utilisateur sélectionne l’option “Accéder à mes commandes” </li>
+    <li>Il sélectionne la commande sur laquelle le retour est effectué </li>
+    <li>Il choisit l’option de modifier l’état de la commande
+        <ol type="a">
+        <li>Il change l’état de la commande à “livré” </li>
+        </ol>
+    </li>
+</ol>
+</p>
+<strong>Postconditions: </strong> Le retour sera enregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour
+</p> <br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Offrir un produit <br /> </strong>
+    <strong>But :</strong>Le revendeur veut vendre un produit sur la plateforme UniShop   <br />
+    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt et administrateur<br />
+    <strong>Préconditions : </strong> Le revendeur a un compte UniShop et il a un produit à offrir  <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>L’utilisateur se connecte en tant que revendeur sur la plateforme UniShop (voir CU <strong>“Se connecter”</strong>)  </li>
+    <li>Il sélectionne l’option d’offrir un produit  </li>
+    <li>Le système lui affiche un formulaire pour mettre un produit en vente  </li>
+    <li>Il entre les informations suivantes du produit à offrir
+        <ol type="a">
+            <li>titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix</li>
+        </ol>
+    </li>
+    <li>Le revendeur publie le nouveau produit sur la plateforme UniShop</li>
+</ol>
+</p>
+<strong>Scénarios alternatifs: </strong> <br/>
+<i>SA1:</i> Le revendeur veut promouvoir le produit davantage <br/>
+4.a: titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix, images et/ou vidéos du produit <br/>
+<strong>Postconditions: </strong> Le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop.
+</p> <br/>
+
+
+<p>
+    <strong>Cas d’utilisation: Changer l’état d’une commande  <br /> </strong>
+    <strong>But :</strong>Le revendeur veut mettre à jour l’état de livraison d’une commande   <br />
+    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> service de livraison, administrateur<br />
+    <strong>Préconditions : </strong> Le revendeur a reçu une commande valide <br />
+    <strong>Scénario principal:</strong>
+<p>
+<ol>
+    <li>L’administrateur envoie une notification au revendeur indiquant qu’une commande a été passée </li>
+    <li>Le revendeur met l’état de la commande à “en production” </li>
+    <li>Le revendeur lance une requête de livraison à la compagnie d’expédition </li>
+    <li>Le système de livraison envoie l’information de la commande au revendeur</li>
+    <li>Le revendeur met l’état de la livraison à “en production” </li>
+    <li>Le revendeur transmet à l’acheteur l’information sur la commande au client (nom de la compagnie d’expédition, numéro de suivi)</li>
+    <li>La compagnie d’expédition livre le produit à l’adresse de l’acheteur </li>
+    <li>L’acheteur confirme la réception de la commande (voir CU <strong>“Confirmer la réception d’une commande”</strong>) </li>
+    <li>Le revendeur met enfin l’état de livraison à “livré” </li>
+</ol>
+</p>
+<strong>Scénarios alternatifs: </strong> <br/>
+<i>SA1:</i> l’acheteur signale un problème avec la livraison (ex: pas reçu le colis) <br/>
+Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
+7. L’acheteur signale un problème avec sa commande (voir CU “signaler un problème”) <br/>
+7.a Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude <br/>
+<strong>Postconditions: </strong> La commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
+</p> <br/>
 
 <h1> Tâche 4 : Risques </h1>
 <ul>
     <li> Fuite de données </li>
     <li> Problème de connection</li>
-    <li> Incapable d'enregistrer/ midifier les informations d'usager </li>
+    <li> Incapable d'enregistrer/ modifier les informations d'usager </li>
     <li> Mal gérer l'inventaire </li>
     <li> Problème avec le suivit de la commande </li>
 </ul>
@@ -155,6 +329,7 @@ le rentrer à nouveau. <br />
     <li> Sécurité </li>
     <li>  Facilité de maintenance</li>
 </ul>
+
 
 </body>
 </html>
