@@ -39,26 +39,187 @@
 <h1> Tâche 3 : Cas d'utilisation </h1>
 
 <p>
-<strong> Cas d'utilisation : Modifier le profil  <br /></strong>
-    <strong> But : </strong> Mettre a jour les informations dans le compte <br />
-<strong> Préconditions : </strong> Avoir un compte <br />
-<strong>Acteurs : Acteur principale:  </strong>Le vendeur et le client. <strong> Acteur secondaire: </strong>
-    administrateur  <br />
-<strong>Scénario principal :</strong>
+    <strong>Cas d'utilisation :</strong>s’inscrire<br />
+    <strong>But :</strong> une personne veut accéder aux fonctionnalités réservées aux membres de UniShop.<br />
+    <strong>Préconditions :</strong> le client doit avoir accès au site web UniShop<br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)<br />
+    <strong>Scénario principal :</strong><br />
 <ol>
-    <li> Ouverture du site web  </li>
-    <li> Connection du compte </li>
-    <li> Appuyer sur modifier mon compte</li>
-    <li> Entrer les nouvelles donneés </li>
-    <li> Enregistrer les données </li>
+    <li>Le client accède à la page d’accueil du site</li>
+    <li>Le client ouvre le menu « se connecter »</li>
+    <li>Le système propose deux options : « créer un compte » ou « se connecter »</li>
+    <ol>
+        <li>Le client sélectionne « créer un compte »</li>
+    </ol>
+    <li>Le système lui demande d’entrer son adresse courriel.</li>
+    <ol>
+        <li>Le client entre son adresse courriel.</li>
+    </ol>
+    <li>Le système propose deux options : « s’inscrire comme acheteur » ou « s’inscrire comme revendeur »</li>
+    <ol>
+        <li>Le client sélectionne une des options.</li>
+    </ol>
+    <li>Le système vérifie l’admissibilité de l’adresse courriel en lien avec l’option choisie.</li>
+    <li>Un formulaire d’inscription (acheteur ou revendeur) est présenté au client dépendant du rôle choisi à l’étape 5.</li>
+    <li>Le client remplit le formulaire et confirme la création d’un nouveau compte.</li>
+    <li>Le système vérifie la validité des informations entrées dans les champs obligatoire et enregistre le formulaire.</li>
+    <li>Le système connecte le client à son nouveau compte.</li>
 </ol>
-<strong>Scénarios alternatifs :</strong><br />
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
 
-    2.1 Connection en tant que revendeur <br />
-    2.2 Connection en tant que client <br />
+    6.a. Le compte associé au courriel et à l’option choisie existe déjà, il est impossible de créer un nouveau compte.<br />
+    6.a.1. Le système informe le client de cette erreur et l’invite à se connecter.<br />
+    6.a.2. Le scénario reprend à l’étape 4 du cas « se connecter ».<br />
 
-<strong>Postconditions : </strong> Enregistrement dans la base de données des nouvelles informations  <br />
+    6.b. Le courriel entré est invalide,<br />
+    6.b.1. Le système demande au client de vérifier son courriel.<br />
 
+    9.b. Une ou plusieurs des informations entrées sont invalides ou vides, le formulaire n’est pas enregistré.<br />
+    9.b.1. Le système demande au client de vérifier ses informations.<br />
+    9.b.2. Le scénario reprend à l’étape 6.<br />
+
+    <strong>Postconditions :</strong> le formulaire remis par l’utilisateur doit être sauvegardé dans un fichier.
+</p>
+
+<p>
+    <strong>Cas d'utilisation :</strong> se connecter
+    <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop.
+    <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide.
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)
+    <strong>Scénario principal :</strong>
+<ol>
+    <li>Le client accède à la page d’accueil du site.</li>
+    <li>Le client ouvre le menu « se connecter ».</li>
+    <li>Le système propose deux options : « créer un compte » ou « se connecter ».</li>
+    <ol>
+        <li>Le client sélectionne l’option « se connecter ».</li>
+    </ol>
+    <li>Le système lui demande de sélectionner son rôle: « acheteur » ou « revendeur »</li>
+    <ol>
+        <li>Le client sélectionne son rôle.</li>
+    </ol>
+    <li>Le système lui demande de s’identifier à l’aide de son pseudo/courriel.</li>
+    <ol>
+        <li>Le client saisit ses informations d’identification.</li>
+    </ol>
+    <li>Le système vérifie que les informations saisies correspondent à un profil existant.</li>
+    <li>Le système connecte le client à son compte.</li>
+</ol>
+
+<p>
+    <strong>Scénarios alternatifs :</strong>
+    1.a. Le lien du site est brisé.<br />
+    1.a.1. Le scénario échoue.<br />
+
+    6.b. Le compte du client n’existe pas/les informations sont mal saisies.<br />
+    6.b.1. Le système informe le client qu’il n’existe aucun compte associé à l’adresse donnée et propose au client de vérifier ses informations ou de cliquer sur « créer un compte »<br />
+    6.b.1.a. Le scénario reprend à l’étape 5.<br />
+    6.b.1.b. Le scénario reprend à l’étape 3 du cas « créer un compte »<br />
+
+    6.c. Le compte est suspendu.<br />
+    6.c.1. Le système trouve le compte, mais le compte est suspendu.<br />
+    6.c.2. Le système affiche Membre suspendu à l’écran.<br />
+    6.c.3. Le scénario termine.<br />
+
+    <strong>Postconditions :</strong> Le serveur accepte la connexion d'un nouveau client.
+</p>
+<p>
+    <strong>Cas d'utilisation :</strong> Modifier profil<br />
+    <strong>But :</strong> Un membre existant effectue des changements aux informations sauvegardées sur son profil.<br />
+    <strong>Préconditions :</strong> Le client détient un compte UniShop actif.<br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal)<br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas « se connecter ».</li>
+    <li>Le client ouvre le menu « profil ».</li>
+    <li>Il appelle la fonction « modifier profil ».</li>
+    <li>Il modifie au moins une information sur son profil.</li>
+    <li>Il appelle la fonction « mettre à jour le profil ».</li>
+    <li>Le système vérifie la validité des informations modifiées.</li>
+    <li>Le système enregistre les modifications.</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    6.a.1. Les informations modifiées sont invalides/mal saisies/existent déjà. Le profil n’est pas mis à jour.<br />
+    6.a.2. Le système demande au client de vérifier ses modifications.<br />
+    6.a.3. Le scénario reprend à l’étape 4.<br />
+<p>
+    <strong>Postconditions :</strong> Le profil du client doit être mis à jour avec les changements effectués.
+</p>
+<p>
+    <strong>Cas d'utilisation :</strong> choisir produit du catalogue<br />
+    <strong>But :</strong> le client sélectionne un produit qui l’intéresse<br />
+    <strong>Préconditions :</strong> avoir accès au site UniShop<br />
+    <strong>Acteurs :</strong> client acheteur (principal)<br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas « rechercher un produit ou revendeur ».</li>
+    <li>Le client trouve un produit qui l’intéresse.</li>
+    <li>Il sélectionne le nom associé du produit.</li>
+    <li>Les détails sur le produit s’affichent.</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    4.a. détails du produit mal affichés ou erronés.<br />
+    4.a.1. Appel du cas « signaler un problème ».<br />
+    4.a.2. Le scénario se termine.<br />
+</p>
+<p>
+    <strong>Cas d'utilisation :</strong> ajouter au panier
+    <strong>But :</strong> un produit désiré est transféré dans le panier d’achat du client
+    <strong>Préconditions :</strong> le client a choisi un produit du catalogue
+    <strong>Acteurs :</strong> client acheteur (principal)
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas « choisir produit du catalogue ».</li>
+    <li>Le client sélectionne la quantité qu’il désire.</li>
+    <li>Il ajoute le produit au panier.</li>
+    <li>Le système vérifie la quantité du produit en stock et l'ajoute au panier.</li>
+    <li>Le système affiche un message de confirmation.</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    2.a. La quantité disponible du produit est inférieur à la quantité sélectionnée par le client.<br />
+    2.b. Le système signale au client que ce produit n’a pas été ajouté au panier car il est en rupture de stock.<br />
+<p>
+    <strong>Postconditions :</strong> le panier doit afficher le montant total à payer.
+</p>
+<p>
+    <strong>Cas d'utilisation :</strong> passer une commande
+    <strong>But :</strong> le client complète l’achat des produits dans son panier
+    <strong>Préconditions :</strong> le client possède au moins 1 produit dans son panier, il est porteur de carte bancaire et il est connecté à son compte d’acheteur UniShop.
+    <strong>Acteurs :</strong> client acheteur(principal), revendeur et administrateur(secondaire)
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Le client ouvre son panier</li>
+    <li>Il appelle la fonction « acheter »</li>
+    <li>Le système affiche les informations de livraison du profil du client et lui propose deux options : utiliser cette adresse de livraison ou spécifier une autre adresse de livraison.</li>
+    <ol>Le client choisit « utiliser cette adresse de livraison »</li>
+        <ol><li>Le système remplit automatiquement les informations de livraison.</li></ol>
+    </ol>
+    <ol><li>Le client choisit « spécifier une autre adresse de livraison »</li>
+        <ol><li>Il remplit ses informations de livraison.</li></ol>
+    </ol>
+    <li>Le système demande au client d’entrer ses données de paiement</li>
+    <ol><li>Le client entre ses données de paiement.</li></ol>
+    <li>Le système demande au client s’il souhaite terminer l’achat.</li>
+    <li>Le client sélectionne « terminer l’achat ».</li>
+    <li>Le système vérifie la validité des informations de paiement et de livraison.</li>
+    <li>Le système confirme le succès de la commande et rend une copie de la facture au client.</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    2.a. Les données de livraison sont mal saisies.<br />
+    2.a.1. Le système demande au client son adresse de livraison.<br />
+    2.a.2. L’étape se reprend.<br />
+
+    2.b. La carte utilisée est suspendue ou expirée.<br />
+    2.b.1. Le système informe le client qu’il ne peut traiter sa commande et lui propose de contacter sa banque.<br />
+    2.b.2. Le scénario prend fin.<br />
+    3.a. Les données de paiement sont mal saisies.<br />
+    3.a.1. Le système demande au client de vérifier ses données.<br />
+    3.a.2. L’étape se reprend.<br />
 
 
 <p>
@@ -115,7 +276,6 @@ le rentrer à nouveau. <br />
 <strong>Scénarios alternatifs :</strong><br />
 4.1 Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher.
 <strong>Postconditions : </strong>  L'entrepôt envoie l'objet au client <br />
-
 
 <p>
     <strong> Cas d'utilisation : Remboursement   <br /> </strong>
