@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>DM1 - Exigences + analyse</title>
+    <style>
+        h1 {
+            background-color: rgb(189, 220, 189);
+            padding: 10px; 
+            color: black; 
+        }
+    </style>
 </head>
 <body>
 <h1> Tâche 1 : Glossaire </h1>
@@ -471,6 +478,212 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
 7.a Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude <br/>
 <strong>Postconditions: </strong> La commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
 </p> <br/>
+
+<p>
+    <strong>Cas d'utilisation :</strong> effectuer une recherche<br />
+    <strong>But :</strong> permet à l’utilisateur de trouver un article recherché/spécifique à l’aide de mots-clés<br />
+    <strong>Préconditions: </strong> le client à accès au site web et il est connecté avec son compte dessus (voir accès au site web, être sur le site web et être connecté à son compte)<br />
+    <strong>Acteurs :</strong> les clients possédant un compte qui veulent trouver un article sont les acteurs principaux <br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « se connecter »</li>
+    <li>Le client revient à la page d’accueil</li>
+    <li>Le client clic sur la barre de recherche</li>
+    <li>Le client sélectionne un filtre pour peaufiner ses recherches</li>
+    <li>Le client rentre un mot-clé lui permettant de trouver son article</li>
+    <li>Le client lance la recherche à partir du mot-clé inscrit dans la barre de recherche</li>
+    <li>Le système renvoi au client un catalogue d’articles correspondant à son mot-clé</li>
+    <li>Le client trouve son article parmi le catalogue proposé</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    8.a. Le client sélectionne le filtre « prix »<br />
+    8.a.1. Le scénario reprend à l’étape 4 du cas « effectuer une recherche »<br />
+    
+    8.b. Le client sélectionne le filtre « note moyenne »<br />
+    8.b.1. Le scénario reprend à l’étape 4 du cas « effectuer une recherche »<br />
+
+    8.c. Le client sélectionne le filtre « popularité »<br />
+    8.c.1. Le scénario reprend à l’étape 4 du cas « effectuer une recherche »<br />
+
+    8.d Le client ne sélectionne aucun filtre<br />
+    8.d.1 Le scénario reprend à l’étape 4 du cas « effectuer une recherche »<br />
+
+    12.a Le client ne trouve pas son article parmi le catalogue que le système lui a proposé<br />
+    12.a.1 Le client reprend à l’étape 3 du cas « effectuer une recherche »<br />
+
+    <strong>Postconditions :</strong> aucune postconditions<br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> évaluer un produit<br />
+    <strong>But :</strong> permet aux acheteurs de laisser savoir aux autres utilisateurs du site ce qu’ils ont pensé du produit qu’ils ont acquis<br />
+    <strong>Préconditions: </strong> avoir confirmé la réception du produit acheté avant d’aller le sélectionner dans le catalogue pour laisser une évaluation  <br />
+    <strong>Acteurs :</strong> les clients ayant achetés des produits provenant du site sont les acteurs principaux <br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « se connecter »</li>
+    <li>Appel du cas d’utilisation « confirmer réception d’une commande »</li> 
+    <li>Appel du cas d’utilisation « choisir produit du catalogue »</li>
+    <li>Le client sélectionne la section du site lui permettant de laisser une évaluation du produit qu’il a préalablement acheté et sélectionné</li>
+    <li>Le client rédige son évaluation</li>
+    <li>Le client confirme son évaluation</li>
+    <li>Le système vérifie et enregistre son évaluation</li>
+    <li>Le système publie l’évaluation sur la page du produit</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    7.a. Le système n’enregistre pas l’évaluation du client<br />
+    7.a.1 Le client reprend à l’étape 6 du cas « évaluer un produit »<br />
+
+    7.b Le système n’accepte pas l’évaluation du client<br />
+    7.b.1 Le système demande au client de rédiger une nouvelle évaluation<br />
+    7.b.2 Le client reprend à l’étape 7 du cas « évaluer un produit »<br />
+
+    <strong>Postconditions :</strong> le système a enregistré l’évaluation écrite par le et la publie sur la page du produit, les acheteurs peuvent voir l’évaluation<br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> aimer un produit<br />
+    <strong>But :</strong> permet de mettre en avant le produit afin qu’il soit plus facilement trouvable par d’autres acheteurs<br />
+    <strong>Préconditions: </strong> être connecté à son compte <br />
+    <strong>Acteurs :</strong> les clients possédant un compte sont les acteurs principaux<br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « se connecter »</li>
+    <li>Appel du cas d’utilisation « choisir un produit du catalogue »</li>
+    <li>Le client clic sur le bouton le permettant d’aimer un produit</li>
+    <li>Le système confirme le fait d’aimer le produit</li>
+    <li>Le produit est aimé par le client</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    3.a. Le bouton ne fonctionne pas<br />
+    3.a.1. L’article n’est pas aimé<br />
+
+    4.a. Le système n’arrive pas à confirmer le fait d’aimer le produit<br />
+    4.a.1. Le produit n’est pas aimé<br />
+
+    5.a. Le client a déjà aimé le produit en question<br />
+    5.a.1 Rien ne se passe<br />
+
+    <strong>Postconditions :</strong> le produit est aimé par le client <br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> continuer de magasiner<br />
+    <strong>But :</strong> permet aux acheteurs de continuer de magasiner au lieu de rester sur la page « ajouter au panier » <br />
+    <strong>Préconditions: </strong> avoir sélectionné un article et l’avoir mis dans son panier <br />
+    <strong>Acteurs :</strong> les clients entrant de magasiner sur le site sont les acteurs principaux <br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « se connecter » </li>
+    <li>Appel du cas d’utilisation « choisir produit du catalogue »</li>
+    <li>Appel du cas d’utilisation « ajouter au panier »</li>
+    <li>Le système renvoi un message au client avec des options : « continuer de magasiner » et « passer commande »</li>
+    <ol>
+        <li>Le client sélectionne « continuer de magasiner »</li>
+    </ol>
+    <li>Le système amène le client à la page d’accueil</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    5.a. Le client reste sur la page d’accueil<br />
+    5.b. Appel du cas d’utilisation « effectuer une recherche »<br />
+
+    <strong>Postconditions :</strong> le système a enregistré le panier mis à jour <br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> retirer un article<br />
+    <strong>But :</strong> permet à l’acheteur de retirer un article de son panier d’achat <br />
+    <strong>Préconditions: </strong> ne pas avoir un panier d’achat vide (minium de 1 article)<br />
+    <strong>Acteurs :</strong> les clients entrant de magasiner sur le site sont les acteurs principaux<br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Le client accède au panier</li>
+    <li>Le client sélectionne l’article qu’il aimerait retirer de son panier</li>
+    <li>Le système reçoit la demande de retrait de l’article du panier</li>
+    <li>Le système confirme le retrait de l’article du panier</li>
+    <li>L’article est retiré du panier du client</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    3.a. Le système n’est pas capable traiter la demande du client<br />
+    3.a.1. Le système envoie un message d’erreur au client<br />
+    3.a.2. Le client reprend l’étape 2 du cas d’utilisation « retirer un article »<br />
+
+    <strong>Postconditions :</strong> l’état du panier est mis à jour<br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> annuler une commande<br />
+    <strong>But :</strong> permet à l’acheteur d’annuler une commande si celui-ci ne veut plus la passer<br />
+    <strong>Préconditions: </strong> : être connecté sur son compte et être entrain de passer une commande<br />
+    <strong>Acteurs :</strong> les clients entrain de passer une commande sont les acteurs principaux et le système de paiement est un acteur secondaire <br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « passer une commande »</li>
+    <li>Le client sélectionne le bouton lui permettant d’annuler la commande</li>
+    <li>Le système vérifie l’annuellement de la commande  </li>
+    <li>Le système confirme l’annuellement de la commande</li>
+    <li>La commande est annulée</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    4.a. le système ne confirme pas l’annuellement de la commande<br />
+    4.a.1 la commande n’est pas annulée<br />
+
+    <strong>Postconditions :</strong> le système annule la commande et aucune transaction n’est effectuée<br />
+</p>
+</p>
+
+<br />
+
+<p>
+    <strong>Cas d'utilisation :</strong> confirmer réception d’une commande<br />
+    <strong>But :</strong> permet de mettre à jour l’état de la commande à « livré »<br />
+    <strong>Préconditions: </strong> avoir commandé et reçu sa commande, aller sur la plateforme et se connecter à son compte <br />
+    <strong>Acteurs :</strong> les clients ayant passés et reçus une commande sont les acteurs principaux, l’administrateur est un acteur secondaire<br />
+    <strong>Scénario principal :</strong><br />
+<ol>
+    <li>Appel du cas d’utilisation « se connecter » </li>
+    <li>Le client accède à son profile</li>
+    <li>Le client accède à l’historique de ses commandes</li>
+    <li>Le client sélectionne la commande qui doit mettre à jour</li>
+    <li>Le client confirme la réception de sa commande</li>
+    <li>Le système met à jour l’état de la commande à « livré »</li>
+</ol>
+<p>
+    <strong>Scénarios alternatifs :</strong><br />
+    4.a. Le client ne trouve pas sa commande<br />
+    4.a.1 Le client ne peut pas mettre à jour l’état de sa commande<br />
+
+    6.a Le système n’arrive pas à mettre à jour l’état de la commande<br />
+    6.a.1. L’état de la commande n’est jamais mis à jour<br />
+
+    <strong>Postconditions :</strong> l’état de la commande est maintenant « livré »<br />
+</p>
+</p>
+
+<br />
+</p>
+
 
 <h1> Tâche 4 : Risques </h1>
 <ul>
