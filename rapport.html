@@ -222,14 +222,14 @@
     <li>Le client ouvre son panier</li>
     <li>Il appelle la fonction « acheter »</li>
     <li>Le système affiche les informations de livraison du profil du client et lui propose deux options : utiliser cette adresse de livraison ou spécifier une autre adresse de livraison.</li>
-    <ol>Le client choisit « utiliser cette adresse de livraison »</li>
-        <ol><li>Le système remplit automatiquement les informations de livraison.</li></ol>
-    </ol>
-    <ol><li>Le client choisit « spécifier une autre adresse de livraison »</li>
+    <li>Le client choisit « utiliser cette adresse de livraison »
+        <ol type="a">
+            <li>Le système remplit automatiquement les informations de livraison.</li>
+            <li>Le client choisit « spécifier une autre adresse de livraison »</li>
         <ol><li>Il remplit ses informations de livraison.</li></ol>
-    </ol>
+        </ol>
     <li>Le système demande au client d’entrer ses données de paiement</li>
-    <ol><li>Le client entre ses données de paiement.</li></ol>
+    <ol type="a"><li>Le client entre ses données de paiement.</li></ol>
     <li>Le système demande au client s’il souhaite terminer l’achat.</li>
     <li>Le client sélectionne « terminer l’achat ».</li>
     <li>Le système vérifie la validité des informations de paiement et de livraison.</li>
@@ -263,7 +263,7 @@
 <p>
 <strong> Cas d'utilisation :</strong> suivre une commande<br /> 
 <strong> But : </strong> savoir où est rendu le colis <br />
-<strong> Préconditions : </strong> voir passé une commande   <br />
+<strong> Préconditions : </strong> avoir passé une commande   <br />
 <strong>Acteurs : </strong> client <br />
 <strong>Scénario principal :</strong>
 <ol>
@@ -275,7 +275,7 @@
 <strong>Scénarios alternatifs :</strong>  <br />
 4.a Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
 le rentrer à nouveau <br />
-<strong>Postconditions : </strong><br />
+<strong>Postconditions : Aucune, l'état du système n'a pas changé</strong><br />
 
 <hr style="border: 1px solid black;"> 
 
@@ -296,7 +296,6 @@ le rentrer à nouveau <br />
 
 </ol>
 
-<strong>Scénarios alternatifs :</strong><br />
 <strong>Postconditions : </strong> mise à jour l'inventaire du nouveau produit <br />
 
 <hr style="border: 1px solid black;"> 
@@ -305,7 +304,7 @@ le rentrer à nouveau <br />
 <p>
     <strong> Cas d'utilisation :</strong>  retour   <br /> 
     <strong> But : </strong> retourner un objet  <br />
-    <strong> Préconditions : </strong> avoir commander un produit  <br />
+    <strong> Préconditions : </strong> avoir commandé un produit  <br />
     <strong>Acteurs :</strong> client (acteur principal), service entrepot (acteur secondaire) <br />
     <strong>Scénario principal :</strong>
 <ol>
