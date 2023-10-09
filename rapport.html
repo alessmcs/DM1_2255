@@ -90,11 +90,11 @@
 </p>
 
 <p>
-    <strong>Cas d'utilisation :</strong> se connecter
-    <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop.
-    <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide.
-    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)
-    <strong>Scénario principal :</strong>
+    <strong>Cas d'utilisation :</strong> se connecter<br />
+    <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop.<br />
+    <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide.<br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)<br />
+    <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client accède à la page d’accueil du site.</li>
     <li>Le client ouvre le menu « se connecter ».</li>
@@ -227,6 +227,14 @@
     3.a. Les données de paiement sont mal saisies.<br />
     3.a.1. Le système demande au client de vérifier ses données.<br />
     3.a.2. L’étape se reprend.<br />
+
+    3.c. Le client annule la transaction.<br />
+    3.c.1. Le scénario prend fin.<br />
+
+<p>
+    <strong>Postconditions :</strong> Une fois la commande passée, la quantité doit être mise à jour dans l'inventaire du revendeur et une version de la facture doit être sauvegardée dans un fichier. Chaque commande peut avoir un identifiant unique
+</p>
+
 
 
 <p>
