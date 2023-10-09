@@ -9,6 +9,15 @@
             padding: 10px; 
             color: black; 
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td,th {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -53,7 +62,7 @@
     <strong>Cas d'utilisation :</strong> s’inscrire<br />
     <strong>But :</strong> une personne veut accéder aux fonctionnalités réservées aux membres de UniShop<br />
     <strong>Préconditions :</strong> le client doit avoir accès au site web UniShop<br />
-    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)<br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur (secondaire)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client accède à la page d’accueil du site</li>
@@ -99,7 +108,7 @@
     <strong>Cas d'utilisation :</strong> se connecter<br />
     <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop<br />
     <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide<br />
-    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)<br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur (secondaire)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client accède à la page d’accueil du site.</li>
@@ -204,9 +213,9 @@
 </ol>
 <p>
     <strong>Scénarios alternatifs :</strong><br />
-    2.a. La quantité disponible du produit est inférieur à la quantité sélectionnée par le client.<br />
-    2.b. Le système signale au client que ce produit n’a pas été ajouté au panier car il est en rupture de stock.<br />
-    <strong>Postconditions :</strong> le panier doit afficher le montant total à payer.
+    2.a. La quantité disponible du produit est inférieur à la quantité sélectionnée par le client<br />
+    2.b. Le système signale au client que ce produit n’a pas été ajouté au panier car il est en rupture de stock<br />
+    <strong>Postconditions :</strong> le panier doit afficher le montant total à payer
 </p>
 
 <hr style="border: 1px solid black;"> 
@@ -216,7 +225,7 @@
     <strong>Cas d'utilisation :</strong> passer une commande<br />
     <strong>But :</strong> le client complète l’achat des produits dans son panier<br />
     <strong>Préconditions :</strong> le client possède au moins 1 produit dans son panier, il est porteur de carte bancaire et il est connecté à son compte d’acheteur UniShop<br />
-    <strong>Acteurs :</strong> client acheteur(principal), revendeur et administrateur(secondaire)<br />
+    <strong>Acteurs :</strong> client acheteur (principal), revendeur et administrateur (secondaires)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client ouvre son panier</li>
@@ -251,7 +260,6 @@
     3.c. Le client annule la transaction.<br />
     3.c.1. Le scénario prend fin.<br />
 
-<p>
     <strong>Postconditions :</strong> Une fois la commande passée, la quantité doit être mise à jour dans l'inventaire du revendeur et une version de la facture doit être sauvegardée dans un fichier. Chaque commande peut avoir un identifiant unique
 </p>
 
@@ -275,13 +283,14 @@
 <strong>Scénarios alternatifs :</strong>  <br />
 4.a Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
 le rentrer à nouveau <br />
-<strong>Postconditions : Aucune, l'état du système n'a pas changé</strong><br />
+<strong>Postconditions :</strong> aucune, l'état du système n'a pas changé
+</p>
+
 
 <hr style="border: 1px solid black;"> 
 
-
 <p>
-    <strong> Cas d'utilisation :</strong> échange   <br /> 
+    <strong> Cas d'utilisation :</strong> échange<br /> 
     <strong> But : </strong> retourner un objet et en recevoir un autre <br />
     <strong> Préconditions : </strong>  avoir commander un objet et l'avoir recu  <br />
     <strong>Acteurs :</strong> client (acteur principal), service entrepot (acteur secondaire)<br />
@@ -297,6 +306,7 @@ le rentrer à nouveau <br />
 </ol>
 
 <strong>Postconditions : </strong> mise à jour l'inventaire du nouveau produit <br />
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -317,7 +327,7 @@ le rentrer à nouveau <br />
 <strong>Scénarios alternatifs :</strong><br />
 4.a Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher<br />
 <strong>Postconditions : </strong>  L'entrepôt envoie l'objet au client <br />
-
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -339,7 +349,7 @@ le rentrer à nouveau <br />
 <strong>Scénarios alternatifs :</strong>  <br />
 5.a Si le client n'est plus le propriétaire de la carte, il va pas pouvoir faire le remboursement <br />
 <strong>Postconditions : </strong> dépot de l'argent dans le compte par le service comptabilité   <br />
-
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -422,7 +432,7 @@ le rentrer à nouveau <br />
 </ol>
 </p>
 <strong>Postconditions: </strong> le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client
-</p><br/>
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -443,7 +453,7 @@ le rentrer à nouveau <br />
     </ol>
     </p>
     <strong>Postconditions: </strong> aucune, rien n’a changé dans l’état du système
-</p> <br/>
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -468,7 +478,7 @@ le rentrer à nouveau <br />
 </ol>
 </p>
 <strong>Postconditions: </strong> le retour sera enregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour
-</p> <br/>
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -496,7 +506,7 @@ le rentrer à nouveau <br />
 <i>SA1:</i> Le revendeur veut promouvoir le produit davantage <br/>
 4.a: titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix, images et/ou vidéos du produit <br/>
 <strong>Postconditions: </strong> le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop.
-</p> <br/>
+</p>
 
 
 <hr style="border: 1px solid black;"> 
@@ -527,7 +537,7 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
 7. L’acheteur signale un problème avec sa commande (voir CU “signaler un problème”) <br/>
 7.a Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude <br/>
 <strong>Postconditions: </strong> la commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
-</p> <br/>
+</p>
 
 <hr style="border: 1px solid black;"> 
 
@@ -744,6 +754,8 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
 
 </p>
 
+<br />
+
 
 <h1> Tâche 4 : Risques </h1>
 <ul>
@@ -757,7 +769,7 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
 <br />
 <br />
 
-<h1> Tâche 5 : non-fonctionnelles </h1>
+<h1> Tâche 5 : Non-fonctionnelles </h1>
 <ul>
     <li> Utilisabilité</li>
     <li> Performance </li>
@@ -766,6 +778,64 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
     <li>  Facilité de maintenance</li>
 </ul>
 
+<br />
+<br />
+
+<h1> Distribution des tâches </h1>
+<p>
+    <strong>Soumissionaire :</strong> Amal Ben Abdellah<br />
+    <table>
+        <tr>
+            <th>TÂCHE</th>
+            <th>Soundous Boutarfaya</th>
+            <th>Xi Chen</th>
+            <th>Ilona Le Du</th>
+            <th>Alessandra Mancas</th>
+        </tr>
+        <tr>
+            <td>Glossaire</td>
+            <td>70%</td>
+            <td>10%</td>
+            <td>10%</td>
+            <td>10%</td>
+        </tr>
+        <tr>
+            <td>Diagramme de cas d'utilisation UML</td>
+            <td>20%</td>
+            <td>20%</td>
+            <td>20%</td>
+            <td>40%</td>
+        </tr>
+        <tr>
+            <td>Cas d'utilisation</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+        </tr>
+        <tr>
+            <td>Risques</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+        </tr>
+        <tr>
+            <td>Exigences non-focntionnelles</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+            <td>25%</td>
+        </tr>
+        <tr>
+            <td>Mise en page</td>
+            <td>15%</td>
+            <td>35%</td>
+            <td>35%</td>
+            <td>15%</td>
+        </tr>
+    </table>
+</p>
 
 </body>
 </html>
