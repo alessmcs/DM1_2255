@@ -42,12 +42,14 @@
     client ou d'un revendeur. </li>
 </ul>
 
+<br />
+<br />
 
 <h1> Tâche 3 : Cas d'utilisation </h1>
 
 <p>
-    <strong>Cas d'utilisation :</strong>s’inscrire<br />
-    <strong>But :</strong> une personne veut accéder aux fonctionnalités réservées aux membres de UniShop.<br />
+    <strong>Cas d'utilisation :</strong> s’inscrire<br />
+    <strong>But :</strong> une personne veut accéder aux fonctionnalités réservées aux membres de UniShop<br />
     <strong>Préconditions :</strong> le client doit avoir accès au site web UniShop<br />
     <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)<br />
     <strong>Scénario principal :</strong><br />
@@ -89,12 +91,14 @@
     <strong>Postconditions :</strong> le formulaire remis par l’utilisateur doit être sauvegardé dans un fichier.
 </p>
 
+<br />
+
 <p>
-    <strong>Cas d'utilisation :</strong> se connecter
-    <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop.
-    <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide.
-    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire)
-    <strong>Scénario principal :</strong>
+    <strong>Cas d'utilisation :</strong> se connecter<br />
+    <strong>But :</strong> un membre existant accède aux fonctionnalités réservées aux membres de UniShop<br />
+    <strong>Préconditions :</strong> le client doit posséder un compte UniShop valide <br />
+    <strong>Acteurs :</strong> client acheteur et client revendeur (principal), administrateur(secondaire) <br />
+    <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client accède à la page d’accueil du site.</li>
     <li>Le client ouvre le menu « se connecter ».</li>
@@ -115,7 +119,7 @@
 </ol>
 
 <p>
-    <strong>Scénarios alternatifs :</strong>
+    <strong>Scénarios alternatifs :</strong><br />
     1.a. Le lien du site est brisé.<br />
     1.a.1. Le scénario échoue.<br />
 
@@ -129,12 +133,15 @@
     6.c.2. Le système affiche Membre suspendu à l’écran.<br />
     6.c.3. Le scénario termine.<br />
 
-    <strong>Postconditions :</strong> Le serveur accepte la connexion d'un nouveau client.
+    <strong>Postconditions :</strong> le serveur accepte la connexion d'un nouveau client.
 </p>
+
+<br />
+
 <p>
-    <strong>Cas d'utilisation :</strong> Modifier profil<br />
-    <strong>But :</strong> Un membre existant effectue des changements aux informations sauvegardées sur son profil.<br />
-    <strong>Préconditions :</strong> Le client détient un compte UniShop actif.<br />
+    <strong>Cas d'utilisation :</strong> modifier profil<br />
+    <strong>But :</strong> un membre existant effectue des changements aux informations sauvegardées sur son profil<br />
+    <strong>Préconditions :</strong> le client détient un compte UniShop actif<br />
     <strong>Acteurs :</strong> client acheteur et client revendeur (principal)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
@@ -151,9 +158,12 @@
     6.a.1. Les informations modifiées sont invalides/mal saisies/existent déjà. Le profil n’est pas mis à jour.<br />
     6.a.2. Le système demande au client de vérifier ses modifications.<br />
     6.a.3. Le scénario reprend à l’étape 4.<br />
-<p>
-    <strong>Postconditions :</strong> Le profil du client doit être mis à jour avec les changements effectués.
+
+    <strong>Postconditions :</strong> le profil du client doit être mis à jour avec les changements effectués.
 </p>
+
+<br />
+
 <p>
     <strong>Cas d'utilisation :</strong> choisir produit du catalogue<br />
     <strong>But :</strong> le client sélectionne un produit qui l’intéresse<br />
@@ -172,11 +182,14 @@
     4.a.1. Appel du cas « signaler un problème ».<br />
     4.a.2. Le scénario se termine.<br />
 </p>
+
+<br />
+
 <p>
-    <strong>Cas d'utilisation :</strong> ajouter au panier
-    <strong>But :</strong> un produit désiré est transféré dans le panier d’achat du client
-    <strong>Préconditions :</strong> le client a choisi un produit du catalogue
-    <strong>Acteurs :</strong> client acheteur (principal)
+    <strong>Cas d'utilisation :</strong> ajouter au panier<br />
+    <strong>But :</strong> un produit désiré est transféré dans le panier d’achat du client<br />
+    <strong>Préconditions :</strong> le client a choisi un produit du catalogue<br />
+    <strong>Acteurs :</strong> client acheteur (principal)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
     <li>Appel du cas « choisir produit du catalogue ».</li>
@@ -189,14 +202,16 @@
     <strong>Scénarios alternatifs :</strong><br />
     2.a. La quantité disponible du produit est inférieur à la quantité sélectionnée par le client.<br />
     2.b. Le système signale au client que ce produit n’a pas été ajouté au panier car il est en rupture de stock.<br />
-<p>
     <strong>Postconditions :</strong> le panier doit afficher le montant total à payer.
 </p>
+
+<br />
+
 <p>
-    <strong>Cas d'utilisation :</strong> passer une commande
-    <strong>But :</strong> le client complète l’achat des produits dans son panier
-    <strong>Préconditions :</strong> le client possède au moins 1 produit dans son panier, il est porteur de carte bancaire et il est connecté à son compte d’acheteur UniShop.
-    <strong>Acteurs :</strong> client acheteur(principal), revendeur et administrateur(secondaire)
+    <strong>Cas d'utilisation :</strong> passer une commande<br />
+    <strong>But :</strong> le client complète l’achat des produits dans son panier<br />
+    <strong>Préconditions :</strong> le client possède au moins 1 produit dans son panier, il est porteur de carte bancaire et il est connecté à son compte d’acheteur UniShop<br />
+    <strong>Acteurs :</strong> client acheteur(principal), revendeur et administrateur(secondaire)<br />
     <strong>Scénario principal :</strong><br />
 <ol>
     <li>Le client ouvre son panier</li>
@@ -229,11 +244,12 @@
     3.a.2. L’étape se reprend.<br />
 
 
+    <br />
 <p>
-<strong> Cas d'utilisation : Suivre une commande <br /> </strong>
-<strong> But : </strong> Savoir où est rendu le colis <br />
-<strong> Préconditions : </strong> Avoir passé une commande   <br />
-<strong>Acteurs : </strong> Client <br />
+<strong> Cas d'utilisation :</strong> suivre une commande<br /> 
+<strong> But : </strong> savoir où est rendu le colis <br />
+<strong> Préconditions : </strong> voir passé une commande   <br />
+<strong>Acteurs : </strong> client <br />
 <strong>Scénario principal :</strong>
 <ol>
     <li> Le client se connecte à son compte </li>
@@ -242,16 +258,17 @@
     <li> La page s'ouvre avec les details de la livraison </li>
 </ol>
 <strong>Scénarios alternatifs :</strong>  <br />
-4.1 Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
-le rentrer à nouveau. <br />
-<strong>Postconditions : </strong>  <br />
+4.a Il est possible qu'il y ait une erreur de frappe lorsque le client entre le code. Le systeme va lui demander de
+le rentrer à nouveau <br />
+<strong>Postconditions : </strong><br />
 
+<br />
 
 <p>
-    <strong> Cas d'utilisation : Échange   <br /> </strong>
-    <strong> But : </strong> Retourner un objet et en recevoir un autre <br />
-    <strong> Préconditions : </strong>  Avoir commander un objet et l'avoir recu  <br />
-    <strong>Acteurs : Acteur principal : </strong> Client. <strong> Acteur secondaire: </strong> service entrepot<br />
+    <strong> Cas d'utilisation :</strong> échange   <br /> 
+    <strong> But : </strong> retourner un objet et en recevoir un autre <br />
+    <strong> Préconditions : </strong>  avoir commander un objet et l'avoir recu  <br />
+    <strong>Acteurs :</strong> client (acteur principal), service entrepot (acteur secondaire)<br />
     <strong>Scénario principal :</strong>
 <ol>
     <li> Le client se connecte à son compte </li>
@@ -263,15 +280,16 @@ le rentrer à nouveau. <br />
 
 </ol>
 
-<strong>Scénarios alternatifs :</strong>   <br />
-<strong>Postconditions : </strong> Mise à jour l'inventaire du nouveau produit <br />
+<strong>Scénarios alternatifs :</strong><br />
+<strong>Postconditions : </strong> mise à jour l'inventaire du nouveau produit <br />
 
+<br />
 
 <p>
-    <strong> Cas d'utilisation : Retour   <br /> </strong>
-    <strong> But : </strong> Retourner un objet.  <br />
-    <strong> Préconditions : </strong> Avoir commander un produit  <br />
-    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire :  </strong> Service entrepot <br />
+    <strong> Cas d'utilisation :</strong>  retour   <br /> 
+    <strong> But : </strong> retourner un objet  <br />
+    <strong> Préconditions : </strong> avoir commander un produit  <br />
+    <strong>Acteurs :</strong> client (acteur principal), service entrepot (acteur secondaire) <br />
     <strong>Scénario principal :</strong>
 <ol>
     <li> Le client se connecte à son compte </li>
@@ -281,15 +299,17 @@ le rentrer à nouveau. <br />
     <li> Suivre le coli retourné  </li>
 </ol>
 <strong>Scénarios alternatifs :</strong><br />
-4.1 Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher.
+4.a Il n'est pas possible de retourner l'objet. Un message d'erreur va s'afficher<br />
 <strong>Postconditions : </strong>  L'entrepôt envoie l'objet au client <br />
 
+
+<br />
+
 <p>
-    <strong> Cas d'utilisation : Remboursement   <br /> </strong>
-    <strong> But : </strong> Retourner un objet et avoir l'argent en retour  <br />
-    <strong> Préconditions : </strong>  Avoir commander un produit <br />
-    <strong>Acteurs : Acteur principal:</strong>  Client  <strong> Acteur secondaire : Service entrepôt
-    et service comptabilité </strong> <br />
+    <strong> Cas d'utilisation :</strong> remboursement   <br /> 
+    <strong> But : </strong> retourner un objet et avoir l'argent en retour  <br />
+    <strong> Préconditions : </strong>  avoir commander un produit <br />
+    <strong>Acteurs :</strong> client (acteur principal), service entrepôt (acteur secondaire) et service comptabilité <br />
     <strong>Scénario principal :</strong>
 <ol>
     <li> Le client se connecte à son compte </li>
@@ -300,18 +320,19 @@ le rentrer à nouveau. <br />
     <li> Suivre le coli retourné  </li>
 </ol>
 <strong>Scénarios alternatifs :</strong>  <br />
-5.1 Si le client n'est plus le propriétaire de la carte, il va pas pouvoir faire le remboursement <br />
-<strong>Postconditions : </strong> Depot de l'argent dans le compte par le service comptabilité   <br />
+5.a Si le client n'est plus le propriétaire de la carte, il va pas pouvoir faire le remboursement <br />
+<strong>Postconditions : </strong> dépot de l'argent dans le compte par le service comptabilité   <br />
 
 
+<br />
 
 <p>
-    <strong>Cas d’utilisation: Signaler un problème   <br /> </strong>
-    <strong>But :</strong> L’utilisateur signale un problème rencontré avec leur commande ou leur produit, dans le but de le
-    remédier avec le revendeur.  <br />
-    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+    <strong>Cas d’utilisation:</strong> signaler un problème   <br /> 
+    <strong>But :</strong> l’utilisateur signale un problème rencontré avec leur commande ou leur produit, dans le but de le
+    remédier avec le revendeur  <br />
+    <strong> Acteurs :</strong> client et revendeur (acteurs principaux) et administrateur du système (acteur secondaire) <br />
 
-    <strong>Préconditions : </strong> L’utilisateur a un problème à signaler et l’utilisateur est un client membre de la plateforme Unishop <br />
+    <strong>Préconditions : </strong> l’utilisateur a un problème à signaler et l’utilisateur est un client membre de la plateforme Unishop <br />
     <strong>Scénario principal:</strong>
     <p>
     <ol>
@@ -338,17 +359,18 @@ le rentrer à nouveau. <br />
     7. Le revendeur propose une autre solution au client (voir CU “Gérer les problèmes”)<br/>
     8. Une fois le problème résolu, le scénario reprend à la tâche 7 du scénario principal <br/>
 </ol>
-    <strong>Postconditions: </strong> Le système enregistre la plainte de l’utilisateur dans une base de données, ainsi
+    <strong>Postconditions: </strong> le système enregistre la plainte de l’utilisateur dans une base de données, ainsi
     que les données (métriques) mises à jour du client et de l’utilisateur (s’il y a eu un retour/échange/annulation)
 </p>
 
 
-<p>
-    <strong>Cas d’utilisation: Gérer les problèmes  <br /> </strong>
-    <strong>But :</strong> Le revendeur propose des solutions à un problème signalé par un utilisateur  <br />
-    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
+<br />
 
-    <strong>Préconditions : </strong> Le revendeur est connecté à la plateforme et Le client a signalé un problème avec
+<p>
+    <strong>Cas d’utilisation:</strong> gérer les problèmes  <br /> 
+    <strong>But :</strong> le revendeur propose des solutions à un problème signalé par un utilisateur  <br />
+    <strong> Acteurs :</strong> client et revendeur (acteurs principaux) et administrateur du système (acteur secondaire)<br />
+    <strong>Préconditions : </strong> le revendeur est connecté à la plateforme et Le client a signalé un problème avec
     un produit ou une commande <br />
     <strong>Scénario principal:</strong>
 <p>
@@ -380,16 +402,16 @@ le rentrer à nouveau. <br />
     <li>La correspondance entre le client et le revendeur est terminée  </li>
 </ol>
 </p>
-<strong>Postconditions: </strong> Le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client
+<strong>Postconditions: </strong> le système enregistre la solution du problème et met à jour les données (métriques) du revendeur et du client
 </p><br/>
 
+<br />
 
 <p>
-    <strong>Cas d’utilisation: Afficher métriques <br /> </strong>
-    <strong>But :</strong> L’utilisateur veut avoir accès aux métriques liées à ses activités  <br />
-    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> administrateur du système <br />
-
-    <strong>Préconditions : </strong> L’utilisateur est un membre UniShop et a accès à son profil  <br />
+    <strong>Cas d’utilisation:</strong> afficher métriques <br /> 
+    <strong>But :</strong> l’utilisateur veut avoir accès aux métriques liées à ses activités  <br />
+    <strong> Acteurs :</strong> client et revendeur (acteurs principaux) et administrateur du système (acteur secondaire) <br />
+    <strong>Préconditions : </strong> l’utilisateur est un membre UniShop et a accès à son profil  <br />
     <strong>Scénario principal:</strong>
     <p>
     <ol>
@@ -400,14 +422,16 @@ le rentrer à nouveau. <br />
         <li>Il quitte ou poursuit sa session dans la plateforme UniShop</li>
     </ol>
     </p>
-    <strong>Postconditions: </strong> Aucune, rien n’a changé dans l’état du système
+    <strong>Postconditions: </strong> aucune, rien n’a changé dans l’état du système
 </p> <br/>
 
+<br />
+
 <p>
-    <strong>Cas d’utilisation: Confirmer réception d’un retour <br /> </strong>
-    <strong>But :</strong> Le revendeur veut confirmer qu’un produit retourné par un client est bien arrivé à l’entrepôt   <br />
-    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt <br />
-    <strong>Préconditions : </strong> Un acheteur a choisi de faire un retour (Voir CU <strong>“Faire un retour/échange”</strong>)  <br />
+    <strong>Cas d’utilisation:</strong> confirmer réception d’un retour <br /> 
+    <strong>But :</strong> le revendeur veut confirmer qu’un produit retourné par un client est bien arrivé à l’entrepôt   <br />
+    <strong> Acteurs :</strong> revendeur (acteur principal) et service d'entrepôt (acteur secondaire)<br />
+    <strong>Préconditions : </strong> un acheteur a choisi de faire un retour (Voir CU <strong>“Faire un retour/échange”</strong>)  <br />
     <strong>Scénario principal:</strong>
 <p>
 <ol>
@@ -422,15 +446,16 @@ le rentrer à nouveau. <br />
     </li>
 </ol>
 </p>
-<strong>Postconditions: </strong> Le retour sera enregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour
+<strong>Postconditions: </strong> le retour sera enregistré dans la base de données du système, la quantité du produit dans l’entrepôt est mise à jour
 </p> <br/>
 
+<br />
 
 <p>
-    <strong>Cas d’utilisation: Offrir un produit <br /> </strong>
-    <strong>But :</strong>Le revendeur veut vendre un produit sur la plateforme UniShop   <br />
-    <strong> Acteurs : Principal:  </strong> revendeur <strong> Secondaire: </strong> service d'entrepôt et administrateur<br />
-    <strong>Préconditions : </strong> Le revendeur a un compte UniShop et il a un produit à offrir  <br />
+    <strong>Cas d’utilisation:</strong> offrir un produit <br /> 
+    <strong>But :</strong> le revendeur veut vendre un produit sur la plateforme UniShop   <br />
+    <strong> Acteurs :</strong> revendeur (acteur principal), service d'entrepôt et administrateur (acteurs principaux)<br />
+    <strong>Préconditions : </strong> le revendeur a un compte UniShop et il a un produit à offrir  <br />
     <strong>Scénario principal:</strong>
 <p>
 <ol>
@@ -448,15 +473,17 @@ le rentrer à nouveau. <br />
 <strong>Scénarios alternatifs: </strong> <br/>
 <i>SA1:</i> Le revendeur veut promouvoir le produit davantage <br/>
 4.a: titre (unique), catégorie du produit, description, nom de la marque, nom du modèle, quantité initiale disponible et un prix, images et/ou vidéos du produit <br/>
-<strong>Postconditions: </strong> Le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop.
+<strong>Postconditions: </strong> le nouveau produit et ses informations est désormais enregistré dans le système d’entrepôt et il est affiché sur le site web UniShop.
 </p> <br/>
 
 
+<br />
+
 <p>
-    <strong>Cas d’utilisation: Changer l’état d’une commande  <br /> </strong>
-    <strong>But :</strong>Le revendeur veut mettre à jour l’état de livraison d’une commande   <br />
-    <strong> Acteurs : Principal:  </strong> client et revendeur <strong> Secondaire: </strong> service de livraison, administrateur<br />
-    <strong>Préconditions : </strong> Le revendeur a reçu une commande valide <br />
+    <strong>Cas d’utilisation:</strong> changer l’état d’une commande  <br /> 
+    <strong>But :</strong> le revendeur veut mettre à jour l’état de livraison d’une commande   <br />
+    <strong> Acteurs :</strong> client et revendeur (acteurs principaux), service de livraison et administrateur (acteurs principaux)<br />
+    <strong>Préconditions : </strong> le revendeur a reçu une commande valide <br />
     <strong>Scénario principal:</strong>
 <p>
 <ol>
@@ -476,8 +503,10 @@ le rentrer à nouveau. <br />
 Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
 7. L’acheteur signale un problème avec sa commande (voir CU “signaler un problème”) <br/>
 7.a Une fois que le problème est réglé, le scénario principal poursuit comme d’habitude <br/>
-<strong>Postconditions: </strong> La commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
+<strong>Postconditions: </strong> la commande sera enregistrée dans la base de données du système, les données de vente du revendeur et celles d’achat de l’acheteur sont mises à jour.
 </p> <br/>
+
+<br />
 
 <p>
     <strong>Cas d'utilisation :</strong> effectuer une recherche<br />
@@ -693,6 +722,9 @@ Le scénario SA1 se passe après l’étape 6 du scénario principal <br/>
     <li> Mal gérer l'inventaire </li>
     <li> Problème avec le suivit de la commande </li>
 </ul>
+
+<br />
+<br />
 
 <h1> Tâche 5 : non-fonctionnelles </h1>
 <ul>
