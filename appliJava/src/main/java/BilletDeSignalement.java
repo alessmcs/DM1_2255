@@ -1,9 +1,9 @@
 public class BilletDeSignalement {
 
-	private string description;
-	private string descriptionSolution;
+	private String description;
+	private String descriptionSolution;
 	private boolean confirmationLIvraison;
-	private string descriptionRemplacement;
+	private String descriptionRemplacement;
 	private int numSuiviRemplacement;
 	private boolean confirmationLivraisonRemplacement;
 

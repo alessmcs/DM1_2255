@@ -1,13 +1,14 @@
+import java.util.List;
 public class Produit {
 
 	private String titre;
 	private float prix;
-	private UUID ID;
+	private int ID;
 	private int qteEnStock;
 	private String catégorie;
 	private int nbPoints;
 	private String description;
-	private Date dateMiseEnVente;
+	private String dateMiseEnVente;
 	private List<Commentaire> commentaires;
 	private int note;
 

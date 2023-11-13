@@ -1,8 +1,8 @@
 public class Commande {
 
 	private StatutCommande statut;
-	private UUID id;
-	private string infosLivraison;
+	private int id;
+	private String infosLivraison;
 	private int infosPaiement;
 
 	public void passerCommande() {

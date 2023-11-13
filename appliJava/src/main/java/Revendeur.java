@@ -1,6 +1,7 @@
+import java.util.List;
 public class Revendeur extends Utilisateur {
 
-	private string adresse;
+	private String adresse;
 	private int nom;
 	private List<Produit> inventaire;
 

@@ -1,7 +1,7 @@
 public class Facture {
 
 	private double montant;
-	private Date date;
+	private String date;
 	private double rabais;
 
 }

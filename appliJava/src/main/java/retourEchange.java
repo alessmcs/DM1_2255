@@ -1,7 +1,7 @@
 public class retourEchange {
 
 	private Produit prodARetourner;
-	private string motif;
+	private String motif;
 	private Produit prodRemplacement;
 
 	public double calculerDifference() {

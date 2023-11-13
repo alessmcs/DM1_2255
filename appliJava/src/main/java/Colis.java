@@ -1,7 +1,7 @@
 public class Colis {
 
-	private UUID numSuivi;
-	private Date dateArriveeEst;
+	private int numSuivi;
+	private String dateArriveeEst;
 	private StatutCommande statut;
 
 	public void suivreEtat() {

@@ -1,6 +1,6 @@
 public class Probleme {
 
-	private Date Date;
+	private String Date;
 	private BilletDeSignalement billetSignalement;
 
 	public void signalerProbleme() {
