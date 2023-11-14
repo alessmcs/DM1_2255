@@ -15,4 +15,9 @@ public class Plateforme {
 		throw new UnsupportedOperationException();
 	}
 
+	public void acheterProduit() {
+		// TODO - implement Plateforme.offrirProduit
+		throw new UnsupportedOperationException();
+	}
+
 }

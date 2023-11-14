@@ -10,6 +10,7 @@ public class Acheteur extends Utilisateur {
 
 	//TODO: constructor
 
+
 	public boolean confirmerReceptionCommande() {
 		// TODO - implement Acheteur.confirmerReceptionCommande
 		throw new UnsupportedOperationException();
