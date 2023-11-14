@@ -5,6 +5,8 @@ public class Revendeur extends Utilisateur {
 	private int nom;
 	private List<Produit> inventaire;
 
+	private List<Acheteur> acheteursLike;
+
 	public void inscrireRevendeur() {
 		// TODO - implement Revendeur.inscrireRevendeur
 		throw new UnsupportedOperationException();
@@ -15,7 +17,7 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void gérerProbleme() {
+	public void gererProbleme() {
 		// TODO - implement Revendeur.gérerProbleme
 		throw new UnsupportedOperationException();
 	}

@@ -1,3 +1,7 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Plateforme {
 
 	public void rechercheProduit() {
@@ -19,5 +23,12 @@ public class Plateforme {
 		// TODO - implement Plateforme.offrirProduit
 		throw new UnsupportedOperationException();
 	}
+
+	public void connexionUtil() {
+		// TODO - implement Plateforme.offrirProduit
+		throw new UnsupportedOperationException();
+	}
+
+
 
 }

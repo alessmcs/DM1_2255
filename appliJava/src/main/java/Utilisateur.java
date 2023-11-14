@@ -1,6 +1,6 @@
 public abstract class Utilisateur {
 
-	private int telephone;
+	private static String telephone;
 	private String motDePasse;
 	private String courriel;
 
@@ -22,6 +22,10 @@ public abstract class Utilisateur {
 	public void modifierProfil() {
 		// TODO - implement Utilisateur.modifierProfil
 		throw new UnsupportedOperationException();
+	}
+
+	public static String getTel(){
+		return telephone;
 	}
 
 }

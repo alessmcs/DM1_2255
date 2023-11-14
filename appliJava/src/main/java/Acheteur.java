@@ -2,9 +2,9 @@ import java.util.List;
 public class Acheteur extends Utilisateur {
 
 	static String pseudo;
-	private String adresseExpedition;
+	private static Adresse adresseExpedition;
 	private int points;
-	private List<Commande> historiqueCommandes;
+	private static List<Commande> historiqueCommandes;
 	private List<Acheteur> followers;
 	private int classement;
 
@@ -56,5 +56,13 @@ public class Acheteur extends Utilisateur {
 
 	public class pseudo {
 
+	}
+
+	public static Adresse getAdresseExpedition(){
+		return adresseExpedition;
+	}
+
+	public static void addHistorique(Commande c){
+		historiqueCommandes.add(c);
 	}
 }
