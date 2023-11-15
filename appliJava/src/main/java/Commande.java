@@ -5,16 +5,14 @@ import java.util.regex.Pattern;
 public class Commande {
 
 	private StatutCommande statut;
-	private int id;
+	private static int id = 0;
 	private Adresse adresseLivraison;
-	private int infosPaiement;
 
-	// inner class for infos paiement???
-
-	public Commande(String status, Adresse adresse){
+	public Commande(String status, Adresse adresse, int id){
 		// add liste de produits i think
 		this.statut = statut;
 		this.adresseLivraison = adresse;
+		this.id = id;
 	}
 
 	public static void passerCommande() {
@@ -152,13 +150,24 @@ public class Commande {
 
 
 		// si tout est valide la commande est passée, ajoutée à l'historique de commandes de l'acheteur, facture est géneéreée
-		// TODO: ADD THE PRODUCTS FROM THE CART TO THE COMMANDE 
-		Commande commande = new Commande("En production", adresseLivraison);
+		// TODO: ADD THE PRODUCTS FROM THE CART TO THE COMMANDE
+		Commande commande = new Commande("En production", adresseLivraison, id+1);
+
+
 		Acheteur.addHistorique(commande);
 
-		// TODO: GENERER FACTURE
+		// TODO: GENERER FACTURE FROM PANIER
 		// utiliser les informations du panier pour genérer la facture une fois qu'elle est completee
-		//Facture facture = new Facture()
+		// Facture facture = new Facture()
+
+
+		// TODO: if acheteur is in acheteurs likeurs, then notify all the acheteurs in the list of the revendeurs
+		// the revendeur will be associated to the product
+		Notification notif = new Notification(RaisonsNotif.nouvCommandeRecue);
+		notif.notifierRevendeur();
+
+		//TODO a new colis is made with each commande
+		Colis colis = new Colis(commande.getStatutCommande());
 
 	}
 
@@ -171,9 +180,16 @@ public class Commande {
 	 * 
 	 * @param e
 	 */
-	public void setEtatCommande(StatutCommande e) {
+
+	// maybe add another parameter for this method
+	public void setEtatCommande(String e) {
 		// TODO - implement Commande.setEtatCommande
+		this.statut = e;
 		throw new UnsupportedOperationException();
+	}
+
+	public StatutCommande getStatutCommande(){
+		return statut;
 	}
 
 }
