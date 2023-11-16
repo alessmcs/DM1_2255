@@ -16,9 +16,6 @@ public class Commande {
 	}
 
 	public static void passerCommande() {
-		// TODO - implement Commande.passerCommande
-		// passerCommande crée une nouvelle instance de commande unique à chaque fois que l'utilisateur passe une commande
-		// 1 - l'index unique est ajouté dans Commande
 
 		Adresse adresseLivraison;
 		Adresse adresseFacturation;
@@ -148,44 +145,86 @@ public class Commande {
 			}
 		}
 
+		Facture facture = new Facture(Panier.getTotal());
 
-		// si tout est valide la commande est passée, ajoutée à l'historique de commandes de l'acheteur, facture est géneéreée
-		// TODO: ADD THE PRODUCTS FROM THE CART TO THE COMMANDE
+		// Il peut échanger ces points sur les produits qu'il achète pour obtenir un rabais à un taux d'un point par 2¢ d'achat
+		System.out.println("Voulez-vous échanger tous vos points pour obtenir un rabais? \n1 : Oui \n2: Non");
+		while(true){
+			int choix = s.nextInt();
+			if(choix == 1){ // oui rabais
+				System.out.println("1 : 5$ = 250 points | 2 : 10$ = 500 points | 3 : 15$ = 750 points " +
+						"\nVous avez: " + Acheteur.getPoints() + "points");
+				while(true){
+					int choix2 = s.nextInt();
+					if ( choix2 == 1){
+						if (Acheteur.getPoints() < 250){
+							System.out.println("Vous n'avez pas assez de points!");
+							break;
+						} else {
+							facture.setRabais(5);
+							Acheteur.setPoints(-250);
+						}
+					} else if(choix2 == 2){
+						if (Acheteur.getPoints() < 500){
+							System.out.println("Vous n'avez pas assez de points!");
+							break;
+						} else {
+							facture.setRabais(10);
+							Acheteur.setPoints(-500);
+						}
+					} else if(choix2 == 3){
+						if (Acheteur.getPoints() < 750){
+							System.out.println("Vous n'avez pas assez de points!");
+							break;
+						} else {
+							facture.setRabais(15);
+							Acheteur.setPoints(-750);
+						}
+					} else {
+						System.out.println("SVP entrez un chiffre entre 1 et 3!");
+					}
+				}
+				break;
+			} else if(choix == 2){
+				break; // do nothing, they don't want a rabais
+			} else {
+				System.out.println("SVP entrez un chiffre entre 1 et 2!");
+			}
+		}
+
+
+
 		Commande commande = new Commande("En production", adresseLivraison, id+1);
-
-
-		Acheteur.addHistorique(commande);
-
-		// TODO: GENERER FACTURE FROM PANIER
-		// utiliser les informations du panier pour genérer la facture une fois qu'elle est completee
-		// Facture facture = new Facture()
+		Acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 
 		// TODO: if acheteur is in acheteurs likeurs, then notify all the acheteurs in the list of the revendeurs
+		// TODO: not sure if we should do notification
 		// the revendeur will be associated to the product
-		Notification notif = new Notification(RaisonsNotif.nouvCommandeRecue);
-		notif.notifierRevendeur();
+//		Notification notif = new Notification(nouvCommandeRecue);
+//		notif.notifierRevendeur();
 
 		//TODO a new colis is made with each commande
 		Colis colis = new Colis(commande.getStatutCommande());
+
+		// Confirmation de la commande
+		System.out.println("Commande confirmée! \n#" + id + "\nArticles: \n");
+		for (Produit p : Panier.getArticles()){
+			System.out.println(p);
+			p.setQte(p.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
+		}
+		System.out.println("\nTotal: " + Panier.getTotal());
 
 	}
 
 	public void annuler() {
 		// TODO - implement Commande.annuler
-		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param e
-	 */
-
 	// maybe add another parameter for this method
-	public void setEtatCommande(String e) {
+	public void setEtatCommande(StatutCommande e) {
 		// TODO - implement Commande.setEtatCommande
 		this.statut = e;
-		throw new UnsupportedOperationException();
 	}
 
 	public StatutCommande getStatutCommande(){

@@ -4,6 +4,10 @@ public class Notification {
 	private String date;
 	private RaisonsNotif raison;
 
+	public Notification(String raison){
+
+	}
+
 	public void notifierAcheteur() {
 		// TODO - implement Notification.notifierAcheteur
 		throw new UnsupportedOperationException();

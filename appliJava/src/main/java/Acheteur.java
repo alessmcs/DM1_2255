@@ -1,14 +1,15 @@
+import java.util.ArrayList;
 import java.util.List;
 public class Acheteur extends Utilisateur {
 
 	static String pseudo;
 	private static Adresse adresseExpedition;
-	private int points;
-	private static List<Commande> historiqueCommandes;
+	private static int points;
+	private static ArrayList<Commande> historiqueCommandes = new ArrayList<>();
 	private List<Acheteur> followers;
 	private int classement;
 
-	//TODO: constructor
+	//TODO: constructor & each acheteur has an individual panier
 
 
 	public boolean confirmerReceptionCommande() {
@@ -64,5 +65,13 @@ public class Acheteur extends Utilisateur {
 
 	public static void addHistorique(Commande c){
 		historiqueCommandes.add(c);
+	}
+
+	public static int getPoints(){ return points; };
+
+	public static void setPoints(int newPoints){
+		points += newPoints;
+		// si l'acheteur utilise les points pour avoir un rabais, newPoints < 0 alors ca sera une soustraction
+		// si l'acheteur gagne des points, newPoints > 0 alors c'est une addition
 	}
 }
