@@ -15,7 +15,7 @@ public class RessourcesApprentissage extends Produit {
 
 	@Override
 	public void voirDetails(){
-		System.out.println ("ID: " + ID + "\nTitre : " + titre + "\n" + categorie + "\n" + description + prix + "\n" + marque + "\n" + modele + "," + marque + "," + modele);
+		System.out.println ("\nID: " + ID + "\nTitre : " + titre + "\n" + categorie + "\n" + description + prix + "\n" + marque + "\n" + modele + "," + marque + "," + modele);
 	}
 
 

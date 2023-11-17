@@ -16,7 +16,7 @@ public class EquipementBureau extends Produit {
 	// overriding voirDetails pour imprimer les détails spécifiques du produit
 	@Override
 	public void voirDetails(){
-		System.out.println ("ID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + prix + "\nMarque:" + marque + "\nModèle: " + modele
+		System.out.println ("\nID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + prix + "\nMarque:" + marque + "\nModèle: " + modele
 				+ "\nSous-Catégorie: " + sousCategorie);
 	}
 }

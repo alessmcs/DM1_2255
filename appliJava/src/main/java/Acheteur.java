@@ -1,15 +1,24 @@
 import java.util.ArrayList;
-import java.util.List;
 public class Acheteur extends Utilisateur {
 
 	static String pseudo;
 	private static Adresse adresseExpedition;
 	private static int points;
 	private static ArrayList<Commande> historiqueCommandes = new ArrayList<>();
-	private List<Acheteur> followers;
+	private ArrayList<Acheteur> followers;
 	private int classement;
 
+	private static Panier panier = new Panier();
+
 	//TODO: constructor & each acheteur has an individual panier
+
+	public  void ajouterPanierAcheteur(Produit p) {
+		panier.ajouterArticle(p);
+	}
+
+	public void voirPanierAcheteur(){
+		panier.voirPanier();
+	}
 
 
 	public boolean confirmerReceptionCommande() {
@@ -22,10 +31,30 @@ public class Acheteur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void suivreAcheteur() {
-		// TODO - implement Acheteur.suivreAcheteur
-		throw new UnsupportedOperationException();
+	// L'acheteur connecté peut suivre un autre acheteur de son choix
+	public void suivreAcheteur(Acheteur a) {
+		// TODO : vérifier si l'acheteur est dans la liste d'acheteurs dans la base de données (-> Soundous)
+		a.ajouterFollower(this);
+		points += 5; // l'acheteur qui suit un autre utilisateur gagne 5 points
 	}
+
+	public void unfollow(Acheteur a){
+		a.supprimerFollower(this);
+		points -= 5;
+	}
+
+	// La liste de suiveurs de l'acheteur choisi par un autre est mise à jour et il gagne des points
+	public void ajouterFollower(Acheteur a){
+		followers.add(a);
+		points += 5; // l'utilisateur qui se fait suivre gagne 5 points
+	}
+
+	public void supprimerFollower(Acheteur a){
+		followers.remove(a);
+		points -= 5;
+	}
+
+
 
 	public void payerDifference() {
 		// TODO - implement Acheteur.payerDifference

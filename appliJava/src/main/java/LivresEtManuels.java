@@ -30,7 +30,7 @@ public class LivresEtManuels extends Produit {
 	// overriding voirDetails pour imprimer les détails spécifiques du produit
 	@Override
 	public void voirDetails(){
-		System.out.println ("ID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + "\nPrix:" + prix + "\nISBN:" + ISBN + "\nAuteur: " + auteur + ", Maison d'édition: " + maisonEdition +
+		System.out.println ("\nID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + "\nPrix:" + prix + "\nISBN:" + ISBN + "\nAuteur: " + auteur + ", Maison d'édition: " + maisonEdition +
 				", Genre: " + genre + " , " + numEdition + "e édition , Volume " + numVol + "\nPublié le ");
 	}
 }

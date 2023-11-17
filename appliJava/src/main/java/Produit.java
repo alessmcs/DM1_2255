@@ -74,12 +74,20 @@ public class Produit {
 		return this.nbPoints;
 	}
 
+	public int getId(){
+		return ID;
+	}
+
 	/**
 	 * 
 	 * @param t
 	 */
 	public void setTitre(String t) {
 		this.titre = t;
+	}
+
+	public String getTitre(){
+		return titre;
 	}
 
 	public double getPrix(){

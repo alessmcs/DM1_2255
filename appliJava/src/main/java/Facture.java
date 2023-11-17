@@ -13,4 +13,8 @@ public class Facture {
 		montant -= rabais;
 	}
 
+	public static double getTotal(){
+		return montant;
+	}
+
 }
