@@ -12,6 +12,14 @@ public class Acheteur extends Utilisateur {
 
 	//TODO: constructor & each acheteur has an individual panier
 
+	public Acheteur(String pseudo, Adresse adresse, String numTel, String motDePasse, String courriel ){
+		this.pseudo = pseudo;
+		this.adresseExpedition = adresse;
+		this.telephone = numTel;
+		this.motDePasse = motDePasse;
+		this.courriel = courriel;
+	}
+
 	public  void ajouterPanierAcheteur(Produit p) {
 		panier.ajouterArticle(p);
 	}
@@ -88,8 +96,12 @@ public class Acheteur extends Utilisateur {
 
 	}
 
-	public static Adresse getAdresseExpedition(){
+	public Adresse getAdresseExpedition(){
 		return adresseExpedition;
+	}
+
+	public String getCourriel() {
+		return courriel;
 	}
 
 	public static void addHistorique(Commande c){

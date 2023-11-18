@@ -1,8 +1,8 @@
 public abstract class Utilisateur {
 
-	private static String telephone;
-	private String motDePasse;
-	private String courriel;
+	protected static String telephone;
+	protected String motDePasse;
+	protected static String courriel;
 
 	public void seConnecter() {
 		// TODO - implement Utilisateur.seConnecter

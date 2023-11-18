@@ -56,7 +56,7 @@ public class Adresse {
     }
 
     // Method to format the address
-    public String getFormattedAddress() {
+    public String toString() {
         return String.format("%s, %s, %s, %s, %s", street, city, province, postalCode, country);
     }
 

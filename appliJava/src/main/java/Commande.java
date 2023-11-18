@@ -211,14 +211,17 @@ public class Commande {
 		int sommePoints = 0;
 
 		// Confirmation de la commande
-		System.out.println("Commande confirmée! \n#" + id + "\nArticles: \n");
+		System.out.println("Commande confirmée! \n" + id + "\nArticles: \n");
 		for (Produit prod : p.getArticles()){
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
 			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
-		System.out.println("\nTotal: " + facture.getTotal()); // inclure le rabais!
+		System.out.printf("\nTotal: %.2f" + facture.getTotal()); // inclure le rabais!
+		System.out.println("Livré au : " + acheteur.getAdresseExpedition().toString());
+		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTel());
+
 
 		// nouveau colis généré avec la commande
 		Colis colis = new Colis(commande.getStatutCommande());
