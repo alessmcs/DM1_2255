@@ -8,6 +8,8 @@ public class Panier {
 
 	private static ArrayList<Produit> articles = new ArrayList<>();
 
+	// TODO: add continuer de magasiner & return to the catalogue!!!
+
 	public void ajouterArticle(Produit produit) {
 		articles.add(produit);
 		montantAPayer += produit.getPrix();

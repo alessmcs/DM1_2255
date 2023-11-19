@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: commandes sépareées par revendeur !!!!!!
+
 public class Commande {
 
 	private StatutCommande statut;
