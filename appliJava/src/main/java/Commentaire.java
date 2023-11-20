@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Commentaire {
 
-	private Acheteur.pseudo Utilisateur;
+	private Acheteur Utilisateur;
 	private ArrayList<String> Contenu;
 	private String Date;
 
