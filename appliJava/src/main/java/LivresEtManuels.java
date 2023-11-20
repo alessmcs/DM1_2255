@@ -9,9 +9,9 @@ public class LivresEtManuels extends Produit {
 	private int numEdition;
 	private int numVol;
 
-	public LivresEtManuels(String titre, float prix, int qte, String cat, int nbPoints, String description, String date,
+	public LivresEtManuels(String titre, double prix, int qte, String cat, int nbPoints, String description,
 						   String ISBN, String auteur, String maisonEdition, String genre, String dateParution, int numEd, int numVol) {
-		super(titre, prix, qte, cat, nbPoints, description, date);
+		super(titre, prix, qte, cat, nbPoints, description);
 		this.ISBN = ISBN;
 		this.auteur = auteur;
 		this.maisonEdition = maisonEdition;
@@ -29,9 +29,10 @@ public class LivresEtManuels extends Produit {
 
 	// overriding voirDetails pour imprimer les détails spécifiques du produit
 	@Override
-	public void voirDetails(){
+	public void voirDetails(Acheteur ach){
 		System.out.println("\nID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + "\nPrix:" + prix + "\nISBN:" + ISBN + "\nAuteur: " + auteur + ", Maison d'édition: " + maisonEdition +
 				", Genre: " + genre + " , " + numEdition + "e édition , Volume " + numVol + "\nPublié le ") ;
 		super.voirEval();
+		super.demanderAjoutPanier(ach);
 	}
 }

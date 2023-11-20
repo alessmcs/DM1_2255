@@ -7,13 +7,13 @@ public class Produit {
 
 	protected String titre;
 	protected float prix;
+	private static int nextId = 1;
 	protected int ID;
 	protected int qteInitiale;
 	protected int qteEnStock;
 	protected String catégorie;
 	protected int nbPoints;
 	protected String description;
-	protected String dateMiseEnVente;
 	protected ArrayList<ArrayList<String>> listCommentaires;
 	private int note;
 
@@ -23,15 +23,15 @@ public class Produit {
 	String coeur;
 	String review;
 
-	public Produit(String titre, float prix, int qte, String cat, int nbPoints, String description, String date) {
+	public Produit(String titre, double prix, int qte, String cat, int nbPoints, String description) {
 		this.titre = titre;
-		this.prix = prix;
+		this.prix = (float) prix;
 		this.qteInitiale = qte;
 		this.qteEnStock = qte;
 		this.catégorie = cat;
 		this.nbPoints = nbPoints;
 		this.description = description;
-		this.dateMiseEnVente = date;
+		this.ID = nextId++; // ID unique pour chaque produit
 	}
 
 
@@ -209,7 +209,7 @@ public class Produit {
 
 	public ArrayList<ArrayList<String>> enregistrerEvalComplete() {
 		ArrayList<String> evalComplete = new ArrayList<String>();
-		
+
 		Commentaire c = new Commentaire();
 		listCommentaires = c.listeDeCom();
 
@@ -286,12 +286,28 @@ public class Produit {
 	}
 
 	public void voirDetails(Acheteur ach) {
-		// TODO: demander si ajouter ou non
-		ach.panier.ajouterArticle(this);
+	}
+
+	public void demanderAjoutPanier(Acheteur ach){
+		Scanner s = new Scanner(System.in);
+		System.out.println("Voulez-vous ajouter ce produit à votre panier? \n1: Oui");
+		System.out.println("0 : Retourner au catalogue");
+		String choix = s.nextLine();
+		while(true){
+			if ( ! Main.isNumeric(choix) ){
+				System.out.println("Svp entrez 1 ou 2!");
+			} else if (choix.equals("1")){
+				ach.panier.ajouterArticle(this);
+			} else if (choix.equals("0")){
+				Catalogue.voirCatalogue(ach);
+			} else {
+				System.out.println("Svp entrez 1 ou 2!");
+			}
+		}
 	}
 
 	public String toString(){
-		return ("Titre: " + titre + "\n" + prix);
+		return ("ID : " + ID + " Titre: " + titre + "\n" + prix);
 	}
 
 }

@@ -196,7 +196,7 @@ public abstract class Utilisateur {
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
-				case 1 -> revendeur.updateInventaire();
+				case 1 -> Plateforme.offrirProduit(revendeur);
 				case 2 -> revendeur.gererProbleme();
 				case 3 -> revendeur.confirmerReceptionRetour();
 				case 4 -> revendeur.modifierProfil(revendeur);
@@ -229,10 +229,10 @@ public abstract class Utilisateur {
 					acheteur.modifierProfil(acheteur);
 				}
 				case 4 -> {
-					//Catalogue.voirCatalogue(acheteur);
+					Catalogue.voirCatalogue(acheteur);
 				}
 				case 5 -> {
-					acheteur.panier.voirPanier();
+					acheteur.panier.voirPanier(acheteur);
 				}
 				case 6 -> {
 					acheteur.afficherMetriques(acheteur);

@@ -24,7 +24,7 @@ public class Panier {
 		return montantAPayer;
 	}
 
-	public void voirPanier(){
+	public void voirPanier(Acheteur acheteur){
 		System.out.println(" --- Votre panier --- ");
 		for(Produit p: articles){
 			System.out.println(p.toString());
@@ -36,21 +36,21 @@ public class Panier {
 			System.out.println("Vous accumulerez " + nbPoints + " points");
 			System.out.println("Voulez-vous supprimer un article du panier? \n1 : Oui \n2 : Non");
 			System.out.println("Voulez vous passer votre commande? \n3 : Oui");
-			System.out.println("Voulez-vous quitter le panier?");
+			System.out.println("Voulez-vous quitter le panier? Entrez 0");
 			while(true){
 				String choix = s.nextLine();
-				if (!Main.isNumeric(choix)){
+				if (choix.equals("0")){
+					Utilisateur.afficherMenu(acheteur);
+				} else if (!Main.isNumeric(choix)){
 					System.out.println("SVP entrez un chiffre!");
 				} else if (choix.equals("1")){
-					retirerArticle();
+					retirerArticle(acheteur);
 					break;
 				} else if (choix.equals("2")){
 					System.out.println("Vous avez choisi de ne rien supprimer du panier");
 					break;
 				} else if(choix.equals("3")){
 					Commande.passerCommande(this); // passer la commande
-				} else if(choix.equals("4")){ // quitter le panier
-					break; // TODO: return to the menu
 				}
 				else {
 					System.out.println("SVP entrez 1, 2, 3 ou 4 !");
@@ -64,7 +64,7 @@ public class Panier {
 
 	}
 
-	public void retirerArticle() {
+	public void retirerArticle(Acheteur ach) {
 
 		Scanner s = new Scanner(System.in);
 		String removeID;
@@ -94,7 +94,7 @@ public class Panier {
 			}
 			if (articles.size() == 0) break;
 		}
-		voirPanier();
+		voirPanier(ach);
 	}
 
 
