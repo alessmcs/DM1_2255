@@ -1,14 +1,25 @@
 import java.util.List;
+import java.util.Scanner;
+
 public class Acheteur extends Utilisateur {
 
-	static String pseudo;
+
 	private String adresseExpedition;
+	private String prenom;
+	private String nom;
 	private int points;
 	private List<Commande> historiqueCommandes;
 	private List<Acheteur> followers;
 	private int classement;
+	private String pseudo;
 
-	//TODO: constructor
+	public Acheteur(String telephone, String courriel, String motDePasse) {
+		super(telephone,courriel,motDePasse);
+		this.prenom= prenom;
+		this.nom= nom;
+
+	}
+
 
 
 	public boolean confirmerReceptionCommande() {
@@ -17,8 +28,27 @@ public class Acheteur extends Utilisateur {
 	}
 
 	public void inscrireAcheteur() {
-		// TODO - implement Acheteur.inscrireAcheteur
-		throw new UnsupportedOperationException();
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Veuillez entrer votre prénom :");
+		String prenom = scanner.nextLine();
+
+		System.out.println("Veuillez entrer votre nom :");
+		String nom = scanner.nextLine();
+
+		System.out.println("Veuillez entrer votre pseudo :");
+		String pseudo = scanner.nextLine();
+
+		System.out.println("Veuillez entrer votre adressse d'expidition ");
+		String adresseExpedition = scanner.nextLine();
+
+		setPrenom(prenom);
+		setNom(nom);
+		setAdresseExpedition(adresseExpedition);
+		setPseudo(pseudo);
+
+
 	}
 
 	public void suivreAcheteur() {
@@ -54,7 +84,25 @@ public class Acheteur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public class pseudo {
 
+	public String getPseudo() {
+		return pseudo;
 	}
+
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public void setAdresseExpedition(String adresseExpedition) {
+		this.adresseExpedition = adresseExpedition;
+	}
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+
 }

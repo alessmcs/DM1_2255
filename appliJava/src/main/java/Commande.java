@@ -1,7 +1,13 @@
+import java.util.UUID;
+
 public class Commande {
 
 	private StatutCommande statut;
+<<<<<<< HEAD
+	private UUID id;
+=======
 	private int id;
+>>>>>>> b88a840f83a9681722afe602713d0b33fe3d26c9
 	private String infosLivraison;
 	private int infosPaiement;
 
