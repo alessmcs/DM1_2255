@@ -1,61 +1,224 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.UUID;
+import java.util.Scanner;
 
-=======
->>>>>>> b88a840f83a9681722afe602713d0b33fe3d26c9
 public class Produit {
 
-	protected String titre;
-	protected double prix;
-	protected int ID;
-	protected static int qteEnStock;
-	protected String catégorie;
-	protected int nbPoints;
-	protected String description;
-	protected String dateMiseEnVente;
-	protected List<Commentaire> commentaires;
-	protected int note;
+	private String titre;
+	private float prix;
+	private int ID;
+	private int qteEnStock;
+	private String catégorie;
+	private int nbPoints;
+	private String description;
+	private String dateMiseEnVente;
+	private ArrayList<ArrayList<String>> commentaires;
+	private int note;
 
-	private String image; // nom du fichier
+    Scanner scan = new Scanner(System.in);
+    String evalEtoile;
+	String coeur;
+	String review;
 
-	public Produit(String titre, double prix, int qte, String cat, int nbPoints, String description, String date){
-		this.titre = titre;
-		this.prix = prix;
-		this.catégorie = cat;
-		this.qteEnStock = qte;
-		this.nbPoints = nbPoints;
-		this.description = description;
-		this.dateMiseEnVente = date;
+
+
+	public String voirDetails() {
+		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete();
+
+		for (ArrayList<String> innerList : listeComplete){
+			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + innerList.get(0));
+			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + innerList.get(1));
+			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + innerList.get(2));
+
+			System.out.println();
+	  	}
+
+		return "-----Voilà les détails du produit!------";
+
+
 	}
 
-	public void addImage(String fileName){
-		this.image = fileName;
+	public String evaluer() {
+        System.out.println("Combien d'étoiles aimeriez-vous donner au produit?");
+        System.out.println("1. *");
+        System.out.println("2. **");
+        System.out.println("3. ***");
+        System.out.println("4. ****");
+        System.out.println("5. *****");
+
+        System.out.print("Entrez votre choix: ");
+        String eval = scan.nextLine();
+        
+        switch(eval) {
+            case "1":
+                evalEtoile = "*";
+                break;
+            case "2":
+                evalEtoile = "**";
+                break;
+            case "3":
+                evalEtoile = "***";
+                break;
+            case "4":
+                evalEtoile = "****";
+                break;
+            case "5": 
+                evalEtoile = "*****";
+                break;
+            default:
+				System.out.println();
+				System.out.println("Veuillez choisir entre les cinq options données.");
+				System.out.println();
+                evaluer();
+        }
+
+        return "Vous avez choisi de mettre " + "\u001B[1m" + evalEtoile + "\u001B[0m" + " étoile(s) au produit!";
 	}
 
-	public void voirDetails() {
-		// TODO - implement Produit.voirDetails
-		throw new UnsupportedOperationException();
+
+
+	public String liker() {
+		System.out.println("Voulez-vous aimer ce produit?");
+		System.out.println("1. Oui");
+		System.out.println("2. Non");
+
+		System.out.print("Entrez votre choix: ");
+        String like = scan.nextLine();
+
+		switch(like) {
+			case "1":
+				coeur = "liker";
+				break;
+			case "2":
+				coeur = "ne pas liker";
+				break;
+			default:
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données");
+				System.out.println();
+				liker();
+		}
+
+		return "Vous avez choisi de " + "\u001B[1m" + coeur + "\u001B[0m" + " le produit!";
 	}
 
-	public void evaluer() {
-		// TODO - implement Produit.evaluer
-		throw new UnsupportedOperationException();
+
+
+	public String commenter() { 
+		review = "";
+
+		System.out.println("Voulez-vous laisser un commentaire au produit?");
+
+		System.out.println("1. Oui");
+		System.out.println("2. Non");
+
+		System.out.print("Entrez votre choix: ");
+        String comment = scan.nextLine();
+
+		switch (comment) {
+			case "1":
+				System.out.print("Veuillez écrire votre commentaire ici: ");
+				String commentaire = scan.nextLine();
+				review = commentaire;
+				break;
+
+			case "2":
+				review = "*Aucun commentaire* ";
+				break;
+
+			default: 
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données.");
+				System.out.println();
+				commenter();
+				break;
+		}
+
+		return "Vous avez choisi de commenter: " + "\u001B[1m" + review + "\u001B[0m";
+
 	}
 
-	public void liker() {
-		// TODO - implement Produit.liker
-		throw new UnsupportedOperationException();
+	public String verifier() {
+		System.out.println("Voici les données recueillies: ");
+		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
+		System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
+		System.out.println("Commentaire: " + "\u001B[1m" + review + "\u001B[0m");
+		System.out.println();
+
+		System.out.println("Sont-elles correctes? : ");
+
+		System.out.println("1. Oui");
+		System.out.println("2. Non");
+
+		System.out.print("Entrez votre choix: ");
+        String verif= scan.nextLine();
+		System.out.println();
+
+		switch (verif) {
+			case "1":
+				break;
+			case "2":
+				System.out.println("Quelle donnée souhaitez-vous changer? : ");
+				System.out.println("1. Étoile(s)");
+				System.out.println("2. Like");
+				System.out.println("3. Commentaire");
+
+				System.out.print("Entrez votre choix: ");
+        		String modification= scan.nextLine();
+				System.out.println();
+
+				switch (modification) {
+					case "1":
+						evaluer();
+						verifier();
+						break;
+					case "2":
+						liker();
+						verifier();
+						break;
+					case "3": 
+						commenter();
+						verifier();
+						break;
+					default:
+						System.out.println();
+						System.out.println("Veuillez choisir entre les trois options données.");
+						System.out.println();
+						break;
+				}
+				break;
+			default:
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données.");
+				System.out.println();
+				verifier();
+				break;
+		}
+		return "Vos données ont été enregistrées!";
 	}
 
-	public Commentaire commenter() {
-		// TODO - implement Produit.commenter
-		throw new UnsupportedOperationException();
+
+	public ArrayList<ArrayList<String>> enregistrerEvalComplete() {
+		ArrayList<String> evalComplete = new ArrayList<String>();
+
+		Commentaire c = new Commentaire();
+		ArrayList<ArrayList<String>> listCommentaires = c.listeDeCom();
+
+		evalComplete.add(evalEtoile);
+		evalComplete.add(coeur);
+		evalComplete.add(review);
+		c.setContenu(evalComplete); 
+
+		listCommentaires.add(c.getContenu());
+
+		return listCommentaires;
 	}
+
+
 
 	public void promouvoir() {
 		// TODO - implement Produit.promouvoir
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -72,15 +235,6 @@ public class Produit {
 	 */
 	public void setPoints(int points) {
 		// TODO - implement Produit.setPoints
-		throw new UnsupportedOperationException();
-	}
-
-	public int getPoints() {
-		return this.nbPoints;
-	}
-
-	public int getId(){
-		return ID;
 	}
 
 	/**
@@ -91,26 +245,12 @@ public class Produit {
 		this.titre = t;
 	}
 
-	public String getTitre(){
-		return titre;
-	}
-
-	public double getPrix(){
-		return prix;
-	}
-
+	/**
+	 * 
+	 * @param prix
+	 */
 	public void setPrix(double prix) {
 		// TODO - implement Produit.setPrix
-		throw new UnsupportedOperationException();
 	}
-
-	public static int getQte(){
-		return qteEnStock;
-	}
-	public static void setQte(int nouvQuant){
-		qteEnStock = nouvQuant;
-	}
-
-
 
 }
