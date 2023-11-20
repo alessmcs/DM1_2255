@@ -8,13 +8,15 @@ public class Produit {
 	protected String titre;
 	protected float prix;
 	protected int ID;
+	protected int qteInitiale;
 	protected int qteEnStock;
 	protected String catégorie;
 	protected int nbPoints;
 	protected String description;
 	protected String dateMiseEnVente;
-	protected ArrayList<ArrayList<String>> commentaires;
+	protected ArrayList<ArrayList<String>> listCommentaires;
 	private int note;
+
 
     Scanner scan = new Scanner(System.in);
     String evalEtoile;
@@ -24,6 +26,7 @@ public class Produit {
 	public Produit(String titre, float prix, int qte, String cat, int nbPoints, String description, String date) {
 		this.titre = titre;
 		this.prix = prix;
+		this.qteInitiale = qte;
 		this.qteEnStock = qte;
 		this.catégorie = cat;
 		this.nbPoints = nbPoints;
@@ -206,14 +209,14 @@ public class Produit {
 
 	public ArrayList<ArrayList<String>> enregistrerEvalComplete() {
 		ArrayList<String> evalComplete = new ArrayList<String>();
-
+		
 		Commentaire c = new Commentaire();
-		ArrayList<ArrayList<String>> listCommentaires = c.listeDeCom();
+		listCommentaires = c.listeDeCom();
 
 		evalComplete.add(evalEtoile);
 		evalComplete.add(coeur);
 		evalComplete.add(review);
-		c.setContenu(evalComplete); 
+		c.setContenu(evalComplete);
 
 		listCommentaires.add(c.getContenu());
 
@@ -282,7 +285,9 @@ public class Produit {
 		return this.titre;
 	}
 
-	public void voirDetails() {
+	public void voirDetails(Acheteur ach) {
+		// TODO: demander si ajouter ou non
+		ach.panier.ajouterArticle(this);
 	}
 
 	public String toString(){

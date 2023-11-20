@@ -8,12 +8,12 @@ public class Acheteur extends Utilisateur {
 	private String prenom;
 	private String nom;
 	private int points;
-	private ArrayList<Commande> historiqueCommandes;
+	protected ArrayList<Commande> historiqueCommandes;
 	private ArrayList<Acheteur> followers;
 	private int classement;
 	private String pseudo;
 
-	protected static Panier panier;
+	public static Panier panier;
 
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
@@ -158,6 +158,10 @@ public class Acheteur extends Utilisateur {
 
 	public void setPoints(int points){
 		this.points = points;
+	}
+
+	public Acheteur getAcheteur(){
+		return this;
 	}
 
 	public void addHistorique(Commande commande) {

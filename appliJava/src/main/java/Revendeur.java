@@ -1,13 +1,14 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Revendeur extends Utilisateur {
 
 	private Adresse adresse;
 	private int nom;
-	private List<Produit> inventaire;
+	protected ArrayList<Produit> inventaire;
 	private String pseudo;
+	protected ArrayList<Produit> commandes; //TODO ajouter attribut revendeur au produit
+
 
 
 
@@ -53,7 +54,7 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void gérerProbleme() {
+	public void gererProbleme() {
 		// TODO - implement Revendeur.gérerProbleme
 		throw new UnsupportedOperationException();
 	}

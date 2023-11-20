@@ -245,6 +245,10 @@ public class Commande {
 		return id;
 	}
 
+	public ArrayList<Produit> getArticles(){
+		return articles;
+	}
+
 	public void commandeToString(){
 		System.out.println(id + "\n" + statut);
 		for(Produit p : articles){

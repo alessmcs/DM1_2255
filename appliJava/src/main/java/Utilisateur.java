@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 public abstract class Utilisateur {
@@ -151,29 +152,56 @@ public abstract class Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void afficherMetriques() {
-		// TODO - implement Utilisateur.afficherMetriques
-		throw new UnsupportedOperationException();
+	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
+		if (utilisateur instanceof Revendeur){
+			float revenu = 0;
+			int nbVendu = 0;
+			int nbArticles = ((Revendeur) utilisateur).inventaire.size();
+			for (Produit p : ((Revendeur) utilisateur).inventaire){
+				if(p.qteInitiale != p.qteEnStock){
+					int n = p.qteInitiale - p.qteEnStock;
+					nbVendu += n;
+					revenu += p.prix * n;
+				}
+			}
+		} else if ( utilisateur instanceof Acheteur ){
+			int nbCommandes = 0;
+			int nbArticles = 0;
+			ArrayList<Produit> produitsAchetes = new ArrayList<>();
+			ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
+			for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
+				//voir les produits achetés
+				ArrayList<Produit> produits = c.getArticles();
+				for (Produit p : produits){
+					p.toString();
+
+				}
+			}
+
+		}
 	}
 
 	public static <T extends Utilisateur> void afficherMenu(T utilisateur) {
 		Scanner scanner = new Scanner((System.in));
 		if (utilisateur instanceof Revendeur) {
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
-			System.out.println("1. Update Inventaire");
-			System.out.println("2. Gérer Probleme");
+			System.out.println("1. Offrir un produit");
+			System.out.println("2. Gérer problème");
 			System.out.println("3. Confirmer Reception Retour");
 			System.out.println("4. Modifier le profil");
+			System.out.println("5. Afficher métriques");
+			System.out.println("6. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
 				case 1 -> revendeur.updateInventaire();
-				case 2 -> revendeur.gérerProbleme();
+				case 2 -> revendeur.gererProbleme();
 				case 3 -> revendeur.confirmerReceptionRetour();
 				case 4 -> revendeur.modifierProfil(revendeur);
-				default -> System.out.println("Choix invalide veuillez selectionner 1, 2 ou 3.");
+				case 5 -> revendeur.afficherMetriques(revendeur);
+				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2 ou 3.");
 			}
 
 		} else if (utilisateur instanceof Acheteur) {
@@ -181,7 +209,7 @@ public abstract class Utilisateur {
 
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
 			System.out.println("1. Confirmer Reception Commande.");
-			System.out.println("2. Signaler un probleme.");
+			System.out.println("2. Signaler un problème.");
 			System.out.println("3. Modifier profil.");
 			System.out.println("4. Voir catalogue de produits");
 			System.out.println("5. Voir mon panier");
@@ -200,8 +228,14 @@ public abstract class Utilisateur {
 				case 3 -> {
 					acheteur.modifierProfil(acheteur);
 				}
+				case 4 -> {
+					//Catalogue.voirCatalogue(acheteur);
+				}
 				case 5 -> {
 					acheteur.panier.voirPanier();
+				}
+				case 6 -> {
+					acheteur.afficherMetriques(acheteur);
 				}
 				default -> System.out.println("Choix invalide veuillez selectionner 1, 2 ou 3.");
 			}
