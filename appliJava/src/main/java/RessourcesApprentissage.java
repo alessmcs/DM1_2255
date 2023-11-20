@@ -5,7 +5,7 @@ public class RessourcesApprentissage extends Produit {
 	private String modele;
 	private String sousCategorie;
 
-	public RessourcesApprentissage(String titre, double prix, int qte, String cat, int nbPoints, String description, String date,
+	public RessourcesApprentissage(String titre, double prix, int qte, String cat, int nbPoints, String description,
 								   String marque, String modele, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);
 		this.marque = marque;

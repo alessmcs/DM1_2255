@@ -5,33 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/appliJava.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Catalogue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Catalogue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Panier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Plateforme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Plateforme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Produit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilisateur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Acheteur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Acheteur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BilletDeSignalement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BilletDeSignalement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Catalogue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Catalogue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Commande.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commande.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/EquipementBureau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/EquipementBureau.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/MaterielInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MaterielInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Panier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Panier.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Plateforme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Plateforme.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Probleme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Probleme.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Produit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Produit.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Revendeur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Revendeur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/StatutCommande.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/StatutCommande.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utilisateur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utilisateur.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,13 +50,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/soundous/Documents/GitHub/DM1_2255/appliJava&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/Users/soundous/Documents/GitHub/DM1_2255/appliJava"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
@@ -96,5 +84,8 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/appliJava$Main.ic" NAME="Main Coverage Results" MODIFIED="1700522452423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

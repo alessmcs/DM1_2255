@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Plateforme {
 
-	public static String offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
+	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
 		// Demander au revendeur de specifier un titre
 		Scanner scanner = new Scanner(System.in);
 
@@ -30,17 +30,54 @@ public class Plateforme {
 				System.out.print("Veuillez entrer le numéro de la catégorie : ");
 				int choixCategorie = scanner.nextInt();
 
-				// Vérifier si la catégorie est valide
-				categorie = switch (choixCategorie) {
-					case 1 -> "Livres et manuels";
-					case 2 -> "Ressources d'apprentissage";
-					case 3 -> "Matériel informatique";
-					case 4 -> "Équipement de bureau";
-					default -> throw new Exception("Veuillez choisir une catégorie existante.");
-				};
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				switch (choixCategorie) {
+					case 1 -> {
+						categorie = "Livres et manuels";
+						System.out.println("ISBN : ");
+						String ISBN = scanner.next();
+						System.out.println("Auteur : ");
+						String auteur = scanner.next();
+						System.out.println("Maison d'édition: ");
+						String maisonEdition = scanner.next();
+						System.out.println("Genre: ");
+						String genre = scanner.next();
+						System.out.println("Date de parution: ");
+						String dateParution = scanner.next();
+						System.out.println("Numéro d'édition: ");
+						int numEd = scanner.nextInt();
+						System.out.println("Numéro du volume: ");
+						int numVol = scanner.nextInt();
+					}
+					case 2, 4 -> {
+						if (choixCategorie == 2) {
+							categorie = "Ressources d'apprentissage";
+						} else {
+							categorie = "Équipement de bureau";
+						}
+					}
+					case 3 -> categorie = "Matériel informatique";
+					default -> System.out.println("Veuillez choisir une catégorie existante.");
+				}
+
+				// Recueillir les informations communes pour les categories 2,3 et 4
+				System.out.print("Marque : ");
+				String marque = scanner.next();
+				System.out.print("Modèle : ");
+				String modele = scanner.next();
+				System.out.print("Sous-catégorie : ");
+				String sousCategorie = scanner.next();
+
+				// Recueillir info additionnelle pour categorie 3
+				if (choixCategorie == 3) {
+					System.out.print("Date de lancement : ");
+					String dateLancement = scanner.next();
+				}
+
+			} catch (InputMismatchException e) {
+				System.out.println("Veuillez entrer le numéro associé à une des catégories.");
+				scanner.next();
 			}
+
 		}
 		// Demander au revendeur d'entrer une description
 		System.out.print("Veuillez donner une description de ce produit : ");
@@ -126,8 +163,5 @@ public class Plateforme {
 			offrirProduit(revendeur); // offrir un autre produit
 		}
 
-		// tous les produits ont un formulaire différent
-		return "Titre: " + titre + "\n" + "Catégorie: " + categorie + "\n" + "Quantité en stock: " + qteEnStock + "\n"
-				+ prix + "\n" + "Points bonus: " + nbPoints;
 	}
 }
