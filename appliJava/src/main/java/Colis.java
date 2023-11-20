@@ -6,6 +6,10 @@ public class Colis {
 	private String dateArriveeEst;
 	private StatutCommande statut;
 
+	public Colis(StatutCommande statutCommande) {
+		this.statut = statutCommande;
+	}
+
 	public void suivreEtat() {
 		// TODO - implement Colis.suivreEtat
 		throw new UnsupportedOperationException();

@@ -1,7 +1,20 @@
 public class Facture {
 
-	private double montant;
+	private static double montant;
 	private String date;
-	private double rabais;
+	private static double rabais;
+
+	public Facture(double montant){
+		this.montant = montant;
+	}
+
+	public static void setRabais(int rabais){
+		rabais = rabais;
+		montant -= rabais;
+	}
+
+	public static double getTotal(){
+		return montant;
+	}
 
 }
