@@ -1,15 +1,15 @@
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Acheteur extends Utilisateur {
 
 
-	private String adresseExpedition;
+	private Adresse adresseExpedition;
 	private String prenom;
 	private String nom;
 	private int points;
-	private List<Commande> historiqueCommandes;
-	private List<Acheteur> followers;
+	private ArrayList<Commande> historiqueCommandes;
+	private ArrayList<Acheteur> followers;
 	private int classement;
 	private String pseudo;
 
@@ -40,8 +40,25 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Veuillez entrer votre pseudo :");
 		String pseudo = scanner.nextLine();
 
-		System.out.println("Veuillez entrer votre adressse d'expidition ");
-		String adresseExpedition = scanner.nextLine();
+		System.out.println("Veuillez entrer votre adressse d'expédition ");
+		while (true) {
+			System.out.println("Adresse de rue: ");
+			String street = scanner.nextLine();
+			System.out.println("Ville: ");
+			String city = scanner.nextLine();
+			System.out.println("Province (abbr): ");
+			String province = scanner.nextLine();
+			System.out.println("Code postal: ");
+			String postalCode = scanner.nextLine();
+			System.out.println("Pays: ");
+			String country = scanner.nextLine();
+
+			adresseExpedition = new Adresse(street, city, province, postalCode, country);
+			// valider l'adresse
+			boolean valide = SystemeLivraison.validerInfosLivraison(adresseExpedition);
+			if (valide) break;
+			else System.out.println("L'adresse entrée est invalide, svp réessayer");
+		}
 
 		setPrenom(prenom);
 		setNom(nom);
@@ -97,11 +114,27 @@ public class Acheteur extends Utilisateur {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public void setAdresseExpedition(String adresseExpedition) {
+	public void setAdresseExpedition(Adresse adresseExpedition) {
 		this.adresseExpedition = adresseExpedition;
+	}
+	public Adresse getAdresseExpedition() {
+		return this.adresseExpedition;
 	}
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+
+	public int getPoints() {
+		return this.points;
+	}
+
+	public void setPoints(int points){
+		this.points = points;
+	}
+
+	public void addHistorique(Commande commande) {
+		historiqueCommandes.add(commande);
 	}
 
 

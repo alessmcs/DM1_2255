@@ -9,5 +9,8 @@
         <module name="appliJava" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="appliJava" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>

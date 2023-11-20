@@ -13,7 +13,7 @@ public class Commande {
 	private static ArrayList<Produit> articles = new ArrayList<>();
 
 	// TODO: utiliser l'acheteur connecté dans main????
-	private static Acheteur acheteur = Main.acheteurConnecte;
+	private static Acheteur acheteur;
 
 	// Constructeur de commande
 	public Commande(String status, Adresse adresse, int id, ArrayList<Produit> articles){
@@ -74,7 +74,7 @@ public class Commande {
 			if (!Main.isNumeric(choixNum)) {
 				System.out.println("Vous devez entrer un chiffre!");
 			} else if (choixNum.equals("1")) {
-				numTel = acheteur.getTel();
+				numTel = acheteur.getTelephone();
 				break;
 			} else if (choixNum.equals("2")) {
 				while (true) {
@@ -222,7 +222,7 @@ public class Commande {
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
 		System.out.printf("\nTotal: %.2f" + facture.getTotal()); // inclure le rabais!
 		System.out.println("Livré au : " + acheteur.getAdresseExpedition().toString());
-		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTel());
+		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTelephone());
 
 
 		// nouveau colis généré avec la commande

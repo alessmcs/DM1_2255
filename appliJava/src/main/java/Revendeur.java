@@ -1,18 +1,11 @@
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Revendeur extends Utilisateur {
 
-	private String adresse;
-=======
-import java.util.List;
-public class Revendeur extends Utilisateur {
-
-	private String adresse;
+	private Adresse adresse;
 	private int nom;
->>>>>>> b88a840f83a9681722afe602713d0b33fe3d26c9
 	private List<Produit> inventaire;
 	private String pseudo;
 
@@ -28,7 +21,24 @@ public class Revendeur extends Utilisateur {
 
 
 		System.out.println("Veuillez entrer votre adresse civil: ");
-		String adresse = scanner.nextLine();
+		while (true) {
+			System.out.println("Adresse de rue: ");
+			String street = scanner.nextLine();
+			System.out.println("Ville: ");
+			String city = scanner.nextLine();
+			System.out.println("Province (abbr): ");
+			String province = scanner.nextLine();
+			System.out.println("Code postal: ");
+			String postalCode = scanner.nextLine();
+			System.out.println("Pays: ");
+			String country = scanner.nextLine();
+
+			adresse = new Adresse(street, city, province, postalCode, country);
+			// valider l'adresse
+			boolean valide = SystemeLivraison.validerInfosLivraison(adresse);
+			if (valide) break;
+			else System.out.println("L'adresse entrée est invalide, svp réessayer");
+		}
 
 		System.out.println("Veuillez entrer votre pseudo");
 		String pseudo = scanner.nextLine();
@@ -57,7 +67,7 @@ public class Revendeur extends Utilisateur {
 		return pseudo;
 	}
 
-	public void setAdresse(String adresse) {
+	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 	public void setPseudo(String pseudo) {

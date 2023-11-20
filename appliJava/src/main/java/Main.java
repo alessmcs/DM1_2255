@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -10,14 +12,18 @@ public class Main {
         int choix = Integer.parseInt(scanner.nextLine());
         switch (choix) {
             case 1:
-                creerProfil();
+                Utilisateur.creerProfil();
                 break;
             case 2:
-                seConnecter();
+                Utilisateur.seConnecter();
                 break;
             default:
                 System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
         }
+    }
+
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
 }

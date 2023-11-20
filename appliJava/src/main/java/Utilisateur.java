@@ -3,16 +3,10 @@ import java.util.Scanner;
 
 public abstract class Utilisateur {
 
-<<<<<<< HEAD
 	private String telephone;
 	private String motDePasse;
 	private String courriel;
 	private long temps;
-=======
-	private int telephone;
-	private String motDePasse;
-	private String courriel;
->>>>>>> b88a840f83a9681722afe602713d0b33fe3d26c9
 
 	public Utilisateur(String telephone, String courriel, String motDePasse) {
 		this.telephone = telephone;
@@ -28,6 +22,7 @@ public abstract class Utilisateur {
 		return tempsPassee > twentyFourHoursInMillis;
 	}
 
+	public String getTelephone() { return this.telephone; }
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
@@ -348,7 +343,11 @@ public abstract class Utilisateur {
 					afficherMenu(utilisateur);
 			}
 		}
+
+	public String getCourriel() {
+		return this.courriel;
 	}
+}
 
 
 
