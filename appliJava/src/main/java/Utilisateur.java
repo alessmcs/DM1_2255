@@ -61,9 +61,6 @@ public abstract class Utilisateur {
 		System.out.println(" Veuillez entrer un mot de passe.");
 		String motDePasse = scanner.nextLine();
 
-		System.out.println(" Veuillez entrer votre adresse.");
-		String adresse = scanner.nextLine();
-
 		System.out.println("Veuillez selectionner le type de compte que vous souhaitez creer.");
 		System.out.println(" 1. Revendeur");
 		System.out.println(" 2. Acheteur ");
@@ -83,8 +80,8 @@ public abstract class Utilisateur {
 				acheteur.inscrireAcheteur();
 
 				BaseDonnees.acheteursList.add(acheteur);
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecrtez pas le delais," +
-						" le compte sera annuler ");
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le delais," +
+						" le compte sera désactivé ");
 				afficherMenu(acheteur);
 				break;
 			default:
@@ -115,7 +112,7 @@ public abstract class Utilisateur {
 							revendeur.getMotDePasse().equals(motDePasseRevendeur)) {
 						profilTrouver = true;
 						if (revendeur.desactiver()){
-							System.out.println("Vous n'avez pas respecter les 24 heures. Votre compte est désactiver.");
+							System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
 							System.exit(0);
 
 						} else  {
@@ -136,7 +133,7 @@ public abstract class Utilisateur {
 							acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
 						profilTrouver = true;
 						if (acheteur.desactiver()){
-							System.out.println("Vous n'avez pas respecter les 24 heures. Votre compte est désactiver.");
+							System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
 							System.exit(0);
 
 						} else  {
@@ -186,6 +183,10 @@ public abstract class Utilisateur {
 			System.out.println("1. Confirmer Reception Commande.");
 			System.out.println("2. Signaler un probleme.");
 			System.out.println("3. Modifier profil.");
+			System.out.println("4. Voir catalogue de produits");
+			System.out.println("5. Voir mon panier");
+			System.out.println("6. Afficher les métriques de mes activités");
+			System.out.println("7. Consulter l'état de ma commande");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
 			Acheteur acheteur = (Acheteur) utilisateur;
@@ -198,6 +199,9 @@ public abstract class Utilisateur {
 				}
 				case 3 -> {
 					acheteur.modifierProfil(acheteur);
+				}
+				case 5 -> {
+					acheteur.panier.voirPanier();
 				}
 				default -> System.out.println("Choix invalide veuillez selectionner 1, 2 ou 3.");
 			}
@@ -242,8 +246,28 @@ public abstract class Utilisateur {
 
 				case 5:
 					System.out.println("Veuillez entrer votre adresse civile: ");
-					String adresse = scanner.nextLine();
-					revendeur.setAdresse(adresse);
+
+					while (true) {
+						System.out.println("Adresse de rue: ");
+						String street = scanner.nextLine();
+						System.out.println("Ville: ");
+						String city = scanner.nextLine();
+						System.out.println("Province (abbr): ");
+						String province = scanner.nextLine();
+						System.out.println("Code postal: ");
+						String postalCode = scanner.nextLine();
+						System.out.println("Pays: ");
+						String country = scanner.nextLine();
+
+						Adresse adresse = new Adresse(street, city, province, postalCode, country);
+						// valider l'adresse
+						boolean valide = SystemeLivraison.validerInfosLivraison(adresse);
+						if (valide) {
+							revendeur.setAdresse(adresse);
+							break;
+						} else System.out.println("L'adresse entrée est invalide, svp réessayer");
+					}
+
 					System.out.println("Adresse civile mise à jour avec succès!");
 					break;
 				case 6:
@@ -320,7 +344,28 @@ public abstract class Utilisateur {
 					System.out.println("Veuillez entrer votre adresse d'expédition :");
 					String adresseExpedition = scanner.nextLine();
 
-					acheteur.setAdresseExpedition(adresseExpedition);
+					while (true) {
+						System.out.println("Adresse de rue: ");
+						String street = scanner.nextLine();
+						System.out.println("Ville: ");
+						String city = scanner.nextLine();
+						System.out.println("Province (abbr): ");
+						String province = scanner.nextLine();
+						System.out.println("Code postal: ");
+						String postalCode = scanner.nextLine();
+						System.out.println("Pays: ");
+						String country = scanner.nextLine();
+
+						Adresse adresse = new Adresse(street, city, province, postalCode, country);
+						// valider l'adresse
+						boolean valide = SystemeLivraison.validerInfosLivraison(adresse);
+						if (valide) {
+							acheteur.setAdresseExpedition(adresse);
+							break;
+						}
+						else System.out.println("L'adresse entrée est invalide, svp réessayer");
+					}
+
 					System.out.println("Adresse d'expédition mise à jour avec succès!");
 					break;
 				case 8:

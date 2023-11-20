@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 public class Produit {
 
-	private String titre;
-	private float prix;
-	private int ID;
-	private int qteEnStock;
-	private String catégorie;
-	private int nbPoints;
-	private String description;
-	private String dateMiseEnVente;
-	private ArrayList<ArrayList<String>> commentaires;
+	protected String titre;
+	protected float prix;
+	protected int ID;
+	protected int qteEnStock;
+	protected String catégorie;
+	protected int nbPoints;
+	protected String description;
+	protected String dateMiseEnVente;
+	protected ArrayList<ArrayList<String>> commentaires;
 	private int note;
 
     Scanner scan = new Scanner(System.in);
@@ -21,22 +21,27 @@ public class Produit {
 	String coeur;
 	String review;
 
+	public Produit(String titre, float prix, int qte, String cat, int nbPoints, String description, String date) {
+		this.titre = titre;
+		this.prix = prix;
+		this.qteEnStock = qte;
+		this.catégorie = cat;
+		this.nbPoints = nbPoints;
+		this.description = description;
+		this.dateMiseEnVente = date;
+	}
 
 
-	public String voirDetails() {
+	public void voirEval() {
 		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete();
 
-		for (ArrayList<String> innerList : listeComplete){
-			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + innerList.get(0));
-			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + innerList.get(1));
-			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + innerList.get(2));
+		for (ArrayList<String> elements : listeComplete){
+			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + elements.get(0));
+			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + elements.get(1));
+			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + elements.get(2));
 
 			System.out.println();
 	  	}
-
-		return "-----Voilà les détails du produit!------";
-
-
 	}
 
 	public String evaluer() {
@@ -221,6 +226,14 @@ public class Produit {
 		// TODO - implement Produit.promouvoir
 	}
 
+	public int getQte(){
+		return this.qteEnStock;
+	}
+
+	public void setQte(int qte){
+		this.qteEnStock = qte;
+	}
+
 	/**
 	 * 
 	 * @param d
@@ -251,6 +264,29 @@ public class Produit {
 	 */
 	public void setPrix(double prix) {
 		// TODO - implement Produit.setPrix
+	}
+
+	public float getPrix() {
+		return this.prix;
+	}
+
+	public int getPoints() {
+		return this.nbPoints;
+	}
+
+	public int getId() {
+		return this.ID;
+	}
+
+	public String getTitre() {
+		return this.titre;
+	}
+
+	public void voirDetails() {
+	}
+
+	public String toString(){
+		return ("Titre: " + titre + "\n" + prix);
 	}
 
 }

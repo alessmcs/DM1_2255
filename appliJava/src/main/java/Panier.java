@@ -27,7 +27,7 @@ public class Panier {
 	public void voirPanier(){
 		System.out.println(" --- Votre panier --- ");
 		for(Produit p: articles){
-			p.voirDetails();
+			System.out.println(p.toString());
 		}
 
 		if (articles.size() != 0){
@@ -86,7 +86,7 @@ public class Panier {
 		}
 
 		for(Produit p : articles){
-			if(p.ID == Integer.parseInt(removeID)) {
+			if(p.getId() == Integer.parseInt(removeID)) {
 				articles.remove(p);
 				montantAPayer-= p.getPrix();
 				nbPoints -= p.getPoints();

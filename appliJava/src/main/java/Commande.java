@@ -230,17 +230,28 @@ public class Commande {
 	}
 
 	public void annuler() {
-		// TODO - implement Commande.annuler
 	}
 
 	// maybe add another parameter for this method
 	public void setEtatCommande(StatutCommande e) {
-		// TODO - implement Commande.setEtatCommande
 		this.statut = e;
 	}
 
 	public StatutCommande getStatutCommande(){
 		return statut;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void commandeToString(){
+		System.out.println(id + "\n" + statut);
+		for(Produit p : articles){
+			System.out.println(p.toString());
+		}
+	}
+
+
 
 }

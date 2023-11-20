@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="" />
+    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Acheteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Acheteur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commande.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Filtre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Filtre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Panier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Produit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/StatutCommande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/StatutCommande.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SystemeLivraison.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SystemeLivraison.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilisateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Acheteur$pseudo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Acheteur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Acheteur.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Adresse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Adresse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BaseDonnees.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BaseDonnees.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Catalogue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Catalogue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Colis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Colis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commande.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commande.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Commentaire.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commentaire.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Date.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Date.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/EquipementBureau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/EquipementBureau.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Facture.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Facture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MaterielInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MaterielInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Panier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Panier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Plateforme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Plateforme.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Produit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Produit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RaisonsNotif.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RaisonsNotif.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Revendeur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Revendeur.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SystemeLivraison.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SystemeLivraison.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SystemePaiement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SystemePaiement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Utilisateur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utilisateur.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/retourEchange.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/retourEchange.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,20 +86,6 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Utilisateur" />
-      <module name="appliJava" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Unnamed" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,5 +96,16 @@
       <updated>1699902079086</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Acheteur.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

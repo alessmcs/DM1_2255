@@ -13,6 +13,9 @@ public class Acheteur extends Utilisateur {
 	private int classement;
 	private String pseudo;
 
+	protected static Panier panier;
+
+
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
@@ -23,8 +26,32 @@ public class Acheteur extends Utilisateur {
 
 
 	public boolean confirmerReceptionCommande() {
-		// TODO - implement Acheteur.confirmerReceptionCommande
-		throw new UnsupportedOperationException();
+		Scanner s = new Scanner(System.in);
+
+		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
+		for(Commande c : historiqueCommandes){
+			c.commandeToString();
+		}
+		while(true){
+			String choix = s.nextLine();
+			if (! Main.isNumeric(choix) ){
+				System.out.println("Svp entrez un chiffre pour l'ID!");
+			} else {
+				for(Commande c : historiqueCommandes){
+					if ( Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree ){
+						c.setEtatCommande(StatutCommande.livree);
+						break;
+					} else if( c.getStatutCommande() == StatutCommande.livree ) {
+						System.out.println("Cette commande est deja livrée");
+					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
+						System.out.println("Cette commande n'a pas encore été envoyée.");
+					}
+					else {
+						continue;
+					}
+				}
+			}
+		}
 	}
 
 	public void inscrireAcheteur() {
@@ -40,7 +67,7 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Veuillez entrer votre pseudo :");
 		String pseudo = scanner.nextLine();
 
-		System.out.println("Veuillez entrer votre adressse d'expédition ");
+		System.out.println("Veuillez entrer votre adresse d'expédition ");
 		while (true) {
 			System.out.println("Adresse de rue: ");
 			String street = scanner.nextLine();
