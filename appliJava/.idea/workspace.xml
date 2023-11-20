@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Acheteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Acheteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commande.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Revendeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Revendeur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilisateur.java" afterDir="false" />
-    </list>
+    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
