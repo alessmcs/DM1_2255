@@ -207,22 +207,19 @@ public abstract class Utilisateur {
 		if (utilisateur instanceof Revendeur) {
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
 			System.out.println("1. Offrir un produit");
-			System.out.println("2. Gérer problème");
-			System.out.println("3. Confirmer Reception Retour");
-			System.out.println("4. Modifier le profil");
-			System.out.println("5. Afficher métriques");
-			System.out.println("6. Déconnexion");
+			System.out.println("2. Confirmer Reception Retour");
+			System.out.println("3. Modifier le profil");
+			System.out.println("4. Afficher métriques");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
 				case 1 -> Plateforme.offrirProduit(revendeur);
-				case 2 -> revendeur.gererProbleme();
-				case 3 -> revendeur.confirmerReceptionRetour();
-				case 4 -> revendeur.modifierProfil(revendeur);
-				case 5 -> revendeur.afficherMetriques(revendeur);
-				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2 ou 3.");
+				case 2 -> revendeur.confirmerReceptionRetour();
+				case 3 -> revendeur.modifierProfil(revendeur);
+				case 4 -> revendeur.afficherMetriques(revendeur);
+				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
 			}
 
 		} else if (utilisateur instanceof Acheteur) {
@@ -235,7 +232,6 @@ public abstract class Utilisateur {
 			System.out.println("4. Voir catalogue de produits");
 			System.out.println("5. Voir mon panier");
 			System.out.println("6. Afficher les métriques de mes activités");
-			System.out.println("7. Consulter l'état de ma commande");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
 			Acheteur acheteur = (Acheteur) utilisateur;
@@ -258,7 +254,7 @@ public abstract class Utilisateur {
 				case 6 -> {
 					acheteur.afficherMetriques(acheteur);
 				}
-				default -> System.out.println("Choix invalide veuillez selectionner 1, 2 ou 3.");
+				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");
 			}
 		}
 	}

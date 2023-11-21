@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -106,7 +107,7 @@ public class Main {
         revendeur5.setPseudo("roger427");
         revendeur5.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "j9c2d6", "QC", "Canada"));
 
-
+        // revendeurs offrent des produits
         BaseDonnees.revendeursList.add(revendeur1);
         livre1.setRevendeur(revendeur1);
         materiel1.setRevendeur(revendeur1);
@@ -122,6 +123,19 @@ public class Main {
 
         BaseDonnees.revendeursList.add(revendeur5);
         article1.setRevendeur(revendeur5);
+
+        // paniers initiaux des acheteurs
+        acheteur1.panier.ajouterArticle(livre1);
+        acheteur1.panier.ajouterArticle(livre2);
+        acheteur1.panier.ajouterArticle(livre3);
+
+        acheteur3.panier.ajouterArticle(livre2);
+        acheteur3.panier.ajouterArticle(materiel1);
+
+        acheteur4.panier.ajouterArticle(materiel2);
+
+
+
 
 
 
