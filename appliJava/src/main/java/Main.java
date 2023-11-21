@@ -44,7 +44,7 @@ public class Main {
         Catalogue.ajouterProduit(livre3);
         Catalogue.ajouterProduit(materiel1);
         Catalogue.ajouterProduit(materiel2);
-        Catalogue.ajouterProduit(article1);1
+        Catalogue.ajouterProduit(article1);
 
 
 
