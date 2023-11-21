@@ -46,11 +46,13 @@ public class Produit {
 
 		for (ArrayList<String> elements : listeComplete){
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + elements.get(0));
-			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + elements.get(1));
+			//System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + elements.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + elements.get(2));
 
 			System.out.println();
 	  	}
+
+		System.out.println("Like: " + coeur);
 	}
 
 	public String evaluer() {
@@ -156,7 +158,7 @@ public class Produit {
 	public String verifier(Acheteur ach) { // TODO ILO juste avoir commentaire et like
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
-		System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
+		//System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
 		System.out.println("Commentaire: " + "\u001B[1m" + review + "\u001B[0m");
 		System.out.println();
 
@@ -175,7 +177,7 @@ public class Produit {
 			case "2":
 				System.out.println("Quelle donnée souhaitez-vous changer? : ");
 				System.out.println("1. Étoile(s)");
-				System.out.println("2. Like");
+				//System.out.println("2. Like");
 				System.out.println("3. Commentaire");
 
 				System.out.print("Entrez votre choix: ");
@@ -187,17 +189,17 @@ public class Produit {
 						evaluer();
 						verifier(ach);
 						break;
-					case "2":
-						liker();
-						verifier(ach);
-						break;
+					//case "2":
+					//	liker();
+					//	verifier(ach);
+					//	break;
 					case "3": 
 						commenter(ach);
 						verifier(ach);
 						break;
 					default:
 						System.out.println();
-						System.out.println("Veuillez choisir entre les trois options données.");
+						System.out.println("Veuillez choisir entre les deux options données.");
 						System.out.println();
 						break;
 				}
@@ -221,7 +223,7 @@ public class Produit {
 
 
 		evalComplete.add(evalEtoile);
-		evalComplete.add(coeur);
+		//evalComplete.add(coeur);
 		evalComplete.add(review);
 
 		if (evalEtoile != null && review != null){
