@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="appliJava:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -11,7 +16,6 @@
       <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_001f" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_002d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_003d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilisateur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../rapport_devoir2.html" beforeDir="false" afterPath="$PROJECT_DIR$/../rapport_devoir2.html" afterDir="false" />
