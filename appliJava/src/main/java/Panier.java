@@ -50,6 +50,7 @@ public class Panier {
 					System.out.println("Vous avez choisi de ne rien supprimer du panier");
 					break;
 				} else if(choix.equals("3")){
+					Commande.setAcheteur(acheteur);
 					Commande.passerCommande(this); // passer la commande
 				}
 				else {

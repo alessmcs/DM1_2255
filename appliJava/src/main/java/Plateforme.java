@@ -5,6 +5,11 @@ import java.util.Scanner;
 public class Plateforme {
 
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
+
+		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
+		String dateParution = null; int numEd = 0; int numVol = 0;
+		String marque = null; String modele = null; String sousCategorie = null;
+		String dateLancement = null;
 		// Demander au revendeur de specifier un titre
 		Scanner scanner = new Scanner(System.in);
 
@@ -34,19 +39,19 @@ public class Plateforme {
 					case 1 -> {
 						categorie = "Livres et manuels";
 						System.out.println("ISBN : ");
-						String ISBN = scanner.next();
+						ISBN = scanner.next();
 						System.out.println("Auteur : ");
-						String auteur = scanner.next();
+						auteur = scanner.next();
 						System.out.println("Maison d'édition: ");
-						String maisonEdition = scanner.next();
+						maisonEdition = scanner.next();
 						System.out.println("Genre: ");
-						String genre = scanner.next();
+						genre = scanner.next();
 						System.out.println("Date de parution: ");
-						String dateParution = scanner.next();
+						dateParution = scanner.next();
 						System.out.println("Numéro d'édition: ");
-						int numEd = scanner.nextInt();
+						numEd = scanner.nextInt();
 						System.out.println("Numéro du volume: ");
-						int numVol = scanner.nextInt();
+						numVol = scanner.nextInt();
 					}
 					case 2, 4 -> {
 						if (choixCategorie == 2) {
@@ -61,16 +66,16 @@ public class Plateforme {
 
 				// Recueillir les informations communes pour les categories 2,3 et 4
 				System.out.print("Marque : ");
-				String marque = scanner.next();
+				marque = scanner.next();
 				System.out.print("Modèle : ");
-				String modele = scanner.next();
+				modele = scanner.next();
 				System.out.print("Sous-catégorie : ");
-				String sousCategorie = scanner.next();
+				sousCategorie = scanner.next();
 
 				// Recueillir info additionnelle pour categorie 3
 				if (choixCategorie == 3) {
 					System.out.print("Date de lancement : ");
-					String dateLancement = scanner.next();
+					dateLancement = scanner.next();
 				}
 
 			} catch (InputMismatchException e) {
@@ -151,7 +156,24 @@ public class Plateforme {
 		// créé selon le type précisé par le revendeur
 
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
-		Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
+
+		// typer le produit selon la catégorie
+		Produit produit;
+		switch(categorie){
+			case ("Livres et manuels") ->
+					produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
+							ISBN,auteur, maisonEdition, genre, dateParution,numEd,numVol );
+			case ("Matériel informatique") ->
+					produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);
+			case ("EquipementBureau") ->
+					produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
+			case ("RessourcesApprentissage") ->
+					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
+			default ->
+				produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
+		}
+
+		revendeur.updateInventaire(produit); // ajouter à l'inventaire du revendeur
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");

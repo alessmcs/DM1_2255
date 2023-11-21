@@ -54,7 +54,7 @@ public class LivresEtManuels extends Produit {
 				case "2":
 					super.commenter(ach);
 					super.evaluer();
-					super.verifier();
+					super.verifier(ach);
 					//super.enregistrerEvalComplete();
 					break;
 				case "3":

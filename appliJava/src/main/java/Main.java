@@ -86,28 +86,42 @@ public class Main {
         BaseDonnees.acheteursList.add(acheteur5);
 
 
-        Revendeur revendeur1 = new Revendeur("4382232715", "lollipop@gmail.com", "genielog");
-        revendeur1.setPseudo("luna34");
+        Revendeur revendeur1 = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
+        revendeur1.setPseudo("hu3ert");
         revendeur1.setAdresse(new Adresse("42 rue Lagayette", "longueuil", "j4c3d6", "QC", "Canada"));
-        Revendeur revendeur2 = new Revendeur("4387052715", "chien45@gmail.com", "jaimeleschiens");
-        revendeur2.setPseudo("luna34");
-        revendeur1.setAdresse(new Adresse("43 rue Lagayette", "longueuil", "j4c2d4", "QC", "Canada"));
-        Revendeur revendeur3 = new Revendeur("4384262015", "doudou@gmail.com", "catlover");
-        revendeur3.setPseudo("luna34");
-        revendeur1.setAdresse(new Adresse("45 rue Lagayette", "longueuil", "j5c2d8", "QC", "Canada"));
-        Revendeur revendeur4 = new Revendeur("4521223715", "popo@gmail.com", "bouteille");
-        revendeur4.setPseudo("luna34");
-        revendeur1.setAdresse(new Adresse("50 rue Lagayette", "longueuil", "j2c4d0", "QC", "Canada"));
-        Revendeur revendeur5 = new Revendeur("5140976515", "udem@gmail.com", "ordinateur");
-        revendeur5.setPseudo("luna34");
-        revendeur1.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "j9c2d6", "QC", "Canada"));
+
+        Revendeur revendeur2 = new Revendeur("5148982093", "monjardin000@gmail.com", "123fleur");
+        revendeur2.setPseudo("petra23");
+        revendeur2.setAdresse(new Adresse("43 rue Lagayette", "longueuil", "j4c2d4", "QC", "Canada"));
+
+        Revendeur revendeur3 = new Revendeur("5143237989", "bookss@gmail.com", "jaimeLire12");
+        revendeur3.setPseudo("bookseller1212");
+        revendeur3.setAdresse(new Adresse("45 rue Lagayette", "longueuil", "j5c2d8", "QC", "Canada"));
+
+        Revendeur revendeur4 = new Revendeur("5142928837", "anitaa99@gmail.com", "inf0");
+        revendeur4.setPseudo("an1ta");
+        revendeur4.setAdresse(new Adresse("50 rue Lagayette", "longueuil", "j2c4d0", "QC", "Canada"));
+
+        Revendeur revendeur5 = new Revendeur("5140976515", "roger_tremblay@gmail.com", "mrRoger12");
+        revendeur5.setPseudo("roger427");
+        revendeur5.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "j9c2d6", "QC", "Canada"));
 
 
         BaseDonnees.revendeursList.add(revendeur1);
+        livre1.setRevendeur(revendeur1);
+        materiel1.setRevendeur(revendeur1);
+
         BaseDonnees.revendeursList.add(revendeur2);
+        livre2.setRevendeur(revendeur2);
+
         BaseDonnees.revendeursList.add(revendeur3);
+        livre3.setRevendeur(revendeur3);
+
         BaseDonnees.revendeursList.add(revendeur4);
+        materiel2.setRevendeur(revendeur4);
+
         BaseDonnees.revendeursList.add(revendeur5);
+        article1.setRevendeur(revendeur5);
 
 
 

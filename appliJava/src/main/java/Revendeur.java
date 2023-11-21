@@ -10,8 +10,6 @@ public class Revendeur extends Utilisateur {
 	protected ArrayList<Produit> commandes; //TODO ajouter attribut revendeur au produit
 
 
-
-
 	public Revendeur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		inventaire= new ArrayList<>();
@@ -59,9 +57,8 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void updateInventaire() {
-		// TODO - implement Revendeur.updateInventaire
-		throw new UnsupportedOperationException();
+	public void updateInventaire(Produit p) { // lorsquon on ajoute un produit à l'inventaire on le met à jour
+		inventaire.add(p);
 	}
 
 	public String  getPseudo() {

@@ -24,25 +24,25 @@
       ><path d="M-7 -7 L93 -7 L93 504 L-7 504 L-7 -7 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath7"
-      ><path d="M-7 -7 L19 -7 L19 52 L-7 52 L-7 -7 Z"
-      /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath8"
       ><path d="M-7 -7 L653 -7 L653 265 L-7 265 L-7 -7 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath9"
-      ><path d="M298 22 L298 36 L38 36 L38 22 ZM283 130 L283 144 L38 144 L38 130 ZM-7 -7 L-7 265 L653 265 L653 -7 Z"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath8"
+      ><path d="M298 22 L298 36 L38 36 L38 22 ZM283 131 L283 145 L38 145 L38 131 ZM-7 -7 L-7 265 L653 265 L653 -7 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath10"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath9"
       ><path d="M0 0 L0 17 L25 17 L25 0 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath11"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath10"
       ><path d="M-7 -7 L653 -7 L653 120 L-7 120 L-7 -7 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath12"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath11"
       ><path d="M0 0 L0 14 L281 14 L281 0 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath13"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath12"
       ><path d="M0 0 L0 4 L642 4 L642 0 Z"
+      /></clipPath
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath13"
+      ><path d="M-7 -7 L19 -7 L19 52 L-7 52 L-7 -7 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath14"
       ><path d="M-7 -7 L653 -7 L653 139 L-7 139 L-7 -7 Z"
@@ -171,34 +171,34 @@
     ><rect fill="none" x="0" width="81" height="35" y="0" clip-path="url(#clipPath6)"
       /><line clip-path="url(#clipPath6)" fill="none" x1="40" x2="40" y1="35" y2="493" stroke-linejoin="bevel" stroke-dasharray="8,3"
     /></g
-    ><g font-size="11px" transform="translate(578,233)" fill-opacity="1" fill="rgb(122,207,245)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(122,207,245)" stroke-opacity="1"
-    ><rect x="0" width="8" height="41" y="0" clip-path="url(#clipPath7)" stroke="none"
-    /></g
-    ><g stroke-linecap="butt" font-size="11px" transform="translate(578,233)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1" stroke-miterlimit="0"
-    ><rect fill="none" x="0" width="8" height="41" y="0" clip-path="url(#clipPath7)"
-    /></g
     ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="black" stroke-linecap="butt" transform="translate(2,185)" stroke-miterlimit="0" stroke-opacity="1" fill="black" font-weight="bold" font-family="sans-serif" stroke-linejoin="round" font-size="11px" image-rendering="optimizeQuality"
-    ><rect fill="none" x="0" width="642" height="254" y="0" clip-path="url(#clipPath9)"
+    ><rect fill="none" x="0" width="642" height="254" y="0" clip-path="url(#clipPath8)"
     /></g
     ><g font-size="11px" transform="translate(2,185)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" font-weight="bold" stroke-opacity="1"
-    ><path d="M24 0 L24 8 L18 16 L0 16 L0 0 Z" stroke="none" clip-path="url(#clipPath9)"
+    ><path d="M24 0 L24 8 L18 16 L0 16 L0 0 Z" stroke="none" clip-path="url(#clipPath8)"
     /></g
     ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="black" stroke-linecap="butt" transform="translate(2,185)" stroke-miterlimit="0" stroke-opacity="1" fill="black" font-weight="bold" font-family="sans-serif" stroke-linejoin="round" font-size="11px" image-rendering="optimizeQuality"
-    ><path fill="none" d="M24 0 L24 8 L18 16 L0 16 L0 0 Z" clip-path="url(#clipPath9)"
+    ><path fill="none" d="M24 0 L24 8 L18 16 L0 16 L0 0 Z" clip-path="url(#clipPath8)"
     /></g
     ><g font-size="11px" transform="translate(2,185)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" font-weight="bold" stroke-opacity="1"
-    ><text x="5" xml:space="preserve" y="11" clip-path="url(#clipPath10)" stroke="none"
+    ><text x="5" xml:space="preserve" y="11" clip-path="url(#clipPath9)" stroke="none"
       >alt</text
     ></g
     ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="black" stroke-linecap="butt" transform="translate(2,202)" stroke-miterlimit="0" stroke-opacity="1" fill="black" stroke-dasharray="5,2" font-family="sans-serif" stroke-linejoin="bevel" font-size="11px" image-rendering="optimizeQuality"
-    ><line y2="108" fill="none" x1="0" clip-path="url(#clipPath11)" x2="641" y1="108"
+    ><line y2="108" fill="none" x1="0" clip-path="url(#clipPath10)" x2="641" y1="108"
     /></g
     ><g font-size="11px" transform="translate(30,207)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
-    ><rect x="9" width="262" height="16" y="-1" clip-path="url(#clipPath12)" stroke="none"
-      /><text fill="black" x="10" xml:space="preserve" y="11" clip-path="url(#clipPath12)" stroke="none"
+    ><rect x="9" width="262" height="16" y="-1" clip-path="url(#clipPath11)" stroke="none"
+      /><text fill="black" x="10" xml:space="preserve" y="11" clip-path="url(#clipPath11)" stroke="none"
       >[il existe des acheteurs qui ont liké le revendeur]</text
     ></g
-    ><g font-size="11px" transform="translate(30,315)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
+    ><g font-size="11px" transform="translate(578,233)" fill-opacity="1" fill="rgb(122,207,245)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(122,207,245)" stroke-opacity="1"
+    ><rect x="0" width="8" height="41" y="0" clip-path="url(#clipPath13)" stroke="none"
+    /></g
+    ><g stroke-linecap="butt" font-size="11px" transform="translate(578,233)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1" stroke-miterlimit="0"
+    ><rect fill="none" x="0" width="8" height="41" y="0" clip-path="url(#clipPath13)"
+    /></g
+    ><g font-size="11px" transform="translate(30,316)" fill-opacity="1" fill="white" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="white" stroke-opacity="1"
     ><rect x="9" width="247" height="16" y="-1" clip-path="url(#clipPath15)" stroke="none"
       /><text fill="black" x="10" xml:space="preserve" y="11" clip-path="url(#clipPath15)" stroke="none"
       >[le revendeur n'est pas liké par des acheteurs]</text
@@ -301,128 +301,18 @@
       /><text fill="black" x="9" xml:space="preserve" y="11" clip-path="url(#clipPath39)" stroke="none"
       >1: seConnecter()</text
     ></g
-    ><g font-size="10px" transform="rotate(-45) translate(-353.7948,0)" fill-opacity="1" fill="rgb(120,120,120)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" stroke="rgb(120,120,120)" stroke-opacity="1"
-    ><text x="0" xml:space="preserve" y="0" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="0" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="0" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="0" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="52" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="52" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="52" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="52" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="104" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="104" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="104" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="104" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="156" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="156" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="156" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="156" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="208" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="208" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="208" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="208" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="260" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="260" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="260" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="260" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="312" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="312" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="312" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="312" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="364" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="364" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="364" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="364" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="416" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="416" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="416" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="416" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="468" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="468" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="468" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="468" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="520" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="520" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="520" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="520" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="572" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="572" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="572" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="572" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="624" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="624" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="624" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="624" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="100" xml:space="preserve" y="676" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="324" xml:space="preserve" y="676" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="548" xml:space="preserve" y="676" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="772" xml:space="preserve" y="676" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="0" xml:space="preserve" y="728" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="224" xml:space="preserve" y="728" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="448" xml:space="preserve" y="728" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-      ><text x="672" xml:space="preserve" y="728" stroke="none"
-      >Visual Paradigm Standard [evaluation copy] </text
-    ></g
+    ><g font-size="10px" fill-opacity="1" fill="rgb(120,120,120)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" stroke="rgb(120,120,120)" stroke-opacity="1"
+    ><text x="393" xml:space="preserve" y="486" stroke="none"
+      >Powered ByVisual Paradigm Community Edition</text
+      ><image font-size="12px" x="628" y="474" fill="white" width="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABJ0lEQVR4XmNgwAPO
+GBs3nzYx6UIXJwoANdcA8X8obkaXxwvQNIPxWSOjFnR1WAGa5mVAL6wg2iVomlcD
+MettFRV2IL2OoCHImoHOPfCfgYEJJrcqNJQZJIYk3wKUZ0TWnItkAwg/OW1q6oIk
+bwPED9DUVMANAJqoCcSn0BS8B2LHk2ZmwlA2stwFoHo9uAEgAAwsB6DESTSFb4HY
+DYgrkcTOAtW6omgGCuoC8Qsg7gbivWiGvDkD8UItEB8G2twJpF+eMjU1hRtwVVub
+DSjYDNXQgcWQz0ANBkA6H8rvBsUOkhsgAGh6PVRBO5ohx4FyfTA5dH0oAOi/BqhC
+kEsOA/EJULQB6X8ENcMAkiFtQNwI1dyBrg4vQPIO2CB0eaIA1AU96OLIAAAk1QNN
+F+NelwAAAABJRU5ErkJggg==" height="16" stroke="white" preserveAspectRatio="none"
+    /></g
   ></g
 ></svg
 >

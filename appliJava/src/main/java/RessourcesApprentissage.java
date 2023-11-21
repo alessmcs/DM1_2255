@@ -34,7 +34,7 @@ public class RessourcesApprentissage extends Produit {
 			String choix = scanChoix.nextLine();
 			switch(choix){
 				case "1":
-					super.commenter();
+					super.commenter(ach);
 					break;
 				case "2":
 					super.evaluer();

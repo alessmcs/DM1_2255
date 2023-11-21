@@ -3,8 +3,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// TODO: commandes sépareées par revendeur !!!!!!
-
 public class Commande {
 
 	private StatutCommande statut;
@@ -12,7 +10,6 @@ public class Commande {
 	private static Adresse adresseLivraison;
 	private static ArrayList<Produit> articles = new ArrayList<>();
 
-	// TODO: utiliser l'acheteur connecté dans main????
 	private static Acheteur acheteur;
 
 	// Constructeur de commande
@@ -21,6 +18,10 @@ public class Commande {
 		this.adresseLivraison = adresse;
 		this.id = id;
 		this.articles = articles;
+	}
+
+	public static void setAcheteur(Acheteur a){
+		acheteur = a;
 	}
 
 	public static void passerCommande(Panier p) {
@@ -213,24 +214,30 @@ public class Commande {
 		int sommePoints = 0;
 
 		// Confirmation de la commande
-		System.out.println("Commande confirmée! \n" + id + "\nArticles: \n");
+		System.out.println("Commande confirmée! \n" + id + "\nArticles:");
 		for (Produit prod : p.getArticles()){
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
 			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
-		System.out.printf("\nTotal: %.2f" + facture.getTotal()); // inclure le rabais!
-		System.out.println("Livré au : " + acheteur.getAdresseExpedition().toString());
+		System.out.printf("\nTotal: " + facture.getTotal());
+		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
 		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTelephone());
 
+		// retourner au catalogue
+		System.out.println("\n1: Retourner au catalogue \n2: Retourner au menu");
+		String exitChoix = s.nextLine();
+		switch(exitChoix){
+			case("1") -> Catalogue.voirCatalogue(acheteur);
+			case("2") -> Utilisateur.afficherMenu(acheteur);
+			default -> System.out.println("Svp entrez 1 ou 2!");
+		}
 
 		// nouveau colis généré avec la commande
 		Colis colis = new Colis(commande.getStatutCommande());
 	}
 
-	public void annuler() {
-	}
 
 	// maybe add another parameter for this method
 	public void setEtatCommande(StatutCommande e) {

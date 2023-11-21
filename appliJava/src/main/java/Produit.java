@@ -17,6 +17,8 @@ public class Produit {
 	protected ArrayList<ArrayList<String>> listCommentaires;
 	private int note;
 
+	private Revendeur revendeur;
+
 
     Scanner scan = new Scanner(System.in);
     String evalEtoile;
@@ -32,6 +34,10 @@ public class Produit {
 		this.nbPoints = nbPoints;
 		this.description = description;
 		this.ID = nextId++; // ID unique pour chaque produit
+	}
+
+	public void setRevendeur(Revendeur rev){
+		this.revendeur = rev;
 	}
 
 
@@ -293,18 +299,24 @@ public class Produit {
 
 	public void demanderAjoutPanier(Acheteur ach){
 		Scanner s = new Scanner(System.in);
-		System.out.println("Voulez-vous ajouter ce produit à votre panier? \n1: Oui");
-		System.out.println("0 : Retourner au catalogue");
-		String choix = s.nextLine();
+
 		while(true){
+			System.out.println("Voulez-vous ajouter ce produit à votre panier? \n1: Oui");
+			System.out.println("0 : Retourner au catalogue");
+			String choix = s.nextLine();
+
 			if ( ! Main.isNumeric(choix) ){
-				System.out.println("Svp entrez 1 ou 2!");
+				System.out.println("Svp entrez un chiffre");
 			} else if (choix.equals("1")){
 				ach.panier.ajouterArticle(this);
+				if(ach.panier != null){
+					System.out.println("Le produit à été ajouté au panier!");
+				}
 			} else if (choix.equals("0")){
 				Catalogue.voirCatalogue(ach);
+				break;
 			} else {
-				System.out.println("Svp entrez 1 ou 2!");
+				System.out.println("Svp entrez 1 ou 0!");
 			}
 		}
 	}

@@ -12,7 +12,7 @@ public class Acheteur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<ArrayList<String>> listeCommentaires = new ArrayList<>();
 
-	public static Panier panier;
+	public static Panier panier = new Panier();
 
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {

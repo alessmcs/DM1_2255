@@ -173,30 +173,32 @@ public abstract class Utilisateur {
 
 		} else if ( utilisateur instanceof Acheteur ){
 			int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
-			int nbArticles = 0;
+
 			ArrayList<String> produitsAchetes = new ArrayList<>();
 			ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
 			for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
 				//voir les produits achetés
 				ArrayList<Produit> produits = c.getArticles();
 				for (Produit p : produits){
-					produitsAchetes.add(p.toString());
+					if (!produitsAchetes.contains(p)){
+						produitsAchetes.add(p.toString());
+					}
 				}
 			}
+
+			System.out.println("Vos métriques d'acheteur: ");
+			System.out.println("Nombre de commandes : " + nbCommandes);
+			System.out.println("Produits achetés");
+			for (String s : produitsAchetes){
+				System.out.println(s);
+			}
+			System.out.println("Nombre total: " + produitsAchetes.size());
+			System.out.println("Vos commentaires: ");
 			for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
 				System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 				System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 				System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 			}
-
-
-			System.out.println("Vos métriques d'acheteur: ");
-			System.out.println("Produits achetés");
-			for (String s : produitsAchetes){
-				System.out.println(s);
-			}
-
-
 		}
 	}
 
