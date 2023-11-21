@@ -123,25 +123,31 @@ public abstract class Utilisateur {
 				}
 			}
 			case 2 -> {
-				System.out.println("Entrer votre pseudo");
-				String pseudoAcheteur = scanner.nextLine();
+				while(true){
+					System.out.println("Entrer votre pseudo");
+					String pseudoAcheteur = scanner.nextLine();
 
-				System.out.println("Veuillez entrer votre mot de passe.");
-				String motDePasseAcheteur = scanner.nextLine();
-				boolean profilTrouver = false;
-				for (Acheteur acheteur : BaseDonnees.acheteursList) {
-					if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
-							acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
-						profilTrouver = true;
-						if (acheteur.desactiver()){
-							System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-							System.exit(0);
+					System.out.println("Veuillez entrer votre mot de passe.");
+					String motDePasseAcheteur = scanner.nextLine();
+					boolean profilTrouver = false;
+					for (Acheteur acheteur : BaseDonnees.acheteursList) {
+						if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
+								acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
+							profilTrouver = true;
+							if (acheteur.desactiver()){
+								System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+								System.exit(0);
 
-						} else  {
-							afficherMenu(acheteur);
+							} else  {
+								afficherMenu(acheteur);
+								break;
+							}
+						} else {
+							profilTrouver = false;
 						}
-					}
+					} if (!profilTrouver) System.out.println("Vos données sont inexactes, svp réessayer");
 				}
+
 			}
 			default -> System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
 		}
@@ -164,19 +170,32 @@ public abstract class Utilisateur {
 					revenu += p.prix * n;
 				}
 			}
+
 		} else if ( utilisateur instanceof Acheteur ){
-			int nbCommandes = 0;
+			int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 			int nbArticles = 0;
-			ArrayList<Produit> produitsAchetes = new ArrayList<>();
+			ArrayList<String> produitsAchetes = new ArrayList<>();
 			ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
 			for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
 				//voir les produits achetés
 				ArrayList<Produit> produits = c.getArticles();
 				for (Produit p : produits){
-					p.toString();
-
+					produitsAchetes.add(p.toString());
 				}
 			}
+			for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
+				System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
+				System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
+				System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
+			}
+
+
+			System.out.println("Vos métriques d'acheteur: ");
+			System.out.println("Produits achetés");
+			for (String s : produitsAchetes){
+				System.out.println(s);
+			}
+
 
 		}
 	}

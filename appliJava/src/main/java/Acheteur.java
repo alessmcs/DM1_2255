@@ -8,10 +8,9 @@ public class Acheteur extends Utilisateur {
 	private String prenom;
 	private String nom;
 	private int points;
-	protected ArrayList<Commande> historiqueCommandes;
-	private ArrayList<Acheteur> followers;
-	private int classement;
+	protected ArrayList<Commande> historiqueCommandes = new ArrayList<>();
 	private String pseudo;
+	protected ArrayList<ArrayList<String>> listeCommentaires = new ArrayList<>();
 
 	public static Panier panier;
 
@@ -23,7 +22,9 @@ public class Acheteur extends Utilisateur {
 
 	}
 
-
+	public void addListeCommentaires(ArrayList<String> c){
+		listeCommentaires.add(c);
+	}
 
 	public boolean confirmerReceptionCommande() {
 		Scanner s = new Scanner(System.in);

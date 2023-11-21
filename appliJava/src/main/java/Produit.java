@@ -35,8 +35,8 @@ public class Produit {
 	}
 
 
-	public void voirEval() {
-		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete();
+	public void voirEval(Acheteur ach) {
+		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete(ach);
 
 		for (ArrayList<String> elements : listeComplete){
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + elements.get(0));
@@ -113,7 +113,7 @@ public class Produit {
 
 
 
-	public String commenter() { 
+	public String commenter(Acheteur ach) {
 		review = "";
 
 		System.out.println("Voulez-vous laisser un commentaire au produit?");
@@ -139,7 +139,7 @@ public class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				commenter();
+				commenter(ach);
 				break;
 		}
 
@@ -147,7 +147,7 @@ public class Produit {
 
 	}
 
-	public String verifier() {
+	public String verifier(Acheteur ach) { // TODO ILO juste avoir commentaire et like
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
 		System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
@@ -179,15 +179,15 @@ public class Produit {
 				switch (modification) {
 					case "1":
 						evaluer();
-						verifier();
+						verifier(ach);
 						break;
 					case "2":
 						liker();
-						verifier();
+						verifier(ach);
 						break;
 					case "3": 
-						commenter();
-						verifier();
+						commenter(ach);
+						verifier(ach);
 						break;
 					default:
 						System.out.println();
@@ -200,26 +200,29 @@ public class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				verifier();
+				verifier(ach);
 				break;
 		}
 		return "Vos données ont été enregistrées!";
 	}
 
 
-	public ArrayList<ArrayList<String>> enregistrerEvalComplete() {
+	public ArrayList<ArrayList<String>> enregistrerEvalComplete(Acheteur ach) {
 		ArrayList<String> evalComplete = new ArrayList<String>();
 
 		Commentaire c = new Commentaire();
-		listCommentaires = c.listeDeCom();
+		c.setProduit(titre); // titre du produit pour le commentaire (utile dans metriques)
+
 
 		evalComplete.add(evalEtoile);
 		evalComplete.add(coeur);
 		evalComplete.add(review);
-		c.setContenu(evalComplete);
 
-		listCommentaires.add(c.getContenu());
-
+		if (evalEtoile != null && review != null){
+			c.setContenu(evalComplete);
+			listCommentaires.add(c.getContenu());
+			ach.listeCommentaires.add(c.getContenu());
+		}
 		return listCommentaires;
 	}
 
@@ -307,7 +310,7 @@ public class Produit {
 	}
 
 	public String toString(){
-		return ("ID : " + ID + " Titre: " + titre + "\n" + prix);
+		return ("ID : " + ID + ", Titre: " + titre + "\n" + prix);
 	}
 
 }

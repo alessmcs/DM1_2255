@@ -37,7 +37,9 @@ public class Main {
 //        Produit materiel1 = new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique", 20, "Écouteurs");
 //        Produit materiel2 = new MaterielInfo("MacBook Pro M3 14p", 2599.00, 1, "Matériel informatique", 20, "Ordinateur portable");
 //        Produit article1 = new EquipementBureau("Cahier Canada quadrillé 40 pages", 1.79,230, "Equipement de bureau", 0, "Cahier d'exercices");
-
+        livre1.listCommentaires = Commentaire.listeDeCom();
+        livre2.listCommentaires = Commentaire.listeDeCom();
+        livre3.listCommentaires = Commentaire.listeDeCom();
 
         Catalogue.ajouterProduit(livre1);
         Catalogue.ajouterProduit(livre2);

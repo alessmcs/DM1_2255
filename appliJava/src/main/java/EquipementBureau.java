@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class EquipementBureau extends Produit {
 
 	private String categorie = "Équipement de bureau";
@@ -9,16 +11,48 @@ public class EquipementBureau extends Produit {
 		super(titre, prix, qte, cat, nbPoints, description);
 	}
 
-	public String toString(){
-		return ("Titre: " + titre + "\n" + prix);
-	}
 
 	// overriding voirDetails pour imprimer les détails spécifiques du produit
 	@Override
 	public void voirDetails(Acheteur ach){
+		Scanner scanChoix = new Scanner(System.in);
+
 		System.out.println("\nID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + prix + "\nMarque:" + marque + "\nModèle: " + modele
 				+ "\nSous-Catégorie: " + sousCategorie);
-		super.voirEval();
-		super.demanderAjoutPanier(ach);
+
+		System.out.println();
+
+		System.out.println("Que voulez-vous faire?");
+		System.out.println("1. Commenter le produit");
+		System.out.println("2. Evaluer le produit");
+		System.out.println("3. Liker le produit");
+		System.out.println("4. Ajouter au panier le produit");
+
+		System.out.print("Entrez votre choix: ");
+
+		while(true){
+			String choix = scanChoix.nextLine();
+			switch(choix){
+				case "1":
+					super.commenter();
+					break;
+				case "2":
+					super.evaluer();
+					break;
+				case "3":
+					super.liker();
+					break;
+				case "4":
+					super.demanderAjoutPanier(ach);
+					break;
+				case "5":
+					Catalogue.voirCatalogue(ach);
+				default:
+					System.out.println("Svp entrez une option valide!");
+			}
+		}
+
+		//super.voirEval();
+		//super.demanderAjoutPanier(ach);
 	}
 }

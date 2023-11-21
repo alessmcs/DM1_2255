@@ -5,8 +5,18 @@ public class Commentaire {
 	private ArrayList<String> Contenu;
 	private String Date;
 
+	private String produit;
+
 	public void setContenu(ArrayList<String> nouvContenu){
 		Contenu = nouvContenu;
+	}
+
+	public void setProduit(String titre){
+		this.produit = titre;
+	}
+
+	public String getProduit(){
+		return produit;
 	}
 
 	public ArrayList<String> getContenu(){
@@ -14,8 +24,9 @@ public class Commentaire {
 	} 
 
 
+	//TODO ILO
 
-	public ArrayList<ArrayList<String>> listeDeCom(){
+	public static ArrayList<ArrayList<String>> listeDeCom(){
 		ArrayList<ArrayList<String>> listCommentaires = new ArrayList<>();
 
 		ArrayList<String> com1 = new ArrayList<>();

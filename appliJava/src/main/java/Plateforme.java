@@ -110,6 +110,8 @@ public class Plateforme {
 			nbPoints = (int) Math.floor(nbPoints);
 		}
 
+		// todo: switch case, formulaire différent selon le type de produit, puis le TYPE du produit (materielInfo, equipementBureau etc) est
+		// créé selon le type précisé par le revendeur
 
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 		Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);

@@ -25,10 +25,10 @@ public class Catalogue {
 			System.out.println(produit.toString());
 		}
 
-		System.out.println("Entrez l'ID d'un produit pour voir ses détails");
-		System.out.println( "Entrez 0 pour revenir au menu" );
-
 		while(true){
+			System.out.println("Entrez l'ID d'un produit pour voir ses détails");
+			System.out.println( "Entrez 0 pour revenir au menu" );
+
 			String choix = s.nextLine();
 			if ( ! Main.isNumeric(choix)){
 				System.out.println("Svp entrez l'ID (chiffres) du produit que vous desirez!");

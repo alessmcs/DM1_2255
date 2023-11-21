@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class RessourcesApprentissage extends Produit {
 
 	private String categorie = "Ressources d'apprentissage";
@@ -15,9 +17,43 @@ public class RessourcesApprentissage extends Produit {
 
 	@Override
 	public void voirDetails(Acheteur ach){
+		Scanner scanChoix = new Scanner(System.in);
+
 		System.out.println("\nID: " + ID + "\nTitre : " + titre + "\n" + categorie + "\n" + description + prix + "\n" + marque + "\n" + modele + "," + marque + "," + modele);
-		super.voirEval();
-		super.demanderAjoutPanier(ach);
+		System.out.println();
+
+		System.out.println("Que voulez-vous faire?");
+		System.out.println("1. Commenter le produit");
+		System.out.println("2. Evaluer le produit");
+		System.out.println("3. Liker le produit");
+		System.out.println("4. Ajouter au panier le produit");
+
+		System.out.print("Entrez votre choix: ");
+
+		while(true){
+			String choix = scanChoix.nextLine();
+			switch(choix){
+				case "1":
+					super.commenter();
+					break;
+				case "2":
+					super.evaluer();
+					break;
+				case "3":
+					super.liker();
+					break;
+				case "4":
+					super.demanderAjoutPanier(ach);
+					break;
+				case "5":
+					Catalogue.voirCatalogue(ach);
+				default:
+					System.out.println("Svp entrez une option valide!");
+			}
+		}
+
+		//super.voirEval();
+		//super.demanderAjoutPanier(ach);
 	}
 
 }
