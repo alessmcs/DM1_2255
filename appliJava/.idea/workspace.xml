@@ -4,39 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Diagrammes/Flux principal.vpp.bak_000f" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diagrammes/Flux principal.vpp.bak_001d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diagrammes/Flux principal.vpp.bak_002d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diagrammes/Flux principal.vpp.bak_003d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Diagrammes/OffrirUnProduit_Sequence.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../Diagrammes/OffrirUnProduit_Sequence.svg" afterDir="false" />
+    <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="little change">
+      <change beforePath="$PROJECT_DIR$/../.Flux principal.vpp.lck" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flux principal.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Flux principal.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_000d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_001f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_002d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Flux principal.vpp.bak_003d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Acheteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Acheteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Commande.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commande.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/EquipementBureau.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LivresEtManuels.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MaterielInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Panier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Panier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Plateforme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Plateforme.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Produit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Produit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RessourcesApprentissage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Revendeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Revendeur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilisateur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Acheteur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Acheteur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Commande.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commande.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Commentaire.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commentaire.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/EquipementBureau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/EquipementBureau.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/LivresEtManuels.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/MaterielInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MaterielInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Panier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Panier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Plateforme.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Plateforme.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Produit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Produit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RessourcesApprentissage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Revendeur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Revendeur.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utilisateur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utilisateur.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../rapport_devoir2.html" beforeDir="false" afterPath="$PROJECT_DIR$/../rapport_devoir2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../séquence_passerCommande.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Évaluer un produit (séquence).svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../échange_retour.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +71,19 @@
       <option name="presentableId" value="Default" />
       <updated>1699902079086</updated>
     </task>
+    <task id="LOCAL-00001" summary="little change">
+      <created>1700533563585</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700533563585</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="little change" />
+    <option name="LAST_COMMIT_MESSAGE" value="little change" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/appliJava$Main.ic" NAME="Main Coverage Results" MODIFIED="1700522452423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
