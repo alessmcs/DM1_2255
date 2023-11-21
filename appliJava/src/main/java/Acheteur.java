@@ -12,14 +12,18 @@ public class Acheteur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<ArrayList<String>> listeCommentaires = new ArrayList<>();
 
-	public static Panier panier = new Panier();
+	public Panier panier = new Panier();
 
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
 		this.nom= nom;
+		panier = new Panier();
+	}
 
+	public void ajouterAuPanier(Produit p){
+		this.panier.ajouterArticle(p);
 	}
 
 	public void addListeCommentaires(ArrayList<String> c){

@@ -49,13 +49,16 @@ public class LivresEtManuels extends Produit {
 			String choix = scanChoix.nextLine();
 			switch(choix){
 				case "1":
-					super.voirEval(ach);
+					if(enregistrerEvalComplete(ach) == null){
+						System.out.println("Aucun commentaire");
+					} else {
+						super.voirEval(ach);
+					}
 					break;
 				case "2":
 					super.commenter(ach);
 					super.evaluer();
 					super.verifier(ach);
-					//super.enregistrerEvalComplete();
 					break;
 				case "3":
 					super.liker();

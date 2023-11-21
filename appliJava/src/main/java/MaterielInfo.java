@@ -37,7 +37,11 @@ public class MaterielInfo extends Produit {
 			String choix = scanChoix.nextLine();
 			switch(choix){
 				case "1":
-					super.voirEval(ach);
+					if(enregistrerEvalComplete(ach) == null){
+						System.out.println("Aucun commentaire");
+					} else {
+						super.voirEval(ach);
+					}
 					break;
 				case "2":
 					super.commenter(ach);

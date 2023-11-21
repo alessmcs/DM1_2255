@@ -47,6 +47,16 @@ public class Main {
         Catalogue.ajouterProduit(materiel2);
         Catalogue.ajouterProduit(article1);
 
+        // initialiser les commentaires sur les produits
+        for(ArrayList<String> com : Commentaire.listeDeCom()){
+            livre1.listCommentaires.add(com);
+            livre2.listCommentaires.add(com);
+            livre3.listCommentaires.add(com);
+            materiel1.listCommentaires.add(com);
+            materiel2.listCommentaires.add(com);
+            article1.listCommentaires.add(com);
+        }
+
 
 
         Acheteur acheteur1 = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
@@ -59,25 +69,25 @@ public class Main {
         acheteur2.setPrenom("Felix");
         acheteur2.setNom("Bredon");
         acheteur2.setPseudo("fbredon");
-        acheteur1.setAdresseExpedition(new Adresse("71 rue Rembouillet", "Montréal", "h9n3r7", "QC", "Canada"));
+        acheteur2.setAdresseExpedition(new Adresse("71 rue Rembouillet", "Montréal", "h9n3r7", "QC", "Canada"));
 
         Acheteur acheteur3 = new Acheteur("4384262015", "doudou@gmail.com", "catlover");
         acheteur3.setPrenom("Henri");
         acheteur3.setNom("Dublin");
         acheteur3.setPseudo("henry420");
-        acheteur1.setAdresseExpedition(new Adresse("73 rue Rembouillet", "Montréal", "h9n4m8", "QC", "Canada"));
+        acheteur3.setAdresseExpedition(new Adresse("73 rue Rembouillet", "Montréal", "h9n4m8", "QC", "Canada"));
 
         Acheteur acheteur4 = new Acheteur("4521223715", "popo@gmail.com", "bouteille");
         acheteur4.setPrenom("Clémentine");
         acheteur4.setNom("Prairie");
         acheteur4.setPseudo("cloclorange");
-        acheteur1.setAdresseExpedition(new Adresse("77 rue Rembouillet", "Montréal", "h9n9l7", "QC", "Canada"));
+        acheteur4.setAdresseExpedition(new Adresse("77 rue Rembouillet", "Montréal", "h9n9l7", "QC", "Canada"));
 
         Acheteur acheteur5 = new Acheteur("5140976515", "udem@gmail.com", "ordinateur");
         acheteur5.setPrenom("Suzanne");
         acheteur5.setNom("Gaultier");
         acheteur5.setPseudo("suzette123");
-        acheteur1.setAdresseExpedition(new Adresse("80 rue Rembouillet", "Montréal", "h9n6m0", "QC", "Canada"));
+        acheteur5.setAdresseExpedition(new Adresse("80 rue Rembouillet", "Montréal", "h9n6m0", "QC", "Canada"));
 
 
         BaseDonnees.acheteursList.add(acheteur1);
@@ -124,21 +134,15 @@ public class Main {
         BaseDonnees.revendeursList.add(revendeur5);
         article1.setRevendeur(revendeur5);
 
-        // paniers initiaux des acheteurs
-        acheteur1.panier.ajouterArticle(livre1);
-        acheteur1.panier.ajouterArticle(livre2);
-        acheteur1.panier.ajouterArticle(livre3);
+        // initialiser 3 paniers
+        acheteur1.ajouterAuPanier(livre1);
+        acheteur1.ajouterAuPanier(livre2);
+        acheteur1.ajouterAuPanier(livre3);
 
-        acheteur3.panier.ajouterArticle(livre2);
-        acheteur3.panier.ajouterArticle(materiel1);
+        acheteur3.ajouterAuPanier(livre2);
+        acheteur3.ajouterAuPanier(materiel1);
 
-        acheteur4.panier.ajouterArticle(materiel2);
-
-
-
-
-
-
+        acheteur4.ajouterAuPanier(materiel2);
     }
 
 }

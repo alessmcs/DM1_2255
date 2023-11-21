@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class Panier {
 
-	private static float montantAPayer;
-	private static int nbPoints;
+	private float montantAPayer;
+	private int nbPoints;
 
-	private static ArrayList<Produit> articles = new ArrayList<>();
+	private ArrayList<Produit> articles = new ArrayList<>();
 
 	// TODO: add continuer de magasiner & return to the catalogue!!!
 
@@ -16,11 +16,11 @@ public class Panier {
 		nbPoints += produit.getPoints();
 	}
 
-	public static ArrayList<Produit> getArticles(){
+	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
 
-	public static float getTotal(){
+	public float getTotal(){
 		return montantAPayer;
 	}
 

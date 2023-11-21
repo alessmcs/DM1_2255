@@ -218,6 +218,7 @@ public class Commande {
 		for (Produit prod : p.getArticles()){
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
+			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
 			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur

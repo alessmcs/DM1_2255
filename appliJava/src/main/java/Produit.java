@@ -14,7 +14,7 @@ public class Produit {
 	protected String catégorie;
 	protected int nbPoints;
 	protected String description;
-	protected ArrayList<ArrayList<String>> listCommentaires;
+	protected ArrayList<ArrayList<String>> listCommentaires = new ArrayList<>();
 	private int note;
 
 	private Revendeur revendeur;
@@ -47,7 +47,7 @@ public class Produit {
 		for (ArrayList<String> elements : listeComplete){
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + elements.get(0));
 			//System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + elements.get(1));
-			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + elements.get(2));
+			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + elements.get(1));
 
 			System.out.println();
 	  	}
@@ -223,13 +223,12 @@ public class Produit {
 
 
 		evalComplete.add(evalEtoile);
-		//evalComplete.add(coeur);
 		evalComplete.add(review);
 
 		if (evalEtoile != null && review != null){
 			c.setContenu(evalComplete);
 			listCommentaires.add(c.getContenu());
-			ach.listeCommentaires.add(c.getContenu());
+			ach.addListeCommentaires(c.getContenu());
 		}
 		return listCommentaires;
 	}
