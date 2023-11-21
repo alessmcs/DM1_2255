@@ -8,7 +8,8 @@ public class MaterielInfo extends Produit {
 	private String dateLancement;
 	private String sousCategorie;
 
-	public MaterielInfo(String titre, double prix, int qte, String cat, int nbPoints, String description, String date) {
+	public MaterielInfo(String titre, double prix, int qte, String cat, int nbPoints, String description,
+						String marque, String modele, String dateLancement, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);
 	}
 

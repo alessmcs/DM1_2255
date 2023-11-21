@@ -7,7 +7,8 @@ public class EquipementBureau extends Produit {
 	private String modele;
 	private String sousCategorie;
 
-	public EquipementBureau(String titre, double prix, int qte, String cat, int nbPoints, String description, String date) {
+	public EquipementBureau(String titre, double prix, int qte, String cat, int nbPoints, String description, String marque,
+							String modele, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);
 	}
 

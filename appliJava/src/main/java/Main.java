@@ -34,19 +34,18 @@ public class Main {
         Produit livre1 = new LivresEtManuels("Programmation orientée objet et Génie logiciel, 8e édition", 78.90, 10,"Livres et manuels", 20, "Genie logiciel", "0-3923-7489-7", "Valerie Farino et al.", "Nathan", "Manuel scolaire", "3 janvier 2018", 3, 2);
         Produit livre2 = new LivresEtManuels("Calcul à plusieurs variables, 2e édition", 66.79, 15, "Livres et manuels", 20, "Calcul I", "0-9559-3560-1", "Fatima Alenar", "Pearson", "Manuel scolaire", "17 mars 2020", 4, 1);
         Produit livre3 = new LivresEtManuels("Microéconomie", 68.99, 3, "Livres et manuels", 20, "Économie", "0-1419-9315-4", "Jules Tremblay", "Pearson", "Manuel scolaire", "19 décembre 2006", 5, 1);
-//        Produit materiel1 = new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique", 20, "Écouteurs");
-//        Produit materiel2 = new MaterielInfo("MacBook Pro M3 14p", 2599.00, 1, "Matériel informatique", 20, "Ordinateur portable");
-//        Produit article1 = new EquipementBureau("Cahier Canada quadrillé 40 pages", 1.79,230, "Equipement de bureau", 0, "Cahier d'exercices");
-        livre1.listCommentaires = Commentaire.listeDeCom();
-        livre2.listCommentaires = Commentaire.listeDeCom();
-        livre3.listCommentaires = Commentaire.listeDeCom();
+        Produit materiel1 = new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique", 20, "Écouteurs", "SONY", "WH-1000XM4", "14/08/2022", "Écouteurs");
+        Produit materiel2 = new MaterielInfo("MacBook Pro M3 14p", 2599.00, 1, "Matériel informatique", 20, "Ordinateur portable", "Apple", "Pro", "16/09/2023", "Ordinateurs");
+        Produit article1 = new EquipementBureau("Cahier Canada quadrillé 40 pages", 1.79,230, "Equipement de bureau", 0, "Cahier d'exercices", "Hilroy", "Canada", "Cahiers");
+
 
         Catalogue.ajouterProduit(livre1);
         Catalogue.ajouterProduit(livre2);
         Catalogue.ajouterProduit(livre3);
-//        Catalogue.ajouterProduit(materiel1);
-//        Catalogue.ajouterProduit(materiel2);
-//        Catalogue.ajouterProduit(article1);
+        Catalogue.ajouterProduit(materiel1);
+        Catalogue.ajouterProduit(materiel2);
+        Catalogue.ajouterProduit(article1);1
+
 
 
         Acheteur acheteur1 = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
