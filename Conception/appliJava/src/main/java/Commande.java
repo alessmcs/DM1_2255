@@ -13,7 +13,8 @@ public class Commande {
 	private static Acheteur acheteur;
 
 	// Constructeur de commande
-	public Commande(String status, Adresse adresse, int id, ArrayList<Produit> articles){
+	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
+		this.acheteur = acheteur;
 		this.statut = statut;
 		this.adresseLivraison = adresse;
 		this.id = id;
@@ -206,7 +207,7 @@ public class Commande {
 	}
 
 
-		Commande commande = new Commande("En production", adresseLivraison, id+1, p.getArticles());
+		Commande commande = new Commande(acheteur,"En production", adresseLivraison, id+1, p.getArticles());
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande

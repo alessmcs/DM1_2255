@@ -1,0 +1,4 @@
+il faut 10 commandes
+TODO: definir une commande p/r à son acheteur
+
+format: Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles
