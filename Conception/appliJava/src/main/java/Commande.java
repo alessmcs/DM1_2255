@@ -102,7 +102,7 @@ public class Commande {
 
 		// infos de paiement
 		while (true) {
-			System.out.println("----- Informations de paiement ----- \nNumero de carte de crédit: ");
+			System.out.println("----- Informations de paiement ----- \nNuméro de carte de crédit: ");
 			// l'utilisateur entre un numéro de carte, date d'expiration, cvc
 			String numCarte = s.nextLine();
 			System.out.println("Date d'expiration (MMAA)");

@@ -64,11 +64,18 @@ public class Revendeur extends Utilisateur {
 	public String  getPseudo() {
 		return pseudo;
 	}
+	public void afficherInventaire(){
+		for(Produit p : inventaire){
+			System.out.println(p); // uses toString method from produit
+		}
+	}
 
+	public Adresse getAdresse() { return adresse; };
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
+
 }

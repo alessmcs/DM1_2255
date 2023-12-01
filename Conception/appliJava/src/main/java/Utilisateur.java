@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -97,65 +98,139 @@ public abstract class Utilisateur {
 		System.out.println(" 1. Se connecter en tant que revendeur");
 		System.out.println(" 2. Se connecter en tant qu'acheteur ");
 
-		int choix = Integer.parseInt(scanner.nextLine());
-
-		switch (choix) {
-			case 1 -> {
-				System.out.println("Entrer votre pseudo");
-				String pseudoRevendeur = scanner.nextLine();
-
-				System.out.println("Veuillez entrer votre mot de passe");
-				String motDePasseRevendeur = scanner.nextLine();
-
-				boolean profilTrouver = false;
-				for (Revendeur revendeur : BaseDonnees.revendeursList) {
-					if (revendeur.getPseudo().equalsIgnoreCase(pseudoRevendeur) &&
-							revendeur.getMotDePasse().equals(motDePasseRevendeur)) {
-						profilTrouver = true;
-						if (revendeur.desactiver()){
-							System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-							System.exit(0);
-
-						} else  {
-							afficherMenu(revendeur);
-						}
-					}
-				}
-			}
-			case 2 -> {
-				while(true){
+		boolean validInput = false;
+		do {
+			try {
+				String choix = scanner.nextLine();
+				switch (choix) {
+				case "1" -> {
+					validInput = true; // If no exception, set flag to exit the loop
 					System.out.println("Entrer votre pseudo");
-					String pseudoAcheteur = scanner.nextLine();
+					String pseudoRevendeur = scanner.nextLine();
 
-					System.out.println("Veuillez entrer votre mot de passe.");
-					String motDePasseAcheteur = scanner.nextLine();
+					System.out.println("Veuillez entrer votre mot de passe");
+					String motDePasseRevendeur = scanner.nextLine();
+
 					boolean profilTrouver = false;
-					for (Acheteur acheteur : BaseDonnees.acheteursList) {
-						if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
-								acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
+					for (Revendeur revendeur : BaseDonnees.revendeursList) {
+						if (revendeur.getPseudo().equalsIgnoreCase(pseudoRevendeur) &&
+								revendeur.getMotDePasse().equals(motDePasseRevendeur)) {
 							profilTrouver = true;
-							if (acheteur.desactiver()){
+							if (revendeur.desactiver()){
 								System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
 								System.exit(0);
 
 							} else  {
-								afficherMenu(acheteur);
-								break;
+								afficherMenu(revendeur);
 							}
-						} else {
-							profilTrouver = false;
 						}
-					} if (!profilTrouver) System.out.println("Vos données sont inexactes, svp réessayer");
+					}
 				}
+				case "2" -> {
+					while(true){
+						validInput = true; // If no exception, set flag to exit the loop
+						System.out.println("Entrer votre pseudo");
+						String pseudoAcheteur = scanner.nextLine();
 
+						System.out.println("Veuillez entrer votre mot de passe.");
+						String motDePasseAcheteur = scanner.nextLine();
+						boolean profilTrouver = false;
+						for (Acheteur acheteur : BaseDonnees.acheteursList) {
+							if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
+									acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
+								profilTrouver = true;
+								if (acheteur.desactiver()){
+									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+									System.exit(0);
+
+								} else  {
+									afficherMenu(acheteur);
+									break;
+								}
+							} else {
+								profilTrouver = false;
+							}
+						} if (!profilTrouver) System.out.println("Vos données sont inexactes, svp réessayer");
+					}
+				} default -> System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 			}
-			default -> System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
-		}
+			} catch (InputMismatchException e) {
+				System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
+			}
+		} while (!validInput);
+
 	}
 
-	public static void afficherProfil() {
-		// TODO - implement Utilisateur.afficherProfil
-		throw new UnsupportedOperationException();
+	public <T extends Utilisateur> void afficherProfil(T utilisateur){
+		if (utilisateur instanceof Acheteur){
+			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
+			System.out.println("Votre pseudo : " + ((Acheteur) utilisateur).getPseudo());
+			System.out.println("Informations de contact: \n" + "Adresse courriel : " + utilisateur.getCourriel() +
+					"\nTéléphone : " + utilisateur.getTelephone() + "\nAdresse d'expédition : " + ((Acheteur) utilisateur).getAdresseExpedition());
+			Scanner s = new Scanner(System.in);
+			System.out.println("Autres options:\n1 : Accéder à l'historique de vos commandes\n0: Retourner au menu principal");
+
+
+			int choix = Integer.parseInt(s.nextLine());
+			switch(choix){
+				case 1 :
+					// get the historique de commandes from acheteur
+					((Acheteur) utilisateur).afficherHistorique();
+
+					System.out.println("Voulez-vous... \n1: Retourner au profil\n0 : Retourner au menu");
+					int choix2 = Integer.parseInt(s.nextLine());
+
+					switch(choix2){
+						case 1: afficherProfil(utilisateur); // le profil sera affiché
+						case 0: afficherMenu(utilisateur); // retourner au menu
+						default:
+							System.out.println("Choix invalide veuillez sélectionner 0 ou 1.");
+							choix = Integer.parseInt(s.nextLine());
+					}
+					break;
+				case 0 :
+					afficherMenu(utilisateur); // afficher menu pour acheteur
+					break;
+				default:
+					System.out.println("Choix invalide veuillez sélectionner 0 ou 1.");
+					choix = Integer.parseInt(s.nextLine());
+			}
+		}
+		else if (utilisateur instanceof Revendeur){
+			System.out.println("Bienvenue dans votre profil de revendeur, " + ((Revendeur) utilisateur).getPseudo());
+			System.out.println("Informations de contact: \n" + "Adresse courriel : " + utilisateur.getCourriel() +
+					"\nTéléphone : " + utilisateur.getTelephone() + "\nAdresse : " + ((Revendeur) utilisateur).getAdresse());
+			Scanner s = new Scanner(System.in);
+
+			System.out.println("Autres options:\n1 : Accéder à vos produits\n0: Retourner au menu principal");
+			int choix = Integer.parseInt(s.nextLine());
+			switch(choix){
+				case 1 :
+					//TODO: offrir l'option de modifier un produit à partir de l'inventaire
+
+					// afficher la liste de produits offerts par le revendeur
+					System.out.println("Votre inventaire: ");
+					((Revendeur) utilisateur).afficherInventaire();
+
+					System.out.println("Voulez-vous... \n1: Retourner au profil\n0 : Retourner au menu");
+					int choix2 = Integer.parseInt(s.nextLine());
+
+					switch(choix2){
+						case 1: afficherProfil(utilisateur); // le profil sera affiché
+						case 0: afficherMenu(utilisateur); // retourner au menu
+						default:
+							System.out.println("Choix invalide veuillez sélectionner 0 ou 1.");
+							choix = Integer.parseInt(s.nextLine());
+					}
+					break;
+				case 0 :
+					afficherMenu(utilisateur); // afficher menu pour revendeur
+					break;
+				default:
+					System.out.println("Choix invalide veuillez sélectionner 0 ou 1.");
+					choix = Integer.parseInt(s.nextLine());
+			}
+		}
 	}
 
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
@@ -210,6 +285,7 @@ public abstract class Utilisateur {
 			System.out.println("2. Confirmer Reception Retour");
 			System.out.println("3. Modifier le profil");
 			System.out.println("4. Afficher métriques");
+			System.out.println("5. Voir mon profil");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
 
@@ -219,6 +295,7 @@ public abstract class Utilisateur {
 				case 2 -> revendeur.confirmerReceptionRetour();
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);
+				case 5 -> revendeur.afficherProfil(revendeur);
 				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
 			}
 
@@ -232,6 +309,7 @@ public abstract class Utilisateur {
 			System.out.println("4. Voir catalogue de produits");
 			System.out.println("5. Voir mon panier");
 			System.out.println("6. Afficher les métriques de mes activités");
+			System.out.println("7. Voir mon profil");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
 			Acheteur acheteur = (Acheteur) utilisateur;
@@ -253,6 +331,9 @@ public abstract class Utilisateur {
 				}
 				case 6 -> {
 					acheteur.afficherMetriques(acheteur);
+				}
+				case 7 -> {
+					acheteur.afficherProfil(acheteur);
 				}
 				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");
 			}

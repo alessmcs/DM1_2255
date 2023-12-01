@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,17 +14,26 @@ public class Main {
         System.out.println("1. Créer un profil");
         System.out.println("2. Se connecter ");
 
-        int choix = Integer.parseInt(scanner.nextLine());
-        switch (choix) {
-            case 1:
-                Utilisateur.creerProfil();
-                break;
-            case 2:
-                Utilisateur.seConnecter();
-                break;
-            default:
-                System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
-        }
+        boolean validInput = false;
+        do {
+            try{
+                String choix = scanner.nextLine();
+                switch (choix) {
+                    case "1":
+                        Utilisateur.creerProfil();
+                        break;
+                    case "2":
+                        Utilisateur.seConnecter();
+                        break;
+                    default:
+                        System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
+                        break;
+                }
+            } catch(InputMismatchException e){
+                scanner.nextLine();
+            }
+        } while(!validInput);
+
     }
 
     public static boolean isNumeric(String str) {
@@ -115,23 +125,29 @@ public class Main {
 
         Revendeur revendeur5 = new Revendeur("5140976515", "roger_tremblay@gmail.com", "mrRoger12");
         revendeur5.setPseudo("roger427");
-        revendeur5.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "j9c2d6", "QC", "Canada"));
+        revendeur5.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "2", "QC", "Canada"));
 
         // revendeurs offrent des produits
         BaseDonnees.revendeursList.add(revendeur1);
+        revendeur1.updateInventaire(livre1);
+        revendeur1.updateInventaire(materiel1);
         livre1.setRevendeur(revendeur1);
         materiel1.setRevendeur(revendeur1);
 
         BaseDonnees.revendeursList.add(revendeur2);
+        revendeur1.updateInventaire(livre2);
         livre2.setRevendeur(revendeur2);
 
         BaseDonnees.revendeursList.add(revendeur3);
+        revendeur1.updateInventaire(livre3);
         livre3.setRevendeur(revendeur3);
 
         BaseDonnees.revendeursList.add(revendeur4);
+        revendeur1.updateInventaire(materiel2);
         materiel2.setRevendeur(revendeur4);
 
         BaseDonnees.revendeursList.add(revendeur5);
+        revendeur1.updateInventaire(article1);
         article1.setRevendeur(revendeur5);
 
         // initialiser 3 paniers

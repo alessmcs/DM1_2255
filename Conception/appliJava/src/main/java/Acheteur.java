@@ -138,6 +138,23 @@ public class Acheteur extends Utilisateur {
 		return pseudo;
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+	public int getPoints() {
+		return this.points;
+	}
+	public Adresse getAdresseExpedition() {
+		return this.adresseExpedition;
+	}
+
+	public Acheteur getAcheteur(){
+		return this;
+	}
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
@@ -149,28 +166,27 @@ public class Acheteur extends Utilisateur {
 	public void setAdresseExpedition(Adresse adresseExpedition) {
 		this.adresseExpedition = adresseExpedition;
 	}
-	public Adresse getAdresseExpedition() {
-		return this.adresseExpedition;
-	}
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
-	}
-
-
-	public int getPoints() {
-		return this.points;
 	}
 
 	public void setPoints(int points){
 		this.points = points;
 	}
 
-	public Acheteur getAcheteur(){
-		return this;
-	}
 
 	public void addHistorique(Commande commande) {
 		historiqueCommandes.add(commande);
+	}
+
+	protected void afficherHistorique(){
+		if (historiqueCommandes.size() == 0){
+			System.out.println("Vous n'avez passé aucune commande pour le moment!");
+		}
+		for(Commande c : historiqueCommandes){
+			c.commandeToString();
+			System.out.println("\n");
+		}
 	}
 
 
