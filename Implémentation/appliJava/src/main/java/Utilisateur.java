@@ -165,10 +165,12 @@ public abstract class Utilisateur {
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
 			System.out.println("Votre pseudo : " + ((Acheteur) utilisateur).getPseudo());
+			System.out.println("Vos points : " + ((Acheteur) utilisateur).getPoints() + " points");
 			System.out.println("Informations de contact: \n" + "Adresse courriel : " + utilisateur.getCourriel() +
 					"\nTéléphone : " + utilisateur.getTelephone() + "\nAdresse d'expédition : " + ((Acheteur) utilisateur).getAdresseExpedition());
 			Scanner s = new Scanner(System.in);
-			System.out.println("Autres options:\n1 : Accéder à l'historique de vos commandes\n0: Retourner au menu principal");
+			System.out.println("Autres options:\n1 : Accéder à l'historique de vos commandes\n2: Accéder à vos suiveurs" +
+					"\n0: Retourner au menu principal");
 
 
 			int choix = Integer.parseInt(s.nextLine());
@@ -188,6 +190,8 @@ public abstract class Utilisateur {
 							choix = Integer.parseInt(s.nextLine());
 					}
 					break;
+				case 2 :
+					// l'acheteur veut voir ses followers & les gérer
 				case 0 :
 					afficherMenu(utilisateur); // afficher menu pour acheteur
 					break;
@@ -235,45 +239,9 @@ public abstract class Utilisateur {
 
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
 		if (utilisateur instanceof Revendeur){
-			float revenu = 0;
-			int nbVendu = 0;
-			int nbArticles = ((Revendeur) utilisateur).inventaire.size();
-			for (Produit p : ((Revendeur) utilisateur).inventaire){
-				if(p.qteInitiale != p.qteEnStock){
-					int n = p.qteInitiale - p.qteEnStock;
-					nbVendu += n;
-					revenu += p.prix * n;
-				}
-			}
-
+			((Revendeur) utilisateur).afficherMetriques(utilisateur);
 		} else if ( utilisateur instanceof Acheteur ){
-			int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
-
-			ArrayList<String> produitsAchetes = new ArrayList<>();
-			ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-			for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
-				//voir les produits achetés
-				ArrayList<Produit> produits = c.getArticles();
-				for (Produit p : produits){
-					if (!produitsAchetes.contains(p)){
-						produitsAchetes.add(p.toString());
-					}
-				}
-			}
-
-			System.out.println("Vos métriques d'acheteur: ");
-			System.out.println("Nombre de commandes : " + nbCommandes);
-			System.out.println("Produits achetés");
-			for (String s : produitsAchetes){
-				System.out.println(s);
-			}
-			System.out.println("Nombre total: " + produitsAchetes.size());
-			System.out.println("Vos commentaires: ");
-			for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
-				System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
-				System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
-				System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
-			}
+			((Acheteur) utilisateur).afficherMetriques(utilisateur);
 		}
 	}
 

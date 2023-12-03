@@ -78,4 +78,17 @@ public class Revendeur extends Utilisateur {
 		this.pseudo = pseudo;
 	}
 
+	// TODO: brainstorm métriques
+	protected void afficherMetriques(Revendeur utilisateur){
+		float revenu = 0;
+		int nbVendu = 0;
+		int nbArticles = ((Revendeur) utilisateur).inventaire.size();
+		for (Produit p : ((Revendeur) utilisateur).inventaire){
+			if(p.qteInitiale != p.qteEnStock){
+				int n = p.qteInitiale - p.qteEnStock;
+				nbVendu += n;
+				revenu += p.prix * n;
+			}
+		}
+	}
 }

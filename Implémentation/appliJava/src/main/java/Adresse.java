@@ -60,4 +60,13 @@ public class Adresse {
         return String.format("%s, %s, %s, %s, %s", street, city, province, postalCode, country);
     }
 
+    // pour construire l'adresse à partir du CSV qui comprend un string pour l'adresse de l'utilisateur
+    public static Adresse adresseBuilder(String adresseString){
+        String[] str = adresseString.split(",");
+        Adresse result = new Adresse(str[0], str[1], str[2], str[3], str[4]);
+
+        return result;
+    }
+
+
 }

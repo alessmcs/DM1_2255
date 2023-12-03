@@ -14,6 +14,16 @@ public class Acheteur extends Utilisateur {
 
 	public Panier panier = new Panier();
 
+	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
+
+	//TODO: suivre acheteur
+	public void suivreAcheteur(Acheteur acheteur) {
+
+	}
+
+	public void acheteurSuiviPar(Acheteur acheteur){
+
+	}
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
@@ -100,9 +110,12 @@ public class Acheteur extends Utilisateur {
 
 	}
 
-	public void suivreAcheteur() {
-		// TODO - implement Acheteur.suivreAcheteur
-		throw new UnsupportedOperationException();
+	public void montrerProfil(){
+		// afficher les informations
+		System.out.println("Profil de : " + pseudo);
+		System.out.println(prenom + nom);
+		System.out.println(listeSuiveurs.size() + " suiveurs");
+		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
 
 	public void payerDifference() {
@@ -186,6 +199,37 @@ public class Acheteur extends Utilisateur {
 		for(Commande c : historiqueCommandes){
 			c.commandeToString();
 			System.out.println("\n");
+		}
+	}
+
+	// TODO: brainstorm métriques
+	protected void afficherMetriques(Acheteur utilisateur){
+		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
+
+		ArrayList<String> produitsAchetes = new ArrayList<>();
+		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
+		for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
+			//voir les produits achetés
+			ArrayList<Produit> produits = c.getArticles();
+			for (Produit p : produits){
+				if (!produitsAchetes.contains(p)){
+					produitsAchetes.add(p.toString());
+				}
+			}
+		}
+
+		System.out.println("Vos métriques d'acheteur: ");
+		System.out.println("Nombre de commandes : " + nbCommandes);
+		System.out.println("Produits achetés");
+		for (String s : produitsAchetes){
+			System.out.println(s);
+		}
+		System.out.println("Nombre total: " + produitsAchetes.size());
+		System.out.println("Vos commentaires: ");
+		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
+			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
+			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
+			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
 	}
 

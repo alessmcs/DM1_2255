@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 
 public class Plateforme {
+	// TODO: rechercher un produit
 
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
 
@@ -186,6 +187,18 @@ public class Plateforme {
 		} else if (choix.equals("1")){
 			offrirProduit(revendeur); // offrir un autre produit
 		}
+
+	}
+
+	public static void rechercheProduit(){
+
+	}
+
+	public static void rechercherAcheteur(){
+
+	}
+
+	public static void rechercheRevendeur(){
 
 	}
 }
