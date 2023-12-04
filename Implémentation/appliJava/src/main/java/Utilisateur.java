@@ -127,31 +127,67 @@ public abstract class Utilisateur {
 					}
 				}
 				case "2" -> {
-					while(true){
-						validInput = true; // If no exception, set flag to exit the loop
-						System.out.println("Entrer votre pseudo");
-						String pseudoAcheteur = scanner.nextLine();
+					// do while and try catch???
+					boolean validInput2 = false;
+					do{
+							validInput = true; // If no exception, set flag to exit the loop
+							System.out.println("Entrer votre pseudo");
+							String pseudoAcheteur = scanner.nextLine();
 
-						System.out.println("Veuillez entrer votre mot de passe.");
-						String motDePasseAcheteur = scanner.nextLine();
-						boolean profilTrouver = false;
-						for (Acheteur acheteur : BaseDonnees.acheteursList) {
-							if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
-									acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
-								profilTrouver = true;
-								if (acheteur.desactiver()){
-									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-									System.exit(0);
+							System.out.println("Veuillez entrer votre mot de passe.");
+							String motDePasseAcheteur = scanner.nextLine();
+							boolean profilTrouver = false;
+							for (Acheteur acheteur : BaseDonnees.acheteursList) {
+								if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
+										acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
+									profilTrouver = true;
+									validInput2 = true;
 
-								} else  {
-									afficherMenu(acheteur);
-									break;
+									if (acheteur.desactiver()){ // si le compte est desactivé
+										System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+										System.exit(0);
+
+									} else  {
+										afficherMenu(acheteur);
+										break;
+									}
+								} else {
+									profilTrouver = false;
 								}
-							} else {
-								profilTrouver = false;
 							}
-						} if (!profilTrouver) System.out.println("Vos données sont inexactes, svp réessayer");
-					}
+							if (!profilTrouver) {
+								System.out.println("Vos données sont inexactes, svp réessayer");
+							}
+					} while (!validInput2);
+
+//					while(true){
+//						validInput = true; // If no exception, set flag to exit the loop
+//						System.out.println("Entrer votre pseudo");
+//						String pseudoAcheteur = scanner.nextLine();
+//
+//						System.out.println("Veuillez entrer votre mot de passe.");
+//						String motDePasseAcheteur = scanner.nextLine();
+//						boolean profilTrouver = false;
+//						for (Acheteur acheteur : BaseDonnees.acheteursList) {
+//							if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
+//									acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
+//								profilTrouver = true;
+//								if (acheteur.desactiver()){
+//									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+//									System.exit(0);
+//
+//								} else  {
+//									afficherMenu(acheteur);
+//									break;
+//								}
+//							} else {
+//								profilTrouver = false;
+//							}
+//						}
+//						if (!profilTrouver) {
+//							System.out.println("Vos données sont inexactes, svp réessayer");
+//						}
+//					}
 				} default -> System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 			}
 			} catch (InputMismatchException e) {
@@ -252,8 +288,9 @@ public abstract class Utilisateur {
 			System.out.println("1. Offrir un produit");
 			System.out.println("2. Confirmer Reception Retour");
 			System.out.println("3. Modifier le profil");
-			System.out.println("4. Afficher métriques");
+			System.out.println("4. Afficher les métriques de mes activités");
 			System.out.println("5. Voir mon profil");
+			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
 
@@ -278,6 +315,7 @@ public abstract class Utilisateur {
 			System.out.println("5. Voir mon panier");
 			System.out.println("6. Afficher les métriques de mes activités");
 			System.out.println("7. Voir mon profil");
+			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
 			Acheteur acheteur = (Acheteur) utilisateur;
@@ -302,6 +340,9 @@ public abstract class Utilisateur {
 				}
 				case 7 -> {
 					acheteur.afficherProfil(acheteur);
+				}
+				case 0 -> {
+					acheteur.seDeconnecter(acheteur);
 				}
 				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");
 			}
@@ -488,6 +529,36 @@ public abstract class Utilisateur {
 					afficherMenu(utilisateur);
 			}
 		}
+
+	public <T extends Utilisateur> void seDeconnecter(T utilisateur){
+		System.out.println("Voulez-vous vous déconnecter? \n1: Oui \n0: Non, retour au menu principal");
+		// Quand l'utilisateur se deconnecte, on retourne a l'accueil
+		Scanner scanner = new Scanner((System.in));
+		boolean validInput = false;
+		do{
+			try{
+				String choix = scanner.nextLine();
+				switch(choix){
+					case "1" : {
+						validInput = true;
+						System.out.println("Vous avez été déconnecté avec succès!\n");
+						Main.accueil();
+						break;
+					}
+					case "0" : {
+						validInput = true;
+						afficherMenu(utilisateur);
+						break;
+					}
+					default : {
+						System.out.println("Choix invalide veuillez sélectionner 0 ou 1");
+					}
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Choix invalide veuillez sélectionner 0 ou 1");
+			}
+		} while (!validInput);
+	}
 
 	public String getCourriel() {
 		return this.courriel;

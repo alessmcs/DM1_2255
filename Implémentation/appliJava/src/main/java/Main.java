@@ -7,6 +7,11 @@ public class Main {
 
         init();
 
+        accueil();
+
+    }
+
+    public static void accueil(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenue dans Unishop.");
@@ -33,7 +38,6 @@ public class Main {
                 scanner.nextLine();
             }
         } while(!validInput);
-
     }
 
     public static boolean isNumeric(String str) {
