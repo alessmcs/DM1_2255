@@ -41,8 +41,8 @@ public class Produit {
 	}
 
 
-	public void voirEval(Acheteur ach) {
-		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete(ach);
+	public void voirEval(Utilisateur util) {
+		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete(util);
 
 		for (ArrayList<String> elements : listeComplete){
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + elements.get(0));
@@ -121,7 +121,7 @@ public class Produit {
 
 
 
-	public String commenter(Acheteur ach) {
+	public String commenter(Utilisateur util) {
 		review = "";
 
 		System.out.println("Voulez-vous laisser un commentaire au produit?");
@@ -147,7 +147,7 @@ public class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				commenter(ach);
+				commenter(util);
 				break;
 		}
 
@@ -155,7 +155,7 @@ public class Produit {
 
 	}
 
-	public String verifier(Acheteur ach) { // TODO ILO juste avoir commentaire et like
+	public String verifier(Utilisateur util) { // TODO ILO juste avoir commentaire et like
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
 		//System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
@@ -187,15 +187,15 @@ public class Produit {
 				switch (modification) {
 					case "1":
 						evaluer();
-						verifier(ach);
+						verifier(util);
 						break;
 					//case "2":
 					//	liker();
 					//	verifier(ach);
 					//	break;
 					case "3": 
-						commenter(ach);
-						verifier(ach);
+						commenter(util);
+						verifier(util);
 						break;
 					default:
 						System.out.println();
@@ -208,14 +208,14 @@ public class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				verifier(ach);
+				verifier(util);
 				break;
 		}
 		return "Vos données ont été enregistrées!";
 	}
 
 
-	public ArrayList<ArrayList<String>> enregistrerEvalComplete(Acheteur ach) {
+	public ArrayList<ArrayList<String>> enregistrerEvalComplete(Utilisateur util) {
 		ArrayList<String> evalComplete = new ArrayList<String>();
 
 		Commentaire c = new Commentaire();
@@ -225,10 +225,10 @@ public class Produit {
 		evalComplete.add(evalEtoile);
 		evalComplete.add(review);
 
-		if (evalEtoile != null && review != null){
+		if (evalEtoile != null && review != null && util instanceof Acheteur){
 			c.setContenu(evalComplete);
 			listCommentaires.add(c.getContenu());
-			ach.addListeCommentaires(c.getContenu());
+			((Acheteur) util).addListeCommentaires(c.getContenu());
 		}
 		return listCommentaires;
 	}
@@ -295,7 +295,7 @@ public class Produit {
 		return this.titre;
 	}
 
-	public void voirDetails(Acheteur ach) {
+	public void voirDetails(Utilisateur util) {
 	}
 
 	public void demanderAjoutPanier(Acheteur ach){

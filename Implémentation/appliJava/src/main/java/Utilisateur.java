@@ -290,6 +290,7 @@ public abstract class Utilisateur {
 			System.out.println("3. Modifier le profil");
 			System.out.println("4. Afficher les métriques de mes activités");
 			System.out.println("5. Voir mon profil");
+			System.out.println("6. Voir catalogue de produits");
 			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
@@ -301,6 +302,7 @@ public abstract class Utilisateur {
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);
 				case 5 -> revendeur.afficherProfil(revendeur);
+				case 6 -> Catalogue.voirCatalogue(revendeur);
 				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
 			}
 

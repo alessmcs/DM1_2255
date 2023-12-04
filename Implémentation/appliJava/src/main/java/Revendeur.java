@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Revendeur extends Utilisateur {
@@ -7,7 +8,7 @@ public class Revendeur extends Utilisateur {
 	private int nom;
 	protected ArrayList<Produit> inventaire;
 	private String pseudo;
-	protected ArrayList<Produit> commandes; //TODO ajouter attribut revendeur au produit
+	protected ArrayList<Produit> commandes = new ArrayList<>(); //TODO ajouter attribut revendeur au produit
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
@@ -90,5 +91,14 @@ public class Revendeur extends Utilisateur {
 				revenu += p.prix * n;
 			}
 		}
+	}
+
+	public void montrerProfil(){
+		// afficher les informations
+		System.out.println("Profil de : " + pseudo);
+		System.out.println(inventaire.size() + " produits offerts");
+
+		System.out.println(commandes.size() + " commandes reçues");
+
 	}
 }
