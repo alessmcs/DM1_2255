@@ -4,19 +4,30 @@ import java.util.Scanner;
 import java.io.*;
 public class Catalogue {
 	private static ArrayList<Produit> produits = new ArrayList<>();
-
 	private String categorie;
 
+	// Constructeur de catalogue
 	public Catalogue(ArrayList<Produit> produits) {
 		this.produits = produits;
 	}
 
+	/*
+		Cette méthode permet d'ajouter un produit à la liste des produits sans directement accéder à l'objet
+
+		@param produit le produit à ajouter
+	 */
 	public static void ajouterProduit(Produit produit) {
 		produits.add(produit);
+		//todo écrire dans le fichier csv??
 	}
 
 	// Voir le catalogue de produits
+	/*
+		Cette méthode permet à l'utilisateur de voir la liste des produits disponibles, et éventuellement d'en
+		choisir un pour voir ses détails
 
+		@param util l'utilisateur connecté (peut être un revendeur ou un acheteur)
+	 */
 	public static void catalogueProduits(Utilisateur util){
 		Scanner s = new Scanner(System.in);
 		System.out.println("Liste des produits disponibles : ");
@@ -61,6 +72,13 @@ public class Catalogue {
 			}
 		} while (!validInput);
 	}
+
+	/*
+		Cette méthode affiche le menu du catalogue et donne à l'utilisateur le choix de voir la liste d'acheteurs,
+		la liste de revendeurs, le catalogue des produits ou de retourner au menu principal
+
+		@param util l'utilisateur connecté
+	 */
 	public static void voirCatalogue(Utilisateur util) {
 		Scanner s = new Scanner(System.in);
 
@@ -99,30 +117,15 @@ public class Catalogue {
 			}
 		}while(!validInput);
 
-//		while(true){
-//			System.out.println("Entrez l'ID d'un produit pour voir ses détails");
-//			System.out.println( "Entrez 0 pour revenir au menu" );
-//
-//			String choix = s.nextLine();
-//			if ( ! Main.isNumeric(choix)){
-//				System.out.println("Svp entrez l'ID (chiffres) du produit que vous desirez!");
-//			} else {
-//				if (choix.equals("0")){
-//					Utilisateur.afficherMenu(acheteur);
-//					break;
-//				}
-//				for (Produit p : produits){
-//					if ( p.getId() == Integer.parseInt(choix)){
-//						p.voirDetails(acheteur);
-//						break;
-//					}
-//				}
-//			}
-//		}
-
 	}
 
 	// TODO: figure out where to put suivre acheteur!!!
+	/*
+		Cette méthode affiche le catalogue des acheteurs à partir de la liste des acheteurs (acheteurs.csv) et donne
+		l'option de voir le profil d'un des acheteurs en entrant son pseudo.
+
+		@param util l'utilisateur connecté (peut être un acheteur ou un revendeur)
+	 */
 	public static void catalogueAcheteurs(Utilisateur util){
 		// afficher la liste des pseudos des acheteurs à partir du CSV, afficher le profil d'un acheteur choisi
 		System.out.println("\nListe des acheteurs : 1");
@@ -206,6 +209,12 @@ public class Catalogue {
 		} while(!validInput);
 	}
 
+	/*
+		Cette méthode affiche le catalogue des revendeurs à partir de la liste des revendeurs (revendeurs.csv) et donne
+		l'option de voir le profil d'un des revendeurs en entrant son pseudo.
+
+		@param util l'utilisateur connecté (peut être un acheteur ou un revendeur)
+	 */
 	public static void catalogueRevendeurs(Utilisateur util){
 		// afficher la liste des pseudos des revendeurs à partir du CSV
 		System.out.println("\nListe des revendeurs : ");

@@ -25,6 +25,7 @@ public class Acheteur extends Utilisateur {
 
 	}
 
+	// Constructeur
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
@@ -110,6 +111,9 @@ public class Acheteur extends Utilisateur {
 
 	}
 
+	/*
+		Affiche les informations du profil de l'acheteur
+	 */
 	public void montrerProfil(){
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);
@@ -192,7 +196,15 @@ public class Acheteur extends Utilisateur {
 		historiqueCommandes.add(commande);
 	}
 
+	// méthode pour gérer les commandes
+
+	/*
+		Affiche l'historique des commandes de l'utilisateur
+	 */
 	protected void afficherHistorique(){
+		// parse the csv de toutes les commandes & only keep the ones with the correct username
+		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
+
 		if (historiqueCommandes.size() == 0){
 			System.out.println("Vous n'avez passé aucune commande pour le moment!");
 		}
@@ -203,6 +215,9 @@ public class Acheteur extends Utilisateur {
 	}
 
 	// TODO: brainstorm métriques
+	/*
+		Affiche les métriques de l'utilisateur
+	 */
 	protected void afficherMetriques(Acheteur utilisateur){
 		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 

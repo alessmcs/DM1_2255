@@ -197,6 +197,11 @@ public abstract class Utilisateur {
 
 	}
 
+	/*
+		Affiche le profil d'un utilisateur donné, qu'il soit un acheteur ou un revendeur
+
+		@param utilisateur dont on veut voir le profil (acheteur ou revendeur)
+	 */
 	public <T extends Utilisateur> void afficherProfil(T utilisateur){
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
@@ -204,10 +209,10 @@ public abstract class Utilisateur {
 			System.out.println("Vos points : " + ((Acheteur) utilisateur).getPoints() + " points");
 			System.out.println("Informations de contact: \n" + "Adresse courriel : " + utilisateur.getCourriel() +
 					"\nTéléphone : " + utilisateur.getTelephone() + "\nAdresse d'expédition : " + ((Acheteur) utilisateur).getAdresseExpedition());
+
 			Scanner s = new Scanner(System.in);
 			System.out.println("Autres options:\n1 : Accéder à l'historique de vos commandes\n2: Accéder à vos suiveurs" +
 					"\n0: Retourner au menu principal");
-
 
 			int choix = Integer.parseInt(s.nextLine());
 			switch(choix){
@@ -252,11 +257,12 @@ public abstract class Utilisateur {
 					System.out.println("Votre inventaire: ");
 					((Revendeur) utilisateur).afficherInventaire();
 
-					System.out.println("Voulez-vous... \n1: Retourner au profil\n0 : Retourner au menu");
+					System.out.println("Voulez-vous... \n1: Retourner au profil \n2: Modifier la description d'un produit \n0 : Retourner au menu");
 					int choix2 = Integer.parseInt(s.nextLine());
 
 					switch(choix2){
 						case 1: afficherProfil(utilisateur); // le profil sera affiché
+						case 2: ((Revendeur) utilisateur).modifierInfos(); // un formulaire s'affiche pour modifier les informations du produit
 						case 0: afficherMenu(utilisateur); // retourner au menu
 						default:
 							System.out.println("Choix invalide veuillez sélectionner 0 ou 1.");
@@ -273,6 +279,11 @@ public abstract class Utilisateur {
 		}
 	}
 
+	/*
+		Appelle les méthodes afficherMetriques relatives à l'acheteur ou le revendeur
+
+		@param utilisateur l'utilisateur dont on veut voir les métriques
+	 */
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
 		if (utilisateur instanceof Revendeur){
 			((Revendeur) utilisateur).afficherMetriques(utilisateur);
@@ -532,6 +543,12 @@ public abstract class Utilisateur {
 			}
 		}
 
+	/*
+		Déconnecte l'utilisateur & retourne à la page d'accueil (de connexion) d'UniShop, ou lui donne l'option de ne
+		pas se déconnecter et de retourner au menu principal
+
+		@param utilisateur l'utilisateur qui veut se déconnecter
+	 */
 	public <T extends Utilisateur> void seDeconnecter(T utilisateur){
 		System.out.println("Voulez-vous vous déconnecter? \n1: Oui \n0: Non, retour au menu principal");
 		// Quand l'utilisateur se deconnecte, on retourne a l'accueil
@@ -562,6 +579,11 @@ public abstract class Utilisateur {
 		} while (!validInput);
 	}
 
+	/*
+		Obtenir le courriel de l'utilisateur sur lequel on appelle la méthode
+
+		@return le courriel
+	 */
 	public String getCourriel() {
 		return this.courriel;
 	}

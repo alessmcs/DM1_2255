@@ -6,25 +6,45 @@ public class Panier {
 
 	private float montantAPayer;
 	private int nbPoints;
-
 	private ArrayList<Produit> articles = new ArrayList<>();
 
 	// TODO: add continuer de magasiner & return to the catalogue!!!
 
+	/*
+		Ajouter un article au panier sans directement accéder à l'objet
+
+		@param le produit à ajouter
+	 */
 	public void ajouterArticle(Produit produit) {
 		articles.add(produit);
 		montantAPayer += produit.getPrix();
 		nbPoints += produit.getPoints();
 	}
 
+	/*
+		Indirectement accéder à la liste des produits du panier
+
+		@return la liste des articles du panier
+	 */
 	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
 
+	/*
+		Indirectement accéder au montant total du panier
+
+		@return le montant à payer
+	 */
 	public float getTotal(){
 		return montantAPayer;
 	}
 
+	/*
+		Affiche le panier de l'acheteur et lui donne des options pour le gérer (passer la commande ou
+		retirer un article)
+
+		@param acheteur l'acheteur connecté
+	 */
 	public void voirPanier(Acheteur acheteur){
 		Scanner s = new Scanner(System.in);
 		System.out.println(" --- Votre panier --- ");
@@ -42,27 +62,7 @@ public class Panier {
 		}
 
 		System.out.println("Voulez-vous quitter le panier? Entrez 0");
-//		while(true){
-//			String choix = s.nextLine();
-//			if (choix.equals("0")){
-//				Utilisateur.afficherMenu(acheteur);
-//			} else if (!Main.isNumeric(choix) && articles.size() != 0){
-//				System.out.println("SVP entrez un chiffre!");
-//			} else if (choix.equals("1") && articles.size() != 0){
-//				retirerArticle(acheteur);
-//				break;
-//			} else if (choix.equals("2") && articles.size() != 0){
-//				System.out.println("Vous avez choisi de ne rien supprimer du panier");
-//				break;
-//			} else if(choix.equals("3") && articles.size() != 0){
-//				Commande.setAcheteur(acheteur);
-//				Commande.passerCommande(this); // passer la commande
-//				break;
-//			}
-//			else {
-//				System.out.println("SVP entrez 0, 1, 2 ou 3!");
-//			}
-//		}
+
 		boolean validInput = false;
 		do{
 			try{
@@ -98,6 +98,11 @@ public class Panier {
 
 	}
 
+	/*
+		Permet à l'utilisateur de retirer un article de son panier
+
+		@param ach l'acheteur connecté
+	 */
 	public void retirerArticle(Acheteur ach) {
 
 		Scanner s = new Scanner(System.in);
@@ -118,8 +123,6 @@ public class Panier {
 				System.out.println("L'ID que vous avez entré n'est pas valide! Essayez encore SVP");
 			} else break;
 		}
-		// duplicate articles list
-		//ArrayList<Produit> articles2 = this.articles;
 
 		ArrayList<Produit> articles2 = new ArrayList<>();
 		for (Produit p : articles) {

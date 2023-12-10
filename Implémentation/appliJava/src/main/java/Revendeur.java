@@ -101,4 +101,8 @@ public class Revendeur extends Utilisateur {
 		System.out.println(commandes.size() + " commandes reçues");
 
 	}
+
+	public void modifierInfos(){
+
+	}
 }

@@ -12,6 +12,7 @@ public class LivresEtManuels extends Produit {
 	private int numEdition;
 	private int numVol;
 
+	// Constructeur
 	public LivresEtManuels(String titre, double prix, int qte, String cat, int nbPoints, String description,
 						   String ISBN, String auteur, String maisonEdition, String genre, String dateParution, int numEd, int numVol) {
 		super(titre, prix, qte, cat, nbPoints, description);
@@ -26,7 +27,11 @@ public class LivresEtManuels extends Produit {
 
 
 
-	// overriding voirDetails pour imprimer les détails spécifiques du produit
+	/*
+		Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
+
+		@param util l'utilisateur connecté
+	 */
 	@Override
 	public void voirDetails(Utilisateur util){
 		Scanner scanChoix = new Scanner(System.in);
