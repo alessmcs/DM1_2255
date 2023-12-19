@@ -71,6 +71,19 @@ public class Revendeur extends Utilisateur {
 		}
 	}
 
+	public void afficherCommentaires(Revendeur utilisateur){
+		for (Produit p : ((Revendeur) utilisateur).inventaire){ 
+			for (ArrayList<String> commentaire : p.listCommentaires){
+				System.out.println("Produit: " + p.titre);
+				System.out.println("Étoile(s): " + commentaire.get(0));
+				System.out.println("Commentaire: " + commentaire.get(1));
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}
+
+
 	public Adresse getAdresse() { return adresse; };
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;

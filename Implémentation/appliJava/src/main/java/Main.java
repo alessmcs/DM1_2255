@@ -139,19 +139,19 @@ public class Main {
         materiel1.setRevendeur(revendeur1);
 
         BaseDonnees.revendeursList.add(revendeur2);
-        revendeur1.updateInventaire(livre2);
+        revendeur2.updateInventaire(livre2);
         livre2.setRevendeur(revendeur2);
 
         BaseDonnees.revendeursList.add(revendeur3);
-        revendeur1.updateInventaire(livre3);
+        revendeur3.updateInventaire(livre3);
         livre3.setRevendeur(revendeur3);
 
         BaseDonnees.revendeursList.add(revendeur4);
-        revendeur1.updateInventaire(materiel2);
+        revendeur4.updateInventaire(materiel2);
         materiel2.setRevendeur(revendeur4);
 
         BaseDonnees.revendeursList.add(revendeur5);
-        revendeur1.updateInventaire(article1);
+        revendeur5.updateInventaire(article1);
         article1.setRevendeur(revendeur5);
 
         // initialiser 3 paniers
