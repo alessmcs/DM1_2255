@@ -70,15 +70,31 @@ public abstract class Utilisateur {
 
 		switch (choix) {
 			case 1:
+				System.out.println(" Veuillez entrer votre pseudo");
+				String pseudoRev = scanner.nextLine();
+
 				Revendeur revendeur = new Revendeur(telephone, courriel, motDePasse);
+				revendeur.setPseudo(pseudoRev);
 				revendeur.inscrireRevendeur();
 				BaseDonnees.revendeursList.add(revendeur);
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecrtez pas le delais," +
-						" le compte sera annuler ");
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecterez pas le délais," +
+						" le compte sera annulé ");
 				afficherMenu(revendeur);
 				break;
 			case 2:
+				System.out.println(" Veuillez entrer votre prénom");
+				String prenom = scanner.nextLine();
+
+				System.out.println(" Veuillez entrer votre nom");
+				String nom = scanner.nextLine();
+
+				System.out.println(" Veuillez entrer votre pseudo");
+				String pseudoAch = scanner.nextLine();
+
 				Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
+				acheteur.setNom(nom);
+				acheteur.setPrenom(prenom);
+				acheteur.setPseudo(pseudoAch);
 				acheteur.inscrireAcheteur();
 
 				BaseDonnees.acheteursList.add(acheteur);

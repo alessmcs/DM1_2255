@@ -14,6 +14,7 @@ public class Revendeur extends Utilisateur {
 	public Revendeur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		inventaire= new ArrayList<>();
+		this.pseudo = pseudo;
 	}
 
 	public void inscrireRevendeur() {

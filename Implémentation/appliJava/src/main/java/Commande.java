@@ -11,13 +11,16 @@ public class Commande {
 	private static ArrayList<Produit> articles = new ArrayList<>();
 	private static Acheteur acheteur;
 
+	private static double montant;
+
 	// Constructeur de commande
-	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
+	public Commande(Acheteur acheteur, StatutCommande status, Adresse adresse, int id, Panier panier){
 		this.acheteur = acheteur;
-		this.statut = statut;
+		this.statut = status;
 		this.adresseLivraison = adresse;
 		this.id = id;
-		this.articles = articles;
+		this.articles = panier.getArticles();
+		this.montant = panier.getTotal();
 	}
 
 	/*
@@ -35,8 +38,9 @@ public class Commande {
 		des commandes de l'acheteur. Elle écrit également les informations de la commande dans le fichier commandes.csv.
 
 		@param p le panier de l'acheteur connecté
+		@param acheteur l'acheteur connecté
 	 */
-	public static void passerCommande(Panier p) {
+	public static Commande passerCommande(Panier p, Acheteur acheteur) {
 
 		System.out.println(" --- Formulaire de commande ---");
 
@@ -110,6 +114,9 @@ public class Commande {
 				System.out.println("Entrer \"1\" ou \"2\" svp!");
 			}
 		}
+
+		System.out.println("Votre total est : $" + p.getTotal());
+		montant = p.getTotal();
 
 		// infos de paiement
 		while (true) {
@@ -217,8 +224,8 @@ public class Commande {
 		}
 	}
 
+		Commande commande = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, id+1, p);
 
-		Commande commande = new Commande(acheteur,"En production", adresseLivraison, id+1, p.getArticles());
 		// todo ajouter à l'historique & also écrire dans le csv!!!
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
@@ -250,6 +257,8 @@ public class Commande {
 
 		// nouveau colis généré avec la commande
 		Colis colis = new Colis(commande.getStatutCommande());
+
+		return commande;
 	}
 
 
@@ -293,11 +302,33 @@ public class Commande {
 	/*
 		Cette méthode formatte simplement la commande pour qu'elle soit affichée correctement
 	 */
-	public void commandeToString(){
-		System.out.println(id + "\n" + statut);
-		for(Produit p : articles){
-			System.out.println(p.toString());
+	public String commandeToString(){
+		String s;
+		String build;
+
+		switch (statut) {
+			case en_chemin:
+				s = "En chemin";
+				break;
+			case en_production:
+				s= "En production";
+				break;
+			case livree:
+				s= "Livrée";
+				break;
+			default:
+				s= "État inconnu";
+				break;
 		}
+
+		build = id + "\n" + s + "\n";
+		for(Produit p : articles){
+			build += p.toString()+ "\n";
+		}
+		build += "Total : " + montant;
+		System.out.println(build);
+
+		return build;
 	}
 
 

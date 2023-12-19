@@ -293,7 +293,5 @@ public class Catalogue {
 		} while(!validInput);
 	}
 
-	public static void rechercheRevendeur(){
 
-	}
 }

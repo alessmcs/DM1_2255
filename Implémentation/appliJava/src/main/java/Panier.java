@@ -15,10 +15,12 @@ public class Panier {
 
 		@param le produit à ajouter
 	 */
-	public void ajouterArticle(Produit produit) {
+	public ArrayList<Produit>  ajouterArticle(Produit produit) {
 		articles.add(produit);
 		montantAPayer += produit.getPrix();
 		nbPoints += produit.getPoints();
+
+		return articles;
 	}
 
 	/*
@@ -85,7 +87,7 @@ public class Panier {
 				} else if(choix.equals("3") && articles.size() != 0){
 					validInput = true;
 					Commande.setAcheteur(acheteur);
-					Commande.passerCommande(this); // passer la commande
+					Commande.passerCommande(this, acheteur); // passer la commande
 					break;
 				}
 				else {
