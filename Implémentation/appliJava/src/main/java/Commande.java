@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -40,7 +41,7 @@ public class Commande {
 		@param p le panier de l'acheteur connecté
 		@param acheteur l'acheteur connecté
 	 */
-	public static Commande passerCommande(Panier p, Acheteur acheteur) {
+	public static Commande passerCommande(Panier p, Acheteur acheteur) throws FileNotFoundException {
 
 		System.out.println(" --- Formulaire de commande ---");
 
@@ -226,7 +227,7 @@ public class Commande {
 
 		Commande commande = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, id+1, p);
 
-		// todo ajouter à l'historique & also écrire dans le csv!!!
+		Main.ecrireCommandeCSV(commande);
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande
@@ -260,7 +261,6 @@ public class Commande {
 
 		return commande;
 	}
-
 
 	/*
 		Cette méthode prend en entrée un objet de StatutCommande, qui est, en fait, un String.
@@ -297,6 +297,18 @@ public class Commande {
 	 */
 	public ArrayList<Produit> getArticles(){
 		return articles;
+	}
+
+	public String getAdresse(){
+		return adresseLivraison.toString();
+	}
+
+	public double getTotal(){
+		return montant;
+	}
+
+	public Acheteur getAcheteur(){
+		return acheteur;
 	}
 
 	/*

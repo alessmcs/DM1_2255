@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,8 +8,6 @@ public class Panier {
 	private float montantAPayer;
 	private int nbPoints;
 	private ArrayList<Produit> articles = new ArrayList<>();
-
-	// TODO: add continuer de magasiner & return to the catalogue!!!
 
 	/*
 		Ajouter un article au panier sans directement accéder à l'objet
@@ -63,7 +62,7 @@ public class Panier {
 			System.out.println("Votre panier est vide");
 		}
 
-		System.out.println("Voulez-vous quitter le panier? Entrez 0");
+		System.out.println("Voulez-vous quitter le panier?\n0 : retourner au menu \n9 : retourner au catalogue de produits");
 
 		boolean validInput = false;
 		do{
@@ -72,7 +71,9 @@ public class Panier {
 				if (choix.equals("0")){
 					validInput = true;
 					Utilisateur.afficherMenu(acheteur);
-				} else if (!Main.isNumeric(choix) && articles.size() != 0){
+				} else if(choix.equals("9")){
+					Catalogue.catalogueProduits(acheteur);
+				}else if (!Main.isNumeric(choix) && articles.size() != 0){
 					validInput = true;
 					System.out.println("SVP entrez un chiffre!");
 				} else if (choix.equals("1") && articles.size() != 0){
@@ -95,6 +96,8 @@ public class Panier {
 				}
 			} catch (InputMismatchException e){
 				System.out.println("SVP entrez 0, 1, 2 ou 3!");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
 			}
 		} while (!validInput);
 

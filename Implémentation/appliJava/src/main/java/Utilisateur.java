@@ -566,7 +566,7 @@ public abstract class Utilisateur {
 		@param utilisateur l'utilisateur qui veut se déconnecter
 	 */
 	public <T extends Utilisateur> void seDeconnecter(T utilisateur){
-		System.out.println("Voulez-vous vous déconnecter? \n1: Oui \n0: Non, retour au menu principal");
+		System.out.println("Confirmer la déconnexion? \n1: Oui \n0: Non, retour au menu principal");
 		// Quand l'utilisateur se deconnecte, on retourne a l'accueil
 		Scanner scanner = new Scanner((System.in));
 		boolean validInput = false;

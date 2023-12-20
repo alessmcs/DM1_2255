@@ -1,6 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,6 +55,21 @@ public class Main {
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
+
+    public static void ecrireCommandeCSV(Commande commande) throws FileNotFoundException {
+        File csvFile = new File("src/main/data/commandes.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+
+        String builder = commande.getAcheteur().getPseudo() + "," + commande.getId() + "," + commande.getStatutCommande() + ",\"" + commande.getAdresse() +  "\",";
+        for (Produit p : commande.getArticles()){
+            builder += ("\"" + p.getTitre() + "," + String.valueOf(p.getPrix()) + "\",");
+        }
+        builder += commande.getTotal();
+
+        out.printf(builder);
+        out.close();
+    }
+
 
     public static void init(){
         // initialiser catalogue
