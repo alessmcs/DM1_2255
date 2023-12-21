@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -57,7 +57,7 @@ public class Commande {
 			if (!Main.isNumeric(choixAdresse)) {
 				System.out.println("Vous devez entrer un chiffre!");
 			} else if (choixAdresse.equals("1")) { // Les informations du profil sont utilisées
-				adresseLivraison = acheteur.getAdresseExpedition(); //TODO: customize it w the specific acheteur logged in
+				adresseLivraison = acheteur.getAdresseExpedition();
 				break;
 			} else if (choixAdresse.equals("2")) { // l'utilisateur fournit de nouvelles informations
 				while (true) {
@@ -227,7 +227,7 @@ public class Commande {
 
 		Commande commande = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, id+1, p);
 
-		Main.ecrireCommandeCSV(commande);
+		Main.ecrireCommandeCSV(commande); // ajouter la commande à la base de données
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande
@@ -241,6 +241,7 @@ public class Commande {
 			sommePoints += prod.getPoints();
 			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
 			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
+
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
 		System.out.printf("\nTotal: " + facture.getTotal());
@@ -260,6 +261,23 @@ public class Commande {
 		Colis colis = new Colis(commande.getStatutCommande());
 
 		return commande;
+	}
+
+	// TODO: modifier les quantités & le nombre de points!!
+	private static void modQte(String fichier, String editTerm, String newQte){
+
+		String tempFile = "temp.txt";
+		File oldFile = new File("src/main/data/listeProduits.csv");
+		File newFile = new File(tempFile);
+		String qte = "";
+		try{
+			FileWriter fw = new FileWriter(tempFile, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+
+		} catch(Exception e){
+
+		}
 	}
 
 	/*

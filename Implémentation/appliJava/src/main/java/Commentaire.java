@@ -23,9 +23,6 @@ public class Commentaire {
 		return Contenu;
 	} 
 
-
-	//TODO ILO
-
 	public static ArrayList<ArrayList<String>> listeDeCom(){
 		ArrayList<ArrayList<String>> listCommentaires = new ArrayList<>();
 

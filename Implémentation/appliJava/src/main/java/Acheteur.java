@@ -16,7 +16,6 @@ public class Acheteur extends Utilisateur {
 
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
 
-	//TODO: suivre acheteur
 	public void suivreAcheteur(Acheteur acheteur) {
 
 	}
@@ -121,12 +120,10 @@ public class Acheteur extends Utilisateur {
 	}
 
 	public void payerDifference() {
-		// TODO - implement Acheteur.payerDifference
 		throw new UnsupportedOperationException();
 	}
 
 	public int voirClassement() {
-		// TODO - implement Acheteur.voirClassement
 		throw new UnsupportedOperationException();
 	}
 
@@ -135,7 +132,6 @@ public class Acheteur extends Utilisateur {
 	 * @param points
 	 */
 	public void echangerPoints(int points) {
-		// TODO - implement Acheteur.echangerPoints
 		throw new UnsupportedOperationException();
 	}
 
@@ -144,7 +140,6 @@ public class Acheteur extends Utilisateur {
 	 * @param r
 	 */
 	public void likeRevendeur(Revendeur r) {
-		// TODO - implement Acheteur.likeRevendeur
 		throw new UnsupportedOperationException();
 	}
 

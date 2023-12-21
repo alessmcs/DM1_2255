@@ -18,7 +18,6 @@ public class Catalogue {
 	 */
 	public static void ajouterProduit(Produit produit) {
 		produits.add(produit);
-		//todo écrire dans le fichier csv??
 	}
 
 	// Voir le catalogue de produits
@@ -100,7 +99,7 @@ public class Catalogue {
 					case("0") :
 						Utilisateur.afficherMenu(util); // afficher le menu principal
 						break;
-					case("1") : // TODO: IMPLEMENTER RECHERCHE
+					case("1") :
 					case("2") :
 						catalogueProduits(util);
 						break;
@@ -119,7 +118,6 @@ public class Catalogue {
 
 	}
 
-	// TODO: figure out where to put suivre acheteur!!!
 	/*
 		Cette méthode affiche le catalogue des acheteurs à partir de la liste des acheteurs (acheteurs.csv) et donne
 		l'option de voir le profil d'un des acheteurs en entrant son pseudo.

@@ -155,7 +155,7 @@ public class Produit {
 
 	}
 
-	public String verifier(Utilisateur util) { // TODO ILO juste avoir commentaire et like
+	public String verifier(Utilisateur util) {
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
 		//System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
@@ -233,8 +233,6 @@ public class Produit {
 		return listCommentaires;
 	}
 
-
-
 	public void promouvoir() {
 		// TODO - implement Produit.promouvoir
 	}
@@ -293,6 +291,14 @@ public class Produit {
 
 	public String getTitre() {
 		return this.titre;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+
+	public String getCategorie(){
+		return catégorie;
 	}
 
 	public void voirDetails(Utilisateur util) {

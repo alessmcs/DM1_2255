@@ -14,6 +14,18 @@ public class ArticlesDePapeterie extends Produit {
         super(titre, prix, qte, cat, nbPoints, description);
     }
 
+    public String getMarque(){
+        return marque;
+    }
+
+    public String getModele(){
+        return modele;
+    }
+
+    public String getSousCategorie(){
+        return sousCategorie;
+    }
+
 
     /*
          Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.

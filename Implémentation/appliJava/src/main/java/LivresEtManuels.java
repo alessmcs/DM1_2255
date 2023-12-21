@@ -25,6 +25,33 @@ public class LivresEtManuels extends Produit {
 		this.numVol = numVol;
 	}
 
+	public String getISBN(){
+		return ISBN;
+	}
+
+	public String getAuteur(){
+		return auteur;
+	}
+
+	public String getMaisonEdition(){
+		return maisonEdition;
+	}
+
+	public String getGenre(){
+		return genre;
+	}
+
+	public String getDateParution(){
+		return dateParution;
+	}
+
+	public int getNumEdition(){
+		return numEdition;
+	}
+
+	public int getNumVol(){
+		return numVol;
+	}
 
 
 	/*

@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ public class Revendeur extends Utilisateur {
 	private int nom;
 	protected ArrayList<Produit> inventaire;
 	private String pseudo;
-	protected ArrayList<Produit> commandes = new ArrayList<>(); //TODO ajouter attribut revendeur au produit
+	protected ArrayList<Produit> commandes = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
@@ -59,8 +60,14 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void updateInventaire(Produit p) { // lorsquon on ajoute un produit à l'inventaire on le met à jour
+	public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
 		inventaire.add(p);
+		try{
+			Main.ecrireProduitCSV(p);
+		} catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+
 	}
 
 	public String  getPseudo() {

@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public abstract class Utilisateur {
 
 
 
-	public static void creerProfil() {
+	public static void creerProfil() throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 
 		System.out.println("Veuillez entrer votre numéro de téléphone.");
@@ -70,40 +71,24 @@ public abstract class Utilisateur {
 
 		switch (choix) {
 			case 1:
-				System.out.println(" Veuillez entrer votre pseudo");
-				String pseudoRev = scanner.nextLine();
-
 				Revendeur revendeur = new Revendeur(telephone, courriel, motDePasse);
-				revendeur.setPseudo(pseudoRev);
 				revendeur.inscrireRevendeur();
-				BaseDonnees.revendeursList.add(revendeur);
+				Main.ecrireRevendeurCSV(revendeur);
+				//BaseDonnees.revendeursList.add(revendeur);
 				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecterez pas le délais," +
 						" le compte sera annulé ");
 				afficherMenu(revendeur);
 				break;
-			case 2:
-				System.out.println(" Veuillez entrer votre prénom");
-				String prenom = scanner.nextLine();
-
-				System.out.println(" Veuillez entrer votre nom");
-				String nom = scanner.nextLine();
-
-				System.out.println(" Veuillez entrer votre pseudo");
-				String pseudoAch = scanner.nextLine();
-
-				Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
-				acheteur.setNom(nom);
-				acheteur.setPrenom(prenom);
-				acheteur.setPseudo(pseudoAch);
+			case 2: Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
 				acheteur.inscrireAcheteur();
-
-				BaseDonnees.acheteursList.add(acheteur);
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le delais," +
+				Main.ecrireAcheteurCSV(acheteur);
+				//BaseDonnees.acheteursList.add(acheteur);
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le délais," +
 						" le compte sera désactivé ");
 				afficherMenu(acheteur);
 				break;
 			default:
-				System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
+				System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 				choix = Integer.parseInt(scanner.nextLine());
 		}
 	}
@@ -324,7 +309,13 @@ public abstract class Utilisateur {
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
-				case 1 -> Plateforme.offrirProduit(revendeur);
+				case 1 -> {
+					try {
+						Plateforme.offrirProduit(revendeur);
+					} catch (FileNotFoundException e) {
+						throw new RuntimeException(e);
+					}
+				}
 				case 2 -> revendeur.confirmerReceptionRetour();
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);
