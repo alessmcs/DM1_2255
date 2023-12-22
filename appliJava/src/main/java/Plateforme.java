@@ -22,8 +22,9 @@ public class Plateforme {
 		System.out.println("À quelle catégorie appartient ce produit?");
 		System.out.println("1. Livres et manuels");
 		System.out.println("2. Ressources d'apprentissage");
-		System.out.println("3. Matériel informatique");
-		System.out.println("4. Équipement de bureau");
+		System.out.println("3. Articles de papeterie")
+		System.out.println("4. Matériel informatique");
+		System.out.println("5. Équipement de bureau");
 
 		while (categorie == null) {
 			try {
@@ -48,18 +49,34 @@ public class Plateforme {
 						System.out.println("Numéro du volume: ");
 						int numVol = scanner.nextInt();
 					}
-					case 2, 4 -> {
-						if (choixCategorie == 2) {
-							categorie = "Ressources d'apprentissage";
+					case 2 -> {
+						categorie = "Ressources d'apprentissage";
+						System.out.println("ISBN : ");
+						String ISBN = scanner.next();
+						System.out.println("Auteur : ");
+						String auteur = scanner.next();
+						System.out.println("Organisation: ");
+						String maisonEdition = scanner.next();
+						System.out.println("Date de parution: ");
+						String genre = scanner.next();
+						System.out.println("Type: ");
+						String dateParution = scanner.next();
+						System.out.println("Numéro d'édition: ");
+						int numEd = scanner.nextInt();
+					}
+
+					case 3, 5 -> {
+						if (choixCategorie == 3) {
+							categorie = "Articles de papeterie";
 						} else {
 							categorie = "Équipement de bureau";
 						}
 					}
-					case 3 -> categorie = "Matériel informatique";
+					case 4 -> categorie = "Matériel informatique";
 					default -> System.out.println("Veuillez choisir une catégorie existante.");
 				}
 
-				// Recueillir les informations communes pour les categories 2,3 et 4
+				// Recueillir les informations communes pour les categories 3,4 et 5
 				System.out.print("Marque : ");
 				String marque = scanner.next();
 				System.out.print("Modèle : ");
