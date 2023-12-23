@@ -95,21 +95,28 @@ public class Revendeur extends Utilisateur {
 			acheteur.recevoirBilletDeSignalement(billet);
 
 			// L'acheteur peut accepter ou refuser la solution
-			System.out.print("Voulez-vous accepter la solution proposée ? (oui/non) : ");
-			System.out.println("1. Oui");
-			System.out.println("2. Non");
+			do {
+				try {
+					System.out.print("Voulez-vous accepter la solution proposée ?");
+					System.out.println("1. Oui");
+					System.out.println("2. Non");
 
-			int choixAcheteur = scanner.nextInt();
-			scanner.nextLine();
+					int choixAcheteur = scanner.nextInt();
+					scanner.nextLine();
 
-			if (choixAcheteur == 1) {
-				billet.setDescriptionSolution("La solution a été acceptée.");
-				solutionAcceptee = true;
-			} else if (choixAcheteur == 2) {
-				billet.setDescriptionSolution("La solution a été refusée. Veuillez proposer une autre solution.");
-			} else {
-				System.out.println("Choix invalide. Aucune action n'a été prise.");
-			}
+					if (choixAcheteur == 1) {
+						billet.setDescriptionSolution("La solution a été acceptée.");
+						solutionAcceptee = true;
+					} else if (choixAcheteur == 2) {
+						billet.setDescriptionSolution("La solution a été refusée. Veuillez proposer une autre solution.");
+					} else {
+						System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+					scanner.nextLine();
+				}
+			} while (choixAcheteur != 1 && choixAcheteur != 2);
 		}
 
 		// Annuler automatiquement la demande de réexpédition après 30 jours

@@ -161,21 +161,21 @@ public class Plateforme {
 
 		do {
 			try {
-				System.out.println("Voulez-vous donner des points bonus pour ce produit (oui/non)?");
+				System.out.println("Voulez-vous donner des points bonus pour ce produit?");
 				System.out.println("1. Oui");
 				System.out.println("2. Non");
 
-				choixAcheteur = scanner.nextInt();
-				scanner.nextLine();  // Consommer la nouvelle ligne après le numéro
+				int choixPts = scanner.nextInt();
+				scanner.nextLine();
 
-				if (choixAcheteur == 1) {
+				if (choixPts == 1) {
 					// Calculer les points bonus
 					nbPoints = (int) prix;
 					if (nbPoints > 20) {
 						nbPoints = 20;
 					}
 					nbPoints = (int) Math.floor(nbPoints);
-				} else if (choixAcheteur == 2) {
+				} else if (choixPts == 2) {
 					System.out.println("Succès! " + titre + " a été publié à la plateforme. En voici les détails:");
 					Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 				} else {
@@ -183,7 +183,7 @@ public class Plateforme {
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
-				scanner.nextLine();  // Consommer l'entrée invalide pour éviter une boucle infinie
+				scanner.nextLine();
 			}
 		} while (choixAcheteur != 1 && choixAcheteur != 2);
 
