@@ -3,15 +3,7 @@ import java.util.Scanner;
 
 
 public class Plateforme {
-	/**
-	 * Cette méthode permet à un revendeur d'offrir un produit à la plateforme après avoir fourni des
-	 * spécifications tels que le titre, la catégorie, la description, la quantité en stock,
-	 * le prix, etc.
-	 *
-	 * @param revendeur Le revendeur effectuant l'offre.
-	 * @throws InputMismatchException Si une entrée utilisateur n'est pas du type attendu.
-	 * @throws IllegalArgumentException Si une valeur est invalide ou ne respecte pas les conditions.
-	 */
+
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
 		// Demander au revendeur de specifier un titre
 		Scanner scanner = new Scanner(System.in);
@@ -159,33 +151,22 @@ public class Plateforme {
 			}
 		} while (prix <= 0);
 
-		do {
-			try {
-				System.out.println("Voulez-vous donner des points bonus pour ce produit (oui/non)?");
-				System.out.println("1. Oui");
-				System.out.println("2. Non");
+		System.out.println("Voulez vous donner des points bonus pour ce produit(oui/non)?");
+		String choixPtsBonus = scanner.next().toLowerCase();
 
-				choixAcheteur = scanner.nextInt();
-				scanner.nextLine();  // Consommer la nouvelle ligne après le numéro
-
-				if (choixAcheteur == 1) {
-					// Calculer les points bonus
-					nbPoints = (int) prix;
-					if (nbPoints > 20) {
-						nbPoints = 20;
-					}
-					nbPoints = (int) Math.floor(nbPoints);
-				} else if (choixAcheteur == 2) {
-					System.out.println("Succès! " + titre + " a été publié à la plateforme. En voici les détails:");
-					Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
-				} else {
-					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
-				scanner.nextLine();  // Consommer l'entrée invalide pour éviter une boucle infinie
+		int nbPoints = 0;
+		if (choixPtsBonus.equals("oui")) {
+			// Calculer les points bonus
+			nbPoints = (int) prix;
+			if (nbPoints > 20) {
+				nbPoints = 20;
 			}
-		} while (choixAcheteur != 1 && choixAcheteur != 2);
+			nbPoints = (int) Math.floor(nbPoints);
+		}
+
+
+		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
+		Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");

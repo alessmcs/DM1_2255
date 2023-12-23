@@ -54,9 +54,70 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void gererProbleme() {
-		// TODO - implement Revendeur.gérerProbleme
-		throw new UnsupportedOperationException();
+
+	public void gererProbleme(Revendeur revendeur) {
+
+		if (billet == null) {
+			System.out.println("Aucun problème signalé.");
+			return;
+		} else {
+			System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
+		}
+
+		boolean solutionAcceptee = false;
+		while (!solutionAcceptee) {
+			// Demander au revendeur de donner une solution
+			System.out.println("Options de solution :");
+			System.out.println("1. Réparation du produit défectueux");
+			System.out.println("2. Retour et remboursement");
+			System.out.println("3. Échange");
+
+			int choixSolution = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (choixSolution) {
+				case 1:
+					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					break;
+				case 2:
+					billet.setDescriptionSolution("Le revendeur a proposé de le retour du produit défectueux");
+					break;
+				case 3:
+					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					break;
+				default:
+					System.out.println("Choix invalide. Aucune action n'a été prise.");
+					return;
+			}
+
+			// Envoyer le billet avec la solution à l'acheteur
+			Acheteur acheteur = billet.getAcheteur();
+			acheteur.recevoirBilletDeSignalement(billet);
+
+			// L'acheteur peut accepter ou refuser la solution
+			System.out.print("Voulez-vous accepter la solution proposée ? (oui/non) : ");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			int choixAcheteur = scanner.nextInt();
+			scanner.nextLine();
+
+			if (choixAcheteur == 1) {
+				billet.setDescriptionSolution("La solution a été acceptée.");
+				solutionAcceptee = true;
+			} else if (choixAcheteur == 2) {
+				billet.setDescriptionSolution("La solution a été refusée. Veuillez proposer une autre solution.");
+			} else {
+				System.out.println("Choix invalide. Aucune action n'a été prise.");
+			}
+		}
+
+		// Annuler automatiquement la demande de réexpédition après 30 jours
+		if (billet.getNumSuiviRemplacement() != 0 &&
+				LocalDate.now().isAfter(billet.getDateEmission().plus(30, ChronoUnit.DAYS))) {
+			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
+			billet.setNumSuiviRemplacement(0);
+		}
 	}
 
 	public void updateInventaire() {
