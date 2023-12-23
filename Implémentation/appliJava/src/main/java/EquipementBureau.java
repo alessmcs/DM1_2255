@@ -125,6 +125,5 @@ public class EquipementBureau extends Produit {
 //		}
 
 
-		//super.demanderAjoutPanier(ach);
 	}
 }
