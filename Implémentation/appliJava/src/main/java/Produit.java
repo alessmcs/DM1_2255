@@ -294,6 +294,10 @@ public class Produit {
 	public String getTitre() {
 		return this.titre;
 	}
+	public Revendeur getRevendeur() {
+		return revendeur;
+	}
+
 
 	public void voirDetails(Acheteur ach) {
 	}

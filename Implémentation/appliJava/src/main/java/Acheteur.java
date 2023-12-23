@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Acheteur extends Utilisateur {
 
@@ -9,20 +11,90 @@ public class Acheteur extends Utilisateur {
 	private String nom;
 	private int points;
 	protected ArrayList<Commande> historiqueCommandes = new ArrayList<>();
-	private String pseudo;
+	protected String pseudo;
 	protected ArrayList<ArrayList<String>> listeCommentaires = new ArrayList<>();
 
 	public Panier panier = new Panier();
 
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
+	private Set<Revendeur> revendeursLikes = new HashSet<>();
+	private CarteCredit carteCredit;
 
-	//TODO: suivre acheteur
+
+
+
 	public void suivreAcheteur(Acheteur acheteur) {
+			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+			if(acheteurAjouter != null){
+				if(!this.listeSuiveurs.contains(acheteurAjouter)){
+					this.listeSuiveurs.add(acheteurAjouter);
+					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+
+					acheteurAjouter.ajouterSuiveur(this);
+
+					}else{
+						System.out.println("Vous etes déjà abonné a cet acheteur");
+					}
+		}else{
+			System.out.println("Aucun acheteur trouvé avec ce pseudo");
+			suivreAcheteur(acheteur);
+			}
 
 	}
-
+	public void ajouterSuiveur(Acheteur suiveur) {
+			this.listeSuiveurs.add(suiveur);
+	}
+	public void retirerAcheteur(Acheteur suiveur) {
+		this.listeSuiveurs.remove(suiveur);
+	}
 	public void acheteurSuiviPar(Acheteur acheteur){
+		Scanner scannerUn = new Scanner((System.in));
 
+		System.out.println("Que voulez-vous faire? ");
+		System.out.println("1. Voir vos suiveurs");
+		System.out.println("2. Gérer ses suiveurs");
+		System.out.println("0. Retour au menu ");
+		int choix= Integer.parseInt(scannerUn.nextLine());
+
+		switch (choix){
+			case 1 -> {
+				System.out.println(acheteur.listeSuiveurs);
+				acheteurSuiviPar(acheteur);
+			}
+			case 2 -> {
+				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
+				System.out.println("1. Ajouter un suiveur");
+				System.out.println("2. Supprimer un suiveur");
+				System.out.println("0. Retour au menu ");
+				int gestionChoix = Integer.parseInt(scannerUn.nextLine());
+
+				switch (gestionChoix) {
+					case 1 -> {
+						suivreAcheteur(acheteur);
+					} case 2 -> {
+						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
+						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
+						String acheteurPseudoSupp = scannerUn.nextLine();
+
+						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs );
+
+						if (acheteurSupp != null ){
+							acheteur.listeSuiveurs.remove(acheteurSupp);
+							System.out.println("Achteur" + acheteurPseudoSupp+" retirer de votre liste de suiveurs");
+
+							acheteurSupp.retirerAcheteur(this);
+						}else {
+							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
+						}
+					}case 0 -> {
+						afficherMenu(acheteur);
+					}
+				}
+			}case 0 -> {
+				afficherMenu(acheteur);
+			}
+
+		}
 	}
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
@@ -101,13 +173,39 @@ public class Acheteur extends Utilisateur {
 			if (valide) break;
 			else System.out.println("L'adresse entrée est invalide, svp réessayer");
 		}
-
 		setPrenom(prenom);
 		setNom(nom);
 		setAdresseExpedition(adresseExpedition);
 		setPseudo(pseudo);
 
+		while (true) {
+			System.out.println("----- Informations de paiement ----- \nNuméro de carte de crédit: ");
+			// l'utilisateur entre un numéro de carte, date d'expiration, cvc
+			String numCarte = scanner.nextLine();
+			System.out.println("Date d'expiration (MMAA)");
+			String dateExp = scanner.nextLine();
+			System.out.println("CVC (ex: 999)");
+			String cvc = scanner.nextLine();
+			System.out.println("Veuillez entrer le solde de votre carte de crédit :");
+			double soldeCarte = scanner.nextDouble();
+			scanner.nextLine();
+			// validation des infos
+			boolean valide = SystemePaiement.validerInfosPaiement(numCarte, dateExp, cvc);
+			if (valide) {
+				CarteCredit carteCredit1 = new CarteCredit(numCarte, dateExp, cvc, soldeCarte);
+				getAcheteur().setCarteCredit(carteCredit1);
+			} else {
+				System.out.println("Les informations de paiement sont invalides, svp réessayer");
+			}
+		}
 
+	}
+	public CarteCredit getCarteCredit() {
+		return carteCredit;
+	}
+
+	public void setCarteCredit(CarteCredit carteCredit) {
+		this.carteCredit = carteCredit;
 	}
 
 	public void montrerProfil(){
@@ -117,10 +215,14 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
+	public void afficherNotifications() {
+		for (Notification notification : notifications) {
+			System.out.println(notification);
+		}
+	}
 
-	public void payerDifference() {
-		// TODO - implement Acheteur.payerDifference
-		throw new UnsupportedOperationException();
+	public void payerDifference(double difference) {
+		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
 	public int voirClassement() {
@@ -139,11 +241,15 @@ public class Acheteur extends Utilisateur {
 
 	/**
 	 * 
-	 * @param r
+	 * @param
 	 */
-	public void likeRevendeur(Revendeur r) {
-		// TODO - implement Acheteur.likeRevendeur
-		throw new UnsupportedOperationException();
+	public void likeRevendeur(Revendeur revendeur) {
+		if(revendeursLikes.contains(revendeur)){
+			System.out.println("Vous avez déjà liké ce revendeur.");
+		} else{
+			revendeursLikes.add(revendeur);
+			System.out.println("Revendeur Liké avec succès.");
+		}
 	}
 
 
@@ -202,7 +308,6 @@ public class Acheteur extends Utilisateur {
 		}
 	}
 
-	// TODO: brainstorm métriques
 	protected void afficherMetriques(Acheteur utilisateur){
 		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 
@@ -232,6 +337,16 @@ public class Acheteur extends Utilisateur {
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
 	}
+	public ArrayList<Commande> obtenirCommandesLivrees() {
+		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 
+		for (Commande commande : historiqueCommandes) {
+			if (commande.getStatutCommande() == StatutCommande.livree) {
+				commandesLivrees.add(commande);
+			}
+		}
+
+		return commandesLivrees;
+	}
 
 }

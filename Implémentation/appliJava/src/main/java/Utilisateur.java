@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,14 +11,17 @@ public abstract class Utilisateur {
 	private String motDePasse;
 	private String courriel;
 	private long temps;
+	protected ArrayList<Notification> notifications = new ArrayList<>();
+	private LocalTime derniereConnexion;
 
 	public Utilisateur(String telephone, String courriel, String motDePasse) {
 		this.telephone = telephone;
 		this.courriel = courriel;
 		this.motDePasse = motDePasse;
 		this.temps = System.currentTimeMillis();
-
+		this.derniereConnexion= LocalTime.now();
 	}
+
 	public boolean desactiver() {
 		long tempsAcctuel = System.currentTimeMillis();
 		long tempsPassee= tempsAcctuel- temps;
@@ -99,6 +104,7 @@ public abstract class Utilisateur {
 		System.out.println(" 2. Se connecter en tant qu'acheteur ");
 
 		boolean validInput = false;
+
 		do {
 			try {
 				String choix = scanner.nextLine();
@@ -121,6 +127,10 @@ public abstract class Utilisateur {
 								System.exit(0);
 
 							} else  {
+								LocalDateTime derniereConnection = LocalDateTime.now();
+								revendeur.setDerniereConnection(derniereConnection);
+								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+
 								afficherMenu(revendeur);
 							}
 						}
@@ -148,8 +158,10 @@ public abstract class Utilisateur {
 										System.exit(0);
 
 									} else  {
-										afficherMenu(acheteur);
-										break;
+										LocalDateTime derniereConnection = LocalDateTime.now();
+										acheteur.setDerniereConnection(derniereConnection);
+										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+
 									}
 								} else {
 									profilTrouver = false;
@@ -160,34 +172,7 @@ public abstract class Utilisateur {
 							}
 					} while (!validInput2);
 
-//					while(true){
-//						validInput = true; // If no exception, set flag to exit the loop
-//						System.out.println("Entrer votre pseudo");
-//						String pseudoAcheteur = scanner.nextLine();
 //
-//						System.out.println("Veuillez entrer votre mot de passe.");
-//						String motDePasseAcheteur = scanner.nextLine();
-//						boolean profilTrouver = false;
-//						for (Acheteur acheteur : BaseDonnees.acheteursList) {
-//							if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
-//									acheteur.getMotDePasse().equalsIgnoreCase(motDePasseAcheteur)) {
-//								profilTrouver = true;
-//								if (acheteur.desactiver()){
-//									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-//									System.exit(0);
-//
-//								} else  {
-//									afficherMenu(acheteur);
-//									break;
-//								}
-//							} else {
-//								profilTrouver = false;
-//							}
-//						}
-//						if (!profilTrouver) {
-//							System.out.println("Vos données sont inexactes, svp réessayer");
-//						}
-//					}
 				} default -> System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 			}
 			} catch (InputMismatchException e) {
@@ -195,6 +180,10 @@ public abstract class Utilisateur {
 			}
 		} while (!validInput);
 
+	}
+
+	LocalDateTime setDerniereConnection(LocalDateTime derniereConnection) {
+		return derniereConnection;
 	}
 
 	public <T extends Utilisateur> void afficherProfil(T utilisateur){
@@ -290,6 +279,9 @@ public abstract class Utilisateur {
 			System.out.println("3. Modifier le profil");
 			System.out.println("4. Afficher les métriques de mes activités");
 			System.out.println("5. Voir mon profil");
+			System.out.println("6. Voir mes notifications");
+			System.out.println("7. Rechercher un acheteur");
+			System.out.println("8. Rechercher un revendeur");
 			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
@@ -301,6 +293,15 @@ public abstract class Utilisateur {
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);
 				case 5 -> revendeur.afficherProfil(revendeur);
+				case 6 -> revendeur.afficherNotifications();
+				case 7 -> {
+					Acheteur acheteur = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+
+				}
+				case 8 -> {
+					Revendeur revendeur1 = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
+				}
+
 				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
 			}
 
@@ -315,6 +316,10 @@ public abstract class Utilisateur {
 			System.out.println("5. Voir mon panier");
 			System.out.println("6. Afficher les métriques de mes activités");
 			System.out.println("7. Voir mon profil");
+			System.out.println("8. Gérer mes suivreurs");
+			System.out.println("9. Voir mes notifications");
+			System.out.println("10. Chercher un acheteur");
+			System.out.println("11. Chercher un revendeur");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
@@ -344,6 +349,37 @@ public abstract class Utilisateur {
 				case 0 -> {
 					acheteur.seDeconnecter(acheteur);
 				}
+				case 8-> {
+					acheteur.acheteurSuiviPar(acheteur);
+
+				}
+				case 9 -> {
+					acheteur.afficherNotifications();
+				}
+				case 10 -> {
+					Acheteur acheteurChercher = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+					System.out.println("Voulez-vous suivre cet acheteur?" + acheteurChercher);
+					System.out.println("1. Oui ");
+					System.out.println("2. Non");
+					System.out.println("0. Retour au Menu ");
+					int choix= Integer.parseInt(scanner.nextLine());
+					switch (choix){
+						case 1 -> acheteur.suivreAcheteur(acheteurChercher);
+						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}
+				}case 11 ->{
+					Revendeur revendeurChercher = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
+					System.out.println("Voulez-vous liké cet acheteur?" + revendeurChercher);
+					System.out.println("1. Oui ");
+					System.out.println("2. Non");
+					System.out.println("0. Retour au Menu ");
+					int choix= Integer.parseInt(scanner.nextLine());
+					switch (choix){
+						case 1 -> acheteur.likeRevendeur(revendeurChercher);
+						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}
+				}
+
 				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");
 			}
 		}
@@ -559,7 +595,19 @@ public abstract class Utilisateur {
 			}
 		} while (!validInput);
 	}
+	public  <T extends Utilisateur> void afficherNotification(T utilisateur){
+		if (utilisateur instanceof Revendeur) {
+			Revendeur revendeur = (Revendeur) utilisateur;
+			System.out.println("Notifications pour le revendeur " + revendeur.getPseudo() + ":");
+			revendeur.afficherNotifications();
+		}else if (utilisateur instanceof Acheteur) {
+			Acheteur acheteur = (Acheteur) utilisateur;
+			System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
+			acheteur.afficherNotifications();
 
+		}
+
+	}
 	public String getCourriel() {
 		return this.courriel;
 	}

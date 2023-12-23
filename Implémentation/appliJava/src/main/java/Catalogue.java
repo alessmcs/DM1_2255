@@ -14,8 +14,17 @@ public class Catalogue {
 	public static void ajouterProduit(Produit produit) {
 		produits.add(produit);
 	}
+	static ArrayList<Produit> produitsDisponibles = new ArrayList<>();
 
 	// Voir le catalogue de produits
+	public static  ArrayList<Produit> afficherProduits() {
+		System.out.println("Liste des produits disponibles : ");
+		for (Produit produit : produits) {
+			System.out.println(produit);
+			produitsDisponibles.add(produit);
+		}
+		return produitsDisponibles;
+	}
 
 	public static void catalogueProduits(Acheteur acheteur){
 		Scanner s = new Scanner(System.in);
@@ -65,10 +74,6 @@ public class Catalogue {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Catalogue:");
-		// 1 pour voir les produits
-		// 2 pour voir les acheteurs
-		// 3 pour voir les revendeurs
-		// 0 pour retourner au menu principal
 
 		System.out.println("1 : Effectuer une recherche \n2 : Catalogue des produits \n3 : Voir la liste d'acheteurs" +
 				"\n4 : Voir la liste de revendeurs \n0 : Retourner au menu principal");
@@ -92,31 +97,8 @@ public class Catalogue {
 		}while(!validInput);
 
 
-
-//		while(true){
-//			System.out.println("Entrez l'ID d'un produit pour voir ses détails");
-//			System.out.println( "Entrez 0 pour revenir au menu" );
-//
-//			String choix = s.nextLine();
-//			if ( ! Main.isNumeric(choix)){
-//				System.out.println("Svp entrez l'ID (chiffres) du produit que vous desirez!");
-//			} else {
-//				if (choix.equals("0")){
-//					Utilisateur.afficherMenu(acheteur);
-//					break;
-//				}
-//				for (Produit p : produits){
-//					if ( p.getId() == Integer.parseInt(choix)){
-//						p.voirDetails(acheteur);
-//						break;
-//					}
-//				}
-//			}
-//		}
-
 	}
 
-	// TODO: figure out where to put suivre acheteur!!!
 	public static void catalogueAcheteurs(Acheteur acheteur){
 		// afficher la liste des pseudos des acheteurs à partir du CSV, afficher le profil d'un acheteur choisi
 		System.out.println("\nListe des acheteurs : 1");
@@ -177,7 +159,4 @@ public class Catalogue {
 		} while(!validInput);
 	}
 
-	public static void rechercheRevendeur(){
-
-	}
 }

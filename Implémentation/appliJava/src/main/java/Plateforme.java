@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -194,11 +195,34 @@ public class Plateforme {
 
 	}
 
-	public static void rechercherAcheteur(){
+	public static Acheteur rechercherAcheteur(ArrayList<Acheteur> acheteurs){
+		Scanner scannerUn = new Scanner((System.in));
 
+		System.out.println("Veuillez indiquer le pseudo de l'acheteur.");
+		String acheteurPseudo = scannerUn.nextLine();
+
+		for (Acheteur acheteurRecherche : acheteurs) {
+			if (acheteurRecherche.getPseudo().equals(acheteurPseudo)) {
+				return acheteurRecherche;
+			}
+		}
+
+		return null;
 	}
 
-	public static void rechercheRevendeur(){
+	public static Revendeur rechercheRevendeur( ArrayList<Revendeur> revendeurs){
+		Scanner scannerUn = new Scanner(System.in);
+
+		System.out.println("Veuillez indiquer le pseudo du revendeur.");
+		String revendeurPseudo = scannerUn.nextLine();
+
+		for (Revendeur revendeurRecherche : revendeurs) {
+			if (revendeurRecherche.getPseudo().equals(revendeurPseudo)) {
+				return revendeurRecherche;
+			}
+		}
+
+		return null;
 
 	}
 }

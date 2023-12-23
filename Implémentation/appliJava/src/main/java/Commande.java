@@ -11,10 +11,12 @@ public class Commande {
 	private static ArrayList<Produit> articles = new ArrayList<>();
 
 	private static Acheteur acheteur;
+	private static Revendeur revendeur;
 
 	// Constructeur de commande
 	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
 		this.acheteur = acheteur;
+		this.revendeur= revendeur;
 		this.statut = statut;
 		this.adresseLivraison = adresse;
 		this.id = id;
@@ -265,6 +267,14 @@ public class Commande {
 		}
 	}
 
+	public Revendeur getRevendeurDuProduit(int produitId) {
+		for (Produit produit : articles) {
+			if (produit.getId() == produitId) {
+				return produit.getRevendeur();
+			}
+		}
+		return null;
+	}
 
 
 }
