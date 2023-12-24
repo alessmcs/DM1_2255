@@ -21,8 +21,6 @@ public class Acheteur extends Utilisateur {
 	private CarteCredit carteCredit;
 
 
-
-
 	public void suivreAcheteur(Acheteur acheteur) {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
@@ -298,16 +296,38 @@ public class Acheteur extends Utilisateur {
 		historiqueCommandes.add(commande);
 	}
 
-	protected void afficherHistorique(){
+	/*
+		Affiche l'historique des commandes de l'utilisateur
+
+		@return l'historique des commandes de l'acheteur
+	 */
+	protected String afficherHistorique(){
+		// parse the csv de toutes les commandes & only keep the ones with the correct username
+		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
+		String message = null;
 		if (historiqueCommandes.size() == 0){
-			System.out.println("Vous n'avez passé aucune commande pour le moment!");
+			message = "Vous n'avez passé aucune commande pour le moment!";
+			System.out.println(message);
+			return message;
 		}
 		for(Commande c : historiqueCommandes){
 			c.commandeToString();
 			System.out.println("\n");
 		}
+		return null;
 	}
 
+	public ArrayList<Commande> getHistoriqueCommandes(){
+		return historiqueCommandes;
+	}
+
+
+
+	/*
+		Affiche les métriques de l'utilisateur
+
+		@param utilisateur l'acheteur connecté
+	 */
 	protected void afficherMetriques(Acheteur utilisateur){
 		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 

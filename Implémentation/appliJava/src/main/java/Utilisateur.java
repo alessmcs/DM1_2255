@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.InputMismatchException;
@@ -137,7 +138,6 @@ public abstract class Utilisateur {
 					}
 				}
 				case "2" -> {
-					// do while and try catch???
 					boolean validInput2 = false;
 					do{
 							validInput = true; // If no exception, set flag to exit the loop
@@ -172,7 +172,6 @@ public abstract class Utilisateur {
 							}
 					} while (!validInput2);
 
-//
 				} default -> System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 			}
 			} catch (InputMismatchException e) {
@@ -186,6 +185,11 @@ public abstract class Utilisateur {
 		return derniereConnection;
 	}
 
+	/*
+		Affiche le profil d'un utilisateur donné, qu'il soit un acheteur ou un revendeur
+
+		@param utilisateur dont on veut voir le profil (acheteur ou revendeur)
+	 */
 	public <T extends Utilisateur> void afficherProfil(T utilisateur){
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
@@ -235,7 +239,6 @@ public abstract class Utilisateur {
 			int choix = Integer.parseInt(s.nextLine());
 			switch(choix){
 				case 1 :
-					//TODO: offrir l'option de modifier un produit à partir de l'inventaire
 
 					// afficher la liste de produits offerts par le revendeur
 					System.out.println("Votre inventaire: ");
@@ -262,6 +265,11 @@ public abstract class Utilisateur {
 		}
 	}
 
+	/*
+		Appelle les méthodes afficherMetriques relatives à l'acheteur ou le revendeur
+
+		@param utilisateur l'utilisateur dont on veut voir les métriques
+	 */
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
 		if (utilisateur instanceof Revendeur){
 			((Revendeur) utilisateur).afficherMetriques(utilisateur);
@@ -288,7 +296,13 @@ public abstract class Utilisateur {
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
-				case 1 -> Plateforme.offrirProduit(revendeur);
+				case 1 -> {
+					try {
+						Plateforme.offrirProduit(revendeur);
+					} catch (FileNotFoundException e) {
+						throw new RuntimeException(e);
+					}
+				}
 				case 2 -> revendeur.confirmerReceptionRetour();
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);

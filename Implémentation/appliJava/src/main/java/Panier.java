@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,17 +9,17 @@ public class Panier {
 	private int nbPoints;
 	private ArrayList<Produit> articles = new ArrayList<>();
 
-	// TODO: add continuer de magasiner & return to the catalogue!!!
-
 	/*
 		Ajouter un article au panier sans directement accéder à l'objet
 
 		@param le produit à ajouter
 	 */
-	public void ajouterArticle(Produit produit) {
+	public ArrayList<Produit>  ajouterArticle(Produit produit) {
 		articles.add(produit);
 		montantAPayer += produit.getPrix();
 		nbPoints += produit.getPoints();
+
+		return articles;
 	}
 
 	/*
@@ -61,7 +62,7 @@ public class Panier {
 			System.out.println("Votre panier est vide");
 		}
 
-		System.out.println("Voulez-vous quitter le panier? Entrez 0");
+		System.out.println("Voulez-vous quitter le panier?\n0 : retourner au menu \n9 : retourner au catalogue de produits");
 
 		boolean validInput = false;
 		do{
@@ -70,7 +71,9 @@ public class Panier {
 				if (choix.equals("0")){
 					validInput = true;
 					Utilisateur.afficherMenu(acheteur);
-				} else if (!Main.isNumeric(choix) && articles.size() != 0){
+				} else if(choix.equals("9")){
+					Catalogue.catalogueProduits(acheteur);
+				}else if (!Main.isNumeric(choix) && articles.size() != 0){
 					validInput = true;
 					System.out.println("SVP entrez un chiffre!");
 				} else if (choix.equals("1") && articles.size() != 0){
@@ -85,7 +88,7 @@ public class Panier {
 				} else if(choix.equals("3") && articles.size() != 0){
 					validInput = true;
 					Commande.setAcheteur(acheteur);
-					Commande.passerCommande(this); // passer la commande
+					Commande.passerCommande(this, acheteur); // passer la commande
 					break;
 				}
 				else {
@@ -93,6 +96,8 @@ public class Panier {
 				}
 			} catch (InputMismatchException e){
 				System.out.println("SVP entrez 0, 1, 2 ou 3!");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
 			}
 		} while (!validInput);
 

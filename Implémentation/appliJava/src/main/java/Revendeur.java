@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ public class Revendeur extends Utilisateur {
 	private int nom;
 	protected ArrayList<Produit> inventaire;
 	private String pseudo;
-	protected ArrayList<Produit> commandes; //TODO ajouter attribut revendeur au produit
+	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
 
 
@@ -57,7 +58,6 @@ public class Revendeur extends Utilisateur {
 
 		setAdresse(adresse);
 		setPseudo(pseudo);
-
 	}
 
 	public void afficherNotifications() {
@@ -106,10 +106,15 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-	public void updateInventaire(Produit p) { // lorsquon on ajoute un produit à l'inventaire on le met à jour
+	public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
 		inventaire.add(p);
-	}
+		try{
+			Main.ecrireProduitCSV(p);
+		} catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
 
+	}
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -123,9 +128,6 @@ public class Revendeur extends Utilisateur {
 	public Adresse getAdresse() {
 		return adresse;
 	}
-
-	;
-
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
@@ -145,6 +147,14 @@ public class Revendeur extends Utilisateur {
 				revenu += p.prix * n;
 			}
 		}
+	}
+
+	public void montrerProfil(){
+		// afficher les informations
+		System.out.println("Profil de : " + pseudo);
+		System.out.println(inventaire.size() + " produits offerts");
+
+		System.out.println(commandes.size() + " commandes reçues");
 
 	}
 

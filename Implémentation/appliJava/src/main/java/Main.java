@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -5,7 +8,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        init();
+        try {
+            init();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         accueil();
 
@@ -51,7 +58,91 @@ public class Main {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
-    public static void init(){
+    /*
+        Ajoute les informations d'une nouvelle commande dans le fichier commandes.csv
+
+        @param commande la nouvelle commande
+     */
+    public static void ecrireCommandeCSV(Commande commande) throws FileNotFoundException {
+        File csvFile = new File("src/main/data/commandes.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+
+        String builder = commande.getAcheteur().getPseudo() + "," + commande.getId() + "," + commande.getStatutCommande() + ",\"" + commande.getAdresse() +  "\",";
+        for (Produit p : commande.getArticles()){
+            builder += ("\"" + p.getTitre() + "," + String.valueOf(p.getPrix()) + "\",");
+        }
+        builder += commande.getTotal();
+
+        out.printf(builder);
+        out.close();
+    }
+
+    /*
+      Ajoute les informations d'un nouveau revendeur dans le fichier revendeurs.csv
+
+      @param revendeur le nouveau revendeur
+   */
+    public static void ecrireRevendeurCSV(Revendeur revendeur) throws FileNotFoundException{
+        File csvFile = new File("src/main/data/revendeurs.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+        String builder = revendeur.getPseudo() + "," + revendeur.getCourriel() + "," + revendeur.getTelephone() + "," + revendeur.getMotDePasse() + "," + "\"" + revendeur.getAdresse() + "\"";
+        out.printf(builder);
+        out.close();
+    }
+
+    /*
+       Ajoute les informations d'un nouvel acheteur dans le fichier acheteurs.csv
+
+       @param acheteur le nouvel acheteur
+    */
+    public static void ecrireAcheteurCSV(Acheteur acheteur) throws FileNotFoundException{
+        File csvFile = new File("src/main/data/revendeurs.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+        String builder = acheteur.getPrenom() + "," + acheteur.getNom() + "," + acheteur.getPseudo() + "," + acheteur.getTelephone() + "," + acheteur.getCourriel() + ","
+                + acheteur.getMotDePasse() + "," + "\"" + acheteur.getAdresseExpedition() + "\"";
+        out.printf(builder);
+        out.close();
+    }
+
+    /*
+       Écrit les infomations du produit, selon son type, dans le fichier listeProduits.csv, lorsqu'un revendeur le rajoute à la plateform
+
+      @param p le produit à marquer
+    */
+    public static void ecrireProduitCSV(Produit p) throws FileNotFoundException{
+        File csvFile = new File("src/main/data/listeProduits.csv");
+        PrintWriter out = new PrintWriter(csvFile);
+        String builder = null;
+        // écrire qqch de different ds le csv selon le type du produit
+        if(p instanceof MaterielInfo){ // ID, titre, prix, qte, categorie, points, description, marque, modele, date, sous-categorie
+            builder = p.getId() + "," + p.getTitre() + "," + p.getPrix() + "," + p.getQte() + "," + p.getCategorie()
+                    + "," + p.getPoints() + "," + p.getDescription() + ","
+                    + ((MaterielInfo) p).getMarque() + "," + ((MaterielInfo) p).getModele() + "," + ((MaterielInfo) p).getDate() + "," + ((MaterielInfo) p).getSousCategorie();
+        } else if(p instanceof EquipementBureau){ // ID, titre, prix, qte, categorie, points, description, marque, modele, sous-categorie
+            builder = p.getId() + "," + p.getTitre() + "," + p.getPrix() + "," + p.getQte() + "," + p.getCategorie()
+                    + "," + p.getPoints() + "," + p.getDescription() + ","
+                    + ((EquipementBureau) p).getMarque() + "," + ((EquipementBureau) p).getModele() + "," + ((EquipementBureau) p).getSousCategorie();;
+        } else if(p instanceof ArticlesDePapeterie){ // ID, titre, prix, qte, categorie, points, description, marque, modele, sous-categorie
+            builder = p.getId() + "," + p.getTitre() + "," + p.getPrix() + "," + p.getQte() + "," + p.getCategorie()
+                    + "," + p.getPoints() + "," + p.getDescription() + "," + ((ArticlesDePapeterie) p).getMarque() + "," + ((ArticlesDePapeterie) p).getModele()
+                    + "," + ((ArticlesDePapeterie) p).getSousCategorie();
+        } else if(p instanceof LivresEtManuels){ // ID, titre, prix, qte, categorie, points, description , ISBN , auteur, maison, genre, date, ed, vol
+            builder = p.getId() + "," + p.getTitre() + "," + p.getPrix() + "," + p.getQte() + "," + p.getCategorie()
+                    + "," + p.getPoints() + "," + p.getDescription() + "," + ((LivresEtManuels) p).getISBN() + "," + ((LivresEtManuels) p).getAuteur()
+                    + "," + ((LivresEtManuels) p).getMaisonEdition() + "," + ((LivresEtManuels) p).getGenre() + "," + ((LivresEtManuels) p).getDateParution()
+                    + "," + ((LivresEtManuels) p).getNumEdition() + "," + ((LivresEtManuels) p).getNumVol();
+        } else if(p instanceof RessourcesApprentissage){ // ID, titre, prix, qte, categorie, points, description, marque, modele, sous-categorie
+            builder = p.getId() + "," + p.getTitre() + "," + p.getPrix() + "," + p.getQte() + "," + p.getCategorie()
+                    + "," + p.getPoints() + "," + p.getDescription() + "," + ((RessourcesApprentissage) p).getMarque() + "," + ((RessourcesApprentissage) p).getModele() + ((RessourcesApprentissage) p).getSousCategorie() ;
+        }
+
+        out.printf(builder);
+        out.close();
+
+    }
+
+
+    public static void init() throws FileNotFoundException{
         // initialiser catalogue
         Produit livre1 = new LivresEtManuels("Programmation orientée objet et Génie logiciel, 8e édition", 78.90, 10,"Livres et manuels", 20, "Genie logiciel", "0-3923-7489-7", "Valerie Farino et al.", "Nathan", "Manuel scolaire", "3 janvier 2018", 3, 2);
         Produit livre2 = new LivresEtManuels("Calcul à plusieurs variables, 2e édition", 66.79, 15, "Livres et manuels", 20, "Calcul I", "0-9559-3560-1", "Fatima Alenar", "Pearson", "Manuel scolaire", "17 mars 2020", 4, 1);
