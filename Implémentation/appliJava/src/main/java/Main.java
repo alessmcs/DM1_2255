@@ -110,12 +110,46 @@ public class Main {
         acheteur5.setPseudo("suzette123");
         acheteur5.setAdresseExpedition(new Adresse("80 rue Rembouillet", "Montréal", "h9n6m0", "QC", "Canada"));
 
+        Acheteur acheteur6 = new Acheteur("5141126515", "girly@gmail.com", "stem");
+        acheteur6.setPrenom("Fernande");
+        acheteur6.setNom("Peltier");
+        acheteur6.setPseudo("Fpeltier");
+        acheteur6.setAdresseExpedition(new Adresse("85 rue Rembouillet", "Montréal", "h9n0m0", "QC", "Canada"));
+
+        Acheteur acheteur7 = new Acheteur("4389951122", "chateau@gmail.com", "castle");
+        acheteur7.setPrenom("Paul");
+        acheteur7.setNom("Gourmet");
+        acheteur7.setPseudo("gourmet123");
+        acheteur7.setAdresseExpedition(new Adresse("88 rue Rembouillet", "Montréal", "h7n1k3", "QC", "Canada"));
+
+        Acheteur acheteur8 = new Acheteur("4381597531", "lovescience@gmail.com", "chemistry1");
+        acheteur8.setPrenom("Théodore");
+        acheteur8.setNom("Fisher");
+        acheteur8.setPseudo("chipmunk");
+        acheteur8.setAdresseExpedition(new Adresse("91 rue Rembouillet", "Montréal", "j7l0m1", "QC", "Canada"));
+
+        Acheteur acheteur9 = new Acheteur("5147891230", "phonenumber@gmail.com", "apple");
+        acheteur9.setPrenom("Cindy");
+        acheteur9.setNom("Buffet");
+        acheteur9.setPseudo("foodlover");
+        acheteur9.setAdresseExpedition(new Adresse(" 93 rue Rembouillet", "Montréal", "h2n0k9", "QC", "Canada"));
+
+        Acheteur acheteur10 = new Acheteur("4385514876", "arcenciel@gmail.com", "nuage");
+        acheteur10.setPrenom("Léonard");
+        acheteur10.setNom("Hubert");
+        acheteur10.setPseudo("souris88");
+        acheteur10.setAdresseExpedition(new Adresse("100 rue Rembouillet", "Montréal", "b8k6h1", "QC", "Canada"));
 
         BaseDonnees.acheteursList.add(acheteur1);
         BaseDonnees.acheteursList.add(acheteur2);
         BaseDonnees.acheteursList.add(acheteur3);
         BaseDonnees.acheteursList.add(acheteur4);
         BaseDonnees.acheteursList.add(acheteur5);
+        BaseDonnees.acheteursList.add(acheteur6);
+        BaseDonnees.acheteursList.add(acheteur7);
+        BaseDonnees.acheteursList.add(acheteur8);
+        BaseDonnees.acheteursList.add(acheteur9);
+        BaseDonnees.acheteursList.add(acheteur10);
 
 
         Revendeur revendeur1 = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
