@@ -1,4 +1,1 @@
-il faut 10 commandes
-
-format: Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles
-
+luna34, En production, "70 rue Rembouillet, Montréal, h9n3r5, QC, Canada", 001, "Matériel informatique, Écouteurs SONY WH-1000XM4, 409.99, 2, 20, Écouteurs, SONY, WH-1000XM4, 14/08/2022, Écouteurs", "Matériel informatique,MacBook Pro M3 14p,2599.00,1,20,Ordinateur portable,Apple,Pro,16/09/2023,Ordinateurs"

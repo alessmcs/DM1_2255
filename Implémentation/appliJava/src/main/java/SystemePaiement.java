@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 public class SystemePaiement {
 
 	public static boolean validerInfosPaiement(String num, String date, String cvc) {
-		// TODO - implement SystemePaiement.validerInfosPaiement
 
 		boolean n = ( num.length() == 16); // check if the credit card number is 16 numbers long
 		boolean d = isValidExpirationDate(date);
@@ -31,9 +30,14 @@ public class SystemePaiement {
 	}
 
 
-	public void rembourserMontant() {
-		// TODO - implement SystemePaiement.rembourserMontant
-		throw new UnsupportedOperationException();
+	public static void rembourserMontant(CarteCredit carteCredit, Commande commande) {
+		double montantRemb = 0.0;
+		for (Produit produit: commande.getArticles()){
+			montantRemb += produit.getPrix();
+		}
+		double nouveauSold = carteCredit.getSolde() + montantRemb;
+		carteCredit.setSolde(nouveauSold);
+
 	}
 
 }

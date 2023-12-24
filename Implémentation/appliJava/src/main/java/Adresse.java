@@ -55,12 +55,21 @@ public class Adresse {
         this.country = country;
     }
 
-    // Method to format the address
+    /*
+        Formatte correctement l'adresse pour l'afficher
+
+        @return le String formatté
+     */
     public String toString() {
         return String.format("%s, %s, %s, %s, %s", street, city, province, postalCode, country);
     }
 
-    // pour construire l'adresse à partir du CSV qui comprend un string pour l'adresse de l'utilisateur
+    /*
+        Formatte l'adresse selon un String donné (dans le csv) & instancie l'objet
+
+        @param adresseString l'adresse dans un long String
+        @return l'objet Adresse
+     */
     public static Adresse adresseBuilder(String adresseString){
         String[] str = adresseString.split(",");
         Adresse result = new Adresse(str[0], str[1], str[2], str[3], str[4]);

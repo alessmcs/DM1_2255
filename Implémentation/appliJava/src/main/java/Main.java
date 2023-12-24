@@ -40,6 +40,13 @@ public class Main {
         } while(!validInput);
     }
 
+    /*
+        Vérifie si un String donné contient des nombres (important lorsqu'on vérifie l'adresse, le numéro de téléphone,
+        les informations de paiement, etc.)
+
+        @param str le String à vérifier
+        @return vrai si ça contient des caractères numériques, sinon faux
+     */
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }

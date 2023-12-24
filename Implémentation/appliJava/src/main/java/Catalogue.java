@@ -14,10 +14,19 @@ public class Catalogue {
 	public static void ajouterProduit(Produit produit) {
 		produits.add(produit);
 	}
+	static ArrayList<Produit> produitsDisponibles = new ArrayList<>();
 
 	// Voir le catalogue de produits
+	public static  ArrayList<Produit> afficherProduits() {
+		System.out.println("Liste des produits disponibles : ");
+		for (Produit produit : produits) {
+			System.out.println(produit);
+			produitsDisponibles.add(produit);
+		}
+		return produitsDisponibles;
+	}
 
-	public static void catalogueProduits(Utilisateur util){
+	public static void catalogueProduits(Acheteur acheteur){
 		Scanner s = new Scanner(System.in);
 		System.out.println("Liste des produits disponibles : ");
 
@@ -39,16 +48,16 @@ public class Catalogue {
 				} else {
 					if (choix.equals("0")){
 						validInput = true;
-						Utilisateur.afficherMenu(util);
+						Utilisateur.afficherMenu(acheteur);
 						break;
 					} else if(choix.equals("1")) {
-						voirCatalogue(util);
+						voirCatalogue(acheteur);
 						break;
 					}
 					for (Produit p : produits){
 						if ( p.getId() == Integer.parseInt(choix)){
 							validInput = true;
-							p.voirDetails(util);
+							p.voirDetails(acheteur);
 							break;
 						}
 					}
@@ -61,14 +70,10 @@ public class Catalogue {
 			}
 		} while (!validInput);
 	}
-	public static void voirCatalogue(Utilisateur util) {
+	public static void voirCatalogue(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Catalogue:");
-		// 1 pour voir les produits
-		// 2 pour voir les acheteurs
-		// 3 pour voir les revendeurs
-		// 0 pour retourner au menu principal
 
 		System.out.println("1 : Effectuer une recherche \n2 : Catalogue des produits \n3 : Voir la liste d'acheteurs" +
 				"\n4 : Voir la liste de revendeurs \n0 : Retourner au menu principal");
@@ -79,19 +84,11 @@ public class Catalogue {
 			try{
 				String choix = s.nextLine();
 				switch(choix){
-					case("0") :
-						Utilisateur.afficherMenu(util); // afficher le menu principal
-						break;
+					case("0") : Utilisateur.afficherMenu(acheteur); // afficher le menu principal
 					case("1") : // TODO: IMPLEMENTER RECHERCHE
-					case("2") :
-						catalogueProduits(util);
-						break;
-					case("3") :
-						catalogueAcheteurs(util);
-						break;
-					case("4") :
-						catalogueRevendeurs(util);
-						break;
+					case("2") : catalogueProduits(acheteur);
+					case("3") : catalogueAcheteurs(acheteur);
+					case("4") : // TODO; implementer liste revendeurs
 					default : System.out.println("Svp entrez un chiffre valide: 0, 1, 2, 3 ou 4");
 				}
 			} catch (InputMismatchException e){
@@ -99,35 +96,15 @@ public class Catalogue {
 			}
 		}while(!validInput);
 
-//		while(true){
-//			System.out.println("Entrez l'ID d'un produit pour voir ses détails");
-//			System.out.println( "Entrez 0 pour revenir au menu" );
-//
-//			String choix = s.nextLine();
-//			if ( ! Main.isNumeric(choix)){
-//				System.out.println("Svp entrez l'ID (chiffres) du produit que vous desirez!");
-//			} else {
-//				if (choix.equals("0")){
-//					Utilisateur.afficherMenu(acheteur);
-//					break;
-//				}
-//				for (Produit p : produits){
-//					if ( p.getId() == Integer.parseInt(choix)){
-//						p.voirDetails(acheteur);
-//						break;
-//					}
-//				}
-//			}
-//		}
 
 	}
 
-	// TODO: figure out where to put suivre acheteur!!!
-	public static void catalogueAcheteurs(Utilisateur util){
+	public static void catalogueAcheteurs(Acheteur acheteur){
 		// afficher la liste des pseudos des acheteurs à partir du CSV, afficher le profil d'un acheteur choisi
 		System.out.println("\nListe des acheteurs : 1");
 		// faire une liste de tous les acheteurs pour accéder aux instances
 		ArrayList<Acheteur> listeAcheteurs = new ArrayList<>();
+		Acheteur achVisionne = null;
 
 		String line = "";
 		try {
@@ -135,9 +112,7 @@ public class Catalogue {
 			while ((line = br.readLine()) != null)
 			{
 				String[] ach = line.split(",");
-				// Si l'utilisateur est un acheteur ou un revendeur, on veut juste skip son pseudo dans l'affichage de la liste
-				if( ( util instanceof Acheteur && !ach[2].equalsIgnoreCase(((Acheteur) util).getPseudo()) ) ||
-						( util instanceof Revendeur && !ach[2].equalsIgnoreCase(((Revendeur) util).getPseudo()))){
+				if(!ach[2].equalsIgnoreCase(acheteur.getPseudo())){
 					Acheteur autre = new Acheteur(ach[3], ach[4], ach[5]);
 					autre.setPrenom(ach[1]);
 					autre.setNom(ach[2]);
@@ -153,51 +128,29 @@ public class Catalogue {
 		catch (IOException e) {e.printStackTrace();}
 
 		System.out.println("\nPour voir le profil d'un des acheteurs, entrez son pseudo \n1: Retourner au menu du catalogue" +
-				"\n0: Retourner au menu principal");
+				"\n1: Retourner au menu principal");
 		boolean validInput = false;
 		Scanner scanner = new Scanner(System.in);
 		do{
 			try{
 				String choix = scanner.nextLine();
-				if(choix.equals("1")){
+				if(choix.equals("O")){
 					validInput = true;
 					// go to the menu
-					voirCatalogue(util); // retourner au catalogue
-				} else if (choix.equals("0")){
+					voirCatalogue(acheteur); // retourner au catalogue
+				} else if (choix.equals("1")){
 					validInput = true;
-					Utilisateur.afficherMenu(util); // retourner au menu principal
+					Utilisateur.afficherMenu(acheteur); // retourner au menu principal
 				} else { // pseudo
 					// check if pseudo dans la liste, then access the profile if yes
 					for(Acheteur a : listeAcheteurs){
-						if(a.getPseudo().equalsIgnoreCase(choix)){
+						if(!a.getPseudo().equalsIgnoreCase(choix)){
+							throw new InputMismatchException();
+						} else {
 							validInput = true;
 							a.montrerProfil();
-
-							System.out.println("\n1: Retourner au menu du catalogue" +
-									"\n0: Retourner au menu principal");
-							boolean validInput2 = false;
-							Scanner scanner2 = new Scanner(System.in);
-							do{
-								try{
-									String choix2 = scanner2.nextLine();
-									if(choix2.equals("1")){
-										validInput2 = true;
-										// go to the menu
-										voirCatalogue(util); // retourner au catalogue
-									} else if (choix2.equals("0")){
-										validInput2 = true;
-										Utilisateur.afficherMenu(util); // retourner au menu principal
-									}
-								} catch (InputMismatchException e) {
-									System.out.println("Svp entrer 0 ou 1");
-								}
-							} while(!validInput2);
 							break;
 						}
-					}
-
-					if (validInput == false){
-						throw new InputMismatchException();
 					}
 				}
 			} catch (InputMismatchException e) {
@@ -206,85 +159,4 @@ public class Catalogue {
 		} while(!validInput);
 	}
 
-	public static void catalogueRevendeurs(Utilisateur util){
-		// afficher la liste des pseudos des revendeurs à partir du CSV
-		System.out.println("\nListe des revendeurs : ");
-		// faire une liste de tous les revendeurs pour accéder aux instances
-		ArrayList<Revendeur> listeRevendeurs = new ArrayList<>();
-
-		String line = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("src/main/data/revendeurs.csv"));
-			while ((line = br.readLine()) != null)
-			{
-				String[] rev = line.split(",");
-				// Si l'utilisateur est un acheteur ou un revendeur, on veut juste skip son pseudo dans l'affichage de la liste
-				if( ( util instanceof Acheteur && !rev[0].equalsIgnoreCase(((Acheteur) util).getPseudo()) ) ||
-						( util instanceof Revendeur && !rev[0].equalsIgnoreCase(((Revendeur) util).getPseudo()))){
-					Revendeur autre = new Revendeur(rev[1], rev[2], rev[3]);
-					autre.setPseudo(rev[0]);
-					autre.setAdresse(Adresse.adresseBuilder(rev[4] + "," + rev[5] + "," + rev[6] + "," + rev[7] + "," + rev[8]));
-					listeRevendeurs.add(autre);
-					System.out.println( rev[0]); // print tout sauf l'acheteur connecté
-				}
-			}
-		}
-		catch (IOException e) {e.printStackTrace();}
-
-		System.out.println("\nPour voir le profil d'un des revendeurs, entrez son pseudo \n1: Retourner au menu du catalogue" +
-				"\n0: Retourner au menu principal");
-		boolean validInput = false;
-		Scanner scanner = new Scanner(System.in);
-		do{
-			try{
-				String choix = scanner.nextLine();
-				if(choix.equals("1")){
-					validInput = true;
-					// go to the menu
-					voirCatalogue(util); // retourner au catalogue
-				} else if (choix.equals("0")){
-					validInput = true;
-					Utilisateur.afficherMenu(util); // retourner au menu principal
-				} else { // pseudo
-					// check if pseudo dans la liste, then access the profile if yes
-					for(Revendeur r : listeRevendeurs){
-						if(r.getPseudo().equalsIgnoreCase(choix)){
-							validInput = true;
-							r.montrerProfil();
-
-							System.out.println("\n1: Retourner au menu du catalogue" +
-									"\n0: Retourner au menu principal");
-							boolean validInput2 = false;
-							Scanner scanner2 = new Scanner(System.in);
-							do{
-								try{
-									String choix2 = scanner2.nextLine();
-									if(choix2.equals("1")){
-										validInput2 = true;
-										// go to the menu
-										voirCatalogue(util); // retourner au catalogue
-									} else if (choix2.equals("0")){
-										validInput2 = true;
-										Utilisateur.afficherMenu(util); // retourner au menu principal
-									}
-								} catch (InputMismatchException e) {
-									System.out.println("Svp entrer 0 ou 1");
-								}
-							} while(!validInput2);
-							break;
-						}
-					}
-					if(validInput == false){
-						throw new InputMismatchException();
-					}
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Svp entrer 0, 1 ou un pseudo valide");
-			}
-		} while(!validInput);
-	}
-
-	public static void rechercheRevendeur(){
-
-	}
 }

@@ -8,6 +8,7 @@ public class RessourcesApprentissage extends Produit {
 	private String modele;
 	private String sousCategorie;
 
+	// Constructeur
 	public RessourcesApprentissage(String titre, double prix, int qte, String cat, int nbPoints, String description,
 								   String marque, String modele, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);
@@ -16,6 +17,11 @@ public class RessourcesApprentissage extends Produit {
 		this.modele = modele;
 	}
 
+	/*
+		Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
+
+		@param util l'utilisateur connecté
+	 */
 	@Override
 	public void voirDetails(Utilisateur util){
 		Scanner scanChoix = new Scanner(System.in);

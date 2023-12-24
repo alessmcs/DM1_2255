@@ -9,22 +9,35 @@ public class Commande {
 	private static int id = 0;
 	private static Adresse adresseLivraison;
 	private static ArrayList<Produit> articles = new ArrayList<>();
-
 	private static Acheteur acheteur;
+	private static Revendeur revendeur;
 
 	// Constructeur de commande
 	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
 		this.acheteur = acheteur;
+		this.revendeur= revendeur;
 		this.statut = statut;
 		this.adresseLivraison = adresse;
 		this.id = id;
 		this.articles = articles;
 	}
 
+	/*
+		Permet d'assigner un acheteur à un objet Commande, pour qu'on puisse y accéder depuis l'acheteur.
+
+		@param a l'acheteur auquel on veut associer la commande
+	 */
 	public static void setAcheteur(Acheteur a){
 		acheteur = a;
 	}
 
+	/*
+		Propose à l'acheteur de remplir un formulaire pour qu'il passe la commande contenant les produits de son panier.
+		Cette méthode ne retourne rien, mais elle instancie un objet de type "Commande" pour l'ajouter à l'historique
+		des commandes de l'acheteur. Elle écrit également les informations de la commande dans le fichier commandes.csv.
+
+		@param p le panier de l'acheteur connecté
+	 */
 	public static void passerCommande(Panier p) {
 
 		System.out.println(" --- Formulaire de commande ---");
@@ -208,6 +221,7 @@ public class Commande {
 
 
 		Commande commande = new Commande(acheteur,"En production", adresseLivraison, id+1, p.getArticles());
+		// todo ajouter à l'historique & also écrire dans le csv!!!
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande
@@ -241,23 +255,46 @@ public class Commande {
 	}
 
 
-	// maybe add another parameter for this method
+	/*
+		Cette méthode prend en entrée un objet de StatutCommande, qui est, en fait, un String.
+		Elle permet de modifier le statut d'une commande.
+
+		@param e l'état désiré auquel on veut changer le statut de la commande
+	 */
 	public void setEtatCommande(StatutCommande e) {
 		this.statut = e;
 	}
 
+	/*
+		Cette méthode permet à un utilisateur de recevoir le statut de la commande sans directement accéder à l'objet
+
+		@return statut de la commande sur laquelle on appelle la méthode
+	 */
 	public StatutCommande getStatutCommande(){
 		return statut;
 	}
 
+	/*
+		Cette méthode permet de recevoir l'ID unique de la commande
+
+		@return ID de la commande sur laquelle on appelle la méthode
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/*
+		Cette méthode permet de recevoir la liste des articles compris dans la commande
+
+		@return liste des articles (de type ArrayList<Produit>)
+	 */
 	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
 
+	/*
+		Cette méthode formatte simplement la commande pour qu'elle soit affichée correctement
+	 */
 	public void commandeToString(){
 		System.out.println(id + "\n" + statut);
 		for(Produit p : articles){
@@ -265,6 +302,14 @@ public class Commande {
 		}
 	}
 
+	public Revendeur getRevendeurDuProduit(int produitId) {
+		for (Produit produit : articles) {
+			if (produit.getId() == produitId) {
+				return produit.getRevendeur();
+			}
+		}
+		return null;
+	}
 
 
 }
