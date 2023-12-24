@@ -20,6 +20,10 @@ public class Catalogue {
 		produits.add(produit);
 	}
 
+	public static ArrayList<Produit> getProduits(){
+		return produits;
+	}
+
 	/*
     	Cette méthode permet à l'utilisateur de voir la liste des produits disponibles, et éventuellement d'en
     	choisir un pour voir ses détails

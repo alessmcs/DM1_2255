@@ -79,15 +79,24 @@ public abstract class Utilisateur {
 				Revendeur revendeur = new Revendeur(telephone, courriel, motDePasse);
 				revendeur.inscrireRevendeur();
 				BaseDonnees.revendeursList.add(revendeur);
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecrtez pas le delais," +
+				try {
+					Main.ecrireRevendeurCSV(revendeur);
+				} catch (FileNotFoundException e) {
+					throw new RuntimeException(e);
+				}
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecterez pas le delais," +
 						" le compte sera annuler ");
 				afficherMenu(revendeur);
 				break;
 			case 2:
 				Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
 				acheteur.inscrireAcheteur();
-
 				BaseDonnees.acheteursList.add(acheteur);
+				try {
+					Main.ecrireAcheteurCSV(acheteur);
+				} catch (FileNotFoundException e) {
+					throw new RuntimeException(e);
+				}
 				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le delais," +
 						" le compte sera désactivé ");
 				afficherMenu(acheteur);
