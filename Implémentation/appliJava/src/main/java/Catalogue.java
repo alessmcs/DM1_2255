@@ -37,7 +37,9 @@ public class Catalogue {
 		boolean validInput = false;
 
 		for (Produit produit : produits) {
-			System.out.println(produit.toString());
+			if ( produit.getQte() != 0){
+				System.out.println(produit);
+			}
 		}
 
 		do{
