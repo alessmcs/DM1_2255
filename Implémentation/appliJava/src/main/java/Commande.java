@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -10,16 +11,17 @@ public class Commande {
 	private static Adresse adresseLivraison;
 	private static ArrayList<Produit> articles = new ArrayList<>();
 	private static Acheteur acheteur;
-	private static Revendeur revendeur;
+	private static double montant;
+
 
 	// Constructeur de commande
-	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
+	public Commande(Acheteur acheteur, StatutCommande status, Adresse adresse, int id, Panier panier){
 		this.acheteur = acheteur;
-		this.revendeur= revendeur;
-		this.statut = statut;
+		this.statut = status;
 		this.adresseLivraison = adresse;
 		this.id = id;
-		this.articles = articles;
+		this.articles = panier.getArticles();
+		this.montant = panier.getTotal();
 	}
 
 	/*
@@ -38,7 +40,7 @@ public class Commande {
 
 		@param p le panier de l'acheteur connecté
 	 */
-	public static void passerCommande(Panier p) {
+	public static Commande passerCommande(Panier p, Acheteur acheteur) throws FileNotFoundException {
 
 		System.out.println(" --- Formulaire de commande ---");
 
@@ -54,7 +56,7 @@ public class Commande {
 			if (!Main.isNumeric(choixAdresse)) {
 				System.out.println("Vous devez entrer un chiffre!");
 			} else if (choixAdresse.equals("1")) { // Les informations du profil sont utilisées
-				adresseLivraison = acheteur.getAdresseExpedition(); //TODO: customize it w the specific acheteur logged in
+				adresseLivraison = acheteur.getAdresseExpedition();
 				break;
 			} else if (choixAdresse.equals("2")) { // l'utilisateur fournit de nouvelles informations
 				while (true) {
@@ -113,6 +115,9 @@ public class Commande {
 			}
 		}
 
+		System.out.println("Votre total est : $" + p.getTotal());
+		montant = p.getTotal();
+
 		// infos de paiement
 		while (true) {
 			System.out.println("----- Informations de paiement ----- \nNuméro de carte de crédit: ");
@@ -170,58 +175,58 @@ public class Commande {
 
 		// Il peut échanger ces points sur les produits qu'il achète pour obtenir un rabais à un taux d'un point par 2¢ d'achat
 		if (acheteur.getPoints() != 0) {
-		System.out.println("Voulez-vous échanger tous vos points pour obtenir un rabais? \n1 : Oui \n2: Non");
-		while (true) {
-			String choix = s.nextLine();
-			if (!Main.isNumeric(choix)) {
-				System.out.println("Vous devez entrer un chiffre!");
-			} else if (choix.equals("1")) { // oui rabais
-				System.out.println("1 : 5$ = 250 points | 2 : 10$ = 500 points | 3 : 15$ = 750 points " +
-						"\nVous avez: " + acheteur.getPoints() + "points");
-				while (true) {
-					String choix2 = s.nextLine();
-					if (!Main.isNumeric(choix2)) {
-						System.out.println("Vous devez entrer un chiffre!");
-					} else if (choix2.equals("1")) {
-						if (acheteur.getPoints() < 250) {
-							System.out.println("Vous n'avez pas assez de points!");
-							break;
+			System.out.println("Voulez-vous échanger tous vos points pour obtenir un rabais? \n1 : Oui \n2: Non");
+			while (true) {
+				String choix = s.nextLine();
+				if (!Main.isNumeric(choix)) {
+					System.out.println("Vous devez entrer un chiffre!");
+				} else if (choix.equals("1")) { // oui rabais
+					System.out.println("1 : 5$ = 250 points | 2 : 10$ = 500 points | 3 : 15$ = 750 points " +
+							"\nVous avez: " + acheteur.getPoints() + "points");
+					while (true) {
+						String choix2 = s.nextLine();
+						if (!Main.isNumeric(choix2)) {
+							System.out.println("Vous devez entrer un chiffre!");
+						} else if (choix2.equals("1")) {
+							if (acheteur.getPoints() < 250) {
+								System.out.println("Vous n'avez pas assez de points!");
+								break;
+							} else {
+								facture.setRabais(5);
+								acheteur.setPoints(-250);
+							}
+						} else if (choix2.equals("2")) {
+							if (acheteur.getPoints() < 500) {
+								System.out.println("Vous n'avez pas assez de points!");
+								break;
+							} else {
+								facture.setRabais(10);
+								acheteur.setPoints(-500);
+							}
+						} else if (choix2.equals("3")) {
+							if (acheteur.getPoints() < 750) {
+								System.out.println("Vous n'avez pas assez de points!");
+								break;
+							} else {
+								facture.setRabais(15);
+								acheteur.setPoints(-750);
+							}
 						} else {
-							facture.setRabais(5);
-							acheteur.setPoints(-250);
+							System.out.println("SVP entrez un chiffre entre 1 et 3!");
 						}
-					} else if (choix2.equals("2")) {
-						if (acheteur.getPoints() < 500) {
-							System.out.println("Vous n'avez pas assez de points!");
-							break;
-						} else {
-							facture.setRabais(10);
-							acheteur.setPoints(-500);
-						}
-					} else if (choix2.equals("3")) {
-						if (acheteur.getPoints() < 750) {
-							System.out.println("Vous n'avez pas assez de points!");
-							break;
-						} else {
-							facture.setRabais(15);
-							acheteur.setPoints(-750);
-						}
-					} else {
-						System.out.println("SVP entrez un chiffre entre 1 et 3!");
 					}
+					break;
+				} else if (choix.equals("2")) {
+					break; // do nothing, they don't want a rabais
+				} else {
+					System.out.println("SVP entrez un chiffre entre 1 et 2!");
 				}
-				break;
-			} else if (choix.equals("2")) {
-				break; // do nothing, they don't want a rabais
-			} else {
-				System.out.println("SVP entrez un chiffre entre 1 et 2!");
 			}
 		}
-	}
 
+		Commande commande = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, id+1, p);
 
-		Commande commande = new Commande(acheteur,"En production", adresseLivraison, id+1, p.getArticles());
-		// todo ajouter à l'historique & also écrire dans le csv!!!
+		Main.ecrireCommandeCSV(commande); // ajouter la commande à la base de données
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande
@@ -235,6 +240,7 @@ public class Commande {
 			sommePoints += prod.getPoints();
 			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
 			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
+
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
 		System.out.printf("\nTotal: " + facture.getTotal());
@@ -252,8 +258,26 @@ public class Commande {
 
 		// nouveau colis généré avec la commande
 		Colis colis = new Colis(commande.getStatutCommande());
+
+		return commande;
 	}
 
+	// TODO: modifier les quantités & le nombre de points!!
+	private static void modQte(String fichier, String editTerm, String newQte){
+
+		String tempFile = "temp.txt";
+		File oldFile = new File("src/main/data/listeProduits.csv");
+		File newFile = new File(tempFile);
+		String qte = "";
+		try{
+			FileWriter fw = new FileWriter(tempFile, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+
+		} catch(Exception e){
+
+		}
+	}
 
 	/*
 		Cette méthode prend en entrée un objet de StatutCommande, qui est, en fait, un String.
@@ -292,14 +316,48 @@ public class Commande {
 		return articles;
 	}
 
+	public String getAdresse(){
+		return adresseLivraison.toString();
+	}
+
+	public double getTotal(){
+		return montant;
+	}
+
+	public Acheteur getAcheteur(){
+		return acheteur;
+	}
+
 	/*
 		Cette méthode formatte simplement la commande pour qu'elle soit affichée correctement
 	 */
-	public void commandeToString(){
-		System.out.println(id + "\n" + statut);
-		for(Produit p : articles){
-			System.out.println(p.toString());
+	public String commandeToString(){
+		String s;
+		String build;
+
+		switch (statut) {
+			case en_chemin:
+				s = "En chemin";
+				break;
+			case en_production:
+				s= "En production";
+				break;
+			case livree:
+				s= "Livrée";
+				break;
+			default:
+				s= "État inconnu";
+				break;
 		}
+
+		build = id + "\n" + s + "\n";
+		for(Produit p : articles){
+			build += p.toString()+ "\n";
+		}
+		build += "Total : " + montant;
+		System.out.println(build);
+
+		return build;
 	}
 
 	public Revendeur getRevendeurDuProduit(int produitId) {

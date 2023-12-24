@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Produit {
 
 	protected String titre;
-	protected float prix;
+	protected double prix;
 	private static int nextId = 1;
 	protected int ID;
 	protected int qteInitiale;
@@ -239,6 +239,10 @@ public class Produit {
 		// TODO - implement Produit.promouvoir
 	}
 
+	public Revendeur getRevendeur() {
+		return revendeur;
+	}
+
 	public int getQte(){
 		return this.qteEnStock;
 	}
@@ -276,10 +280,10 @@ public class Produit {
 	 * @param prix
 	 */
 	public void setPrix(double prix) {
-		// TODO - implement Produit.setPrix
+		this.prix = prix;
 	}
 
-	public float getPrix() {
+	public double getPrix() {
 		return this.prix;
 	}
 
@@ -294,10 +298,14 @@ public class Produit {
 	public String getTitre() {
 		return this.titre;
 	}
-	public Revendeur getRevendeur() {
-		return revendeur;
+
+	public String getDescription(){
+		return description;
 	}
 
+	public String getCategorie(){
+		return catégorie;
+	}
 
 	public void voirDetails(Utilisateur util) {
 	}

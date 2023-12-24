@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -6,7 +7,7 @@ import java.util.Scanner;
 public class Plateforme {
 	// TODO: rechercher un produit
 
-	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
+	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException, FileNotFoundException {
 
 		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
 		String dateParution = null; int numEd = 0; int numVol = 0;
@@ -153,10 +154,6 @@ public class Plateforme {
 			}
 			nbPoints = (int) Math.floor(nbPoints);
 		}
-
-		// todo: switch case, formulaire différent selon le type de produit, puis le TYPE du produit (materielInfo, equipementBureau etc) est
-		// créé selon le type précisé par le revendeur
-
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 
 		// typer le produit selon la catégorie
@@ -172,10 +169,11 @@ public class Plateforme {
 			case ("RessourcesApprentissage") ->
 					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
 			default ->
-				produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
+					produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 		}
 
-		revendeur.updateInventaire(produit); // ajouter à l'inventaire du revendeur
+		revendeur.updateInventaire(produit); // ajouter à l'inventaire du revendeur connecté
+		Main.ecrireProduitCSV(produit);
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");
