@@ -30,6 +30,10 @@ public class Panier {
 	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
+	
+	/*
+		Réinitialise le panier
+	 */
 	public void nouvPanier(){
 		articles = new ArrayList<>();
 		montantAPayer = 0;
