@@ -161,6 +161,7 @@ public abstract class Utilisateur {
 										LocalDateTime derniereConnection = LocalDateTime.now();
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+										afficherMenu(acheteur);
 
 									}
 								} else {
