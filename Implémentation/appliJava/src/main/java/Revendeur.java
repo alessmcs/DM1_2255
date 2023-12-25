@@ -125,6 +125,13 @@ public class Revendeur extends Utilisateur {
 		}
 	}
 
+	/**
+	 * 
+	 * @param utilisateur
+	 * 
+	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 */
+
 	public void afficherCommentaires(Revendeur utilisateur){
 		for (Produit p : ((Revendeur) utilisateur).inventaire){
 			for (ArrayList<String> commentaire : p.listCommentaires){
