@@ -33,6 +33,7 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
 					break;
 				} else {
 					System.out.println("ID non correct");
@@ -65,6 +66,8 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
+
 
 
 				}

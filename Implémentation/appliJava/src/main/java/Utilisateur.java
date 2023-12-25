@@ -130,7 +130,6 @@ public abstract class Utilisateur {
 								LocalDateTime derniereConnection = LocalDateTime.now();
 								revendeur.setDerniereConnection(derniereConnection);
 								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
-
 								afficherMenu(revendeur);
 							}
 						}
@@ -146,6 +145,7 @@ public abstract class Utilisateur {
 
 							System.out.println("Veuillez entrer votre mot de passe.");
 							String motDePasseAcheteur = scanner.nextLine();
+
 							boolean profilTrouver = false;
 							for (Acheteur acheteur : BaseDonnees.acheteursList) {
 								if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
@@ -161,8 +161,13 @@ public abstract class Utilisateur {
 										LocalDateTime derniereConnection = LocalDateTime.now();
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+<<<<<<< Updated upstream
 
 
+=======
+										afficherMenu(acheteur);
+										break;
+>>>>>>> Stashed changes
 									}
 								} else {
 									profilTrouver = false;
@@ -173,7 +178,6 @@ public abstract class Utilisateur {
 							}
 					} while (!validInput2);
 
-//
 				} default -> System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 			}
 			} catch (InputMismatchException e) {
@@ -355,7 +359,7 @@ public abstract class Utilisateur {
 
 				}
 				case 9 -> {
-					acheteur.afficherNotifications();
+					acheteur.afficherNotifications(acheteur);
 				}
 				case 10 -> {
 					Acheteur acheteurChercher = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
@@ -604,7 +608,7 @@ public abstract class Utilisateur {
 		}else if (utilisateur instanceof Acheteur) {
 			Acheteur acheteur = (Acheteur) utilisateur;
 			System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
-			acheteur.afficherNotifications();
+			acheteur.afficherNotifications(acheteur);
 
 		}
 

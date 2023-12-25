@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Acheteur extends Utilisateur {
 
@@ -20,19 +17,20 @@ public class Acheteur extends Utilisateur {
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
 
-
-
-
+	
 	public void suivreAcheteur(Acheteur acheteur) {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
 					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					afficherMenu(acheteur);
 
 					acheteurAjouter.ajouterSuiveur(this);
+					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
 
-					}else{
+
+				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
 					}
 		}else{
@@ -51,7 +49,7 @@ public class Acheteur extends Utilisateur {
 		Scanner scannerUn = new Scanner((System.in));
 
 		System.out.println("Que voulez-vous faire? ");
-		System.out.println("1. Voir vos suiveurs");
+		System.out.println("1. Voir ses suiveurs");
 		System.out.println("2. Gérer ses suiveurs");
 		System.out.println("0. Retour au menu ");
 		int choix= Integer.parseInt(scannerUn.nextLine());
@@ -63,7 +61,7 @@ public class Acheteur extends Utilisateur {
 			}
 			case 2 -> {
 				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
-				System.out.println("1. Ajouter un suiveur");
+				System.out.println("1. Suivre un acheteur");
 				System.out.println("2. Supprimer un suiveur");
 				System.out.println("0. Retour au menu ");
 				int gestionChoix = Integer.parseInt(scannerUn.nextLine());
@@ -71,32 +69,32 @@ public class Acheteur extends Utilisateur {
 				switch (gestionChoix) {
 					case 1 -> {
 						suivreAcheteur(acheteur);
-					} case 2 -> {
-						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
-						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
-						String acheteurPseudoSupp = scannerUn.nextLine();
 
-						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs );
+					}
+					case 2 -> {
+						if (listeSuiveurs.isEmpty()) {
+							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
+							afficherMenu(acheteur);
+						} else {
+							System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
+							System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
+							String acheteurPseudoSupp = scannerUn.nextLine();
 
-						if (acheteurSupp != null ){
-							acheteur.listeSuiveurs.remove(acheteurSupp);
-							System.out.println("Achteur" + acheteurPseudoSupp+" retirer de votre liste de suiveurs");
+							Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs);
 
-							acheteurSupp.retirerAcheteur(this);
-						}else {
-							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
+							if (acheteurSupp != null) {
+								acheteur.listeSuiveurs.remove(acheteurSupp);
+								System.out.println("Achteur " + acheteurPseudoSupp + " retiré de votre liste de suiveurs");
+								acheteurSupp.retirerAcheteur(this);
+							} else {
+								System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs : " + acheteurPseudoSupp);
+							}
 						}
-					}case 0 -> {
+					}
+					case 0 -> {
 						afficherMenu(acheteur);
 					}
-				}
-			}case 0 -> {
-				afficherMenu(acheteur);
-			}
-
-		}
-	}
-
+				}}}}
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
@@ -130,6 +128,9 @@ public class Acheteur extends Utilisateur {
 						break;
 					} else if( c.getStatutCommande() == StatutCommande.livree ) {
 						System.out.println("Cette commande est deja livrée");
+						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+
+
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");
 					}
@@ -215,11 +216,17 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
-	public void afficherNotifications() {
-		for (Notification notification : notifications) {
-			System.out.println(notification);
+	public void afficherNotifications(Acheteur acheteur) {
+		if (notifications.isEmpty()) {
+			System.out.println("Vous n'avez aucune notification");
+			afficherMenu(acheteur);
+		} else {
+			for (Notification notification : notifications) {
+				System.out.println(notification);
+			}
 		}
 	}
+
 
 	public void payerDifference(double difference) {
 		double nouveauSolde = carteCredit.getSolde() - difference;
@@ -347,6 +354,10 @@ public class Acheteur extends Utilisateur {
 		}
 
 		return commandesLivrees;
+	}
+
+	public ArrayList<Acheteur> getListeSuiveurs() {
+		return listeSuiveurs;
 	}
 
 }
