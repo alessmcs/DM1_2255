@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
+            // Nous initialisons les CSVs en utilisant les méthodes d'écriture plus bas
             init();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

@@ -236,7 +236,6 @@ public class Commande {
 		for (Produit prod : p.getArticles()){
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
-			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
 
@@ -246,6 +245,7 @@ public class Commande {
 		Main.ecrireCommandeCSV(commande); // ajouter la commande à la base de données
 		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 		BaseDonnees.commandesList.add(commande); // ajouter la commande a la base de donnees
+		acheteur.panier.nouvPanier(); // nouveau panier
 
 		System.out.printf("\nTotal: " + facture.getTotal());
 		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
