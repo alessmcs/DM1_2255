@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Acheteur extends Utilisateur {
 
@@ -26,14 +23,15 @@ public class Acheteur extends Utilisateur {
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
 
-					acheteurAjouter.ajouterSuiveur(this);
+					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
-					}else{
-						System.out.println("Vous etes déjà abonné a cet acheteur");
+
+				}else{
+						System.out.println("Vous êtes déjà abonné a cet acheteur");
 					}
-		}else{
+		} else{
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
@@ -223,19 +221,6 @@ public class Acheteur extends Utilisateur {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
-	public int voirClassement() {
-		// TODO - implement Acheteur.voirClassement
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param points
-	 */
-	public void echangerPoints(int points) {
-		// TODO - implement Acheteur.echangerPoints
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
@@ -351,12 +336,36 @@ public class Acheteur extends Utilisateur {
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
 		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
+		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
+		Scanner s = new Scanner(System.in);
+		boolean validInput = false;
+		do{
+			try{
+				System.out.println( "Entrez 0 pour retourner au menu principal" );
+
+				String choix = s.nextLine();
+				if ( ! Main.isNumeric(choix)){
+					throw new InputMismatchException();
+				} else {
+					if (choix.equals("0")){
+						validInput = true;
+						Utilisateur.afficherMenu(utilisateur);
+						break;
+					}
+					if(!validInput){
+						throw new InputMismatchException();
+					}
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Svp entrez 0!");
+			}
+		} while (!validInput);
 	}
+
 	public ArrayList<Commande> obtenirCommandesLivrees() {
 		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 

@@ -183,7 +183,7 @@ public class Plateforme {
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 
 		// typer le produit selon la catégorie
-		Produit produit;
+		Produit produit = null;
 		switch(categorie){
 			case ("Livres et manuels") ->
 					produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
@@ -194,13 +194,11 @@ public class Plateforme {
 					produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
 			case ("RessourcesApprentissage") ->
 					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
-			default ->
-					produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 		}
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
 
-		Main.ecrireProduitCSV(produit);
+		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
