@@ -316,15 +316,16 @@ public class Acheteur extends Utilisateur {
 	}
 
 	protected void afficherMetriques(Acheteur utilisateur){
-		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
+		Scanner scanner = new Scanner(System.in);
+		int nbCommandes = utilisateur.historiqueCommandes.size();
 
 		ArrayList<String> produitsAchetes = new ArrayList<>();
-		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-		for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
-			//voir les produits achetés
+		ArrayList<String> commentairesDonnes = new ArrayList<>(); // 2e elem du arrayList
+		for (Commande c : utilisateur.historiqueCommandes) {
+			// Voir les produits achetés
 			ArrayList<Produit> produits = c.getArticles();
-			for (Produit p : produits){
-				if (!produitsAchetes.contains(p)){
+			for (Produit p : produits) {
+				if (!produitsAchetes.contains(p.toString())) {
 					produitsAchetes.add(p.toString());
 				}
 			}
@@ -333,17 +334,25 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Vos métriques d'acheteur: ");
 		System.out.println("Nombre de commandes : " + nbCommandes);
 		System.out.println("Produits achetés");
-		for (String s : produitsAchetes){
+		for (String s : produitsAchetes) {
 			System.out.println(s);
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
 		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
+		for (ArrayList<String> com : utilisateur.listeCommentaires) {
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
+
+		System.out.println("Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non");
+		int gestionChoix = Integer.parseInt(scanner.nextLine());
+
+		if (gestionChoix == 1) {
+			afficherMenu(utilisateur);
+		}
 	}
+
 	public ArrayList<Commande> obtenirCommandesLivrees() {
 		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 
