@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rapport devoir 2</title>
+
+    <style>
+        #titre {
+            background-color: rgb(189, 220, 189);
+            padding: 10px;
+            color: black;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: rgb(171, 218, 225);
+            padding: 10px;
+            color: black;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td,th {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<h1 id="titre">  DM2 - Analyse & conception </h1>
+
+
+<h1 id="section"> Information générale </h1>
+<p>
+    <strong>Nom de l'équipe :</strong> I.T. girls<br />
+    <a href="https://github.com/alessmcs/DM1_2255">Lien au repo GitHub</a><br />
+</p>
+<p>
+    <strong>Nom: </strong> Soundous Boutarfaya<br />
+    <strong>Matricule: </strong> 20239908<br />
+    <strong>Courriel: </strong> soundous.boutarfaya@umontral.ca<br />
+    <strong>Temps mis: </strong> 53h<br />
+</p>
+<p>
+    <strong>Nom: </strong> Xi Chen<br />
+    <strong>Matricule: </strong> 20246397<br />
+    <strong>Courriel: </strong> xi.chen.4@umontreal.ca<br />
+    <strong>Temps mis: </strong> 51h<br />
+</p>
+<p>
+    <strong>Nom: </strong> Ilona Le Du<br />
+    <strong>Matricule: </strong> 20236198<br />
+    <strong>Courriel: </strong> ilona.le.du@umontreal.ca<br />
+    <strong>Temps mis: </strong> 50h<br />
+</p>
+<p>
+    <strong>Nom: </strong> Alessandra Mancas<br />
+    <strong>Matricule: </strong> 20249098<br />
+    <strong>Courriel: </strong> alessandra.thais.mancas@umontreal.ca<br />
+    <strong>Temps mis: </strong> 56h<br />
+</p>
+
+<h3> Note sur les contributions: </h3>
+<p> Parfois, avons beaucoup travaillé ensemble mais sur une même machine, puis certaines d'entre nous enregistraient leur code
+à l'extrérieur du dépôt pour travailler dessus, tandis que d'autres faisaient beaucoup de commits pour sauvegarder leur progrès,
+    ce qui explique pourquoi certaines contributions semblent inégales. On vous assure que nous avons bel et bien travaillé en équipe.</p>
+
+<h3> Insights GitHub</h3>
+<p> On n'a pas réussi à avoir GitHub pro à temps pour la remise, mais voici de qu'on a pu tirer de l'onglet Insights</p>
+<img src = "Screenshot 2023-11-20 at 11.14.47 PM.png" alt="Capture d'écran Insights" width = "500"/>
+
+<h3> Distribution des tâches </h3>
+<p>
+    <strong>Soumissionaire :</strong> Alessandra Mancas<br />
+<table>
+    <tr>
+        <th>TÂCHE</th>
+        <th>Soundous Boutarfaya</th>
+        <th>Xi Chen</th>
+        <th>Ilona Le Du</th>
+        <th>Alessandra Mancas</th>
+    </tr>
+    <tr>
+        <td>Analyse</td>
+        <td>30%</td>
+        <td>10%</td>
+        <td>30%</td>
+        <td>30%</td>
+    </tr>
+    <tr>
+        <td>Diagramme d'activité UML</td>
+        <td>20%</td>
+        <td>40%</td>
+        <td>20%</td>
+        <td>20%</td>
+    </tr>
+    <tr>
+        <td>Diagramme de classes UML</td>
+        <td>20%</td>
+        <td>20%</td>
+        <td>20%</td>
+        <td>40%</td>
+    </tr>
+    <tr>
+        <td>Diagramme de séquence UML</td>
+        <td>20%</td>
+        <td>20%</td>
+        <td>40%</td>
+        <td>20%</td>
+    </tr>
+    <tr>
+        <td>Prototype</td>
+        <td>25%</td>
+        <td>20%</td>
+        <td>20%</td>
+        <td>35%</td>
+    </tr>
+</table>
+</p>
+
+<br />
+
+
+<h1> Tâche 1 </h1>
+<p style="text-indent: 20px;"> Le système UniShop interagit avec le système de paiement (lors d’une transaction), de livraison (échange de l’information de livraison) et d’entrepôt (qui met à jour la base de données de l’inventaire).</p>
+<p style="text-indent: 20px;"> Il stockera les données de l’inventaire et des utilisateurs (comptes, métriques, achats) dans des bases de données respectives, composées de tableaux et de clés.<p>
+<p style="text-indent: 20px;"> Pour ce faire, il nécessitera du matériel de stockage à haute capacité et de serveurs pour gérer l’influx des utilisateurs. Il faut des ordinateurs
+    du côté de l’entreprise pour faire l’implémentation et la maintenance.</p>
+<p style="text-indent: 20px;"> Les utilisateurs doivent avoir un appareil électronique pouvant accéder à la plateforme, sur laquelle ils interagiront via des clics et de l’entrée de texte.</p>
+<p style="text-indent: 20px;"> Enfin, les parties principales à informatiser seront le processus de paiement, la gestion des utilisateurs, la gestion de facturation, la recherche de produits et la gestion de l’inventaire.</p>
+</p>
+
+<p style="color:grey;"> (142 mots) </p>
+
+<br />
+<h1> Tâche 2 : diagrammes d'activité</h1>
+
+<h2> Flux principal </h2>
+<p> Nous nous sommes inspirées de la figure 13.25 du manuel (p.431) pour schématiser un <i>event loop</i> pour notre plateforme </p>
+<img src = "Flux principal UniShop.svg" alt="Flux principal"/>
+
+<h2> Passer une commande </h2>
+<a href= "Diagrammes/Passer une commande.svg"> Lien au fichier </a>
+<img src = "Diagrammes/Passer une commande.svg" alt="Passer une commande"/>
+
+<h2> Faire un retour/échange </h2>
+<a href= "Diagrammes/échange_retour.svg"> Lien au fichier </a>
+<img src = "Diagrammes/échange_retour.svg" alt="Échange/retour"/>
+
+<h2> Évaluer un produit </h2>
+<a href= "Diagrammes/Évaluer un produit.svg"> Lien au fichier </a>
+<img src = "Diagrammes/Évaluer un produit.svg" alt="Évaluer un produit"/>
+
+<h2> Confirmer la réception d'une commande </h2>
+<a href= "Diagrammes/Confirmer reception.svg"> Lien au fichier </a>
+<img src = "Diagrammes/Confirmer reception.svg" alt="Confirmer la reception de la commande"/>
+
+<h2> Offrir un produit </h2>
+<a href= "Diagrammes/Offrir un produit.svg"> Lien au fichier </a>
+<img src = "Diagrammes/Offrir un produit.svg" alt="Offrir un produite"/>
+
+<br />
+<h1> Tâche 3 : diagramme de classes </h1>
+<p> Pour alléger le diagramme, nous avons pas inclu les nombreux getters et setters nécessaires pour chaque classe, mais on les prend en compte dans notre prototype.</p>
+<a href= "Diagrammes/Diag de classes.svg"> Lien au fichier </a>
+<img src = "Diagrammes/Diag de classes.svg" alt="Diagramme de classes"/>
+
+<br />
+<h1> Tâche 4 : diagrammes de séquence </h1>
+
+<h2> Passer une commande </h2>
+<a href= "Diagrammes/séquence_passerCommande.svg"> Lien au fichier </a>
+<img src = "Diagrammes/séquence_passerCommande.svg" alt="Passer une commande"/>
+<br />
+
+<h2> Faire un retour/échange </h2>
+<a href= "Diagrammes/retour_echange (sequence).svg"> Lien au fichier </a>
+<img src = "Diagrammes/retour_echange (sequence).svg" alt="Échange/retour"/>
+
+<h2> Évaluer un produit </h2>
+<a href= "Diagrammes/Évaluer un produit (séquence).svg"> Lien au fichier </a>
+<img src = "Diagrammes/Évaluer un produit (séquence).svg" alt="Évaluer un produit (séquence)"/>
+<br />
+
+<h2> Confirmer la réception d'une commande </h2>
+
+<h2> Offrir un produit </h2>
+<a href= "Diagrammes/OffrirUnProduit_Sequence.svg"> Lien au fichier </a>
+<img src = "Diagrammes/OffrirUnProduit_Sequence.svg" alt="Offrir un produit"/>
+
+
+<br />
+<h1> Tâche 5 : prototype Java </h1>
+
+<p> Pour le prototype, nous avons implémenté les éléments suivants de la liste de souhaits</p>
+<ul>
+    <li>Se connecter comme acheteur et comme revendeur</li>
+    <li>S'inscrire comme acheteur</li>
+    <li>S'inscrire comme revendeur</li>
+    <li>Catalogue de produits</li>
+    <li>Évaluation de produits (évaluer, liker, commenter)</li>
+    <li>Panier d'achat</li>
+    <li>Passer une commande</li>
+    <li>Confirmer la réception d'une commande</li>
+    <li>Signaler un problème (et la création du billet de signalement) </li>
+    <li>Afficher métriques (pour l'acheteur et le revendeur)</li>
+    <li>Offrir un produit</li>
+</ul>
+
+
+
+</body>
+</html>
+
+
+<p> Vous pouvez voir les données avec lesquelles nous avons initialisé la plateforme dans la fonction Main.init().</p>
+<p> Le fichier appliJava.jar se trouve dans Conception/appliJava/out/artifacts/appliJava_jar/appliJava.jar </p>
+</br>
+<p> Merci d'avoir regardé notre projet! </p>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+
+.bleu {
+    color: #0066ff;
+    font-weight: bold;
+
+}
+
+.violet{
+    color: #9900cc;
+    font-weight: bold;
+}
+
+.vert{
+    color: #339933;
+    font-weight: bold;
+}
+
+
+ul li{
+    font-size: large;
+}
+
+body{
+    background-color: #e0ebeb;
+}
+
+div{
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+}
