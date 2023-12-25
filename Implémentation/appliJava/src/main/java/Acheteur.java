@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Acheteur extends Utilisateur {
 
@@ -339,12 +336,36 @@ public class Acheteur extends Utilisateur {
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
 		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires){
+		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
+		Scanner s = new Scanner(System.in);
+		boolean validInput = false;
+		do{
+			try{
+				System.out.println( "Entrez 0 pour retourner au menu principal" );
+
+				String choix = s.nextLine();
+				if ( ! Main.isNumeric(choix)){
+					throw new InputMismatchException();
+				} else {
+					if (choix.equals("0")){
+						validInput = true;
+						Utilisateur.afficherMenu(utilisateur);
+						break;
+					}
+					if(!validInput){
+						throw new InputMismatchException();
+					}
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Svp entrez 0!");
+			}
+		} while (!validInput);
 	}
+
 	public ArrayList<Commande> obtenirCommandesLivrees() {
 		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 

@@ -72,7 +72,7 @@ public class Main {
 
         String builder = commande.getAcheteur().getPseudo() + "," + commande.getId() + "," + commande.getStatutCommande() + ",\"" + commande.getAdresse() +  "\",";
         for (Produit p : commande.getArticles()){
-            builder += ("\"" + p.getTitre() + "," + String.valueOf(p.getPrix()) + "\",");
+            builder += ("\"" + p.getCategorie() +  "," + p.getTitre() + "," + String.valueOf(p.getPrix()) + 1 +  "\",");
         }
         builder += commande.getTotal();
 
@@ -112,8 +112,8 @@ public class Main {
 
        @param acheteur le nouvel acheteur
     */
-    public static void ecrireAcheteurCSV(Acheteur acheteur) throws FileNotFoundException{
-        File csvFile = new File("src/main/data/acheteurs.csv");
+    public static void ecrireAcheteurCSV(Acheteur acheteur, String filePath) throws FileNotFoundException{
+        File csvFile = new File(filePath);
         FileWriter out = null;
         try {
             out = new FileWriter(csvFile, true);
@@ -293,16 +293,16 @@ public class Main {
         acheteur10.setPseudo("souris88");
         acheteur10.setAdresseExpedition(new Adresse("100 rue Rembouillet", "Montréal", "b8k6h1", "QC", "Canada"));
 
-        ecrireAcheteurCSV(acheteur1);
-        ecrireAcheteurCSV(acheteur2);
-        ecrireAcheteurCSV(acheteur3);
-        ecrireAcheteurCSV(acheteur4);
-        ecrireAcheteurCSV(acheteur5);
-        ecrireAcheteurCSV(acheteur6);
-        ecrireAcheteurCSV(acheteur7);
-        ecrireAcheteurCSV(acheteur8);
-        ecrireAcheteurCSV(acheteur9);
-        ecrireAcheteurCSV(acheteur10);
+        ecrireAcheteurCSV(acheteur1, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur2, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur3, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur4, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur5, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur6, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur7, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur8, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur9, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur10, "src/main/data/acheteurs.csv");
 
         BaseDonnees.acheteursList.add(acheteur1);
         BaseDonnees.acheteursList.add(acheteur2);

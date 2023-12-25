@@ -93,7 +93,7 @@ public abstract class Utilisateur {
 				acheteur.inscrireAcheteur();
 				BaseDonnees.acheteursList.add(acheteur);
 				try {
-					Main.ecrireAcheteurCSV(acheteur);
+					Main.ecrireAcheteurCSV(acheteur, "src/main/data/acheteurs.csv");
 				} catch (FileNotFoundException e) {
 					throw new RuntimeException(e);
 				}
@@ -120,31 +120,40 @@ public abstract class Utilisateur {
 				String choix = scanner.nextLine();
 				switch (choix) {
 				case "1" -> {
-					validInput = true; // If no exception, set flag to exit the loop
-					System.out.println("Entrer votre pseudo");
-					String pseudoRevendeur = scanner.nextLine();
 
-					System.out.println("Veuillez entrer votre mot de passe");
-					String motDePasseRevendeur = scanner.nextLine();
+					boolean validInput2 = false;
+					do{
+						validInput = true; // If no exception, set flag to exit the loop
+						System.out.println("Entrer votre pseudo");
+						String pseudoRevendeur = scanner.nextLine();
 
-					boolean profilTrouver = false;
-					for (Revendeur revendeur : BaseDonnees.revendeursList) {
-						if (revendeur.getPseudo().equalsIgnoreCase(pseudoRevendeur) &&
-								revendeur.getMotDePasse().equals(motDePasseRevendeur)) {
-							profilTrouver = true;
-							if (revendeur.desactiver()){
-								System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-								System.exit(0);
+						System.out.println("Veuillez entrer votre mot de passe");
+						String motDePasseRevendeur = scanner.nextLine();
 
-							} else  {
-								LocalDateTime derniereConnection = LocalDateTime.now();
-								revendeur.setDerniereConnection(derniereConnection);
-								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+						boolean profilTrouver = false;
+						for (Revendeur revendeur : BaseDonnees.revendeursList) {
+							if (revendeur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoRevendeur)) &&
+									revendeur.getMotDePasse().equalsIgnoreCase(motDePasseRevendeur)) {
+								profilTrouver = true;
+								validInput2 = true;
 
-								afficherMenu(revendeur);
+								if (revendeur.desactiver()){ // si le compte est desactivé
+									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+									System.exit(0);
+
+								} else  {
+									LocalDateTime derniereConnection = LocalDateTime.now();
+									revendeur.setDerniereConnection(derniereConnection);
+									ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+
+									afficherMenu(revendeur);
+								}
 							}
 						}
-					}
+						if (!profilTrouver) {
+							System.out.println("Vos données sont inexactes, svp réessayer");
+						}
+					} while (!validInput2);
 				}
 				case "2" -> {
 					boolean validInput2 = false;
@@ -171,9 +180,8 @@ public abstract class Utilisateur {
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
 
+										afficherMenu(acheteur);
 									}
-								} else {
-									profilTrouver = false;
 								}
 							}
 							if (!profilTrouver) {

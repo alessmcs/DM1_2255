@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class BaseDonnees {
     public static ArrayList<Acheteur> acheteursList= new ArrayList<>();
     public static ArrayList<Revendeur> revendeursList= new ArrayList<>();
+    public static ArrayList<Commande> commandesList = new ArrayList<>();
+    public static ArrayList<Produit> produitsList = Catalogue.getProduits();
 
     // ajouter les acheteurs de acheteurs.csv dans acheteursList
     public static void creerListeAcheteurs(){
@@ -42,5 +44,6 @@ public class BaseDonnees {
         }
         catch (IOException e) {e.printStackTrace();}
     }
+
 
 }
