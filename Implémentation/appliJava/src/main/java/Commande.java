@@ -292,7 +292,7 @@ public class Commande {
 		// le remplacer par le contenu à jour
 		for (Produit p : produitsCat){
 			try {
-				Main.ecrireProduitCSV(p);
+				Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
 			} catch (FileNotFoundException e) {
 				throw new RuntimeException(e);
 			}

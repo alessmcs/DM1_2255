@@ -174,7 +174,7 @@ public class Plateforme {
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
 
-		Main.ecrireProduitCSV(produit);
+		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
