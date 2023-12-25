@@ -26,50 +26,55 @@ public class Catalogue {
 		return produitsDisponibles;
 	}
 
-	public static void catalogueProduits(Acheteur acheteur){
+	public static Produit catalogueProduits(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 		System.out.println("Liste des produits disponibles : ");
 
 		boolean validInput = false;
+		Produit produitAEchanger = null;
 
 		for (Produit produit : produits) {
 			System.out.println(produit.toString());
 		}
 
-		do{
-			try{
+		do {
+			try {
 				System.out.println("Entrez l'ID d'un produit pour voir ses détails");
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
-				System.out.println( "Entrez 1 pour retourner au menu du catalogue" );
+				System.out.println("Entrez 0 pour retourner au menu principal");
+				System.out.println("Entrez 1 pour retourner au menu du catalogue");
 
 				String choix = s.nextLine();
-				if ( ! Main.isNumeric(choix)){
+				if (!Main.isNumeric(choix)) {
 					throw new InputMismatchException();
 				} else {
-					if (choix.equals("0")){
+					if (choix.equals("0")) {
 						validInput = true;
 						Utilisateur.afficherMenu(acheteur);
 						break;
-					} else if(choix.equals("1")) {
+					} else if (choix.equals("1")) {
 						voirCatalogue(acheteur);
 						break;
 					}
-					for (Produit p : produits){
-						if ( p.getId() == Integer.parseInt(choix)){
+					for (Produit p : produits) {
+						if (p.getId() == Integer.parseInt(choix)) {
 							validInput = true;
 							p.voirDetails(acheteur);
+							produitAEchanger = p;
 							break;
 						}
 					}
-					if(!validInput){
+					if (!validInput) {
 						throw new InputMismatchException();
 					}
 				}
-			} catch (InputMismatchException e){
+			} catch (InputMismatchException e) {
 				System.out.println("Svp entrez 0 ou un ID valide!");
 			}
 		} while (!validInput);
+
+		return produitAEchanger;
 	}
+
 	public static void voirCatalogue(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 

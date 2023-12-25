@@ -16,12 +16,15 @@ public class Commande {
 	// Constructeur de commande
 	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){
 		this.acheteur = acheteur;
-		this.revendeur= revendeur;
 		this.statut = statut;
 		this.adresseLivraison = adresse;
 		this.id = id;
 		this.articles = articles;
 	}
+
+	public Commande(Acheteur acheteur, StatutCommande enProduction, Adresse adresseLivraison, int id, Panier panierEchange) {
+	}
+
 
 	public static void setAcheteur(Acheteur a){
 		acheteur = a;
@@ -102,23 +105,40 @@ public class Commande {
 			}
 		}
 
-		// infos de paiement
-		while (true) {
-			System.out.println("----- Informations de paiement ----- \nNuméro de carte de crédit: ");
-			// l'utilisateur entre un numéro de carte, date d'expiration, cvc
+
+		// Informations de paiement
+		System.out.println("----- Informations de paiement -----");
+		System.out.println("1 : Utiliser la carte de crédit dans mon profil");
+		System.out.println("2 : Fournir une nouvelle carte de crédit");
+
+		String choix = s.nextLine();
+
+		if (!Main.isNumeric(choix)) {
+			System.out.println("Vous devez entrer un chiffre!");
+		} else if (choix.equals("1")) {
+			acheteur.getCarteCredit();
+			System.out.println("Utilisation de la carte de crédit dans le profil");
+		} else if (choix.equals("2")) {
+			// Fournir une nouvelle carte de crédit
+			System.out.println("Numéro de carte de crédit: ");
 			String numCarte = s.nextLine();
 			System.out.println("Date d'expiration (MMAA)");
 			String dateExp = s.nextLine();
 			System.out.println("CVC (ex: 999)");
 			String cvc = s.nextLine();
-			// validation des infos
+
+			// Validation des infos
 			boolean valide = SystemePaiement.validerInfosPaiement(numCarte, dateExp, cvc);
 			if (valide) {
-				break;
+				System.out.println("Informations de paiement validées avec succès");
+				// Vous pouvez ajouter d'autres actions si nécessaire
 			} else {
 				System.out.println("Les informations de paiement sont invalides, svp réessayer");
 			}
+		} else {
+			System.out.println("Option invalide. Veuillez choisir 1 ou 2.");
 		}
+
 
 		System.out.println("----- Adresse de facturation ----- \n1 : Même adresse qu'expédition \n2 : Nouvelle adresse ");
 		while (true) {
@@ -161,10 +181,10 @@ public class Commande {
 		if (acheteur.getPoints() != 0) {
 		System.out.println("Voulez-vous échanger tous vos points pour obtenir un rabais? \n1 : Oui \n2: Non");
 		while (true) {
-			String choix = s.nextLine();
-			if (!Main.isNumeric(choix)) {
+			String choix1 = s.nextLine();
+			if (!Main.isNumeric(choix1)) {
 				System.out.println("Vous devez entrer un chiffre!");
-			} else if (choix.equals("1")) { // oui rabais
+			} else if (choix1.equals("1")) { // oui rabais
 				System.out.println("1 : 5$ = 250 points | 2 : 10$ = 500 points | 3 : 15$ = 750 points " +
 						"\nVous avez: " + acheteur.getPoints() + "points");
 				while (true) {

@@ -161,13 +161,9 @@ public abstract class Utilisateur {
 										LocalDateTime derniereConnection = LocalDateTime.now();
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
-<<<<<<< Updated upstream
 
-
-=======
 										afficherMenu(acheteur);
 										break;
->>>>>>> Stashed changes
 									}
 								} else {
 									profilTrouver = false;
