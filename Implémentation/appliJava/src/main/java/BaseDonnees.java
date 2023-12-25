@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class BaseDonnees {
@@ -9,6 +7,7 @@ public class BaseDonnees {
 
     // ajouter les acheteurs de acheteurs.csv dans acheteursList
     public static void creerListeAcheteurs(){
+
         String line = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/data/acheteurs.csv"));
@@ -16,9 +15,9 @@ public class BaseDonnees {
             {
                 String[] ach = line.split(",");
                     Acheteur autre = new Acheteur(ach[3], ach[4], ach[5]);
-                    autre.setPrenom(ach[1]);
-                    autre.setNom(ach[2]);
-                    autre.setPseudo(ach[0]);
+                    autre.setPrenom(ach[0]);
+                    autre.setNom(ach[1]);
+                    autre.setPseudo(ach[2]);
                     autre.setAdresseExpedition(Adresse.adresseBuilder(ach[6] + "," + ach[7] + "," + ach[8] + "," + ach[9] + "," + ach[10]));
 
                     acheteursList.add(autre);
@@ -28,6 +27,7 @@ public class BaseDonnees {
     }
 
     public static void creerListeRevendeurs(){
+
         String line = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/data/revendeurs.csv"));

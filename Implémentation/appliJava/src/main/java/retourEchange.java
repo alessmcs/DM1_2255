@@ -72,7 +72,7 @@ public class retourEchange {
 				int IDPrdouit = scanner.nextInt();
 				Produit produitAEchanger = null;
 
-				for (Produit produitEcha : Catalogue.afficherProduits()) {
+				for (Produit produitEcha : Catalogue.catalogueProduits(acheteur)) {
 					if (produitEcha.getId() == ID) {
 						produitAEchanger = produitEcha;
 						break;
@@ -83,8 +83,14 @@ public class retourEchange {
 				produitsAEchanger.add(produitAEchanger);
 				Adresse adresseLivraison = acheteur.getAdresseExpedition();
 
+				Panier panierEchange = new Panier();
+
+				for (Object p : produitsAEchanger){
+					panierEchange.ajouterArticle((Produit) p);
+				}
+
 				if (difference == 0) {
-					Commande commande1 = new Commande(acheteur,"En production", adresseLivraison, produitAEchanger.getId(), produitsAEchanger);
+					Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 					acheteur.addHistorique(commande1); // ajouter la commande à l'historique de commandes
 					Colis colis = new Colis(commande.getStatutCommande());
 				} else{
@@ -95,11 +101,11 @@ public class retourEchange {
 
 					if (difference > 0 && soldeCarte >= difference) {
 						acheteur.payerDifference(difference);
-						Commande commande1 = new Commande(acheteur,"En production", adresseLivraison, produitAEchanger.getId(), produitsAEchanger);
+						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						Colis colis = new Colis(commande.getStatutCommande());
 					} else if (difference < 0) {
-						Commande commande1 = new Commande(acheteur,"En production", adresseLivraison, produitAEchanger.getId(), produitsAEchanger);
+						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						SystemePaiement.rembourserMontant(carteCredit,commande1);
 						Colis colis = new Colis(commande.getStatutCommande());

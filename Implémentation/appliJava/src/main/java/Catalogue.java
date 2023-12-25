@@ -11,11 +11,11 @@ public class Catalogue {
 		this.produits = produits;
 	}
 
-	/*
-            Cette méthode permet d'ajouter un produit à la liste des produits sans directement accéder à l'objet
+	 /*
+        Cette méthode permet d'ajouter un produit à la liste des produits sans directement accéder à l'objet
 
-            @param produit le produit à ajouter
-         */
+        @param produit le produit à ajouter
+     */
 	public static void ajouterProduit(Produit produit) {
 		produits.add(produit);
 	}
@@ -30,7 +30,7 @@ public class Catalogue {
 
     	@param util l'utilisateur connecté (peut être un revendeur ou un acheteur)
  	*/
-	public static void catalogueProduits(Acheteur acheteur){
+	public static ArrayList<Produit> catalogueProduits(Acheteur acheteur){
 		Scanner s = new Scanner(System.in);
 		System.out.println("Liste des produits disponibles : ");
 
@@ -75,6 +75,8 @@ public class Catalogue {
 				System.out.println("Svp entrez 0 ou un ID valide!");
 			}
 		} while (!validInput);
+
+		return produits;
 	}
 
 	/*

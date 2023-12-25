@@ -26,14 +26,15 @@ public class Acheteur extends Utilisateur {
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
 
-					acheteurAjouter.ajouterSuiveur(this);
+					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
-					}else{
-						System.out.println("Vous etes déjà abonné a cet acheteur");
+
+				}else{
+						System.out.println("Vous êtes déjà abonné a cet acheteur");
 					}
-		}else{
+		} else{
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
@@ -223,19 +224,6 @@ public class Acheteur extends Utilisateur {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
-	public int voirClassement() {
-		// TODO - implement Acheteur.voirClassement
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param points
-	 */
-	public void echangerPoints(int points) {
-		// TODO - implement Acheteur.echangerPoints
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 

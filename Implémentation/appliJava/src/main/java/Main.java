@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -65,7 +63,12 @@ public class Main {
      */
     public static void ecrireCommandeCSV(Commande commande) throws FileNotFoundException {
         File csvFile = new File("src/main/data/commandes.csv");
-        PrintWriter out = new PrintWriter(csvFile);
+        FileWriter out = null;
+        try {
+            out = new FileWriter(csvFile, true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         String builder = commande.getAcheteur().getPseudo() + "," + commande.getId() + "," + commande.getStatutCommande() + ",\"" + commande.getAdresse() +  "\",";
         for (Produit p : commande.getArticles()){
@@ -73,8 +76,12 @@ public class Main {
         }
         builder += commande.getTotal();
 
-        out.printf(builder);
-        out.close();
+        try {
+            out.write(builder + "\n");
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /*
@@ -84,10 +91,20 @@ public class Main {
    */
     public static void ecrireRevendeurCSV(Revendeur revendeur) throws FileNotFoundException{
         File csvFile = new File("src/main/data/revendeurs.csv");
-        PrintWriter out = new PrintWriter(csvFile);
+        FileWriter out = null;
+        try {
+            out = new FileWriter(csvFile, true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String builder = revendeur.getPseudo() + "," + revendeur.getCourriel() + "," + revendeur.getTelephone() + "," + revendeur.getMotDePasse() + "," + "\"" + revendeur.getAdresse() + "\"";
-        out.printf(builder);
-        out.close();
+        try {
+            out.write(builder + "\n");
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /*
@@ -96,12 +113,21 @@ public class Main {
        @param acheteur le nouvel acheteur
     */
     public static void ecrireAcheteurCSV(Acheteur acheteur) throws FileNotFoundException{
-        File csvFile = new File("src/main/data/revendeurs.csv");
-        PrintWriter out = new PrintWriter(csvFile);
+        File csvFile = new File("src/main/data/acheteurs.csv");
+        FileWriter out = null;
+        try {
+            out = new FileWriter(csvFile, true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String builder = acheteur.getPrenom() + "," + acheteur.getNom() + "," + acheteur.getPseudo() + "," + acheteur.getTelephone() + "," + acheteur.getCourriel() + ","
-                + acheteur.getMotDePasse() + "," + "\"" + acheteur.getAdresseExpedition() + "\"";
-        out.printf(builder);
-        out.close();
+                + acheteur.getMotDePasse() + "," + acheteur.getAdresseExpedition() ;
+        try {
+            out.write(builder + "\n");
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /*
@@ -111,7 +137,12 @@ public class Main {
     */
     public static void ecrireProduitCSV(Produit p) throws FileNotFoundException{
         File csvFile = new File("src/main/data/listeProduits.csv");
-        PrintWriter out = new PrintWriter(csvFile);
+        FileWriter out = null;
+        try {
+            out = new FileWriter(csvFile, true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String builder = null;
         // écrire qqch de different ds le csv selon le type du produit
         if(p instanceof MaterielInfo){ // ID, titre, prix, qte, categorie, points, description, marque, modele, date, sous-categorie
@@ -136,34 +167,61 @@ public class Main {
                     + "," + p.getPoints() + "," + p.getDescription() + "," + ((RessourcesApprentissage) p).getMarque() + "," + ((RessourcesApprentissage) p).getModele() + ((RessourcesApprentissage) p).getSousCategorie() ;
         }
 
-        out.printf(builder);
-        out.close();
-
+        try {
+            out.write(builder + "\n");
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-
+    /*
+        Initialise les bases de donnés à chaque fois que le programme débute. Ajoute les instances nécessaires aux arrayLists
+        de la classe BaseDonnees pour pouvoir les manipuler plus tard.
+     */
     public static void init() throws FileNotFoundException{
+        // fichiers .csv doivent être vides au début
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("src/main/data/listeProduits.csv");
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+
+            throw new RuntimeException(e);
+        }
+
+        try {
+            writer = new PrintWriter("src/main/data/acheteurs.csv");
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            writer = new PrintWriter("src/main/data/revendeurs.csv");
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         // initialiser catalogue
-        Produit livre1 = new LivresEtManuels("Programmation orientée objet et Génie logiciel, 8e édition", 78.90, 10,"Livres et manuels", 20, "Genie logiciel", "0-3923-7489-7", "Valerie Farino et al.", "Nathan", "Manuel scolaire", "3 janvier 2018", 3, 2);
-        Produit livre2 = new LivresEtManuels("Calcul à plusieurs variables, 2e édition", 66.79, 15, "Livres et manuels", 20, "Calcul I", "0-9559-3560-1", "Fatima Alenar", "Pearson", "Manuel scolaire", "17 mars 2020", 4, 1);
+        Produit livre1 = new LivresEtManuels("Programmation orientée objet et Génie logiciel", 78.90, 10,"Livres et manuels", 20, "Genie logiciel", "0-3923-7489-7", "Valerie Farino et al.", "Nathan", "Manuel scolaire", "3 janvier 2018", 8, 2);
+        Produit livre2 = new LivresEtManuels("Calcul à plusieurs variables", 66.79, 15, "Livres et manuels", 20, "Calcul I", "0-9559-3560-1", "Fatima Alenar", "Pearson", "Manuel scolaire", "17 mars 2020", 2, 1);
         Produit livre3 = new LivresEtManuels("Microéconomie", 68.99, 3, "Livres et manuels", 20, "Économie", "0-1419-9315-4", "Jules Tremblay", "Pearson", "Manuel scolaire", "19 décembre 2006", 5, 1);
         Produit materiel1 = new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique", 20, "Écouteurs", "SONY", "WH-1000XM4", "14/08/2022", "Écouteurs");
         Produit materiel2 = new MaterielInfo("MacBook Pro M3 14p", 2599.00, 1, "Matériel informatique", 20, "Ordinateur portable", "Apple", "Pro", "16/09/2023", "Ordinateurs");
         Produit article1 = new EquipementBureau("Cahier Canada quadrillé 40 pages", 1.79,230, "Equipement de bureau", 0, "Cahier d'exercices", "Hilroy", "Canada", "Cahiers");
 
-
+        // les produits sont deja ecrits dans le csv lors de updateInventaire
         Catalogue.ajouterProduit(livre1);
-        ecrireProduitCSV(livre1);
         Catalogue.ajouterProduit(livre2);
-        ecrireProduitCSV(livre2);
         Catalogue.ajouterProduit(livre3);
-        ecrireProduitCSV(livre3);
         Catalogue.ajouterProduit(materiel1);
-        ecrireProduitCSV(materiel1);
         Catalogue.ajouterProduit(materiel2);
-        ecrireProduitCSV(materiel2);
         Catalogue.ajouterProduit(article1);
-        ecrireProduitCSV(article1);
 
         // initialiser les commentaires sur les produits
         for(ArrayList<String> com : Commentaire.listeDeCom()){
@@ -245,7 +303,17 @@ public class Main {
         ecrireAcheteurCSV(acheteur8);
         ecrireAcheteurCSV(acheteur9);
         ecrireAcheteurCSV(acheteur10);
-        BaseDonnees.creerListeAcheteurs();
+
+        BaseDonnees.acheteursList.add(acheteur1);
+        BaseDonnees.acheteursList.add(acheteur2);
+        BaseDonnees.acheteursList.add(acheteur3);
+        BaseDonnees.acheteursList.add(acheteur4);
+        BaseDonnees.acheteursList.add(acheteur5);
+        BaseDonnees.acheteursList.add(acheteur6);
+        BaseDonnees.acheteursList.add(acheteur7);
+        BaseDonnees.acheteursList.add(acheteur8);
+        BaseDonnees.acheteursList.add(acheteur9);
+        BaseDonnees.acheteursList.add(acheteur10);
 
 
         Revendeur revendeur1 = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
@@ -274,27 +342,28 @@ public class Main {
         revendeur1.updateInventaire(materiel1);
         livre1.setRevendeur(revendeur1);
         materiel1.setRevendeur(revendeur1);
-        //BaseDonnees.revendeursList.add(revendeur1);
+        BaseDonnees.revendeursList.add(revendeur1);
 
         ecrireRevendeurCSV(revendeur2);
         revendeur2.updateInventaire(livre2);
         livre2.setRevendeur(revendeur2);
-        //BaseDonnees.revendeursList.add(revendeur2);
+        BaseDonnees.revendeursList.add(revendeur2);
 
         ecrireRevendeurCSV(revendeur3);
         revendeur3.updateInventaire(livre3);
         livre3.setRevendeur(revendeur3);
-       // BaseDonnees.revendeursList.add(revendeur3);
+        BaseDonnees.revendeursList.add(revendeur3);
 
         ecrireRevendeurCSV(revendeur4);
         revendeur4.updateInventaire(materiel2);
         materiel2.setRevendeur(revendeur4);
-        //BaseDonnees.revendeursList.add(revendeur4);
+        BaseDonnees.revendeursList.add(revendeur4);
 
         ecrireRevendeurCSV(revendeur5);
         revendeur5.updateInventaire(article1);
         article1.setRevendeur(revendeur5);
-       // BaseDonnees.revendeursList.add(revendeur5);
+        BaseDonnees.revendeursList.add(revendeur5);
+        //BaseDonnees.creerListeRevendeurs();
 
         // initialiser 3 paniers
         BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur1)).ajouterAuPanier(livre1);
