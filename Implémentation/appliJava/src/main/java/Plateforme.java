@@ -98,6 +98,32 @@ public class Plateforme {
 			description = scanner.nextLine();
 		}
 
+		System.out.print("Voulez-vous diffuser un média avec votre produit? : ");
+		System.out.print("1. Oui");
+		System.out.print("2. Non");
+		scanner.nextLine();
+
+		System.out.print("Entrez votre choix: ");
+        String choice = scan.nextLine();
+        
+        switch(choice) {
+            case "1":
+                System.out.print("Veuillez entrer le URL de votre média à ajouter :");
+				scanner.nextLine();
+				String mediaLink = scanner.nextLine();
+                break;
+            case "2":
+                System.out.print("Aucun média ne sera ajouté.");
+                break;
+            default:
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données.");
+				System.out.println();
+        }
+
+
+
+
 		// Demander au revendeur d'entrer une quantité
 		int qteEnStock = 0;
 		do {
