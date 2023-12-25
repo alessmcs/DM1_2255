@@ -162,6 +162,7 @@ public abstract class Utilisateur {
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
 
+
 									}
 								} else {
 									profilTrouver = false;
