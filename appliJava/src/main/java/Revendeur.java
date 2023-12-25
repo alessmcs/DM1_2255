@@ -54,7 +54,10 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
-
+	/**
+	 * La méthode suivante permet au revendeurs de traiter les billets de signalement
+	 * @param revendeur Le revendeur qui reçoit le billet de signalement
+	 */
 	public void gererProbleme(Revendeur revendeur) {
 
 		if (billet == null) {
@@ -105,7 +108,7 @@ public class Revendeur extends Utilisateur {
 					scanner.nextLine();
 
 					if (choixAcheteur == 1) {
-						billet.setDescriptionSolution("La solution a été acceptée.");
+						billet.setDescriptionSolution("L'acheteur a accepté la solution.");
 						solutionAcceptee = true;
 					} else if (choixAcheteur == 2) {
 						billet.setDescriptionSolution("La solution a été refusée. Veuillez proposer une autre solution.");
@@ -113,7 +116,7 @@ public class Revendeur extends Utilisateur {
 						System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 					}
 				} catch (InputMismatchException e) {
-					System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+					System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non..");
 					scanner.nextLine();
 				}
 			} while (choixAcheteur != 1 && choixAcheteur != 2);
