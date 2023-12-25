@@ -153,11 +153,17 @@ public class Main {
 
 
         Catalogue.ajouterProduit(livre1);
+        ecrireProduitCSV(livre1);
         Catalogue.ajouterProduit(livre2);
+        ecrireProduitCSV(livre2);
         Catalogue.ajouterProduit(livre3);
+        ecrireProduitCSV(livre3);
         Catalogue.ajouterProduit(materiel1);
+        ecrireProduitCSV(materiel1);
         Catalogue.ajouterProduit(materiel2);
+        ecrireProduitCSV(materiel2);
         Catalogue.ajouterProduit(article1);
+        ecrireProduitCSV(article1);
 
         // initialiser les commentaires sur les produits
         for(ArrayList<String> com : Commentaire.listeDeCom()){
@@ -168,8 +174,6 @@ public class Main {
             materiel2.listCommentaires.add(com);
             article1.listCommentaires.add(com);
         }
-
-
 
         Acheteur acheteur1 = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
         acheteur1.setPrenom("Luna");
@@ -231,16 +235,17 @@ public class Main {
         acheteur10.setPseudo("souris88");
         acheteur10.setAdresseExpedition(new Adresse("100 rue Rembouillet", "Montréal", "b8k6h1", "QC", "Canada"));
 
-        BaseDonnees.acheteursList.add(acheteur1);
-        BaseDonnees.acheteursList.add(acheteur2);
-        BaseDonnees.acheteursList.add(acheteur3);
-        BaseDonnees.acheteursList.add(acheteur4);
-        BaseDonnees.acheteursList.add(acheteur5);
-        BaseDonnees.acheteursList.add(acheteur6);
-        BaseDonnees.acheteursList.add(acheteur7);
-        BaseDonnees.acheteursList.add(acheteur8);
-        BaseDonnees.acheteursList.add(acheteur9);
-        BaseDonnees.acheteursList.add(acheteur10);
+        ecrireAcheteurCSV(acheteur1);
+        ecrireAcheteurCSV(acheteur2);
+        ecrireAcheteurCSV(acheteur3);
+        ecrireAcheteurCSV(acheteur4);
+        ecrireAcheteurCSV(acheteur5);
+        ecrireAcheteurCSV(acheteur6);
+        ecrireAcheteurCSV(acheteur7);
+        ecrireAcheteurCSV(acheteur8);
+        ecrireAcheteurCSV(acheteur9);
+        ecrireAcheteurCSV(acheteur10);
+        BaseDonnees.creerListeAcheteurs();
 
 
         Revendeur revendeur1 = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
@@ -264,37 +269,42 @@ public class Main {
         revendeur5.setAdresse(new Adresse("67 rue Lagayette", "longueuil", "2", "QC", "Canada"));
 
         // revendeurs offrent des produits
-        BaseDonnees.revendeursList.add(revendeur1);
+        ecrireRevendeurCSV(revendeur1);
         revendeur1.updateInventaire(livre1);
         revendeur1.updateInventaire(materiel1);
         livre1.setRevendeur(revendeur1);
         materiel1.setRevendeur(revendeur1);
+        //BaseDonnees.revendeursList.add(revendeur1);
 
-        BaseDonnees.revendeursList.add(revendeur2);
+        ecrireRevendeurCSV(revendeur2);
         revendeur2.updateInventaire(livre2);
         livre2.setRevendeur(revendeur2);
+        //BaseDonnees.revendeursList.add(revendeur2);
 
-        BaseDonnees.revendeursList.add(revendeur3);
+        ecrireRevendeurCSV(revendeur3);
         revendeur3.updateInventaire(livre3);
         livre3.setRevendeur(revendeur3);
+       // BaseDonnees.revendeursList.add(revendeur3);
 
-        BaseDonnees.revendeursList.add(revendeur4);
+        ecrireRevendeurCSV(revendeur4);
         revendeur4.updateInventaire(materiel2);
         materiel2.setRevendeur(revendeur4);
+        //BaseDonnees.revendeursList.add(revendeur4);
 
-        BaseDonnees.revendeursList.add(revendeur5);
+        ecrireRevendeurCSV(revendeur5);
         revendeur5.updateInventaire(article1);
         article1.setRevendeur(revendeur5);
+       // BaseDonnees.revendeursList.add(revendeur5);
 
         // initialiser 3 paniers
-        acheteur1.ajouterAuPanier(livre1);
-        acheteur1.ajouterAuPanier(livre2);
-        acheteur1.ajouterAuPanier(livre3);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur1)).ajouterAuPanier(livre1);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur1)).ajouterAuPanier(livre2);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur1)).ajouterAuPanier(livre3);
 
-        acheteur3.ajouterAuPanier(livre2);
-        acheteur3.ajouterAuPanier(materiel1);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur2)).ajouterAuPanier(livre2);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur2)).ajouterAuPanier(materiel1);
 
-        acheteur4.ajouterAuPanier(materiel2);
+        BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur4)).ajouterAuPanier(materiel2);
     }
 
 }

@@ -172,8 +172,10 @@ public class Plateforme {
 					produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 		}
 
-		revendeur.updateInventaire(produit); // ajouter à l'inventaire du revendeur connecté
+		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
+
 		Main.ecrireProduitCSV(produit);
+		Catalogue.ajouterProduit(produit);
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");

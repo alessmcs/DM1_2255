@@ -20,6 +20,10 @@ public class Catalogue {
 		produits.add(produit);
 	}
 
+	public static ArrayList<Produit> getProduits(){
+		return produits;
+	}
+
 	/*
     	Cette méthode permet à l'utilisateur de voir la liste des produits disponibles, et éventuellement d'en
     	choisir un pour voir ses détails
@@ -33,7 +37,9 @@ public class Catalogue {
 		boolean validInput = false;
 
 		for (Produit produit : produits) {
-			System.out.println(produit.toString());
+			if ( produit.getQte() != 0){
+				System.out.println(produit);
+			}
 		}
 
 		do{

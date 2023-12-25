@@ -239,10 +239,12 @@ public class Commande {
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
 			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
-			prod.setQte(prod.getQte() - 1); // mettre à jour la quantité de chq produit de la commande
-
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
+
+		modQte(p);
+		modPoints(acheteur);
+
 		System.out.printf("\nTotal: " + facture.getTotal());
 		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
 		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTelephone());
@@ -262,20 +264,71 @@ public class Commande {
 		return commande;
 	}
 
-	// TODO: modifier les quantités & le nombre de points!!
-	private static void modQte(String fichier, String editTerm, String newQte){
 
-		String tempFile = "temp.txt";
-		File oldFile = new File("src/main/data/listeProduits.csv");
-		File newFile = new File(tempFile);
-		String qte = "";
-		try{
-			FileWriter fw = new FileWriter(tempFile, true);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
+	/*
+		Modifie la quantité des produits dans le csv et dans la liste des produits du catalogue
 
-		} catch(Exception e){
+		@param panier le panier contenant les produits
+	 */
+	private static void modQte(Panier panier){
 
+		ArrayList<Produit> produitsCat = Catalogue.getProduits();
+		// pr chaque produit dans la commande (le panier), diminuer la qté par 1
+
+		for ( Produit p : panier.getArticles() ){
+			if (produitsCat.contains(p)){
+				p.setQte(p.getQte()-1); // decrementer la qte dans la liste
+			}
+		}
+
+		File file = new File("src/main/data/listeProduits.csv");
+
+		// supprimer le contenu existant
+		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+			outputStream.getChannel().truncate(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// le remplacer par le contenu à jour
+		for (Produit p : produitsCat){
+			try {
+				Main.ecrireProduitCSV(p);
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	/*
+		Modifie le nombre de points de l'acheteur dans la base de donnés (arrayList & csv)
+
+		@param ach l'acheteur qui a fait la commande
+	 */
+	private static void modPoints(Acheteur ach){
+		// les points de l'acheteur sont mis à jour dans passerCommande mais pas dans le csv des acheteurs
+
+		// modifier dans le arrayList de la base de données
+		for (Acheteur a : BaseDonnees.acheteursList){
+			if ( ach == a ){
+				a.setPoints(ach.getPoints());
+			}
+		}
+
+		File file = new File("src/main/data/acheteurs.csv");
+
+		// supprimer le contenu existant
+		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+			outputStream.getChannel().truncate(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// le remplacer par le contenu à jour
+		for (Acheteur a : BaseDonnees.acheteursList ){
+			try {
+				Main.ecrireAcheteurCSV(a);
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 
@@ -329,7 +382,7 @@ public class Commande {
 	}
 
 	/*
-		Cette méthode formatte simplement la commande pour qu'elle soit affichée correctement
+		Cette méthode formate simplement la commande pour qu'elle soit affichée correctement
 	 */
 	public String commandeToString(){
 		String s;
