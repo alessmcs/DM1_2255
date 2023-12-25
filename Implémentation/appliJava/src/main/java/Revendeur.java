@@ -109,7 +109,7 @@ public class Revendeur extends Utilisateur {
 	public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
 		inventaire.add(p);
 		try{
-			Main.ecrireProduitCSV(p);
+			Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
 		} catch(FileNotFoundException e){
 			e.printStackTrace();
 		}

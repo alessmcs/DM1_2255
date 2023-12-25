@@ -4,7 +4,6 @@ public class Probleme {
 	private String descriptionProbleme;
 
 	public void signalerProbleme() {
-		// TODO - implement Probleme.signalerProbleme
 		Scanner scanner = new Scanner(System.in);
 
 		// Demander à l'acheteur de décrire le problème

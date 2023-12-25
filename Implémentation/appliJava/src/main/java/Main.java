@@ -135,8 +135,8 @@ public class Main {
 
       @param p le produit à marquer
     */
-    public static void ecrireProduitCSV(Produit p) throws FileNotFoundException{
-        File csvFile = new File("src/main/data/listeProduits.csv");
+    public static void ecrireProduitCSV(Produit p, String filePath) throws FileNotFoundException{
+        File csvFile = new File(filePath);
         FileWriter out = null;
         try {
             out = new FileWriter(csvFile, true);

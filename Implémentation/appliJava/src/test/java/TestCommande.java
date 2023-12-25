@@ -35,7 +35,7 @@ public class TestCommande {
     }
 
     @Test
-    public void testToString(){ // on veut vérifier que les objets de la commande apparaissent bien dans l'historique de l'acheteur quand la commande est passee
+    public void testToString(){ // tester Commande.toString()
         String expected = "2\n" +
                 "En production\n" +
                 "ID : 1, Titre: Écouteurs SONY WH-1000XM4\n" +
@@ -49,14 +49,14 @@ public class TestCommande {
     }
 
     @Test
-    public void testAjouterHistorique(){ // tester que la commande est correctement ajoutée à l'historique
+    public void testAjouterHistorique(){ // tester que la commande est correctement ajoutée à l'historique (Acheteur.ajouterHistorique())
         acheteur.addHistorique(commande);
         ArrayList<Commande> liste = acheteur.getHistoriqueCommandes();
         assertTrue(liste.contains(commande));
     }
 
     @Test
-    public void testHistoriqueVide(){
+    public void testHistoriqueVide(){ // tester Acheteur.afficherHistorique() sur un historique vide
         // s'assurer que le message affiché est correct
         String expected = "Vous n'avez passé aucune commande pour le moment!";
         String actual = acheteur.afficherHistorique();

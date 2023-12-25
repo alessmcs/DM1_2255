@@ -44,7 +44,4 @@ public class TestPanier {
         ArrayList<Produit> articles = panierTest.getArticles();
         assertTrue(articles.contains(article1));
     }
-
-    //todo add teardown
-
 }
