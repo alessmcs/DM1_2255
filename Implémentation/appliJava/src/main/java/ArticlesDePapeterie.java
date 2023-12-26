@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ArticlesDePapeterie extends Produit {
 
-    private String categorie = "Équipement de bureau";
+    private String categorie = "Articles de papéterie";
     private String marque;
     private String modele;
     private String sousCategorie;

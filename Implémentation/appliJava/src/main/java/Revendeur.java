@@ -1,8 +1,5 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Revendeur extends Utilisateur {
 
@@ -196,6 +193,13 @@ public class Revendeur extends Utilisateur {
 		}
 	}
 
+	/**
+	 * 
+	 * @param utilisateur
+	 * 
+	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 */
+
 	public void afficherCommentaires(Revendeur utilisateur){
 		for (Produit p : ((Revendeur) utilisateur).inventaire){
 			for (ArrayList<String> commentaire : p.listCommentaires){
@@ -232,6 +236,42 @@ public class Revendeur extends Utilisateur {
 				revenu += p.prix * n;
 			}
 		}
+
+		System.out.println("Vos métriques de revendeur: ");
+		System.out.println("Nombre de produits offerts: " + nbArticles);
+		System.out.println("Nombre de produits vendus: " + nbVendu);
+		System.out.println("Revenu total: " + revenu);
+		System.out.println("Nombre de commentaires laissés sur vos produits: ");
+		for (Produit p : ((Revendeur) utilisateur).inventaire) {
+			if (p.listCommentaires != null) {
+				System.out.println(p.getTitre() + ": " + p.listCommentaires.size());
+			}
+		}
+		System.out.println("Nombre de commandes retournées: " + retours.size());
+
+		Scanner s = new Scanner(System.in);
+		boolean validInput = false;
+		do{
+			try{
+				System.out.println( "Entrez 0 pour retourner au menu principal" );
+
+				String choix = s.nextLine();
+				if ( ! Main.isNumeric(choix)){
+					throw new InputMismatchException();
+				} else {
+					if (choix.equals("0")){
+						validInput = true;
+						Utilisateur.afficherMenu(utilisateur);
+						break;
+					}
+					if(!validInput){
+						throw new InputMismatchException();
+					}
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Svp entrez 0!");
+			}
+		} while (!validInput);
 	}
 
 	public void montrerProfil(){

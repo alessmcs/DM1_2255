@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Produit {
+public abstract class Produit {
 
 	protected String titre;
 	protected double prix;
@@ -246,6 +246,7 @@ public class Produit {
 	public int getQte(){
 		return this.qteEnStock;
 	}
+	public int getQteInit() { return this.qteInitiale;}
 
 	public void setQte(int qte){
 		this.qteEnStock = qte;

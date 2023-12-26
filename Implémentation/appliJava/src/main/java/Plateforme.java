@@ -128,6 +128,32 @@ public class Plateforme {
 			description = scanner.nextLine();
 		}
 
+		System.out.print("Voulez-vous diffuser un média avec votre produit? : ");
+		System.out.print("1. Oui");
+		System.out.print("2. Non");
+		scanner.nextLine();
+
+		System.out.print("Entrez votre choix: ");
+        String choice = scan.nextLine();
+        
+        switch(choice) {
+            case "1":
+                System.out.print("Veuillez entrer le URL de votre média à ajouter :");
+				scanner.nextLine();
+				String mediaLink = scanner.nextLine();
+                break;
+            case "2":
+                System.out.print("Aucun média ne sera ajouté.");
+                break;
+            default:
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données.");
+				System.out.println();
+        }
+
+
+
+
 		// Demander au revendeur d'entrer une quantité
 		int qteEnStock = 0;
 		do {
@@ -206,7 +232,7 @@ public class Plateforme {
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 
 		// typer le produit selon la catégorie
-		Produit produit;
+		Produit produit = null;
 		switch(categorie){
 			case ("Livres et manuels") ->
 					produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
@@ -219,8 +245,6 @@ public class Plateforme {
 					produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
 			case ("RessourcesApprentissage") ->
 					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
-			default ->
-					produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
 		}
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);

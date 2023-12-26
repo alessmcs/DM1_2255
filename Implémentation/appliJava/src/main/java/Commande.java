@@ -226,8 +226,6 @@ public class Commande {
 
 		Commande commande = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, id+1, p);
 
-		Main.ecrireCommandeCSV(commande); // ajouter la commande à la base de données
-		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
 
 		// si les produits achetés ont des points bonus, ajouter les points bonus à l'acheteur qui a passé la commande
 		// calculer la somme des points
@@ -238,12 +236,16 @@ public class Commande {
 		for (Produit prod : p.getArticles()){
 			System.out.println(prod);
 			sommePoints += prod.getPoints();
-			acheteur.panier.getArticles().remove(p); // retirer les elements de la commande du panier
 		}
 		acheteur.setPoints(sommePoints); // mettre à jour les points dans le profil de l'acheteur
 
 		modQte(p);
 		modPoints(acheteur);
+
+		Main.ecrireCommandeCSV(commande); // ajouter la commande à la base de données
+		acheteur.addHistorique(commande); // ajouter la commande à l'historique de commandes
+		BaseDonnees.commandesList.add(commande); // ajouter la commande a la base de donnees
+		acheteur.panier.nouvPanier(); // nouveau panier
 
 		System.out.printf("\nTotal: " + facture.getTotal());
 		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
@@ -325,7 +327,7 @@ public class Commande {
 		// le remplacer par le contenu à jour
 		for (Acheteur a : BaseDonnees.acheteursList ){
 			try {
-				Main.ecrireAcheteurCSV(a);
+				Main.ecrireAcheteurCSV(a, "src/main/data/acheteurs.csv");
 			} catch (FileNotFoundException e) {
 				throw new RuntimeException(e);
 			}

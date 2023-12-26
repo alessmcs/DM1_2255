@@ -30,6 +30,15 @@ public class Panier {
 	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
+	
+	/*
+		Réinitialise le panier
+	 */
+	public void nouvPanier(){
+		articles = new ArrayList<>();
+		montantAPayer = 0;
+		nbPoints = 0;
+	}
 
 	/*
 		Indirectement accéder au montant total du panier
