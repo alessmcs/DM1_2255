@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Scanner;
 
 public class Revendeur extends Utilisateur {
 

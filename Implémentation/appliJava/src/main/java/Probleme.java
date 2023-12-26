@@ -5,26 +5,6 @@ public class Probleme {
 	private String descriptionProbleme;
 	private BilletDeSignalement billet;
 
-<<<<<<< HEAD:appliJava/src/main/java/Probleme.java
-	/*public void signalerProbleme() {
-		// TODO - implement Probleme.signalerProbleme
-=======
-	public void signalerProbleme() {
->>>>>>> main:Implémentation/appliJava/src/main/java/Probleme.java
-		Scanner scanner = new Scanner(System.in);
-
-		// Demander à l'acheteur de décrire le problème
-		System.out.print("Décrivez le problème rencontré : ");
-		this.descriptionProbleme = scanner.nextLine();
-
-		// Afficher un message pour indiquer que le signalement a été créé
-		System.out.println("Le signalement a été créé avec succès.");
-		BilletDeSignalement billet = new BilletDeSignalement(descriptionProbleme);
-
-
-	}
-	 */
-
 	/**
 	 * Cette méthode permet à un acheteur qui est dissatisfait avec un produit livré de reporter un problème.
 	 *

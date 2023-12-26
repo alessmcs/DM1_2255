@@ -5,27 +5,23 @@ import java.util.Scanner;
 
 
 public class Plateforme {
-<<<<<<< HEAD:appliJava/src/main/java/Plateforme.java
+
 	/**
 	 * Cette méthode permet à un revendeur d'offrir un produit à la plateforme après avoir fourni des
-	 * spécifications tels que le titre, la catégorie, la description, la quantité en stock,
+	 * spécifications telles que le titre, la catégorie, la description, la quantité en stock,
 	 * le prix, etc.
 	 *
 	 * @param revendeur Le revendeur effectuant l'offre.
 	 * @throws InputMismatchException Si une entrée utilisateur n'est pas du type attendu.
 	 * @throws IllegalArgumentException Si une valeur est invalide ou ne respecte pas les conditions.
 	 */
-	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException{
-=======
-	// TODO: rechercher un produit
-
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException, FileNotFoundException {
 
 		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
 		String dateParution = null; int numEd = 0; int numVol = 0;
 		String marque = null; String modele = null; String sousCategorie = null;
 		String dateLancement = null;
->>>>>>> main:Implémentation/appliJava/src/main/java/Plateforme.java
+
 		// Demander au revendeur de specifier un titre
 		Scanner scanner = new Scanner(System.in);
 
@@ -196,6 +192,8 @@ public class Plateforme {
 			}
 		} while (prix <= 0);
 
+		int nbPoints = 0;
+		int choixPts = 0;
 		do {
 			try {
 				System.out.println("Voulez-vous donner des points bonus pour ce produit?");
@@ -208,13 +206,14 @@ public class Plateforme {
 				if (choixPts == 1) {
 					// Calculer les points bonus
 					nbPoints = (int) prix;
+					nbPoints = (int) Math.floor(nbPoints);
 					if (nbPoints > 20) {
 						nbPoints = 20;
 					}
-					nbPoints = (int) Math.floor(nbPoints);
 				} else if (choixPts == 2) {
 					System.out.println("Succès! " + titre + " a été publié à la plateforme. En voici les détails:");
 					Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
+					// You might want to use the 'produit' object further or return it
 				} else {
 					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 				}
@@ -222,11 +221,8 @@ public class Plateforme {
 				System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
 				scanner.nextLine();
 			}
-<<<<<<< HEAD:appliJava/src/main/java/Plateforme.java
-		} while (choixAcheteur != 1 && choixAcheteur != 2);
-=======
-			nbPoints = (int) Math.floor(nbPoints);
-		}
+		} while (choixPts != 1 && choixPts != 2);
+
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 
 		// typer le produit selon la catégorie
@@ -249,7 +245,7 @@ public class Plateforme {
 
 		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
->>>>>>> main:Implémentation/appliJava/src/main/java/Plateforme.java
+
 
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");

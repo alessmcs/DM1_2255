@@ -12,7 +12,7 @@ public class BilletDeSignalement {
 		this.descriptionProbleme = descriptionProbleme;
 	}
 
-	public void setDescriptionSolution(String descriptionSolution) {
+	public String setDescriptionSolution(String descriptionSolution) {
 		this.descriptionSolution = descriptionSolution;
 
 	public String getDescriptionProbleme() {
