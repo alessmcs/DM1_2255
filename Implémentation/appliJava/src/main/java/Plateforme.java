@@ -128,6 +128,7 @@ public class Plateforme {
 			description = scanner.nextLine();
 		}
 
+		// Demander au revendeur s'il souhaite ajouter un média à leur publication
 		System.out.print("Voulez-vous diffuser un média avec votre produit? : ");
 		System.out.print("1. Oui");
 		System.out.print("2. Non");
@@ -150,9 +151,6 @@ public class Plateforme {
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
         }
-
-
-
 
 		// Demander au revendeur d'entrer une quantité
 		int qteEnStock = 0;
