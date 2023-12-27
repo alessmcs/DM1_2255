@@ -17,12 +17,20 @@ public class Acheteur extends Utilisateur {
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
+	protected ArrayList<Notification> notifications = new ArrayList<>();
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
 		this.nom= nom;
 		panier = new Panier();
+	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
 	}
 	
 	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
@@ -41,6 +49,7 @@ public class Acheteur extends Utilisateur {
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
+					acheteurAjouter.ajouterNotification(nouvelleNotification);
 
 				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
@@ -259,11 +268,12 @@ public class Acheteur extends Utilisateur {
 
 
 
-	public void likeRevendeur(Revendeur revendeur) {
-		if(revendeursLikes.contains(revendeur)){
+	public void likeRevendeur(Revendeur revendeur, Acheteur acheteur) {
+		if(acheteur.revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
-			revendeursLikes.add(revendeur);
+			acheteur.revendeursLikes.add(revendeur);
+			revendeur.acheteurQuiAime.add(acheteur);
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}

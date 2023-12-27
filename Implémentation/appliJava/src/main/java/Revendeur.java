@@ -9,13 +9,27 @@ public class Revendeur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
+	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
+	protected ArrayList<Notification> notifications = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
 		super(telephone, courriel, motDePasse);
 		inventaire = new ArrayList<>();
 	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
 
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
+	protected ArrayList<Acheteur> getAcheteurQuiAime() {
+		return acheteurQuiAime;
+	}
+	protected void setAcheteurQuiAime(ArrayList<Acheteur> acheteurQuiAime) {
+		this.acheteurQuiAime = acheteurQuiAime;
+	}
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}

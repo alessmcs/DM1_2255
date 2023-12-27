@@ -130,7 +130,7 @@ public abstract class Utilisateur {
 							} else  {
 								LocalDateTime derniereConnection = LocalDateTime.now();
 								revendeur.setDerniereConnection(derniereConnection);
-								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection, revendeur);
 								afficherMenu(revendeur);
 							}
 						}
@@ -161,7 +161,7 @@ public abstract class Utilisateur {
 									} else  {
 										LocalDateTime derniereConnection = LocalDateTime.now();
 										acheteur.setDerniereConnection(derniereConnection);
-										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+										ArrayList<Notification> newNotifications = Notification.notifierAcheteur(derniereConnection, acheteur);
 
 										afficherMenu(acheteur);
 										break;
@@ -383,7 +383,7 @@ public abstract class Utilisateur {
 					System.out.println("0. Retour au Menu ");
 					int choix= Integer.parseInt(scanner.nextLine());
 					switch (choix){
-						case 1 -> acheteur.likeRevendeur(revendeurChercher);
+						case 1 -> acheteur.likeRevendeur(revendeurChercher, acheteur );
 						case 2,0 -> acheteur.afficherMenu(acheteur);
 					}
 				}

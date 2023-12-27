@@ -13,7 +13,7 @@ public class Notification {
 		this.date = LocalDateTime.now();
 		notifications.add(this);
 	}
-	public static ArrayList<Notification> notifierAcheteur(LocalDateTime derniereConnection) {
+	public static ArrayList<Notification> notifierAcheteur(LocalDateTime derniereConnection, Acheteur acheteur) {
 		ArrayList  <Notification> nouvelleNotification = new ArrayList<>();
 		for (Notification notification : notifications){
 			LocalDateTime dateNotif = (LocalDateTime) notification.getDateTime();
@@ -23,6 +23,7 @@ public class Notification {
 				switch (raison){
 					case NOUVEAU_PRODUIT, NOUVEL_ABONNE,SOLUTION_PROBLEME,ETAT_COMMANDE,PROMOTION:
 						System.out.println(raison.getDescription());
+						acheteur.ajouterNotification(notification);
 						nouvelleNotification.add(notification);
 						break;
 				}
@@ -39,7 +40,7 @@ public class Notification {
 		return date;
 	}
 
-	public static ArrayList<Notification> notifierRevendeur(LocalDateTime derniereConnection) {
+	public static ArrayList<Notification> notifierRevendeur(LocalDateTime derniereConnection, Revendeur revendeur) {
 		ArrayList  <Notification> nouvelleNotification = new ArrayList<>();
 		for (Notification notification : notifications){
 			LocalDateTime dateNotif = (LocalDateTime) notification.getDateTime();
@@ -49,6 +50,7 @@ public class Notification {
 				switch (raison){
 					case PROBLEME_SIGNALE, NOUVELLE_EVALUATION,LIKE,NOUVELLE_COMMANDE_RECUE :
 						System.out.println(raison.getDescription());
+						revendeur.ajouterNotification(notification);
 						nouvelleNotification.add(notification);
 						break;
 				}
