@@ -17,22 +17,26 @@ public class Acheteur extends Utilisateur {
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
-	protected ArrayList<Notification> notifications = new ArrayList<>();
 
+	/**
+	 * 
+	 * @param telephone Le numéro de téléphone de l'acheteur
+	 * @param courriel Le  courriel de l'acheteur
+	 * @param motDePasse Le mot de passe relié au compte de l'achateur
+	 */
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
 		this.nom= nom;
 		panier = new Panier();
 	}
-	public void ajouterNotification(Notification notification) {
-		notifications.add(notification);
-	}
-
-	public ArrayList<Notification> getNotifications() {
-		return notifications;
-	}
 	
+	/**
+	 * Permet à un acheteur d'en suivre un autre
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
 	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
@@ -49,7 +53,6 @@ public class Acheteur extends Utilisateur {
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
-					acheteurAjouter.ajouterNotification(nouvelleNotification);
 
 				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
@@ -60,12 +63,33 @@ public class Acheteur extends Utilisateur {
 			}
 
 	}
+
+	/**
+	 * Permet d'ajouter à une liste de "suiveur" 
+	 * un acheteur qui en suit un autre
+	 * 
+	 * @param suiveur Un certain acheteur qui suit un autre acheteur
+	 */
 	public void ajouterSuiveur(Acheteur suiveur) {
 			this.listeSuiveurs.add(suiveur);
 	}
+
+	/**
+	 * Permet de retirer de la liste un acheteur "suiveur"
+	 * 
+	 * @param suiveur Un certain acheteur qui suit un autre acheteur
+	 */
 	public void retirerAcheteur(Acheteur suiveur) {
 		this.listeSuiveurs.remove(suiveur);
 	}
+
+	/**
+	 * Permet à un acheteur de gérer (supprimer ou suivre) 
+	 * ainsi que de voir ses suiveurs
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
 	public void acheteurSuiviPar(Acheteur acheteur) throws FileNotFoundException {
 		Scanner scannerUn = new Scanner((System.in));
 
@@ -124,19 +148,37 @@ public class Acheteur extends Utilisateur {
 							System.out.println("Veuillez réessayer, une erreur c'est produite.");
 							scannerUn.nextLine();
 						}
-						}
 					}
-				}}}
+				}
+			}
+		}
 
+	}
 
+	/**
+	 * Ajoute le ou les produit(s) sélectionné(s) dans le panier 
+	 * 
+	 * @param p Est un produit
+	 */			
 	public void ajouterAuPanier(Produit p){
 		this.panier.ajouterArticle(p);
 	}
 
+	/**
+	 * Ajoute un commentaire à une liste de commentaires
+	 * 
+	 * @param c Est un commentaire
+	 */
 	public void addListeCommentaires(ArrayList<String> c){
 		listeCommentaires.add(c);
 	}
 
+	/**
+	 * Retourne un booléan qui confirme ou 
+	 * infirme la réception d'une commande
+	 * 
+	 * @return Un booléan 
+	 */
 	public boolean confirmerReceptionCommande() {
 		Scanner s = new Scanner(System.in);
 
@@ -169,6 +211,9 @@ public class Acheteur extends Utilisateur {
 		}
 	}
 
+	/**
+	 * Inscrit un utilisateur en tant qu'acheteur à Unishop
+	 */
 	public void inscrireAcheteur() {
 
 		Scanner scanner = new Scanner(System.in);
@@ -228,14 +273,28 @@ public class Acheteur extends Utilisateur {
 		}
 
 	}
+
+	/**
+	 * Retourne le numéro de carte de crédit de l'acheteur
+	 * 
+	 * @return numéro de carte de crédit
+	 */
 	public CarteCredit getCarteCredit() {
 		return carteCredit;
 	}
 
+	/**
+	 * Met à jour le numéro de carte de crédit de l'acheteur
+	 * 
+	 * @param carteCredit numréo de carte de crédit de l'acheteur
+	 */
 	public void setCarteCredit(CarteCredit carteCredit) {
 		this.carteCredit = carteCredit;
 	}
 
+	/**
+	 * Affiche les informations du profil de l'acheteur
+	 */
 	public void montrerProfil(){
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);
@@ -243,6 +302,13 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
+
+	/**
+	 * Affiche les notifications d'un acheteur
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé 
+	 */
 	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
 
 		if (notifications.isEmpty()) {
@@ -262,68 +328,146 @@ public class Acheteur extends Utilisateur {
 	}
 
 
+	/**
+	 * Fait payer à l'acheteur la différence de prix entre deux articles
+	 * 
+	 * @param difference écart de prix
+	 */
 	public void payerDifference(double difference) {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
 
 
-	public void likeRevendeur(Revendeur revendeur, Acheteur acheteur) {
-		if(acheteur.revendeursLikes.contains(revendeur)){
+	/**
+	 * Permet à l'acheteur d'aimer (liker) un revendeur
+	 * 
+	 * @param revendeur un utilsateur qui vend des articles sur UniShop
+	 */
+	public void likeRevendeur(Revendeur revendeur) {
+		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
-			acheteur.revendeursLikes.add(revendeur);
-			revendeur.acheteurQuiAime.add(acheteur);
+			revendeursLikes.add(revendeur);
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}
 
 
+	/**
+	 * Retourne le pseudo de l'acheteur
+	 * 
+	 * @return pseudo de l'acheteur 
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 
+	/**
+	 * Retourne le npm de l'acheteur 
+	 * 
+	 * @return nom de l'acheteur 
+	 */
 	public String getNom() {
 		return nom;
 	}
 
+	/**
+	 * Retoune le prénom de l'acheteur 
+	 * 
+	 * @return prénom de l'acheteur 
+	 */
 	public String getPrenom() {
 		return prenom;
 	}
+
+	/**
+	 * Retourne le nombre de points de l'acheteur
+	 * 
+	 * @return nombre de points de l'acheteur 
+	 */
 	public int getPoints() {
 		return this.points;
 	}
+
+	/**
+	 * Retourne l'adresse d'expédition de l'acheteur 
+	 * 
+	 * @return adresse d'expédition de l'acheteur 
+	 */
 	public Adresse getAdresseExpedition() {
 		return this.adresseExpedition;
 	}
 
+	/**
+	 * Retourne l'acheteur sélectionné
+	 * 
+	 * @return l'acheteur 
+	 */
 	public Acheteur getAcheteur(){
 		return this;
 	}
 
+	/**
+	 * Met à jour le prénom de l'acheteur
+	 * 
+	 * @param prenom prénom de l'acheteur
+	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
+	/**
+	 * Met à jour le nom de l'acheteur
+	 * 
+	 * @param nom nom de l'acheteur
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	/**
+	 * Met à jour l'adresse d'expédition de l'acheteur
+	 * 
+	 * @param adresseExpedition adresse d'expédition de l'acheteur
+	 */
 	public void setAdresseExpedition(Adresse adresseExpedition) {
 		this.adresseExpedition = adresseExpedition;
 	}
+
+	/**
+	 * Met à jour le pseudo de l'acheteur
+	 * 
+	 * @param pseudo pseudo de l'acheteur
+	 */
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
 
+	/**
+	 * Met à jour le nombre de points de l'acheteur
+	 * 
+	 * @param points nombre de points de l'acheteur 
+	 */
 	public void setPoints(int points){
 		this.points = points;
 	}
 
 
+	/**
+	 * Ajoute une commande à l'historique de commandes
+	 * 
+	 * @param commande commande passé par l'acheteur
+	 */
 	public void addHistorique(Commande commande) {
 		historiqueCommandes.add(commande);
 	}
 
+	/**
+	 * Affiche l'historique de commandes passées par l'acheteur 
+	 * 
+	 * @return l'historique de commandes
+	 */
 	protected String  afficherHistorique(){
 		// parse the csv de toutes les commandes & only keep the ones with the correct username
 		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
@@ -339,10 +483,21 @@ public class Acheteur extends Utilisateur {
 		}
 		return null;
 	}
+
+	/**
+	 * Va chercher la liste de commandes passées (l'historique)
+	 * 
+	 * @return l'historique de commandes
+	 */
 	public ArrayList<Commande> getHistoriqueCommandes(){
 		return historiqueCommandes;
 	}
 
+	/**
+	 * Affiche les métriques de l'acheteur 
+	 * 
+	 * @param utilisateur un certain acheteur sélectionné
+	 */
 	protected void afficherMetriques(Acheteur utilisateur){
 		Scanner scanner = new Scanner(System.in);
 		int nbCommandes = utilisateur.historiqueCommandes.size();
@@ -386,6 +541,11 @@ public class Acheteur extends Utilisateur {
 		}
 	}
 
+	/**
+	 * Permet d'obtenir toutes les commandes livrées
+	 * 
+	 * @return les commandes livrées
+	 */
 	public ArrayList<Commande> obtenirCommandesLivrees() {
 		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 
@@ -398,6 +558,11 @@ public class Acheteur extends Utilisateur {
 		return commandesLivrees;
 	}
 
+	/**
+	 * Retourne la liste des suiveurs d'un certain acheteur
+	 * 
+	 * @return liste de suiveurs 
+	 */
 	public ArrayList<Acheteur> getListeSuiveurs() {
 		return listeSuiveurs;
 	}
