@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Acheteur extends Utilisateur {
@@ -18,7 +19,7 @@ public class Acheteur extends Utilisateur {
 	private CarteCredit carteCredit;
 
 	
-	public void suivreAcheteur(Acheteur acheteur) {
+	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
@@ -26,7 +27,11 @@ public class Acheteur extends Utilisateur {
 					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
-					afficherMenu(acheteur);
+					try {
+						afficherMenu(acheteur);
+					} catch (FileNotFoundException e) {
+						System.out.println("Une erreur c'est produite veuilles réessayer.");
+					}
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
@@ -46,7 +51,7 @@ public class Acheteur extends Utilisateur {
 	public void retirerAcheteur(Acheteur suiveur) {
 		this.listeSuiveurs.remove(suiveur);
 	}
-	public void acheteurSuiviPar(Acheteur acheteur){
+	public void acheteurSuiviPar(Acheteur acheteur) throws FileNotFoundException {
 		Scanner scannerUn = new Scanner((System.in));
 
 		System.out.println("Que voulez-vous faire? ");
@@ -75,7 +80,12 @@ public class Acheteur extends Utilisateur {
 					case 2 -> {
 						if (listeSuiveurs.isEmpty()) {
 							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
-							afficherMenu(acheteur);
+							try {
+								afficherMenu(acheteur);
+							} catch (FileNotFoundException e) {
+								System.out.println("Veuillez réessayer, une erreur c'est produite.");
+								scannerUn.nextLine();
+							}
 						} else {
 							System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
 							System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
@@ -93,7 +103,13 @@ public class Acheteur extends Utilisateur {
 						}
 					}
 					case 0 -> {
-						afficherMenu(acheteur);
+						try {
+							afficherMenu(acheteur);
+						} catch (FileNotFoundException e) {
+							System.out.println("Veuillez réessayer, une erreur c'est produite.");
+							scannerUn.nextLine();
+						}
+						}
 					}
 				}}}}
 	public Acheteur(String telephone, String courriel, String motDePasse) {
@@ -217,10 +233,16 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
-	public void afficherNotifications(Acheteur acheteur) {
+	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
 		if (notifications.isEmpty()) {
 			System.out.println("Vous n'avez aucune notification");
-			afficherMenu(acheteur);
+			try {
+				afficherMenu(acheteur);
+			} catch (FileNotFoundException e) {
+				System.out.println("Veuillez réessayer, une erreur c'est produite.");
+				scannerUn.nextLine();
+			}
+			}
 		} else {
 			for (Notification notification : notifications) {
 				System.out.println(notification);
@@ -343,7 +365,12 @@ public class Acheteur extends Utilisateur {
 		int gestionChoix = Integer.parseInt(scanner.nextLine());
 
 		if (gestionChoix == 1) {
-			afficherMenu(utilisateur);
+		try {
+			afficherMenu(acheteur);
+			} catch (FileNotFoundException e) {
+			System.out.println("Une erreur c'est produite veuilles réessayer.");
+			}
+
 		}
 	}
 

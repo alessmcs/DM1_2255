@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.InputMismatchException;
@@ -47,7 +48,7 @@ public abstract class Utilisateur {
 
 
 
-	public static void creerProfil() {
+	public static void creerProfil() throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 
 		System.out.println("Veuillez entrer votre numéro de téléphone.");
@@ -178,6 +179,10 @@ public abstract class Utilisateur {
 			}
 			} catch (InputMismatchException e) {
 				System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
+				scanner.nextLine();
+			} catch (FileNotFoundException e) {
+				System.out.println("Une erreur c'est produite veuillez ressayer.");
+				scanner.nextLine();
 			}
 		} while (!validInput);
 
@@ -187,7 +192,7 @@ public abstract class Utilisateur {
 		return derniereConnection;
 	}
 
-	public <T extends Utilisateur> void afficherProfil(T utilisateur){
+	public <T extends Utilisateur> void afficherProfil(T utilisateur) throws FileNotFoundException {
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
 			System.out.println("Votre pseudo : " + ((Acheteur) utilisateur).getPseudo());
@@ -273,7 +278,7 @@ public abstract class Utilisateur {
 		}
 	}
 
-	public static <T extends Utilisateur> void afficherMenu(T utilisateur) {
+	public static <T extends Utilisateur> void afficherMenu(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 		if (utilisateur instanceof Revendeur) {
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
@@ -387,7 +392,7 @@ public abstract class Utilisateur {
 			}
 		}
 	}
-	public <T extends Utilisateur> void modifierProfil(T utilisateur) {
+	public <T extends Utilisateur> void modifierProfil(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 
 		if (utilisateur instanceof Revendeur) {
@@ -595,6 +600,8 @@ public abstract class Utilisateur {
 				}
 			} catch (InputMismatchException e){
 				System.out.println("Choix invalide veuillez sélectionner 0 ou 1");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
 			}
 		} while (!validInput);
 	}

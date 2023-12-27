@@ -42,6 +42,9 @@ public class Main {
                 }
             } catch(InputMismatchException e){
                 scanner.nextLine();
+            } catch (FileNotFoundException e) {
+                System.out.println("Une erreur s'est produite. Veuillez réessayer.");
+                scanner.nextLine();
             }
         } while(!validInput);
     }

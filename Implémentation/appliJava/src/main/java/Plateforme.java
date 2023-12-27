@@ -104,7 +104,7 @@ public class Plateforme {
 		scanner.nextLine();
 
 		System.out.print("Entrez votre choix: ");
-        String choice = scan.nextLine();
+        String choice = scanner.nextLine();
         
         switch(choice) {
             case "1":
