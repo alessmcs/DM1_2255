@@ -30,6 +30,13 @@ public class Acheteur extends Utilisateur {
 		this.nom= nom;
 		panier = new Panier();
 	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
 	
 	/**
 	 * Permet à un acheteur d'en suivre un autre
