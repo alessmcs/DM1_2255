@@ -24,11 +24,12 @@ public class Acheteur extends Utilisateur {
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
 					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
+
 					afficherMenu(acheteur);
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
-
 
 				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
@@ -232,24 +233,8 @@ public class Acheteur extends Utilisateur {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
-	public int voirClassement() {
-		// TODO - implement Acheteur.voirClassement
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param points
-	 */
-	public void echangerPoints(int points) {
-		// TODO - implement Acheteur.echangerPoints
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param
-	 */
 	public void likeRevendeur(Revendeur revendeur) {
 		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
@@ -305,14 +290,23 @@ public class Acheteur extends Utilisateur {
 		historiqueCommandes.add(commande);
 	}
 
-	protected void afficherHistorique(){
+	protected String  afficherHistorique(){
+		// parse the csv de toutes les commandes & only keep the ones with the correct username
+		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
+		String message = null;
 		if (historiqueCommandes.size() == 0){
-			System.out.println("Vous n'avez passé aucune commande pour le moment!");
+			message = "Vous n'avez passé aucune commande pour le moment!";
+			System.out.println(message);
+			return message;
 		}
 		for(Commande c : historiqueCommandes){
 			c.commandeToString();
 			System.out.println("\n");
 		}
+		return null;
+	}
+	public ArrayList<Commande> getHistoriqueCommandes(){
+		return historiqueCommandes;
 	}
 
 	protected void afficherMetriques(Acheteur utilisateur){
