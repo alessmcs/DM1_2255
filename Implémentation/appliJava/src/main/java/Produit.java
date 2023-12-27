@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Produit {
+public class Produit {
 
 	protected String titre;
 	protected double prix;
