@@ -188,11 +188,16 @@ public class Revendeur extends Utilisateur {
 				if ( ! Main.isNumeric(choix)){
 					throw new InputMismatchException();
 				} else {
-					if (choix.equals("0")){
+					if (choix.equals("0")) {
 						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
+						try {
+							Utilisateur.afficherMenu(utilisateur);
+						} catch (FileNotFoundException e) {
+							System.out.println("Une erreur s'est produite veuillez réessayer");
+						}
 						break;
 					}
+
 					if(!validInput){
 						throw new InputMismatchException();
 					}

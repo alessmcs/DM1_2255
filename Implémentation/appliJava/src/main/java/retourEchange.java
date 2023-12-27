@@ -74,9 +74,15 @@ public class retourEchange {
 				int IDPrdouit = scanner.nextInt();
 				Produit produitAEchanger = null;
 
-				Produit produitEcha = Catalogue.catalogueProduits(acheteur);
+				ArrayList<Produit> produits = Catalogue.catalogueProduits(acheteur);
+				double differenceTot = 0.00;
 
-				double difference = calculerDifference(produitAEchanger, acienProduit);
+				for (Produit produitEcha : produits) {
+					double difference = calculerDifference(produitAEchanger, acienProduit);
+					differenceTot += difference;
+				}
+
+
 				ArrayList produitsAEchanger = new ArrayList();
 				produitsAEchanger.add(produitAEchanger);
 				Adresse adresseLivraison = acheteur.getAdresseExpedition();
@@ -87,22 +93,22 @@ public class retourEchange {
 					panierEchange.ajouterArticle((Produit) p);
 				}
 
-				if (difference == 0) {
+				if (differenceTot == 0) {
 					Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 					acheteur.addHistorique(commande1); // ajouter la commande à l'historique de commandes
 					Colis colis = new Colis(commande.getStatutCommande());
 				} else{
-					System.out.println("Différence de prix détectée : " + difference);
+					System.out.println("Différence de prix détectée : " + differenceTot);
 
 					CarteCredit carteCredit = acheteur.getCarteCredit();
 					double soldeCarte = carteCredit.getSolde();
 
-					if (difference > 0 && soldeCarte >= difference) {
-						acheteur.payerDifference(difference);
+					if (differenceTot > 0 && soldeCarte >= differenceTot) {
+						acheteur.payerDifference(differenceTot);
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						Colis colis = new Colis(commande.getStatutCommande());
-					} else if (difference < 0) {
+					} else if (differenceTot < 0) {
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						SystemePaiement.rembourserMontant(carteCredit,commande1);

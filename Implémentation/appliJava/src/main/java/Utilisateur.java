@@ -606,18 +606,24 @@ public abstract class Utilisateur {
 		} while (!validInput);
 	}
 	public  <T extends Utilisateur> void afficherNotification(T utilisateur){
-		if (utilisateur instanceof Revendeur) {
-			Revendeur revendeur = (Revendeur) utilisateur;
-			System.out.println("Notifications pour le revendeur " + revendeur.getPseudo() + ":");
-			revendeur.afficherNotifications();
-		}else if (utilisateur instanceof Acheteur) {
-			Acheteur acheteur = (Acheteur) utilisateur;
-			System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
-			acheteur.afficherNotifications(acheteur);
+		try {
+			if (utilisateur instanceof Revendeur) {
+				Revendeur revendeur = (Revendeur) utilisateur;
+				System.out.println("Notifications pour le revendeur " + revendeur.getPseudo() + ":");
+				revendeur.afficherNotifications();
+			} else if (utilisateur instanceof Acheteur) {
+				Acheteur acheteur = (Acheteur) utilisateur;
+				System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
+				acheteur.afficherNotifications(acheteur);
 
-		}
-
-	}
+			}
+		}catch (FileNotFoundException e) {
+			try {
+				afficherMenu(utilisateur);
+			} catch (FileNotFoundException ex) {
+				System.out.println("Erreur veuillez ressayer");
+			}
+	}}
 	public String getCourriel() {
 		return this.courriel;
 	}

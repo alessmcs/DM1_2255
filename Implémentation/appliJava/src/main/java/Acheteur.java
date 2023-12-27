@@ -18,6 +18,12 @@ public class Acheteur extends Utilisateur {
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
 
+	public Acheteur(String telephone, String courriel, String motDePasse) {
+		super(telephone,courriel,motDePasse);
+		this.prenom= prenom;
+		this.nom= nom;
+		panier = new Panier();
+	}
 	
 	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
@@ -111,13 +117,8 @@ public class Acheteur extends Utilisateur {
 						}
 						}
 					}
-				}}}}
-	public Acheteur(String telephone, String courriel, String motDePasse) {
-		super(telephone,courriel,motDePasse);
-		this.prenom= prenom;
-		this.nom= nom;
-		panier = new Panier();
-	}
+				}}}
+
 
 	public void ajouterAuPanier(Produit p){
 		this.panier.ajouterArticle(p);
@@ -234,15 +235,16 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
 	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
+
 		if (notifications.isEmpty()) {
 			System.out.println("Vous n'avez aucune notification");
 			try {
 				afficherMenu(acheteur);
 			} catch (FileNotFoundException e) {
 				System.out.println("Veuillez réessayer, une erreur c'est produite.");
-				scannerUn.nextLine();
+				afficherMenu(acheteur);
 			}
-			}
+
 		} else {
 			for (Notification notification : notifications) {
 				System.out.println(notification);
@@ -366,7 +368,7 @@ public class Acheteur extends Utilisateur {
 
 		if (gestionChoix == 1) {
 		try {
-			afficherMenu(acheteur);
+			afficherMenu(utilisateur);
 			} catch (FileNotFoundException e) {
 			System.out.println("Une erreur c'est produite veuilles réessayer.");
 			}
