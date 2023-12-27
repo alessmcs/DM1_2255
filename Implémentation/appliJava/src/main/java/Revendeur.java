@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.Scanner;
 
@@ -119,14 +121,15 @@ public class Revendeur extends Utilisateur {
 	 * La méthode suivante permet au revendeurs de traiter les billets de signalement
 	 *
 	 * @param revendeur Le revendeur qui reçoit le billet de signalement
+	 * @return
 	 */
-	public void gererProbleme(Revendeur revendeur) {
+	public BilletDeSignalement gererProbleme(Revendeur revendeur) {
 		Scanner scanner = new Scanner(System.in);
 		BilletDeSignalement billet = new BilletDeSignalement();
 
 		if (billet == null) {
 			System.out.println("Aucun problème signalé.");
-			return;
+			return billet;
 		} else {
 			System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
 		}
@@ -148,7 +151,7 @@ public class Revendeur extends Utilisateur {
 				case 3 -> billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
 				default -> {
 					System.out.println("Choix invalide. Aucune action n'a été prise.");
-					return;
+					return billet;
 				}
 			}
 
@@ -184,14 +187,15 @@ public class Revendeur extends Utilisateur {
 
 		// Annuler automatiquement la demande de réexpédition après 30 jours
 		if (billet.getNumSuiviRemplacement() != 0 &&
-				LocalDate.now().isAfter(billet.getDateEmission().plus(30, ChronoUnit.DAYS))) {
+				LocalDate.now().isAfter(billet.getDateLivraison().plus(30, ChronoUnit.DAYS))) {
 			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
 			billet.setNumSuiviRemplacement(0);
 		}
+		return billet;
+	}
 
-
-		public void updateInventaire (Produit p) throws FileNotFoundException
-		{ // lorsquon on ajoute un produit à l'inventaire on le met à jour
+		public void updateInventaire(Produit p) throws FileNotFoundException
+		{ // lorsqu'on on ajoute un produit à l'inventaire on le met à jour
 			inventaire.add(p);
 			try {
 				Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
@@ -200,9 +204,7 @@ public class Revendeur extends Utilisateur {
 			}
 
 		}
-		public String getPseudo () {
-			return pseudo;
-		}
+
 
 		public void afficherInventaire () {
 			for (Produit p : inventaire) {
@@ -210,85 +212,79 @@ public class Revendeur extends Utilisateur {
 			}
 		}
 
-		/**
-		 *
-		 * @param utilisateur
-		 *
-		 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
-		 */
+	/**
+	 * @param Utilisateur Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 */
 
-		public void afficherCommentaires (Revendeur Utilisateur utilisateur;
-		utilisateur){
-			for (Produit p : ((Revendeur) utilisateur).inventaire) {
-				for (ArrayList<String> commentaire : p.listCommentaires) {
-					System.out.println("Produit: " + p.titre);
-					System.out.println("Étoile(s): " + commentaire.get(0));
-					System.out.println("Commentaire: " + commentaire.get(1));
-					System.out.println();
-				}
+	public void afficherCommentaires(Revendeur Utilisateur utilisateur) {
+		for (Produit p : ((Revendeur) utilisateur).inventaire) {
+			for (ArrayList<String> commentaire : p.listCommentaires) {
+				System.out.println("Produit: " + p.titre);
+				System.out.println("Étoile(s): " + commentaire.get(0));
+				System.out.println("Commentaire: " + commentaire.get(1));
 				System.out.println();
 			}
+			System.out.println();
+		}
+	}
+
+
+	protected void afficherMetriques (Revendeur utilisateur){
+		float revenu = 0;
+		int nbVendu = 0;
+		int nbArticles = ((Revendeur) utilisateur).inventaire.size();
+		for (Produit p : ((Revendeur) utilisateur).inventaire) {
+			if (p.qteInitiale != p.qteEnStock) {
+				int n = p.qteInitiale - p.qteEnStock;
+				nbVendu += n;
+				revenu += p.prix * n;
+			}
 		}
 
-
-
-		protected void afficherMetriques (Revendeur utilisateur){
-			float revenu = 0;
-			int nbVendu = 0;
-			int nbArticles = ((Revendeur) utilisateur).inventaire.size();
-			for (Produit p : ((Revendeur) utilisateur).inventaire) {
-				if (p.qteInitiale != p.qteEnStock) {
-					int n = p.qteInitiale - p.qteEnStock;
-					nbVendu += n;
-					revenu += p.prix * n;
-				}
+		System.out.println("Vos métriques de revendeur: ");
+		System.out.println("Nombre de produits offerts: " + nbArticles);
+		System.out.println("Nombre de produits vendus: " + nbVendu);
+		System.out.println("Revenu total: " + revenu);
+		System.out.println("Nombre de commentaires laissés sur vos produits: ");
+		for (Produit p : ((Revendeur) utilisateur).inventaire) {
+			if (p.listCommentaires != null) {
+				System.out.println(p.getTitre() + ": " + p.listCommentaires.size());
 			}
+		}
+		System.out.println("Nombre de commandes retournées: " + retours.size());
 
-			System.out.println("Vos métriques de revendeur: ");
-			System.out.println("Nombre de produits offerts: " + nbArticles);
-			System.out.println("Nombre de produits vendus: " + nbVendu);
-			System.out.println("Revenu total: " + revenu);
-			System.out.println("Nombre de commentaires laissés sur vos produits: ");
-			for (Produit p : ((Revendeur) utilisateur).inventaire) {
-				if (p.listCommentaires != null) {
-					System.out.println(p.getTitre() + ": " + p.listCommentaires.size());
-				}
-			}
-			System.out.println("Nombre de commandes retournées: " + retours.size());
+		Scanner s = new Scanner(System.in);
+		boolean validInput = false;
+		do {
+			try {
+				System.out.println("Entrez 0 pour retourner au menu principal");
 
-			Scanner s = new Scanner(System.in);
-			boolean validInput = false;
-			do {
-				try {
-					System.out.println("Entrez 0 pour retourner au menu principal");
-
-					String choix = s.nextLine();
-					if (!Main.isNumeric(choix)) {
-						throw new InputMismatchException();
-					} else {
-						if (choix.equals("0")) {
-							validInput = true;
-							Utilisateur.afficherMenu(utilisateur);
-							break;
-						}
-						if (!validInput) {
-							throw new InputMismatchException();
-						}
+				String choix = s.nextLine();
+				if (!Main.isNumeric(choix)) {
+					throw new InputMismatchException();
+				} else {
+					if (choix.equals("0")) {
+						validInput = true;
+						Utilisateur.afficherMenu(utilisateur);
+						break;
 					}
-				} catch (InputMismatchException e) {
-					System.out.println("Svp entrez 0!");
+					if (!validInput) {
+						throw new InputMismatchException();
+					}
 				}
-			} while (!validInput);
-		}
+			} catch (InputMismatchException e) {
+				System.out.println("Svp entrez 0!");
+			}
+		} while (!validInput);
+	}
 
-		public void montrerProfil() {
-			// afficher les informations
-			System.out.println("Profil de : " + pseudo);
-			System.out.println(inventaire.size() + " produits offerts");
+	public void montrerProfil() {
+		// afficher les informations
+		System.out.println("Profil de : " + pseudo);
+		System.out.println(inventaire.size() + " produits offerts");
 
-			System.out.println(commandes.size() + " commandes reçues");
+		System.out.println(commandes.size() + " commandes reçues");
 
-		}
 	}
 
 	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {

@@ -1,5 +1,6 @@
 public class BilletDeSignalement {
 
+	private Acheteur acheteur;
 	private String descriptionProbleme;
 	private String descriptionSolution;
 	private boolean confirmationLivraison;
@@ -9,6 +10,9 @@ public class BilletDeSignalement {
 
 	public BilletDeSignalement(String descriptionProbleme) {
 		this.descriptionProbleme = descriptionProbleme;
+	}
+	public Acheteur getAcheteur() {
+		return acheteur;
 	}
 
 	public String getDescriptionProbleme() {

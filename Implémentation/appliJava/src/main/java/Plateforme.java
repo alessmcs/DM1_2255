@@ -46,7 +46,7 @@ public class Plateforme {
 		System.out.println("À quelle catégorie appartient ce produit?");
 		System.out.println("1. Livres et manuels");
 		System.out.println("2. Ressources d'apprentissage");
-		System.out.println("3. Articles de papeterie")
+		System.out.println("3. Articles de papeterie");
 		System.out.println("4. Matériel informatique");
 		System.out.println("5. Équipement de bureau");
 
@@ -93,7 +93,7 @@ public class Plateforme {
 						if (choixCategorie == 3) {
 							categorie = "Articles de papeterie";
 						} else {
-							categorie = "Équipement de bureau";
+							categorie = "Équipements de bureau";
 						}
 					}
 					case 4 -> categorie = "Matériel informatique";
@@ -201,6 +201,7 @@ public class Plateforme {
 
 
 		int choixPts = 0;
+		int nbPoints = 0;
 		do {
 			try {
 				System.out.println("Voulez-vous donner des points bonus pour ce produit?");
@@ -210,7 +211,6 @@ public class Plateforme {
 				choixPts = scanner.nextInt();
 				scanner.nextLine();
 
-				int nbPoints = 0;
 				if (choixPts == 1) {
 					// Calculer les points bonus si l'utilisateur choisit la première option
 					nbPoints = (int) prix;
@@ -238,19 +238,19 @@ public class Plateforme {
 			case ("Livres et manuels") ->
 			{produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
 							ISBN, auteur, maisonEdition, genre, dateParution, numEd, numVol);}
-			break;
+
 			case ("Articles de papeterie") ->
 			{produit = new ArticlesDePapeterie(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
-			break;
+
 			case ("Matériel informatique") ->
 			{produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);}
-			break;
-			case ("EquipementBureau") ->
+
+			case ("Équipements de Bureau") ->
 			{produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
-			break;
-			case ("RessourcesApprentissage") ->
+
+			case ("Ressources d'apprentissage") ->
 			{produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
-			break;
+
 		}
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
@@ -258,7 +258,7 @@ public class Plateforme {
 		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
-
+		// Permettre à l'utilisateur d'offrir un nouveau produit ou de quitter la fonction
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");
 		String choix = scanner.nextLine();

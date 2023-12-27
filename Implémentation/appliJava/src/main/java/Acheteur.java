@@ -378,4 +378,6 @@ public class Acheteur extends Utilisateur {
 		return commandesLivrees;
 	}
 
+	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
+	}
 }
