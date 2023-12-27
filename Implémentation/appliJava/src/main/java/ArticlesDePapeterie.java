@@ -90,9 +90,14 @@ public class ArticlesDePapeterie extends Produit {
                             Catalogue.voirCatalogue((Acheteur) util);
                             break;
                         case "0" :
-                            Utilisateur.afficherMenu(util);
+                            try {
+                                Utilisateur.afficherMenu(util);
+                            } catch (Exception e)  {
+                                System.out.println("Une erreur s'est produite. Veuillez réessayer.");
+                            }
+                            break;
                     }
-                } catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("Entrée invalide, svp entrez 1 ou 0");
                 }
             } while (!validInput);

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class retourEchange {
@@ -33,6 +34,7 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
 					break;
 				} else {
 					System.out.println("ID non correct");
@@ -65,20 +67,22 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
-
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
 
 				}
 				System.out.println("Quel produit souhaitez-vous échanger?");
 				int IDPrdouit = scanner.nextInt();
 				Produit produitAEchanger = null;
 
-				for (Produit produitEcha : Catalogue.catalogueProduits(acheteur)) {
-					if (produitEcha.getId() == ID) {
-						produitAEchanger = produitEcha;
-						break;
-					}
+				ArrayList<Produit> produits = Catalogue.catalogueProduits(acheteur);
+				double differenceTot = 0.00;
+
+				for (Produit produitEcha : produits) {
+					double difference = calculerDifference(produitAEchanger, acienProduit);
+					differenceTot += difference;
 				}
-				double difference = calculerDifference(produitAEchanger, acienProduit);
+
+
 				ArrayList produitsAEchanger = new ArrayList();
 				produitsAEchanger.add(produitAEchanger);
 				Adresse adresseLivraison = acheteur.getAdresseExpedition();
@@ -89,22 +93,22 @@ public class retourEchange {
 					panierEchange.ajouterArticle((Produit) p);
 				}
 
-				if (difference == 0) {
+				if (differenceTot == 0) {
 					Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 					acheteur.addHistorique(commande1); // ajouter la commande à l'historique de commandes
 					Colis colis = new Colis(commande.getStatutCommande());
 				} else{
-					System.out.println("Différence de prix détectée : " + difference);
+					System.out.println("Différence de prix détectée : " + differenceTot);
 
 					CarteCredit carteCredit = acheteur.getCarteCredit();
 					double soldeCarte = carteCredit.getSolde();
 
-					if (difference > 0 && soldeCarte >= difference) {
-						acheteur.payerDifference(difference);
+					if (differenceTot > 0 && soldeCarte >= differenceTot) {
+						acheteur.payerDifference(differenceTot);
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						Colis colis = new Colis(commande.getStatutCommande());
-					} else if (difference < 0) {
+					} else if (differenceTot < 0) {
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						SystemePaiement.rembourserMontant(carteCredit,commande1);

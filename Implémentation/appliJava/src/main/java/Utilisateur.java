@@ -48,7 +48,7 @@ public abstract class Utilisateur {
 
 
 
-	public static void creerProfil() {
+	public static void creerProfil() throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 
 		System.out.println("Veuillez entrer votre numéro de téléphone.");
@@ -79,24 +79,15 @@ public abstract class Utilisateur {
 				Revendeur revendeur = new Revendeur(telephone, courriel, motDePasse);
 				revendeur.inscrireRevendeur();
 				BaseDonnees.revendeursList.add(revendeur);
-				try {
-					Main.ecrireRevendeurCSV(revendeur);
-				} catch (FileNotFoundException e) {
-					throw new RuntimeException(e);
-				}
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecterez pas le delais," +
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecrtez pas le delais," +
 						" le compte sera annuler ");
 				afficherMenu(revendeur);
 				break;
 			case 2:
 				Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
 				acheteur.inscrireAcheteur();
+
 				BaseDonnees.acheteursList.add(acheteur);
-				try {
-					Main.ecrireAcheteurCSV(acheteur, "src/main/data/acheteurs.csv");
-				} catch (FileNotFoundException e) {
-					throw new RuntimeException(e);
-				}
 				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le delais," +
 						" le compte sera désactivé ");
 				afficherMenu(acheteur);
@@ -120,42 +111,33 @@ public abstract class Utilisateur {
 				String choix = scanner.nextLine();
 				switch (choix) {
 				case "1" -> {
+					validInput = true; // If no exception, set flag to exit the loop
+					System.out.println("Entrer votre pseudo");
+					String pseudoRevendeur = scanner.nextLine();
 
-					boolean validInput2 = false;
-					do{
-						validInput = true; // If no exception, set flag to exit the loop
-						System.out.println("Entrer votre pseudo");
-						String pseudoRevendeur = scanner.nextLine();
+					System.out.println("Veuillez entrer votre mot de passe");
+					String motDePasseRevendeur = scanner.nextLine();
 
-						System.out.println("Veuillez entrer votre mot de passe");
-						String motDePasseRevendeur = scanner.nextLine();
+					boolean profilTrouver = false;
+					for (Revendeur revendeur : BaseDonnees.revendeursList) {
+						if (revendeur.getPseudo().equalsIgnoreCase(pseudoRevendeur) &&
+								revendeur.getMotDePasse().equals(motDePasseRevendeur)) {
+							profilTrouver = true;
+							if (revendeur.desactiver()){
+								System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
+								System.exit(0);
 
-						boolean profilTrouver = false;
-						for (Revendeur revendeur : BaseDonnees.revendeursList) {
-							if (revendeur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoRevendeur)) &&
-									revendeur.getMotDePasse().equalsIgnoreCase(motDePasseRevendeur)) {
-								profilTrouver = true;
-								validInput2 = true;
-
-								if (revendeur.desactiver()){ // si le compte est desactivé
-									System.out.println("Vous n'avez pas respecté les 24 heures. Votre compte est désactivé.");
-									System.exit(0);
-
-								} else  {
-									LocalDateTime derniereConnection = LocalDateTime.now();
-									revendeur.setDerniereConnection(derniereConnection);
-									ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
-
-									afficherMenu(revendeur);
-								}
+							} else  {
+								LocalDateTime derniereConnection = LocalDateTime.now();
+								revendeur.setDerniereConnection(derniereConnection);
+								ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
+								afficherMenu(revendeur);
 							}
 						}
-						if (!profilTrouver) {
-							System.out.println("Vos données sont inexactes, svp réessayer");
-						}
-					} while (!validInput2);
+					}
 				}
 				case "2" -> {
+					// do while and try catch???
 					boolean validInput2 = false;
 					do{
 							validInput = true; // If no exception, set flag to exit the loop
@@ -164,6 +146,7 @@ public abstract class Utilisateur {
 
 							System.out.println("Veuillez entrer votre mot de passe.");
 							String motDePasseAcheteur = scanner.nextLine();
+
 							boolean profilTrouver = false;
 							for (Acheteur acheteur : BaseDonnees.acheteursList) {
 								if (acheteur.getPseudo().equalsIgnoreCase(String.valueOf(pseudoAcheteur)) &&
@@ -179,10 +162,12 @@ public abstract class Utilisateur {
 										LocalDateTime derniereConnection = LocalDateTime.now();
 										acheteur.setDerniereConnection(derniereConnection);
 										ArrayList<Notification> newNotifications = Notification.notifierRevendeur(derniereConnection);
-										afficherMenu(acheteur);
 
 										afficherMenu(acheteur);
+										break;
 									}
+								} else {
+									profilTrouver = false;
 								}
 							}
 							if (!profilTrouver) {
@@ -194,6 +179,10 @@ public abstract class Utilisateur {
 			}
 			} catch (InputMismatchException e) {
 				System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
+				scanner.nextLine();
+			} catch (FileNotFoundException e) {
+				System.out.println("Une erreur c'est produite veuillez ressayer.");
+				scanner.nextLine();
 			}
 		} while (!validInput);
 
@@ -203,12 +192,7 @@ public abstract class Utilisateur {
 		return derniereConnection;
 	}
 
-	/*
-		Affiche le profil d'un utilisateur donné, qu'il soit un acheteur ou un revendeur
-
-		@param utilisateur dont on veut voir le profil (acheteur ou revendeur)
-	 */
-	public <T extends Utilisateur> void afficherProfil(T utilisateur){
+	public <T extends Utilisateur> void afficherProfil(T utilisateur) throws FileNotFoundException {
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
 			System.out.println("Votre pseudo : " + ((Acheteur) utilisateur).getPseudo());
@@ -239,6 +223,8 @@ public abstract class Utilisateur {
 					break;
 				case 2 :
 					// l'acheteur veut voir ses followers & les gérer
+					((Acheteur) utilisateur).acheteurSuiviPar((Acheteur) utilisateur);
+
 				case 0 :
 					afficherMenu(utilisateur); // afficher menu pour acheteur
 					break;
@@ -257,6 +243,7 @@ public abstract class Utilisateur {
 			int choix = Integer.parseInt(s.nextLine());
 			switch(choix){
 				case 1 :
+					//TODO: offrir l'option de modifier un produit à partir de l'inventaire
 
 					// afficher la liste de produits offerts par le revendeur
 					System.out.println("Votre inventaire: ");
@@ -283,11 +270,6 @@ public abstract class Utilisateur {
 		}
 	}
 
-	/*
-		Appelle les méthodes afficherMetriques relatives à l'acheteur ou le revendeur
-
-		@param utilisateur l'utilisateur dont on veut voir les métriques
-	 */
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
 		if (utilisateur instanceof Revendeur){
 			((Revendeur) utilisateur).afficherMetriques(utilisateur);
@@ -296,7 +278,7 @@ public abstract class Utilisateur {
 		}
 	}
 
-	public static <T extends Utilisateur> void afficherMenu(T utilisateur) {
+	public static <T extends Utilisateur> void afficherMenu(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 		if (utilisateur instanceof Revendeur) {
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
@@ -314,13 +296,7 @@ public abstract class Utilisateur {
 
 			Revendeur revendeur = (Revendeur) utilisateur;
 			switch (choixUn) {
-				case 1 -> {
-					try {
-						Plateforme.offrirProduit(revendeur);
-					} catch (FileNotFoundException e) {
-						throw new RuntimeException(e);
-					}
-				}
+				case 1 -> Plateforme.offrirProduit(revendeur);
 				case 2 -> revendeur.confirmerReceptionRetour();
 				case 3 -> revendeur.modifierProfil(revendeur);
 				case 4 -> revendeur.afficherMetriques(revendeur);
@@ -386,7 +362,7 @@ public abstract class Utilisateur {
 
 				}
 				case 9 -> {
-					acheteur.afficherNotifications();
+					acheteur.afficherNotifications(acheteur);
 				}
 				case 10 -> {
 					Acheteur acheteurChercher = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
@@ -416,7 +392,7 @@ public abstract class Utilisateur {
 			}
 		}
 	}
-	public <T extends Utilisateur> void modifierProfil(T utilisateur) {
+	public <T extends Utilisateur> void modifierProfil(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 
 		if (utilisateur instanceof Revendeur) {
@@ -624,22 +600,30 @@ public abstract class Utilisateur {
 				}
 			} catch (InputMismatchException e){
 				System.out.println("Choix invalide veuillez sélectionner 0 ou 1");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
 			}
 		} while (!validInput);
 	}
 	public  <T extends Utilisateur> void afficherNotification(T utilisateur){
-		if (utilisateur instanceof Revendeur) {
-			Revendeur revendeur = (Revendeur) utilisateur;
-			System.out.println("Notifications pour le revendeur " + revendeur.getPseudo() + ":");
-			revendeur.afficherNotifications();
-		}else if (utilisateur instanceof Acheteur) {
-			Acheteur acheteur = (Acheteur) utilisateur;
-			System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
-			acheteur.afficherNotifications();
+		try {
+			if (utilisateur instanceof Revendeur) {
+				Revendeur revendeur = (Revendeur) utilisateur;
+				System.out.println("Notifications pour le revendeur " + revendeur.getPseudo() + ":");
+				revendeur.afficherNotifications();
+			} else if (utilisateur instanceof Acheteur) {
+				Acheteur acheteur = (Acheteur) utilisateur;
+				System.out.println("Notifications pour l'acheteur " + acheteur.getPseudo() + " depuis la dernière connexion :");
+				acheteur.afficherNotifications(acheteur);
 
-		}
-
-	}
+			}
+		}catch (FileNotFoundException e) {
+			try {
+				afficherMenu(utilisateur);
+			} catch (FileNotFoundException ex) {
+				System.out.println("Erreur veuillez ressayer");
+			}
+	}}
 	public String getCourriel() {
 		return this.courriel;
 	}

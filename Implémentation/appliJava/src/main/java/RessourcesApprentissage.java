@@ -92,7 +92,12 @@ public class RessourcesApprentissage extends Produit {
 							Catalogue.voirCatalogue(util);
 							break;
 						case "0" :
-							Utilisateur.afficherMenu(util);
+							try{
+								Utilisateur.afficherMenu(util); // retourner au menu principal
+							}catch (Exception e){
+								System.out.println("Une erreur c'est produite veuiller réessayer");
+								s.nextLine();
+							}
 					}
 				} catch (InputMismatchException e){
 					System.out.println("Entrée invalide, svp entrez 1 ou 0");
