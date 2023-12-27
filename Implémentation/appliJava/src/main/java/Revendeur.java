@@ -268,9 +268,6 @@ public class Revendeur extends Utilisateur {
 						Utilisateur.afficherMenu(utilisateur);
 						break;
 					}
-					if (!validInput) {
-						throw new InputMismatchException();
-					}
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Svp entrez 0!");
