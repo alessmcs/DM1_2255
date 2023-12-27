@@ -11,7 +11,9 @@ public class Commande {
 	private static ArrayList<Produit> articles = new ArrayList<>();
 
 	private static Acheteur acheteur;
-	private static Revendeur revendeur;
+	private static double montant;
+
+
 
 	// Constructeur de commande
 	public Commande(Acheteur acheteur, String status, Adresse adresse, int id, ArrayList<Produit> articles){

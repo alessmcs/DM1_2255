@@ -218,6 +218,8 @@ public abstract class Utilisateur {
 					break;
 				case 2 :
 					// l'acheteur veut voir ses followers & les gérer
+					((Acheteur) utilisateur).acheteurSuiviPar((Acheteur) utilisateur);
+
 				case 0 :
 					afficherMenu(utilisateur); // afficher menu pour acheteur
 					break;
