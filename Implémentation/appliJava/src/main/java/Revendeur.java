@@ -17,6 +17,22 @@ public class Revendeur extends Utilisateur {
 		inventaire = new ArrayList<>();
 	}
 
+	public void setPseudo (String pseudo){
+		this.pseudo = pseudo;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public Adresse getAdresse () {
+		return adresse;
+	}
+	public void setAdresse (Adresse adresse){
+		this.adresse = adresse;
+	}
+
+
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}
@@ -87,7 +103,7 @@ public class Revendeur extends Utilisateur {
 
 			if (commande.getId() == ID) {
 				commande.setEtatCommande(StatutCommande.retour_recu);
-				SystemePaiement.rembourserMontant(numeroCarte,commande);
+				SystemePaiement.rembourserMontant(numeroCarte, commande);
 				idCorrect = true;
 				break; // Sortir de la boucle une fois que la commande a été trouvée
 			}
@@ -101,9 +117,12 @@ public class Revendeur extends Utilisateur {
 
 	/**
 	 * La méthode suivante permet au revendeurs de traiter les billets de signalement
+	 *
 	 * @param revendeur Le revendeur qui reçoit le billet de signalement
 	 */
 	public void gererProbleme(Revendeur revendeur) {
+		Scanner scanner = new Scanner(System.in);
+		BilletDeSignalement billet = new BilletDeSignalement();
 
 		if (billet == null) {
 			System.out.println("Aucun problème signalé.");
@@ -124,18 +143,13 @@ public class Revendeur extends Utilisateur {
 			scanner.nextLine();
 
 			switch (choixSolution) {
-				case 1:
-					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
-					break;
-				case 2:
-					billet.setDescriptionSolution("Le revendeur a proposé de le retour du produit défectueux");
-					break;
-				case 3:
-					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
-					break;
-				default:
+				case 1 -> billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+				case 2 -> billet.setDescriptionSolution("Le revendeur a proposé de le retour du produit défectueux");
+				case 3 -> billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+				default -> {
 					System.out.println("Choix invalide. Aucune action n'a été prise.");
 					return;
+				}
 			}
 
 			// Envoyer le billet avec la solution à l'acheteur
@@ -143,13 +157,14 @@ public class Revendeur extends Utilisateur {
 			acheteur.recevoirBilletDeSignalement(billet);
 
 			// L'acheteur peut accepter ou refuser la solution
+			int choixAcheteur = 0;
 			do {
 				try {
 					System.out.print("Voulez-vous accepter la solution proposée ?");
 					System.out.println("1. Oui");
 					System.out.println("2. Non");
 
-					int choixAcheteur = scanner.nextInt();
+					choixAcheteur = scanner.nextInt();
 					scanner.nextLine();
 
 					if (choixAcheteur == 1) {
@@ -161,7 +176,7 @@ public class Revendeur extends Utilisateur {
 						System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 					}
 				} catch (InputMismatchException e) {
-					System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non..");
+					System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 					scanner.nextLine();
 				}
 			} while (choixAcheteur != 1 && choixAcheteur != 2);
@@ -175,113 +190,108 @@ public class Revendeur extends Utilisateur {
 		}
 
 
-		public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
-		inventaire.add(p);
-		try{
-			Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
-		} catch(FileNotFoundException e){
-			e.printStackTrace();
+		public void updateInventaire (Produit p) throws FileNotFoundException
+		{ // lorsquon on ajoute un produit à l'inventaire on le met à jour
+			inventaire.add(p);
+			try {
+				Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+		}
+		public String getPseudo () {
+			return pseudo;
 		}
 
-	}
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void afficherInventaire() {
-		for (Produit p : inventaire) {
-			System.out.println(p); // uses toString method from produit
+		public void afficherInventaire () {
+			for (Produit p : inventaire) {
+				System.out.println(p); // uses toString method from produit
+			}
 		}
-	}
 
-	/**
-	 * 
-	 * @param utilisateur
-	 * 
-	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
-	 */
+		/**
+		 *
+		 * @param utilisateur
+		 *
+		 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+		 */
 
-	public void afficherCommentaires(Revendeur utilisateur){
-		for (Produit p : ((Revendeur) utilisateur).inventaire){
-			for (ArrayList<String> commentaire : p.listCommentaires){
-				System.out.println("Produit: " + p.titre);
-				System.out.println("Étoile(s): " + commentaire.get(0));
-				System.out.println("Commentaire: " + commentaire.get(1));
+		public void afficherCommentaires (Revendeur Utilisateur utilisateur;
+		utilisateur){
+			for (Produit p : ((Revendeur) utilisateur).inventaire) {
+				for (ArrayList<String> commentaire : p.listCommentaires) {
+					System.out.println("Produit: " + p.titre);
+					System.out.println("Étoile(s): " + commentaire.get(0));
+					System.out.println("Commentaire: " + commentaire.get(1));
+					System.out.println();
+				}
 				System.out.println();
 			}
-			System.out.println();
-		}
-	}
-
-
-
-	public Adresse getAdresse() {
-		return adresse;
-	}
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
-
-	protected void afficherMetriques(Revendeur utilisateur) {
-		float revenu = 0;
-		int nbVendu = 0;
-		int nbArticles = ((Revendeur) utilisateur).inventaire.size();
-		for (Produit p : ((Revendeur) utilisateur).inventaire) {
-			if (p.qteInitiale != p.qteEnStock) {
-				int n = p.qteInitiale - p.qteEnStock;
-				nbVendu += n;
-				revenu += p.prix * n;
-			}
 		}
 
-		System.out.println("Vos métriques de revendeur: ");
-		System.out.println("Nombre de produits offerts: " + nbArticles);
-		System.out.println("Nombre de produits vendus: " + nbVendu);
-		System.out.println("Revenu total: " + revenu);
-		System.out.println("Nombre de commentaires laissés sur vos produits: ");
-		for (Produit p : ((Revendeur) utilisateur).inventaire) {
-			if (p.listCommentaires != null) {
-				System.out.println(p.getTitre() + ": " + p.listCommentaires.size());
-			}
-		}
-		System.out.println("Nombre de commandes retournées: " + retours.size());
 
-		Scanner s = new Scanner(System.in);
-		boolean validInput = false;
-		do{
-			try{
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
 
-				String choix = s.nextLine();
-				if ( ! Main.isNumeric(choix)){
-					throw new InputMismatchException();
-				} else {
-					if (choix.equals("0")){
-						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
-						break;
-					}
-					if(!validInput){
-						throw new InputMismatchException();
-					}
+		protected void afficherMetriques (Revendeur utilisateur){
+			float revenu = 0;
+			int nbVendu = 0;
+			int nbArticles = ((Revendeur) utilisateur).inventaire.size();
+			for (Produit p : ((Revendeur) utilisateur).inventaire) {
+				if (p.qteInitiale != p.qteEnStock) {
+					int n = p.qteInitiale - p.qteEnStock;
+					nbVendu += n;
+					revenu += p.prix * n;
 				}
-			} catch (InputMismatchException e){
-				System.out.println("Svp entrez 0!");
 			}
-		} while (!validInput);
+
+			System.out.println("Vos métriques de revendeur: ");
+			System.out.println("Nombre de produits offerts: " + nbArticles);
+			System.out.println("Nombre de produits vendus: " + nbVendu);
+			System.out.println("Revenu total: " + revenu);
+			System.out.println("Nombre de commentaires laissés sur vos produits: ");
+			for (Produit p : ((Revendeur) utilisateur).inventaire) {
+				if (p.listCommentaires != null) {
+					System.out.println(p.getTitre() + ": " + p.listCommentaires.size());
+				}
+			}
+			System.out.println("Nombre de commandes retournées: " + retours.size());
+
+			Scanner s = new Scanner(System.in);
+			boolean validInput = false;
+			do {
+				try {
+					System.out.println("Entrez 0 pour retourner au menu principal");
+
+					String choix = s.nextLine();
+					if (!Main.isNumeric(choix)) {
+						throw new InputMismatchException();
+					} else {
+						if (choix.equals("0")) {
+							validInput = true;
+							Utilisateur.afficherMenu(utilisateur);
+							break;
+						}
+						if (!validInput) {
+							throw new InputMismatchException();
+						}
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("Svp entrez 0!");
+				}
+			} while (!validInput);
+		}
+
+		public void montrerProfil() {
+			// afficher les informations
+			System.out.println("Profil de : " + pseudo);
+			System.out.println(inventaire.size() + " produits offerts");
+
+			System.out.println(commandes.size() + " commandes reçues");
+
+		}
 	}
 
-	public void montrerProfil(){
-		// afficher les informations
-		System.out.println("Profil de : " + pseudo);
-		System.out.println(inventaire.size() + " produits offerts");
-
-		System.out.println(commandes.size() + " commandes reçues");
-
+	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
 	}
-
 }
+

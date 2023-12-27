@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 public class Probleme {
 	private LocalDate dateEmission;
@@ -8,11 +10,10 @@ public class Probleme {
 	/**
 	 * Cette méthode permet à un acheteur qui est dissatisfait avec un produit livré de reporter un problème.
 	 *
-	 * @param acheteur L'acheteur qui signale un problème encontré avec le produit
+	 * @param acheteur  L'acheteur qui signale un problème encontré avec le produit
 	 * @param revendeur Le renvendeur traitant le problème
-	 * @param descriptionProbleme Une description du problème en question
 	 */
-	public void signalerProbleme(Acheteur acheteur, Revendeur revendeur, String descriptionProbleme) {
+	public void signalerProbleme(Acheteur acheteur, Revendeur revendeur) {
 
 		// Initialiser les champs nécessaires dans la méthode
 		this.dateEmission = LocalDate.now();
@@ -27,7 +28,7 @@ public class Probleme {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.print("Veuillez décrire le problème que vous avez rencontré : ");
-		descriptionProbleme = scanner.nextLine();
+		String descriptionProbleme = scanner.nextLine();
 
 		// Afficher un message pour indiquer que le signalement a été créé
 		System.out.println("Votre signalement a été crée.");

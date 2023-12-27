@@ -17,9 +17,16 @@ public class Plateforme {
 	 */
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException, FileNotFoundException {
 
-		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
-		String dateParution = null; int numEd = 0; int numVol = 0;
-		String marque = null; String modele = null; String sousCategorie = null;
+		String ISBN = null;
+		String auteur = null;
+		String maisonEdition = null;
+		String genre = null;
+		String dateParution = null;
+		int numEd = 0;
+		int numVol = 0;
+		String marque = null;
+		String modele = null;
+		String sousCategorie = null;
 		String dateLancement = null;
 
 		// Demander au revendeur de specifier un titre
@@ -69,17 +76,17 @@ public class Plateforme {
 					case 2 -> {
 						categorie = "Ressources d'apprentissage";
 						System.out.println("ISBN : ");
-						String ISBN = scanner.next();
+						ISBN = scanner.next();
 						System.out.println("Auteur : ");
-						String auteur = scanner.next();
+						auteur = scanner.next();
 						System.out.println("Organisation: ");
-						String maisonEdition = scanner.next();
+						maisonEdition = scanner.next();
 						System.out.println("Date de parution: ");
-						String genre = scanner.next();
+						genre = scanner.next();
 						System.out.println("Type: ");
-						String dateParution = scanner.next();
+						dateParution = scanner.next();
 						System.out.println("Numéro d'édition: ");
-						int numEd = scanner.nextInt();
+						numEd = scanner.nextInt();
 					}
 
 					case 3, 5 -> {
@@ -131,22 +138,22 @@ public class Plateforme {
 		scanner.nextLine();
 
 		System.out.print("Entrez votre choix: ");
-        String choice = scan.nextLine();
-        
-        switch(choice) {
-            case "1":
-                System.out.print("Veuillez entrer le URL de votre média à ajouter :");
+		String choice = scanner.nextLine();
+
+		switch (choice) {
+			case "1":
+				System.out.print("Veuillez entrer le URL de votre média à ajouter :");
 				scanner.nextLine();
 				String mediaLink = scanner.nextLine();
-                break;
-            case "2":
-                System.out.print("Aucun média ne sera ajouté.");
-                break;
-            default:
+				break;
+			case "2":
+				System.out.print("Aucun média ne sera ajouté.");
+				break;
+			default:
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-        }
+		}
 
 		// Demander au revendeur d'entrer une quantité
 		int qteEnStock = 0;
@@ -192,7 +199,7 @@ public class Plateforme {
 			}
 		} while (prix <= 0);
 
-		int nbPoints = 0;
+
 		int choixPts = 0;
 		do {
 			try {
@@ -200,11 +207,12 @@ public class Plateforme {
 				System.out.println("1. Oui");
 				System.out.println("2. Non");
 
-				int choixPts = scanner.nextInt();
+				choixPts = scanner.nextInt();
 				scanner.nextLine();
 
+				int nbPoints = 0;
 				if (choixPts == 1) {
-					// Calculer les points bonus
+					// Calculer les points bonus si l'utilisateur choisit la première option
 					nbPoints = (int) prix;
 					nbPoints = (int) Math.floor(nbPoints);
 					if (nbPoints > 20) {
@@ -212,8 +220,7 @@ public class Plateforme {
 					}
 				} else if (choixPts == 2) {
 					System.out.println("Succès! " + titre + " a été publié à la plateforme. En voici les détails:");
-					Produit produit = new Produit(titre, prix, qteEnStock, categorie, nbPoints, description);
-					// You might want to use the 'produit' object further or return it
+
 				} else {
 					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 				}
@@ -227,18 +234,23 @@ public class Plateforme {
 
 		// typer le produit selon la catégorie
 		Produit produit = null;
-		switch(categorie){
+		switch (categorie) {
 			case ("Livres et manuels") ->
-					produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
-							ISBN,auteur, maisonEdition, genre, dateParution,numEd,numVol );
+			{produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
+							ISBN, auteur, maisonEdition, genre, dateParution, numEd, numVol);}
+			break;
 			case ("Articles de papeterie") ->
-					produit = new ArticlesDePapeterie(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie)
+			{produit = new ArticlesDePapeterie(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+			break;
 			case ("Matériel informatique") ->
-					produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);
+			{produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);}
+			break;
 			case ("EquipementBureau") ->
-					produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
+			{produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+			break;
 			case ("RessourcesApprentissage") ->
-					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
+			{produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+			break;
 		}
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
@@ -251,11 +263,11 @@ public class Plateforme {
 		System.out.println("Pour offrir un autre produit, entrez 1");
 		String choix = scanner.nextLine();
 
-		if (choix.equals("0")){
+		if (choix.equals("0")) {
 			Utilisateur.afficherMenu(revendeur);
-		} else if (!Main.isNumeric(choix)){
+		} else if (!Main.isNumeric(choix)) {
 			System.out.println("SVP entrez un chiffre!");
-		} else if (choix.equals("1")){
+		} else if (choix.equals("1")) {
 			offrirProduit(revendeur); // offrir un autre produit
 		}
 
