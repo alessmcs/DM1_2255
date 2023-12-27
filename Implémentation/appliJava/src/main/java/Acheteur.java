@@ -17,21 +17,24 @@ public class Acheteur extends Utilisateur {
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
 
-
+	
 	public void suivreAcheteur(Acheteur acheteur) {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
-
+					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
+					afficherMenu(acheteur);
+
+					acheteurAjouter.ajouterSuiveur(this);
+					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
 
 				}else{
-						System.out.println("Vous êtes déjà abonné a cet acheteur");
+						System.out.println("Vous etes déjà abonné a cet acheteur");
 					}
-		} else{
+		}else{
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
@@ -47,7 +50,7 @@ public class Acheteur extends Utilisateur {
 		Scanner scannerUn = new Scanner((System.in));
 
 		System.out.println("Que voulez-vous faire? ");
-		System.out.println("1. Voir vos suiveurs");
+		System.out.println("1. Voir ses suiveurs");
 		System.out.println("2. Gérer ses suiveurs");
 		System.out.println("0. Retour au menu ");
 		int choix= Integer.parseInt(scannerUn.nextLine());
@@ -59,7 +62,7 @@ public class Acheteur extends Utilisateur {
 			}
 			case 2 -> {
 				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
-				System.out.println("1. Ajouter un suiveur");
+				System.out.println("1. Suivre un acheteur");
 				System.out.println("2. Supprimer un suiveur");
 				System.out.println("0. Retour au menu ");
 				int gestionChoix = Integer.parseInt(scannerUn.nextLine());
@@ -67,32 +70,32 @@ public class Acheteur extends Utilisateur {
 				switch (gestionChoix) {
 					case 1 -> {
 						suivreAcheteur(acheteur);
-					} case 2 -> {
-						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
-						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
-						String acheteurPseudoSupp = scannerUn.nextLine();
 
-						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs );
+					}
+					case 2 -> {
+						if (listeSuiveurs.isEmpty()) {
+							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
+							afficherMenu(acheteur);
+						} else {
+							System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
+							System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
+							String acheteurPseudoSupp = scannerUn.nextLine();
 
-						if (acheteurSupp != null ){
-							acheteur.listeSuiveurs.remove(acheteurSupp);
-							System.out.println("Achteur" + acheteurPseudoSupp+" retirer de votre liste de suiveurs");
+							Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs);
 
-							acheteurSupp.retirerAcheteur(this);
-						}else {
-							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
+							if (acheteurSupp != null) {
+								acheteur.listeSuiveurs.remove(acheteurSupp);
+								System.out.println("Achteur " + acheteurPseudoSupp + " retiré de votre liste de suiveurs");
+								acheteurSupp.retirerAcheteur(this);
+							} else {
+								System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs : " + acheteurPseudoSupp);
+							}
 						}
-					}case 0 -> {
+					}
+					case 0 -> {
 						afficherMenu(acheteur);
 					}
-				}
-			}case 0 -> {
-				afficherMenu(acheteur);
-			}
-
-		}
-	}
-
+				}}}}
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone,courriel,motDePasse);
 		this.prenom= prenom;
@@ -126,6 +129,9 @@ public class Acheteur extends Utilisateur {
 						break;
 					} else if( c.getStatutCommande() == StatutCommande.livree ) {
 						System.out.println("Cette commande est deja livrée");
+						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+
+
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");
 					}
@@ -211,21 +217,24 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
-	public void afficherNotifications() {
-		for (Notification notification : notifications) {
-			System.out.println(notification);
+	public void afficherNotifications(Acheteur acheteur) {
+		if (notifications.isEmpty()) {
+			System.out.println("Vous n'avez aucune notification");
+			afficherMenu(acheteur);
+		} else {
+			for (Notification notification : notifications) {
+				System.out.println(notification);
+			}
 		}
 	}
+
 
 	public void payerDifference(double difference) {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
 
-	/**
-	 * 
-	 * @param
-	 */
+
 	public void likeRevendeur(Revendeur revendeur) {
 		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
@@ -281,12 +290,7 @@ public class Acheteur extends Utilisateur {
 		historiqueCommandes.add(commande);
 	}
 
-	/*
-		Affiche l'historique des commandes de l'utilisateur
-
-		@return l'historique des commandes de l'acheteur
-	 */
-	protected String afficherHistorique(){
+	protected String  afficherHistorique(){
 		// parse the csv de toutes les commandes & only keep the ones with the correct username
 		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
 		String message = null;
@@ -301,28 +305,21 @@ public class Acheteur extends Utilisateur {
 		}
 		return null;
 	}
-
 	public ArrayList<Commande> getHistoriqueCommandes(){
 		return historiqueCommandes;
 	}
 
-
-
-	/*
-		Affiche les métriques de l'utilisateur
-
-		@param utilisateur l'acheteur connecté
-	 */
 	protected void afficherMetriques(Acheteur utilisateur){
-		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
+		Scanner scanner = new Scanner(System.in);
+		int nbCommandes = utilisateur.historiqueCommandes.size();
 
 		ArrayList<String> produitsAchetes = new ArrayList<>();
-		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-		for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
-			//voir les produits achetés
+		ArrayList<String> commentairesDonnes = new ArrayList<>(); // 2e elem du arrayList
+		for (Commande c : utilisateur.historiqueCommandes) {
+			// Voir les produits achetés
 			ArrayList<Produit> produits = c.getArticles();
-			for (Produit p : produits){
-				if (!produitsAchetes.contains(p)){
+			for (Produit p : produits) {
+				if (!produitsAchetes.contains(p.toString())) {
 					produitsAchetes.add(p.toString());
 				}
 			}
@@ -331,39 +328,23 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Vos métriques d'acheteur: ");
 		System.out.println("Nombre de commandes : " + nbCommandes);
 		System.out.println("Produits achetés");
-		for (String s : produitsAchetes){
+		for (String s : produitsAchetes) {
 			System.out.println(s);
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
 		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
+		for (ArrayList<String> com : utilisateur.listeCommentaires) {
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
-		Scanner s = new Scanner(System.in);
-		boolean validInput = false;
-		do{
-			try{
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
 
-				String choix = s.nextLine();
-				if ( ! Main.isNumeric(choix)){
-					throw new InputMismatchException();
-				} else {
-					if (choix.equals("0")){
-						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
-						break;
-					}
-					if(!validInput){
-						throw new InputMismatchException();
-					}
-				}
-			} catch (InputMismatchException e){
-				System.out.println("Svp entrez 0!");
-			}
-		} while (!validInput);
+		System.out.println("Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non");
+		int gestionChoix = Integer.parseInt(scanner.nextLine());
+
+		if (gestionChoix == 1) {
+			afficherMenu(utilisateur);
+		}
 	}
 
 	public ArrayList<Commande> obtenirCommandesLivrees() {
@@ -376,6 +357,10 @@ public class Acheteur extends Utilisateur {
 		}
 
 		return commandesLivrees;
+	}
+
+	public ArrayList<Acheteur> getListeSuiveurs() {
+		return listeSuiveurs;
 	}
 
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class retourEchange {
@@ -33,6 +34,7 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
 					break;
 				} else {
 					System.out.println("ID non correct");
@@ -65,19 +67,15 @@ public class retourEchange {
 
 					revendeur.ajouterCommandeRetournee(commande, acheteur.getCarteCredit());
 					idCorrect = true;
-
+					Notification nouvelleNotification = new Notification(RaisonsNotif.ETAT_COMMANDE);
 
 				}
 				System.out.println("Quel produit souhaitez-vous échanger?");
 				int IDPrdouit = scanner.nextInt();
 				Produit produitAEchanger = null;
 
-				for (Produit produitEcha : Catalogue.catalogueProduits(acheteur)) {
-					if (produitEcha.getId() == ID) {
-						produitAEchanger = produitEcha;
-						break;
-					}
-				}
+				Produit produitEcha = Catalogue.catalogueProduits(acheteur);
+
 				double difference = calculerDifference(produitAEchanger, acienProduit);
 				ArrayList produitsAEchanger = new ArrayList();
 				produitsAEchanger.add(produitAEchanger);
