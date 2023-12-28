@@ -336,8 +336,34 @@ public abstract class Utilisateur {
 
 				case 1 -> acheteur.confirmerReceptionCommande(acheteur);
 				case 2 -> {
-					Probleme probleme = new Probleme();
-					probleme.signalerProbleme();
+					ArrayList<Commande> commandesLivrees = (acheteur).obtenirCommandesLivrees();
+					System.out.println("Pour quels commande souhaitez-vous signalé un problème?");
+
+					if(commandesLivrees.isEmpty()){
+						System.out.println("Aucune commande livrée trouvée. Impossible de signaler un problème.");
+						afficherMenu(acheteur);
+					}else{
+						System.out.println("Liste des commandes livrées :");
+						for (Commande commande : commandesLivrees) {
+							System.out.println("Numéro de commande : " + commande.getId());
+						}
+						System.out.print("Entrez l'ID de la commande pour laquelle vous signalez un problème : ");
+						int numeroCommande = scanner.nextInt();
+
+						ArrayList<Revendeur> listeRevendeurs = new ArrayList<>();
+
+						for (Commande commande : commandesLivrees) {
+							if(commande.getId() == numeroCommande){
+								ArrayList<Produit> produits = commande.getArticles();
+								for (Produit produit :produits){
+									Revendeur revendeur = produit.getRevendeur();
+									listeRevendeurs.add(revendeur);
+								}
+							}
+						}
+						Probleme probleme = new Probleme();
+						probleme.signalerProbleme(listeRevendeurs);
+					}
 				}
 				case 3 -> {
 					acheteur.modifierProfil(acheteur);
