@@ -7,24 +7,49 @@ public class Commentaire {
 
 	private String produit;
 
+	/**
+	 * Met à jour le contenu d'un commentaire
+	 * 
+	 * @param nouvContenu le nouveau contenu d'un commentaire
+	 */
 	public void setContenu(ArrayList<String> nouvContenu){
 		Contenu = nouvContenu;
 	}
 
+	/**
+	 * Met à jour le titre du produit
+	 * 
+	 * @param titre titre du produit
+	 */
 	public void setProduit(String titre){
 		this.produit = titre;
 	}
 
+	/**
+	 * Retourne le produit
+	 * 
+	 * @return le produit
+	 */
 	public String getProduit(){
 		return produit;
 	}
 
+	/**
+	 * Retourne le commentaire
+	 * 
+	 * @return contenu du commentaire
+	 */
 	public ArrayList<String> getContenu(){
 		return Contenu;
 	} 
 
 
 
+	/**
+	 * Retourne une liste de commentaires
+	 * 
+	 * @return liste de commentaires
+	 */
 	public static ArrayList<ArrayList<String>> listeDeCom(){
 		ArrayList<ArrayList<String>> listCommentaires = new ArrayList<>();
 

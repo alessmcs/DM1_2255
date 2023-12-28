@@ -8,29 +8,56 @@ public class ArticlesDePapeterie extends Produit {
     private String modele;
     private String sousCategorie;
 
-    // Constructeur
+    /**
+     * Constructeur de la classe ArticlesDePapeterie
+     * 
+     * @param titre titre de l'article
+     * @param prix prix de l'article
+     * @param qte quantité de l'article
+     * @param cat catégorie de l'article
+     * @param nbPoints nombre de points de l'article
+     * @param description description de l'article
+     * @param marque marque de l'article
+     * @param modele modèle de l'article
+     * @param sousCategorie sous-catégorie de l'article
+     */
     public ArticlesDePapeterie(String titre, double prix, int qte, String cat, int nbPoints, String description, String marque,
                             String modele, String sousCategorie) {
         super(titre, prix, qte, cat, nbPoints, description);
     }
 
+    /**
+     * Retourne la marque de l'article
+     * 
+     * @return marque de l'article
+     */
     public String getMarque(){
         return marque;
     }
 
+    /**
+     * Retourne le modèle de l'article
+     * 
+     * @return modèle de l'article
+     */
     public String getModele(){
         return modele;
     }
 
+    /**
+     * Retourne la sous-catégorie de l'article
+     * 
+     * @return sous-catégorie de l'article
+     */
     public String getSousCategorie(){
         return sousCategorie;
     }
 
-    /*
-         Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
-
-         @param util l'utilisateur connecté
-      */
+    /**
+     *Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
+     *
+     * @param util l'utilisateur connecté
+     */
     @Override
     public void voirDetails(Utilisateur util){
         Scanner scanChoix = new Scanner(System.in);
@@ -50,6 +77,7 @@ public class ArticlesDePapeterie extends Produit {
                 System.out.println("4. Ajouter au panier le produit");
                 System.out.println("5. Revenir au catalogue");
 
+                Revendeur revendeur = getRevendeur();
                 String choix = scanChoix.nextLine();
                 switch(choix){
                     case "1":
@@ -61,11 +89,11 @@ public class ArticlesDePapeterie extends Produit {
                         break;
                     case "2":
                         super.commenter(util);
-                        super.evaluer();
-                        super.verifier(util);
+                        super.evaluer(revendeur);
+                        super.verifier(util,revendeur);
                         break;
                     case "3":
-                        super.liker();
+                        super.liker((Acheteur) util,revendeur);
                         break;
                     case "4":
                         super.demanderAjoutPanier((Acheteur) util);
@@ -90,9 +118,14 @@ public class ArticlesDePapeterie extends Produit {
                             Catalogue.voirCatalogue((Acheteur) util);
                             break;
                         case "0" :
-                            Utilisateur.afficherMenu(util);
+                            try {
+                                Utilisateur.afficherMenu(util);
+                            } catch (Exception e)  {
+                                System.out.println("Une erreur s'est produite. Veuillez réessayer.");
+                            }
+                            break;
                     }
-                } catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("Entrée invalide, svp entrez 1 ou 0");
                 }
             } while (!validInput);

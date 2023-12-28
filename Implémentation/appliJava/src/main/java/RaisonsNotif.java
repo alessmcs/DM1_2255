@@ -7,7 +7,8 @@ public enum RaisonsNotif {
 	SOLUTION_PROBLEME("Un revendeur propose une solution à votre problème"),
 	NOUVELLE_COMMANDE_RECUE("Vous avez une nouvelle commande!"),
 	NOUVELLE_EVALUATION("Il y a une nouvelle évaluation sur un de vos produits"),
-	PROBLEME_SIGNALE("Un acheteur a signalé un problème");
+	PROBLEME_SIGNALE("Un acheteur a signalé un problème"),
+	LIVRAISON_CONFIRMEE("Le colis est bien recu par le client. ");
 
 
 	private final String description;

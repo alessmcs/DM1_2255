@@ -10,95 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93a73ca8-e3be-4a90-86b1-b8587d85fef9" name="Changes" comment="little change">
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/.gitignore 2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/appliJava 2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/appliJava.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/artifacts/appliJava_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/compiler 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/encodings 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/jarRepositories 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/modules 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/vcs 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/.idea/workspace 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/appliJava.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/out/artifacts/appliJava_jar/appliJava.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/data/acheteurs.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/data/commandes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/data/listeProduits.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/data/revendeurs.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Acheteur.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Adresse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/BaseDonnees.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/BilletDeSignalement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Catalogue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Colis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Commande.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Commentaire.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/CritèresFiltrage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Date.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/EquipementBureau.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Facture.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Filtre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/LivresEtManuels.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/MaterielInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Notification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Panier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Plateforme.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Probleme.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Produit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/RaisonsNotif.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/RessourcesApprentissage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Revendeur.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/StatutCommande.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/SystemeLivraison.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/SystemePaiement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/Utilisateur.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/src/main/java/retourEchange.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Acheteur.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Adresse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/BaseDonnees.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/BilletDeSignalement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Catalogue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Colis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Commande.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Commentaire.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/CritèresFiltrage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Date.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/EquipementBureau.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Facture.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Filtre.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/LivresEtManuels.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/MaterielInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Notification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Panier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Plateforme.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Probleme.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Produit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/RaisonsNotif.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/RessourcesApprentissage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Revendeur.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/StatutCommande.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/SystemeLivraison.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/SystemePaiement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/Utilisateur.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/classes/retourEchange.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Conception/appliJava/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Implémentation/appliJava/src/test/java/TestPlateforme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/DM1_2255.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/DM1_2255.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Implémentation/appliJava/appliJava.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/BilletDeSignalement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/BilletDeSignalement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Plateforme.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Plateforme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Probleme.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Probleme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Revendeur.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Implémentation/appliJava/src/main/java/Revendeur.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Revendeur extends Utilisateur {
@@ -9,6 +11,8 @@ public class Revendeur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
+	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
+	protected ArrayList<Notification> notifications = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
@@ -16,16 +20,41 @@ public class Revendeur extends Utilisateur {
 		inventaire = new ArrayList<>();
 	}
 
+	/**
+	 * Ajoute une notification à la liste des notifications
+	 * 
+	 * @param notification
+	 */
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
+	protected ArrayList<Acheteur> getAcheteurQuiAime() {
+		return acheteurQuiAime;
+	}
+	protected void setAcheteurQuiAime(ArrayList<Acheteur> acheteurQuiAime) {
+		this.acheteurQuiAime = acheteurQuiAime;
+	}
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}
 
 
+	/**
+	 * Ajoute la commande retournée aux retours
+	 */
 	public void ajouterCommandeRetournee(Commande commande, CarteCredit carteCredit) {
 
 		retours.put(commande, carteCredit);
 	}
 
+
+	/**
+	 * Permet d'inscrire le revendeur au site UniShop
+	 */
 	public void inscrireRevendeur() {
 		Scanner scanner = new Scanner((System.in));
 
@@ -57,12 +86,18 @@ public class Revendeur extends Utilisateur {
 		setPseudo(pseudo);
 	}
 
+	/**
+	 * Affiche les notifications
+	 */
 	public void afficherNotifications() {
 		for (Notification notification : notifications) {
 			System.out.println(notification);
 		}
 	}
 
+	/**
+	 * Confirme la réception de la commande retournée
+	 */
 	public void confirmerReceptionRetour() {
 		Scanner scanner = new Scanner(System.in);
 
@@ -98,11 +133,13 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-	public void gererProbleme() {
-		// TODO - implement Revendeur.gérerProbleme
-		throw new UnsupportedOperationException();
-	}
 
+	/**
+	 * Mets à jour l'inventaire d'un certain produit
+	 * 
+	 * @param p produit
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
 		inventaire.add(p);
 		try{
@@ -116,11 +153,20 @@ public class Revendeur extends Utilisateur {
 		return pseudo;
 	}
 
+	/**
+	 * Affiche l'inventaure d'un certain produit
+	 */
 	public void afficherInventaire() {
 		for (Produit p : inventaire) {
 			System.out.println(p); // uses toString method from produit
 		}
 	}
+
+	/**
+	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 * 
+	 * @param utilisateur
+	 */
 
 	public void afficherCommentaires(Revendeur utilisateur){
 		for (Produit p : ((Revendeur) utilisateur).inventaire){
@@ -147,6 +193,12 @@ public class Revendeur extends Utilisateur {
 		this.pseudo = pseudo;
 	}
 
+
+	/**
+	 * Affiche les métriques du revendeur
+	 * 
+	 * @param utilisateur
+	 */
 	protected void afficherMetriques(Revendeur utilisateur) {
 		float revenu = 0;
 		int nbVendu = 0;
@@ -181,11 +233,16 @@ public class Revendeur extends Utilisateur {
 				if ( ! Main.isNumeric(choix)){
 					throw new InputMismatchException();
 				} else {
-					if (choix.equals("0")){
+					if (choix.equals("0")) {
 						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
+						try {
+							Utilisateur.afficherMenu(utilisateur);
+						} catch (FileNotFoundException e) {
+							System.out.println("Une erreur s'est produite veuillez réessayer");
+						}
 						break;
 					}
+
 					if(!validInput){
 						throw new InputMismatchException();
 					}
@@ -196,6 +253,9 @@ public class Revendeur extends Utilisateur {
 		} while (!validInput);
 	}
 
+	/**
+	 * Montre le profil du revendeur
+	 */
 	public void montrerProfil(){
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);
@@ -204,5 +264,127 @@ public class Revendeur extends Utilisateur {
 		System.out.println(commandes.size() + " commandes reçues");
 
 	}
+
+	/**
+	 * Cette méthode permet à un revendeur de traiter les billets de signalements issus par l'acheteur.
+	 * @param revendeur le revendeur qui répond aux problèmes
+	 * @param probleme L'instance de la classe Probleme associée au billet de signalement
+	 * @param billet  L'instance de la classe BilletDeSignalement à traiter
+	 */
+	public void gererProbleme(Revendeur revendeur, Probleme probleme, BilletDeSignalement billet) {
+		Scanner scanner = new Scanner(System.in);
+		Acheteur acheteur = billet.getAcheteur();
+		retourEchange retourEchange = new retourEchange();
+
+		System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
+
+		// Demander au revendeur de spécifier le statut de livraison du produit défectueux
+		boolean choixConfirmationLivraisonValide = false; // Boucle jusqu'à entrée valide
+		while (!choixConfirmationLivraisonValide) {
+			System.out.println("Étape 1. Est-ce que ce produit a été livré?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			try {
+				int choixConfirmationLivraison = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixConfirmationLivraison == 1) {
+					billet.setConfirmationLivraison(true);
+					choixConfirmationLivraisonValide = true; // Sortir de la boucle si l'entrée est valide
+				} else if (choixConfirmationLivraison == 2) {
+					billet.setConfirmationLivraison(false);
+					return; // Sortir de la méthode si le produit n'a pas été livré
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		}
+
+		boolean solutionAcceptee = false;
+		while (!solutionAcceptee) {
+			// Demander au revendeur de donner une solution
+			System.out.println("Étape 2. Choisissez une des options de solution :");
+			System.out.println("1. Réparation du produit défectueux");
+			System.out.println("2. Retour et remboursement");
+			System.out.println("3. Échange");
+
+			int choixSolution = 0;
+			try {
+				choixSolution = scanner.nextInt();
+				scanner.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1, 2, ou 3.");
+				scanner.nextLine();
+				continue;
+			}
+			Notification notification = new Notification(RaisonsNotif.SOLUTION_PROBLEME);
+			switch (choixSolution) {
+				case 1 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
+					// Réexpédier le produit au revendeur
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 2 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
+					// Effectuer un retour
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 3 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
+					// Effectuer un échange
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						// Demander au revendeur de fournir plus de détails.
+						System.out.println("Veuillez spécifier la description du produit de remplacement : ");
+						String descriptionRemplacement = scanner.nextLine();
+						billet.setDescriptionRemplacement(descriptionRemplacement);
+
+						System.out.println("Entrez son numéro de suivi : ");
+						int numSuiviRemplacement = scanner.nextInt();
+						billet.setNumSuiviRemplacement(numSuiviRemplacement);
+					}
+				}
+				default -> {
+					System.out.println("Choix invalide. Aucune action n'a été prise.");
+					return;
+				}
+			}
+
+			// Envoyer le billet avec la solution à l'acheteur
+			acheteur.consulterBilletDeSignalement(billet);
+
+			// Mise à jour de solutionAcceptee en fonction de la réponse de l'acheteur
+			solutionAcceptee = acheteur.acheteurAccepteSolution(scanner);
+		}
+
+		// Annuler automatiquement la demande de réexpédition après 30 jours
+		LocalDate dateEmission = probleme.getDateEmission();
+		if (billet.getNumSuiviRemplacement() != 0 &&
+				LocalDate.now().isAfter(dateEmission.plus(30, ChronoUnit.DAYS))) {
+			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
+			billet.setNumSuiviRemplacement(0);
+		}
+	}
+
+
+	/**
+	 * Cette méthode permet aux revendeurs de recevoir un billet de signalement provenant de l'acheteur.
+	 * @param billet le billet de signalement envoyé au revendeur
+	 */
+	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
+		BilletDeSignalement.ajouterBillet(billet);
+	}
+
 
 }

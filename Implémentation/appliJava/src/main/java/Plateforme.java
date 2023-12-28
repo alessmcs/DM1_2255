@@ -7,12 +7,29 @@ import java.util.Scanner;
 public class Plateforme {
 	// TODO: rechercher un produit
 
+	/**
+	 * Cette méthode permet à un revendeur d'offrir un produit à la plateforme après avoir fourni des
+	 * spécifications telles que le titre, la catégorie, la description, la quantité en stock,
+	 * le prix, etc.
+	 *
+	 * @param revendeur Le revendeur effectuant l'offre.
+	 * @throws InputMismatchException Si une entrée utilisateur n'est pas du type attendu.
+	 * @throws IllegalArgumentException Si une valeur est invalide ou ne respecte pas les conditions.
+	 */
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException, FileNotFoundException {
 
-		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
-		String dateParution = null; int numEd = 0; int numVol = 0;
-		String marque = null; String modele = null; String sousCategorie = null;
+		String ISBN = null;
+		String auteur = null;
+		String maisonEdition = null;
+		String genre = null;
+		String dateParution = null;
+		int numEd = 0;
+		int numVol = 0;
+		String marque = null;
+		String modele = null;
+		String sousCategorie = null;
 		String dateLancement = null;
+
 		// Demander au revendeur de specifier un titre
 		Scanner scanner = new Scanner(System.in);
 
@@ -30,8 +47,9 @@ public class Plateforme {
 		System.out.println("À quelle catégorie appartient ce produit?");
 		System.out.println("1. Livres et manuels");
 		System.out.println("2. Ressources d'apprentissage");
-		System.out.println("3. Matériel informatique");
-		System.out.println("4. Équipement de bureau");
+		System.out.println("3. Articles de papeterie");
+		System.out.println("4. Matériel informatique");
+		System.out.println("5. Équipement de bureau");
 
 		while (categorie == null) {
 			try {
@@ -56,18 +74,34 @@ public class Plateforme {
 						System.out.println("Numéro du volume: ");
 						numVol = scanner.nextInt();
 					}
-					case 2, 4 -> {
-						if (choixCategorie == 2) {
-							categorie = "Ressources d'apprentissage";
+					case 2 -> {
+						categorie = "Ressources d'apprentissage";
+						System.out.println("ISBN : ");
+						ISBN = scanner.next();
+						System.out.println("Auteur : ");
+						auteur = scanner.next();
+						System.out.println("Organisation: ");
+						maisonEdition = scanner.next();
+						System.out.println("Date de parution: ");
+						genre = scanner.next();
+						System.out.println("Type: ");
+						dateParution = scanner.next();
+						System.out.println("Numéro d'édition: ");
+						numEd = scanner.nextInt();
+					}
+
+					case 3, 5 -> {
+						if (choixCategorie == 3) {
+							categorie = "Articles de papeterie";
 						} else {
-							categorie = "Équipement de bureau";
+							categorie = "Équipements de bureau";
 						}
 					}
-					case 3 -> categorie = "Matériel informatique";
+					case 4 -> categorie = "Matériel informatique";
 					default -> System.out.println("Veuillez choisir une catégorie existante.");
 				}
 
-				// Recueillir les informations communes pour les categories 2,3 et 4
+				// Recueillir les informations communes pour les categories 3,4 et 5
 				System.out.print("Marque : ");
 				marque = scanner.next();
 				System.out.print("Modèle : ");
@@ -96,6 +130,28 @@ public class Plateforme {
 		while (description.trim().isEmpty()) {
 			System.out.println("Attention: La description ne peut pas être vide. Veuillez réessayer.");
 			description = scanner.nextLine();
+		}
+
+		// Demander au revendeur s'il souhaite ajouter un média à leur publication
+		System.out.print("Voulez-vous diffuser un média avec votre produit? : ");
+		System.out.print("1. Oui");
+		System.out.print("2. Non");
+
+		String choice = scanner.nextLine();
+		scanner.nextLine();
+
+		switch (choice) {
+			case "1" -> {
+				System.out.print("Veuillez entrer le URL de votre média à ajouter :");
+				scanner.nextLine();
+				String mediaLink = scanner.nextLine();
+			}
+			case "2" -> System.out.print("Aucun média ne sera ajouté.");
+			default -> {
+				System.out.println();
+				System.out.println("Veuillez choisir entre les deux options données.");
+				System.out.println();
+			}
 		}
 
 		// Demander au revendeur d'entrer une quantité
@@ -142,32 +198,58 @@ public class Plateforme {
 			}
 		} while (prix <= 0);
 
-		System.out.println("Voulez vous donner des points bonus pour ce produit(oui/non)?");
-		String choixPtsBonus = scanner.next().toLowerCase();
 
+		int choixPts = 0;
 		int nbPoints = 0;
-		if (choixPtsBonus.equals("oui")) {
-			// Calculer les points bonus
-			nbPoints = (int) prix;
-			if (nbPoints > 20) {
-				nbPoints = 20;
+		do {
+			try {
+				System.out.println("Voulez-vous donner des points bonus pour ce produit?");
+				System.out.println("1. Oui");
+				System.out.println("2. Non");
+
+				choixPts = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixPts == 1) {
+					// Calculer les points bonus si l'utilisateur choisit la première option
+					nbPoints = (int) prix;
+					nbPoints = (int) Math.floor(nbPoints);
+					if (nbPoints > 20) {
+						nbPoints = 20;
+					}
+				} else if (choixPts == 2) {
+					System.out.println("Succès! " + titre + " a été publié à la plateforme. En voici les détails:");
+
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non..");
+				scanner.nextLine();
 			}
-			nbPoints = (int) Math.floor(nbPoints);
-		}
+		} while (choixPts != 1 && choixPts != 2);
+
 		System.out.println("Succès!" + titre + "a été publié à la plateforme. En voici les détails:");
 
 		// typer le produit selon la catégorie
 		Produit produit = null;
-		switch(categorie){
+		switch (categorie) {
 			case ("Livres et manuels") ->
-					produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
-							ISBN,auteur, maisonEdition, genre, dateParution,numEd,numVol );
+			{produit = new LivresEtManuels(titre, prix, qteEnStock, categorie, nbPoints, description,
+					ISBN, auteur, maisonEdition, genre, dateParution, numEd, numVol);}
+
+			case ("Articles de papeterie") ->
+			{produit = new ArticlesDePapeterie(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+
 			case ("Matériel informatique") ->
-					produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);
-			case ("EquipementBureau") ->
-					produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
-			case ("RessourcesApprentissage") ->
-					produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);
+			{produit = new MaterielInfo(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, dateLancement, sousCategorie);}
+
+			case ("Équipements de Bureau") ->
+			{produit = new EquipementBureau(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+
+			case ("Ressources d'apprentissage") ->
+			{produit = new RessourcesApprentissage(titre, prix, qteEnStock, categorie, nbPoints, description, marque, modele, sousCategorie);}
+
 		}
 
 		BaseDonnees.revendeursList.get(BaseDonnees.revendeursList.indexOf(revendeur)).updateInventaire(produit);
@@ -175,24 +257,42 @@ public class Plateforme {
 		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
+
+		// Permettre à l'utilisateur d'offrir un nouveau produit ou de quitter la fonction
+
+		for (Acheteur acheteur : revendeur.acheteurQuiAime) {
+
+			Notification notificationNew = new Notification(RaisonsNotif.NOUVEAU_PRODUIT);
+			acheteur.ajouterNotification(notificationNew);
+		}
+
+
+
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");
 		String choix = scanner.nextLine();
 
-		if (choix.equals("0")){
+		if (choix.equals("0")) {
 			Utilisateur.afficherMenu(revendeur);
-		} else if (!Main.isNumeric(choix)){
+		} else if (!Main.isNumeric(choix)) {
 			System.out.println("SVP entrez un chiffre!");
-		} else if (choix.equals("1")){
+		} else if (choix.equals("1")) {
 			offrirProduit(revendeur); // offrir un autre produit
 		}
 
 	}
 
+
 	public static void rechercheProduit(){
 
 	}
 
+	/**
+	 * Permet de rechercher un acheteur sur le Unishop
+	 * 
+	 * @param acheteurs
+	 * @return recherche d'un acheteur
+	 */
 	public static Acheteur rechercherAcheteur(ArrayList<Acheteur> acheteurs){
 		Scanner scannerUn = new Scanner((System.in));
 
@@ -208,6 +308,13 @@ public class Plateforme {
 		return null;
 	}
 
+
+	/**
+	 * Permet de rechercher un revendeur sur le Unishop
+	 * 
+	 * @param revendeurs
+	 * @return recherche d'un revendeur
+	 */
 	public static Revendeur rechercheRevendeur( ArrayList<Revendeur> revendeurs){
 		Scanner scannerUn = new Scanner(System.in);
 
@@ -221,6 +328,5 @@ public class Plateforme {
 		}
 
 		return null;
-
 	}
 }

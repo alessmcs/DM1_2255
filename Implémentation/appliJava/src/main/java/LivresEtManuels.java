@@ -77,6 +77,7 @@ public class LivresEtManuels extends Produit {
 				System.out.println("4. Ajouter au panier le produit");
 				System.out.println("5. Revenir au catalogue");
 
+				Revendeur revendeur = getRevendeur();
 				String choix = scanChoix.nextLine();
 				switch(choix){
 					case "1":
@@ -88,11 +89,12 @@ public class LivresEtManuels extends Produit {
 						break;
 					case "2":
 						super.commenter(util);
-						super.evaluer();
-						super.verifier(util);
+						super.evaluer(revendeur);
+						super.verifier(util,revendeur);
 						break;
 					case "3":
-						super.liker();
+
+						super.liker((Acheteur) util, revendeur);
 						break;
 					case "4":
 						super.demanderAjoutPanier((Acheteur) util);
@@ -117,8 +119,12 @@ public class LivresEtManuels extends Produit {
 							Catalogue.voirCatalogue((Acheteur) util);
 							break;
 						case "0" :
-							Utilisateur.afficherMenu(util);
-					}
+							try{
+								Utilisateur.afficherMenu(util); // retourner au menu principal
+							}catch (Exception e){
+								System.out.println("Une erreur c'est produite veuiller réessayer");
+								s.nextLine();
+							}					}
 				} catch (InputMismatchException e){
 					System.out.println("Entrée invalide, svp entrez 1 ou 0");
 				}

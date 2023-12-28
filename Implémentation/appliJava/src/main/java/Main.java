@@ -17,6 +17,9 @@ public class Main {
 
     }
 
+    /**
+     * Permet d'afficher l'accueil du site Unishop ainsi que le menu
+     */
     public static void accueil(){
         Scanner scanner = new Scanner(System.in);
 
@@ -41,6 +44,9 @@ public class Main {
                         break;
                 }
             } catch(InputMismatchException e){
+                scanner.nextLine();
+            } catch (FileNotFoundException e) {
+                System.out.println("Une erreur s'est produite. Veuillez réessayer.");
                 scanner.nextLine();
             }
         } while(!validInput);

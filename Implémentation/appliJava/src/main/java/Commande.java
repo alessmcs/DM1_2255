@@ -14,7 +14,15 @@ public class Commande {
 	private static double montant;
 
 
-	// Constructeur de commande
+	/**
+	 * Constructeur de la classe Commande
+	 * 
+	 * @param acheteur acheteur
+	 * @param status statut de la commande
+	 * @param adresse adresse de livraison
+	 * @param id numéro d'identification du produit
+	 * @param panier panier de l'acheteur
+	 */
 	public Commande(Acheteur acheteur, StatutCommande status, Adresse adresse, int id, Panier panier){
 		this.acheteur = acheteur;
 		this.statut = status;
@@ -251,6 +259,13 @@ public class Commande {
 		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
 		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTelephone());
 
+		for(Produit produit : p.getArticles()){
+			Revendeur revendeur = produit.getRevendeur();
+			Notification notification = new Notification(RaisonsNotif.NOUVELLE_COMMANDE_RECUE);
+			revendeur.ajouterNotification(notification);
+
+		}
+
 		// retourner au catalogue
 		System.out.println("\n1: Retourner au catalogue \n2: Retourner au menu");
 		String exitChoix = s.nextLine();
@@ -261,7 +276,8 @@ public class Commande {
 		}
 
 		// nouveau colis généré avec la commande
-		Colis colis = new Colis(commande.getStatutCommande());
+		Colis colis = new Colis(commande);
+		System.out.println("Votre numéro de suivi est : " + colis.getNumSuivi());
 
 		return commande;
 	}

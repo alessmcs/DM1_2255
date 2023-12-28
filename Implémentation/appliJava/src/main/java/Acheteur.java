@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Acheteur extends Utilisateur {
@@ -17,49 +18,109 @@ public class Acheteur extends Utilisateur {
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
 
+	/**
+	 * 
+	 * @param telephone Le numéro de téléphone de l'acheteur
+	 * @param courriel Le  courriel de l'acheteur
+	 * @param motDePasse Le mot de passe relié au compte de l'achateur
+	 */
+	public Acheteur(String telephone, String courriel, String motDePasse) {
+		super(telephone,courriel,motDePasse);
+		this.prenom= prenom;
+		this.nom= nom;
+		panier = new Panier();
+		this.notifications = new ArrayList<>();
+	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
 
-	public void suivreAcheteur(Acheteur acheteur) {
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
+	
+	/**
+	 * Permet à un acheteur d'en suivre un autre
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
+	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
 			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
+					System.out.println("Vous suivez maintennat " + acheteurAjouter.getPseudo());
 
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
 
+
+					acheteurAjouter.ajouterSuiveur(this);
+					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
+					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					afficherMenu(acheteur);
+
 				}else{
-						System.out.println("Vous êtes déjà abonné a cet acheteur");
+						System.out.println("Vous etes déjà abonné a cet acheteur");
 					}
-		} else{
+		}else{
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
-
 	}
+
+	/**
+	 * Permet d'ajouter à une liste de "suiveur" 
+	 * un acheteur qui en suit un autre
+	 * 
+	 * @param suiveur Un certain acheteur qui suit un autre acheteur
+	 */
 	public void ajouterSuiveur(Acheteur suiveur) {
 			this.listeSuiveurs.add(suiveur);
 	}
+
+	/**
+	 * Permet de retirer de la liste un acheteur "suiveur"
+	 * 
+	 * @param suiveur Un certain acheteur qui suit un autre acheteur
+	 */
 	public void retirerAcheteur(Acheteur suiveur) {
 		this.listeSuiveurs.remove(suiveur);
 	}
-	public void acheteurSuiviPar(Acheteur acheteur){
+
+	/**
+	 * Permet à un acheteur de gérer (supprimer ou suivre) 
+	 * ainsi que de voir ses suiveurs
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
+	public void acheteurSuiviPar(Acheteur acheteur) throws FileNotFoundException {
 		Scanner scannerUn = new Scanner((System.in));
 
 		System.out.println("Que voulez-vous faire? ");
-		System.out.println("1. Voir vos suiveurs");
+		System.out.println("1. Voir ses suiveurs");
 		System.out.println("2. Gérer ses suiveurs");
 		System.out.println("0. Retour au menu ");
 		int choix= Integer.parseInt(scannerUn.nextLine());
 
 		switch (choix){
 			case 1 -> {
-				System.out.println(acheteur.listeSuiveurs);
-				acheteurSuiviPar(acheteur);
+				if (!listeSuiveurs.isEmpty()){
+				for (Acheteur acheteur1 : listeSuiveurs){
+				System.out.println(acheteur1.getPseudo());
+				}
+					acheteurSuiviPar(acheteur);
+				} else{
+					System.out.println("Vous n'avez aucun suiveur.");
+					acheteurSuiviPar(acheteur);
+				}
 			}
 			case 2 -> {
 				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
-				System.out.println("1. Ajouter un suiveur");
+				System.out.println("1. Suivre un acheteur");
 				System.out.println("2. Supprimer un suiveur");
 				System.out.println("0. Retour au menu ");
 				int gestionChoix = Integer.parseInt(scannerUn.nextLine());
@@ -67,48 +128,64 @@ public class Acheteur extends Utilisateur {
 				switch (gestionChoix) {
 					case 1 -> {
 						suivreAcheteur(acheteur);
-					} case 2 -> {
-						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
-						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
-						String acheteurPseudoSupp = scannerUn.nextLine();
+					}
+					case 2 -> {
+						if (listeSuiveurs.isEmpty()) {
+							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
+							afficherMenu(acheteur);
+						} else {
+							System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
+							System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
+							String acheteurPseudoSupp = scannerUn.nextLine();
 
-						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs );
+							Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs);
 
-						if (acheteurSupp != null ){
-							acheteur.listeSuiveurs.remove(acheteurSupp);
-							System.out.println("Achteur" + acheteurPseudoSupp+" retirer de votre liste de suiveurs");
-
-							acheteurSupp.retirerAcheteur(this);
-						}else {
-							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
+							if (acheteurSupp != null) {
+								acheteur.listeSuiveurs.remove(acheteurSupp);
+								System.out.println("Achteur " + acheteurPseudoSupp + " retiré de votre liste de suiveurs");
+								acheteurSupp.retirerAcheteur(this);
+							} else {
+								System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs : " + acheteurPseudoSupp);
+							}
 						}
-					}case 0 -> {
+					}
+					case 0 -> {
 						afficherMenu(acheteur);
 					}
 				}
 			}case 0 -> {
-				afficherMenu(acheteur);
+					afficherMenu(acheteur);
+				}
 			}
-
 		}
-	}
 
-	public Acheteur(String telephone, String courriel, String motDePasse) {
-		super(telephone,courriel,motDePasse);
-		this.prenom= prenom;
-		this.nom= nom;
-		panier = new Panier();
-	}
 
+
+	/**
+	 * Ajoute le ou les produit(s) sélectionné(s) dans le panier 
+	 * 
+	 * @param p Est un produit
+	 */			
 	public void ajouterAuPanier(Produit p){
 		this.panier.ajouterArticle(p);
 	}
 
+	/**
+	 * Ajoute un commentaire à une liste de commentaires
+	 * 
+	 * @param c Est un commentaire
+	 */
 	public void addListeCommentaires(ArrayList<String> c){
 		listeCommentaires.add(c);
 	}
 
-	public boolean confirmerReceptionCommande() {
+	/**
+	 * Retourne un booléan qui confirme ou 
+	 * infirme la réception d'une commande
+	 * 
+	 * @return Un booléan 
+	 */
+	public boolean confirmerReceptionCommande(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
@@ -123,9 +200,13 @@ public class Acheteur extends Utilisateur {
 				for(Commande c : historiqueCommandes){
 					if ( Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree ){
 						c.setEtatCommande(StatutCommande.livree);
+
+						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+						acheteur.ajouterNotification(nouvelleNotification);
 						break;
 					} else if( c.getStatutCommande() == StatutCommande.livree ) {
 						System.out.println("Cette commande est deja livrée");
+
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");
 					}
@@ -137,6 +218,9 @@ public class Acheteur extends Utilisateur {
 		}
 	}
 
+	/**
+	 * Inscrit un utilisateur en tant qu'acheteur à Unishop
+	 */
 	public void inscrireAcheteur() {
 
 		Scanner scanner = new Scanner(System.in);
@@ -196,14 +280,28 @@ public class Acheteur extends Utilisateur {
 		}
 
 	}
+
+	/**
+	 * Retourne le numéro de carte de crédit de l'acheteur
+	 * 
+	 * @return numéro de carte de crédit
+	 */
 	public CarteCredit getCarteCredit() {
 		return carteCredit;
 	}
 
+	/**
+	 * Met à jour le numéro de carte de crédit de l'acheteur
+	 * 
+	 * @param carteCredit numréo de carte de crédit de l'acheteur
+	 */
 	public void setCarteCredit(CarteCredit carteCredit) {
 		this.carteCredit = carteCredit;
 	}
 
+	/**
+	 * Affiche les informations du profil de l'acheteur
+	 */
 	public void montrerProfil(){
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);
@@ -211,82 +309,167 @@ public class Acheteur extends Utilisateur {
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
-	public void afficherNotifications() {
-		for (Notification notification : notifications) {
-			System.out.println(notification);
+
+	/**
+	 * Affiche les notifications d'un acheteur
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé 
+	 */
+	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
+		if (notifications.isEmpty()) {
+			System.out.println("Vous n'avez aucune notification");
+		} else {
+			for (Notification notification : notifications) {
+				System.out.println(notification.getRaison());
+			}
 		}
+		afficherMenu(acheteur);
 	}
 
+
+	/**
+	 * Fait payer à l'acheteur la différence de prix entre deux articles
+	 * 
+	 * @param difference écart de prix
+	 */
 	public void payerDifference(double difference) {
 		double nouveauSolde = carteCredit.getSolde() - difference;
 	}
 
 
+
 	/**
+	 * Permet à l'acheteur d'aimer (liker) un revendeur
 	 * 
-	 * @param
+	 * @param revendeur un utilsateur qui vend des articles sur UniShop
 	 */
-	public void likeRevendeur(Revendeur revendeur) {
+	public void likeRevendeur(Revendeur revendeur, Acheteur acheteur) {
 		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
 			revendeursLikes.add(revendeur);
+			revendeur.acheteurQuiAime.add(acheteur); // ajout des acheteurs qui ont like
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}
 
 
+	/**
+	 * Retourne le pseudo de l'acheteur
+	 * 
+	 * @return pseudo de l'acheteur 
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 
+	/**
+	 * Retourne le npm de l'acheteur 
+	 * 
+	 * @return nom de l'acheteur 
+	 */
 	public String getNom() {
 		return nom;
 	}
 
+	/**
+	 * Retoune le prénom de l'acheteur 
+	 * 
+	 * @return prénom de l'acheteur 
+	 */
 	public String getPrenom() {
 		return prenom;
 	}
+
+	/**
+	 * Retourne le nombre de points de l'acheteur
+	 * 
+	 * @return nombre de points de l'acheteur 
+	 */
 	public int getPoints() {
 		return this.points;
 	}
+
+	/**
+	 * Retourne l'adresse d'expédition de l'acheteur 
+	 * 
+	 * @return adresse d'expédition de l'acheteur 
+	 */
 	public Adresse getAdresseExpedition() {
 		return this.adresseExpedition;
 	}
 
+	/**
+	 * Retourne l'acheteur sélectionné
+	 * 
+	 * @return l'acheteur 
+	 */
 	public Acheteur getAcheteur(){
 		return this;
 	}
 
+	/**
+	 * Met à jour le prénom de l'acheteur
+	 * 
+	 * @param prenom prénom de l'acheteur
+	 */
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
+	/**
+	 * Met à jour le nom de l'acheteur
+	 * 
+	 * @param nom nom de l'acheteur
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	/**
+	 * Met à jour l'adresse d'expédition de l'acheteur
+	 * 
+	 * @param adresseExpedition adresse d'expédition de l'acheteur
+	 */
 	public void setAdresseExpedition(Adresse adresseExpedition) {
 		this.adresseExpedition = adresseExpedition;
 	}
+
+	/**
+	 * Met à jour le pseudo de l'acheteur
+	 * 
+	 * @param pseudo pseudo de l'acheteur
+	 */
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
 
+	/**
+	 * Met à jour le nombre de points de l'acheteur
+	 * 
+	 * @param points nombre de points de l'acheteur 
+	 */
 	public void setPoints(int points){
 		this.points = points;
 	}
 
 
+	/**
+	 * Ajoute une commande à l'historique de commandes
+	 * 
+	 * @param commande commande passé par l'acheteur
+	 */
 	public void addHistorique(Commande commande) {
 		historiqueCommandes.add(commande);
 	}
 
-	/*
-		Affiche l'historique des commandes de l'utilisateur
-
-		@return l'historique des commandes de l'acheteur
+	/**
+	 * Affiche l'historique de commandes passées par l'acheteur 
+	 * 
+	 * @return l'historique de commandes
 	 */
-	protected String afficherHistorique(){
+	protected String  afficherHistorique(){
 		// parse the csv de toutes les commandes & only keep the ones with the correct username
 		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
 		String message = null;
@@ -302,27 +485,31 @@ public class Acheteur extends Utilisateur {
 		return null;
 	}
 
+	/**
+	 * Va chercher la liste de commandes passées (l'historique)
+	 * 
+	 * @return l'historique de commandes
+	 */
 	public ArrayList<Commande> getHistoriqueCommandes(){
 		return historiqueCommandes;
 	}
 
-
-
-	/*
-		Affiche les métriques de l'utilisateur
-
-		@param utilisateur l'acheteur connecté
+	/**
+	 * Affiche les métriques de l'acheteur 
+	 * 
+	 * @param utilisateur un certain acheteur sélectionné
 	 */
-	protected void afficherMetriques(Acheteur utilisateur){
-		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
+	protected void afficherMetriques(Acheteur utilisateur) throws FileNotFoundException {
+		Scanner scanner = new Scanner(System.in);
+		int nbCommandes = utilisateur.historiqueCommandes.size();
 
 		ArrayList<String> produitsAchetes = new ArrayList<>();
-		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-		for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
-			//voir les produits achetés
+		ArrayList<String> commentairesDonnes = new ArrayList<>(); // 2e elem du arrayList
+		for (Commande c : utilisateur.historiqueCommandes) {
+			// Voir les produits achetés
 			ArrayList<Produit> produits = c.getArticles();
-			for (Produit p : produits){
-				if (!produitsAchetes.contains(p)){
+			for (Produit p : produits) {
+				if (!produitsAchetes.contains(p.toString())) {
 					produitsAchetes.add(p.toString());
 				}
 			}
@@ -331,41 +518,31 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Vos métriques d'acheteur: ");
 		System.out.println("Nombre de commandes : " + nbCommandes);
 		System.out.println("Produits achetés");
-		for (String s : produitsAchetes){
+		for (String s : produitsAchetes) {
 			System.out.println(s);
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
 		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
+		for (ArrayList<String> com : utilisateur.listeCommentaires) {
 			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
 			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
 			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
 		}
-		Scanner s = new Scanner(System.in);
-		boolean validInput = false;
-		do{
-			try{
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
 
-				String choix = s.nextLine();
-				if ( ! Main.isNumeric(choix)){
-					throw new InputMismatchException();
-				} else {
-					if (choix.equals("0")){
-						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
-						break;
-					}
-					if(!validInput){
-						throw new InputMismatchException();
-					}
-				}
-			} catch (InputMismatchException e){
-				System.out.println("Svp entrez 0!");
-			}
-		} while (!validInput);
+		System.out.println("Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non");
+		int gestionChoix = Integer.parseInt(scanner.nextLine());
+
+		if (gestionChoix == 1) {
+			afficherMenu(utilisateur);
+
+		}
 	}
 
+	/**
+	 * Permet d'obtenir toutes les commandes livrées
+	 * 
+	 * @return les commandes livrées
+	 */
 	public ArrayList<Commande> obtenirCommandesLivrees() {
 		ArrayList<Commande> commandesLivrees = new ArrayList<>();
 
@@ -377,5 +554,82 @@ public class Acheteur extends Utilisateur {
 
 		return commandesLivrees;
 	}
+
+	/**
+	 * Retourne la liste des suiveurs d'un certain acheteur
+	 * 
+	 * @return liste de suiveurs 
+	 */
+	public ArrayList<Acheteur> getListeSuiveurs() {
+		return listeSuiveurs;
+	}
+
+	/**
+	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée à un problème signalé
+	 *
+	 * @param scanner l'objet scanner qui lit l'entrée utilisateur
+	 * @return true si l'utilisateur accepte, sinon false.
+	 */
+	public boolean acheteurAccepteSolution (Scanner scanner){
+		int choixAcheteur = 0;
+		do {
+			try {
+				System.out.print("Voulez-vous accepter la solution proposée ?");
+				System.out.println("1. Oui");
+				System.out.println("2. Non");
+
+				choixAcheteur = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixAcheteur == 1) {
+					return true;
+				} else if (choixAcheteur == 2) {
+					return false;
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		} while (choixAcheteur != 1 && choixAcheteur != 2);
+
+		return false;
+	}
+
+
+	/**
+	 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
+	 *
+	 * @param billet le billet de signalement de l'acheteur
+	 */
+	public void consulterBilletDeSignalement (BilletDeSignalement billet){
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Description du problème : " + billet.getDescriptionProbleme());
+
+		// Donner à l'acheteur la possibilité de confirmer la livraison du produit de remplacement
+		if (billet.getNumSuiviRemplacement() != 0 && billet.getDescriptionSolution().contains("Le revendeur a " +
+				"proposé un échange du produit défectueux")) {
+			System.out.println("Voulez-vous confirmer la livraison du produit de remplacement ?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			int choixConfirmationLivraisonRemplacement = scanner.nextInt();
+			scanner.nextLine();
+
+			if (choixConfirmationLivraisonRemplacement == 1) {
+				billet.setConfirmationLivraisonRemplacement(true);
+				System.out.println("La livraison du produit de remplacement est confirmée.");
+			} else {
+				billet.setConfirmationLivraisonRemplacement(false);
+				System.out.println("La livraison du produit de remplacement n'est pas confirmée.");
+			}
+
+		}
+
+	}
+
 
 }

@@ -7,7 +7,9 @@ public class BaseDonnees {
     public static ArrayList<Commande> commandesList = new ArrayList<>();
     public static ArrayList<Produit> produitsList = Catalogue.getProduits();
 
-    // ajouter les acheteurs de acheteurs.csv dans acheteursList
+    /**
+     * Ajoute les acheteurs de acheteurs.csv dans la liste des acheteurs
+     */
     public static void creerListeAcheteurs(){
 
         String line = "";
@@ -28,6 +30,9 @@ public class BaseDonnees {
         catch (IOException e) {e.printStackTrace();}
     }
 
+    /**
+     * Ajoute les revendeurs de revendeur.csv dans la liste des revendeurs
+     */
     public static void creerListeRevendeurs(){
 
         String line = "";

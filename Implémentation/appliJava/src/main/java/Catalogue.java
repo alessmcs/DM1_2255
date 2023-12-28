@@ -54,7 +54,12 @@ public class Catalogue {
 				} else {
 					if (choix.equals("0")){
 						validInput = true;
-						Utilisateur.afficherMenu(acheteur);
+						try {
+							Utilisateur.afficherMenu(acheteur);
+						}catch (Exception e){
+							System.out.println("Une erreur c'est produite veuillez réessayer");
+							s.nextLine();
+						}
 						break;
 					} else if(choix.equals("1")) {
 						voirCatalogue(acheteur);
@@ -104,7 +109,12 @@ public class Catalogue {
 				String choix = s.nextLine();
 				switch(choix){
 					case("0") :
-						Utilisateur.afficherMenu(util); // afficher le menu principal
+						try {
+							Utilisateur.afficherMenu(util); // afficher le menu principal
+						} catch (Exception e){
+							System.out.println("Une erreur c'est produite veuillez réessayer. ");
+							s.nextLine();
+						}
 						break;
 					case("1") :
 					case("2") :
@@ -172,7 +182,13 @@ public class Catalogue {
 					voirCatalogue(acheteur); // retourner au catalogue
 				} else if (choix.equals("1")){
 					validInput = true;
-					Utilisateur.afficherMenu(acheteur); // retourner au menu principal
+					try{
+						Utilisateur.afficherMenu(acheteur); // retourner au menu principal
+					}catch (Exception e){
+						System.out.println("Une erreur c'est produite veuiller réessayer");
+						scanner.nextLine();
+					}
+
 				} else { // pseudo
 					// check if pseudo dans la liste, then access the profile if yes
 					for(Acheteur a : listeAcheteurs){
@@ -235,7 +251,12 @@ public class Catalogue {
 					voirCatalogue(util); // retourner au catalogue
 				} else if (choix.equals("0")){
 					validInput = true;
-					Utilisateur.afficherMenu(util); // retourner au menu principal
+					try{
+						Utilisateur.afficherMenu(util); // retourner au menu principal
+					}catch (Exception e){
+						System.out.println("Une erreur c'est produite veuiller réessayer");
+						scanner.nextLine();
+					}
 				} else { // pseudo
 					// check if pseudo dans la liste, then access the profile if yes
 					for(Revendeur r : listeRevendeurs){
@@ -256,7 +277,12 @@ public class Catalogue {
 										voirCatalogue(util); // retourner au catalogue
 									} else if (choix2.equals("0")){
 										validInput2 = true;
-										Utilisateur.afficherMenu(util); // retourner au menu principal
+										try{
+											Utilisateur.afficherMenu(util); // retourner au menu principal
+										}catch (Exception e){
+											System.out.println("Une erreur c'est produite veuiller réessayer");
+											scanner.nextLine();
+										}
 									}
 								} catch (InputMismatchException e) {
 									System.out.println("Svp entrer 0 ou 1");
