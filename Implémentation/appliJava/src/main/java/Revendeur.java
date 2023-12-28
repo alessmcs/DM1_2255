@@ -9,10 +9,6 @@ public class Revendeur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
-
-	// Liste des acheteurs qui ont like le revendeur ou bien un produit des revendeurs
-	protected ArrayList<Acheteur> acheteurLikeProd = new ArrayList<>();
-
 	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
 	protected ArrayList<Notification> notifications = new ArrayList<>();
 
@@ -21,6 +17,12 @@ public class Revendeur extends Utilisateur {
 		super(telephone, courriel, motDePasse);
 		inventaire = new ArrayList<>();
 	}
+
+	/**
+	 * Ajoute une notification à la liste des notifications
+	 * 
+	 * @param notification
+	 */
 	public void ajouterNotification(Notification notification) {
 		notifications.add(notification);
 	}
@@ -31,13 +33,6 @@ public class Revendeur extends Utilisateur {
 	protected ArrayList<Acheteur> getAcheteurQuiAime() {
 		return acheteurQuiAime;
 	}
-	protected ArrayList<Acheteur> getAcheteurLikeProd() {
-		return acheteurLikeProd;
-	}
-
-	protected void setAcheteurLikeProd(ArrayList<Acheteur> acheteurLikeProd) {
-		this.acheteurLikeProd = acheteurLikeProd;
-	}
 	protected void setAcheteurQuiAime(ArrayList<Acheteur> acheteurQuiAime) {
 		this.acheteurQuiAime = acheteurQuiAime;
 	}
@@ -46,12 +41,18 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-
+	/**
+	 * Ajoute la commande retournée aux retours
+	 */
 	public void ajouterCommandeRetournee(Commande commande, CarteCredit carteCredit) {
 
 		retours.put(commande, carteCredit);
 	}
 
+
+	/**
+	 * Permet d'inscrire le revendeur au site UniShop
+	 */
 	public void inscrireRevendeur() {
 		Scanner scanner = new Scanner((System.in));
 
@@ -83,12 +84,18 @@ public class Revendeur extends Utilisateur {
 		setPseudo(pseudo);
 	}
 
+	/**
+	 * Affiche les notifications
+	 */
 	public void afficherNotifications() {
 		for (Notification notification : notifications) {
 			System.out.println(notification);
 		}
 	}
 
+	/**
+	 * Confirme la réception de la commande retournée
+	 */
 	public void confirmerReceptionRetour() {
 		Scanner scanner = new Scanner(System.in);
 
@@ -112,7 +119,6 @@ public class Revendeur extends Utilisateur {
 
 			if (commande.getId() == ID) {
 				commande.setEtatCommande(StatutCommande.retour_recu);
-
 				SystemePaiement.rembourserMontant(numeroCarte,commande);
 				idCorrect = true;
 				break; // Sortir de la boucle une fois que la commande a été trouvée
@@ -130,6 +136,12 @@ public class Revendeur extends Utilisateur {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Mets à jour l'inventaire d'un certain produit
+	 * 
+	 * @param p produit
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public void updateInventaire(Produit p) throws FileNotFoundException { // lorsquon on ajoute un produit à l'inventaire on le met à jour
 		inventaire.add(p);
 		try{
@@ -143,6 +155,9 @@ public class Revendeur extends Utilisateur {
 		return pseudo;
 	}
 
+	/**
+	 * Affiche l'inventaure d'un certain produit
+	 */
 	public void afficherInventaire() {
 		for (Produit p : inventaire) {
 			System.out.println(p); // uses toString method from produit
@@ -150,10 +165,9 @@ public class Revendeur extends Utilisateur {
 	}
 
 	/**
+	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
 	 * 
 	 * @param utilisateur
-	 * 
-	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
 	 */
 
 	public void afficherCommentaires(Revendeur utilisateur){
@@ -181,6 +195,12 @@ public class Revendeur extends Utilisateur {
 		this.pseudo = pseudo;
 	}
 
+
+	/**
+	 * Affiche les métriques du revendeur
+	 * 
+	 * @param utilisateur
+	 */
 	protected void afficherMetriques(Revendeur utilisateur) {
 		float revenu = 0;
 		int nbVendu = 0;
@@ -235,6 +255,9 @@ public class Revendeur extends Utilisateur {
 		} while (!validInput);
 	}
 
+	/**
+	 * Montre le profil du revendeur
+	 */
 	public void montrerProfil(){
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);

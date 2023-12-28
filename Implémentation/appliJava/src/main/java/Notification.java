@@ -13,6 +13,15 @@ public class Notification {
 		this.date = LocalDateTime.now();
 		notifications.add(this);
 	}
+
+
+	/**
+	 * Notifie l'acheteur selon une certaine raison (nouvel abonné, promotion, like, etc.)
+	 * 
+	 * @param derniereConnection dernière connection au site de l'acheteur
+	 * @param acheteur 
+	 * @return une notification 
+	 */
 	public static ArrayList<Notification> notifierAcheteur(LocalDateTime derniereConnection, Acheteur acheteur) {
 		ArrayList  <Notification> nouvelleNotification = new ArrayList<>();
 		for (Notification notification : notifications){
@@ -40,6 +49,14 @@ public class Notification {
 		return date;
 	}
 
+
+	/**
+	 * Notifie le revendeur selon une certaine raison (nouvel abonné, promotion, like, etc.)
+	 * 
+	 * @param derniereConnection dernière connection au site de l'acheteur
+	 * @param revendeur
+	 * @return une notification 
+	 */
 	public static ArrayList<Notification> notifierRevendeur(LocalDateTime derniereConnection, Revendeur revendeur) {
 		ArrayList  <Notification> nouvelleNotification = new ArrayList<>();
 		for (Notification notification : notifications){

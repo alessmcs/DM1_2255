@@ -8,10 +8,23 @@ public class retourEchange {
 	private String motif;
 	private Produit prodRemplacement;
 
+	/**
+	 * Calcul la différence de prix entre deux produits
+	 * 
+	 * @param produitAEchanger produit à échanger
+	 * @param ancienProduit ancien produit
+	 * @return la différence
+	 */
 	public double calculerDifference(Produit produitAEchanger, Produit ancienProduit) {
 		return produitAEchanger.getPrix() - ancienProduit.getPrix();
 	}
 
+
+	/**
+	 * Effectue le retour d'un produit
+	 * 
+	 * @param acheteur
+	 */
 	public void effectuerRetour(Acheteur acheteur) {
 		Scanner scanner = new Scanner(System.in);
 		ArrayList<Commande> commandeLivree = acheteur.obtenirCommandesLivrees();
@@ -44,6 +57,10 @@ public class retourEchange {
 	}
 
 
+	/**
+	 * EFfectue l'échange d'un produit
+	 * @param acheteur
+	 */
 	public void effectuerEchange(Acheteur acheteur) {
 		Scanner scanner = new Scanner(System.in);
 		ArrayList<Commande> commandesLivrees = acheteur.obtenirCommandesLivrees();

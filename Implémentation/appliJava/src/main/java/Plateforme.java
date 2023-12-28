@@ -7,6 +7,14 @@ import java.util.Scanner;
 public class Plateforme {
 	// TODO: rechercher un produit
 
+	/**
+	 * Permet à un revendeur d'offrir un produit sur le site
+	 * 
+	 * @param revendeur
+	 * @throws InputMismatchException Exception lorsque le scanner n'a pas été donné le bon type
+	 * @throws IllegalArgumentException Exception lorsque l'argument donné n'est pas approprié
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public static void offrirProduit(Revendeur revendeur) throws InputMismatchException, IllegalArgumentException, FileNotFoundException {
 
 		String ISBN = null; String auteur = null; String maisonEdition = null; String genre = null;
@@ -226,6 +234,12 @@ public class Plateforme {
 
 	}
 
+	/**
+	 * Permet de rechercher un acheteur sur le Unishop
+	 * 
+	 * @param acheteurs
+	 * @return recherche d'un acheteur
+	 */
 	public static Acheteur rechercherAcheteur(ArrayList<Acheteur> acheteurs){
 		Scanner scannerUn = new Scanner((System.in));
 
@@ -241,6 +255,13 @@ public class Plateforme {
 		return null;
 	}
 
+
+	/**
+	 * Permet de rechercher un revendeur sur le Unishop
+	 * 
+	 * @param revendeurs
+	 * @return recherche d'un revendeur
+	 */
 	public static Revendeur rechercheRevendeur( ArrayList<Revendeur> revendeurs){
 		Scanner scannerUn = new Scanner(System.in);
 

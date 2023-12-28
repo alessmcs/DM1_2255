@@ -23,6 +23,11 @@ public abstract class Utilisateur {
 		this.derniereConnexion= LocalTime.now();
 	}
 
+	/**
+	 * Désactive le compte d'un utilisateur s'il ne se connecte pas à temps
+	 * 
+	 * @return le temps
+	 */
 	public boolean desactiver() {
 		long tempsAcctuel = System.currentTimeMillis();
 		long tempsPassee= tempsAcctuel- temps;
@@ -35,19 +40,36 @@ public abstract class Utilisateur {
 		this.telephone = telephone;
 	}
 
+	/**
+	 * Mets à jour le courriel de l'utilisateur
+	 * 
+	 * @param courriel
+	 */
 	public void setCourriel(String courriel) {
 		this.courriel = courriel;
 	}
 
+	/**
+	 * Mets à jour le mot de passe de l'utilisateur
+	 * 
+	 * @param motDePasse
+	 */
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
+
+
 	public String getMotDePasse() {
 		return motDePasse;
 	}
 
 
 
+	/**
+	 * Permet de créer le profil d'un utilisateur
+	 * 
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public static void creerProfil() throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 
@@ -98,6 +120,9 @@ public abstract class Utilisateur {
 		}
 	}
 
+	/**
+	 * Permet de se connecter au site UniShop
+	 */
 	public static void seConnecter() {
 		Scanner scanner = new Scanner((System.in));
 
@@ -192,6 +217,14 @@ public abstract class Utilisateur {
 		return derniereConnection;
 	}
 
+
+	/**
+	 * Affiche le profil de l'utilisateur
+	 * 
+	 * @param <T> paramètre provenant de la classe Utilisateur
+	 * @param utilisateur
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public <T extends Utilisateur> void afficherProfil(T utilisateur) throws FileNotFoundException {
 		if (utilisateur instanceof Acheteur){
 			System.out.println("Bienvenue dans votre profil, " + ((Acheteur) utilisateur).getPrenom() + " " + ((Acheteur) utilisateur).getNom());
@@ -270,6 +303,13 @@ public abstract class Utilisateur {
 		}
 	}
 
+
+	/**
+	 * Afficher les métriques d'un utlisateur
+	 * 
+	 * @param <T> paramètre provenant de la classe Utilisateur
+	 * @param utilisateur
+	 */
 	public static <T extends Utilisateur> void afficherMetriques(T utilisateur) {
 		if (utilisateur instanceof Revendeur){
 			((Revendeur) utilisateur).afficherMetriques(utilisateur);
@@ -278,6 +318,14 @@ public abstract class Utilisateur {
 		}
 	}
 
+
+	/**
+	 * Affiche le menu de l'utilisateur
+	 * 
+	 * @param <T> paramètre provenant de la classe Utilisateur
+	 * @param utilisateur
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public static <T extends Utilisateur> void afficherMenu(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner((System.in));
 		if (utilisateur instanceof Revendeur) {
@@ -426,6 +474,14 @@ public abstract class Utilisateur {
 			}
 		}
 	}
+
+	/**
+	 * Permet de modifier le profil de l'utilisateur
+	 * 
+	 * @param <T> paramètre provenant de la classe Utilisateur
+	 * @param utilisateur
+	 * @throws FileNotFoundException Exception lorsque le fichier n'est pas trouvé
+	 */
 	public <T extends Utilisateur> void modifierProfil(T utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 
@@ -608,6 +664,13 @@ public abstract class Utilisateur {
 			}
 		}
 
+
+	/**
+	 * Permet de se déconnecter de son profil (utilisateur)
+	 * 
+	 * @param <T> paramètre provenant de la classe Utilisateur
+	 * @param utilisateur
+	 */
 	public <T extends Utilisateur> void seDeconnecter(T utilisateur){
 		System.out.println("Voulez-vous vous déconnecter? \n1: Oui \n0: Non, retour au menu principal");
 		// Quand l'utilisateur se deconnecte, on retourne a l'accueil
