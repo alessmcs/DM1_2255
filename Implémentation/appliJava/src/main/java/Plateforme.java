@@ -210,7 +210,9 @@ public class Plateforme {
 		Catalogue.ajouterProduit(produit);
 
 		for (Acheteur acheteur : revendeur.acheteurQuiAime) {
+			// Notifier les acheteurs qui ont like le revendeur qu'il a mit un nouveau produit.
 			Notification notificationNew = new Notification(RaisonsNotif.NOUVEAU_PRODUIT);
+			acheteur.ajouterNotification(notificationNew);
 		}
 
 
@@ -273,6 +275,5 @@ public class Plateforme {
 		}
 
 		return null;
-
 	}
 }

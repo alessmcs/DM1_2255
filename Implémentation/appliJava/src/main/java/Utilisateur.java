@@ -375,17 +375,43 @@ public abstract class Utilisateur {
 			System.out.println("8. Gérer mes suivreurs");
 			System.out.println("9. Voir mes notifications");
 			System.out.println("10. Chercher un acheteur");
-			System.out.println("11. Chercher un revendeur");
+			System.out.println("11. Chercher/Liké  un revendeur");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
 			Acheteur acheteur = (Acheteur) utilisateur;
 			switch (choix1) {
 
-				case 1 -> acheteur.confirmerReceptionCommande();
+				case 1 -> acheteur.confirmerReceptionCommande(acheteur);
 				case 2 -> {
-					Probleme probleme = new Probleme();
-					probleme.signalerProbleme();
+					ArrayList<Commande> commandesLivrees = (acheteur).obtenirCommandesLivrees();
+					System.out.println("Pour quels commande souhaitez-vous signalé un problème?");
+
+					if(commandesLivrees.isEmpty()){
+						System.out.println("Aucune commande livrée trouvée. Impossible de signaler un problème.");
+						afficherMenu(acheteur);
+					}else{
+						System.out.println("Liste des commandes livrées :");
+						for (Commande commande : commandesLivrees) {
+							System.out.println("Numéro de commande : " + commande.getId());
+						}
+						System.out.print("Entrez l'ID de la commande pour laquelle vous signalez un problème : ");
+						int numeroCommande = scanner.nextInt();
+
+						ArrayList<Revendeur> listeRevendeurs = new ArrayList<>();
+
+						for (Commande commande : commandesLivrees) {
+							if(commande.getId() == numeroCommande){
+								ArrayList<Produit> produits = commande.getArticles();
+								for (Produit produit :produits){
+									Revendeur revendeur = produit.getRevendeur();
+									listeRevendeurs.add(revendeur);
+								}
+							}
+						}
+						Probleme probleme = new Probleme();
+						probleme.signalerProbleme(listeRevendeurs);
+					}
 				}
 				case 3 -> {
 					acheteur.modifierProfil(acheteur);
@@ -414,6 +440,7 @@ public abstract class Utilisateur {
 				}
 				case 10 -> {
 					Acheteur acheteurChercher = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+					if (acheteurChercher != null){
 					System.out.println("Voulez-vous suivre cet acheteur?" + acheteurChercher);
 					System.out.println("1. Oui ");
 					System.out.println("2. Non");
@@ -422,10 +449,14 @@ public abstract class Utilisateur {
 					switch (choix){
 						case 1 -> acheteur.suivreAcheteur(acheteurChercher);
 						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}}else {
+						System.out.println("Aucun revendeur n'a été trouvé.");
+						afficherMenu(acheteur);
 					}
 				}case 11 ->{
 					Revendeur revendeurChercher = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
-					System.out.println("Voulez-vous liké cet acheteur?" + revendeurChercher);
+					if (revendeurChercher != null){
+					System.out.println("Voulez-vous liké ce revendeur?" + revendeurChercher);
 					System.out.println("1. Oui ");
 					System.out.println("2. Non");
 					System.out.println("0. Retour au Menu ");
@@ -433,6 +464,9 @@ public abstract class Utilisateur {
 					switch (choix){
 						case 1 -> acheteur.likeRevendeur(revendeurChercher, acheteur );
 						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}}else {
+						System.out.println("Aucun revendeur n'a été trouvé.");
+						afficherMenu(acheteur);
 					}
 				}
 

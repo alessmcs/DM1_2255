@@ -29,6 +29,7 @@ public class Acheteur extends Utilisateur {
 		this.prenom= prenom;
 		this.nom= nom;
 		panier = new Panier();
+		this.notifications = new ArrayList<>();
 	}
 	public void ajouterNotification(Notification notification) {
 		notifications.add(notification);
@@ -49,17 +50,17 @@ public class Acheteur extends Utilisateur {
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					System.out.println("Vous suivez maintennat " + acheteurAjouter.getPseudo());
+
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
-					try {
-						afficherMenu(acheteur);
-					} catch (FileNotFoundException e) {
-						System.out.println("Une erreur c'est produite veuilles réessayer.");
-					}
+
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
+					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					afficherMenu(acheteur);
 
 				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
@@ -68,7 +69,6 @@ public class Acheteur extends Utilisateur {
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
-
 	}
 
 	/**
@@ -108,8 +108,15 @@ public class Acheteur extends Utilisateur {
 
 		switch (choix){
 			case 1 -> {
-				System.out.println(acheteur.listeSuiveurs);
-				acheteurSuiviPar(acheteur);
+				if (!listeSuiveurs.isEmpty()){
+				for (Acheteur acheteur1 : listeSuiveurs){
+				System.out.println(acheteur1.getPseudo());
+				}
+					acheteurSuiviPar(acheteur);
+				} else{
+					System.out.println("Vous n'avez aucun suiveur.");
+					acheteurSuiviPar(acheteur);
+				}
 			}
 			case 2 -> {
 				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
@@ -121,17 +128,11 @@ public class Acheteur extends Utilisateur {
 				switch (gestionChoix) {
 					case 1 -> {
 						suivreAcheteur(acheteur);
-
 					}
 					case 2 -> {
 						if (listeSuiveurs.isEmpty()) {
 							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
-							try {
-								afficherMenu(acheteur);
-							} catch (FileNotFoundException e) {
-								System.out.println("Veuillez réessayer, une erreur c'est produite.");
-								scannerUn.nextLine();
-							}
+							afficherMenu(acheteur);
 						} else {
 							System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
 							System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
@@ -149,18 +150,16 @@ public class Acheteur extends Utilisateur {
 						}
 					}
 					case 0 -> {
-						try {
-							afficherMenu(acheteur);
-						} catch (FileNotFoundException e) {
-							System.out.println("Veuillez réessayer, une erreur c'est produite.");
-							scannerUn.nextLine();
-						}
+						afficherMenu(acheteur);
 					}
+				}
+			}case 0 -> {
+					afficherMenu(acheteur);
 				}
 			}
 		}
 
-	}
+
 
 	/**
 	 * Ajoute le ou les produit(s) sélectionné(s) dans le panier 
@@ -186,7 +185,7 @@ public class Acheteur extends Utilisateur {
 	 * 
 	 * @return Un booléan 
 	 */
-	public boolean confirmerReceptionCommande() {
+	public boolean confirmerReceptionCommande(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
@@ -201,11 +200,12 @@ public class Acheteur extends Utilisateur {
 				for(Commande c : historiqueCommandes){
 					if ( Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree ){
 						c.setEtatCommande(StatutCommande.livree);
+
+						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+						acheteur.ajouterNotification(nouvelleNotification);
 						break;
 					} else if( c.getStatutCommande() == StatutCommande.livree ) {
 						System.out.println("Cette commande est deja livrée");
-						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
-
 
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");
@@ -317,21 +317,14 @@ public class Acheteur extends Utilisateur {
 	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé 
 	 */
 	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
-
 		if (notifications.isEmpty()) {
 			System.out.println("Vous n'avez aucune notification");
-			try {
-				afficherMenu(acheteur);
-			} catch (FileNotFoundException e) {
-				System.out.println("Veuillez réessayer, une erreur c'est produite.");
-				afficherMenu(acheteur);
-			}
-
 		} else {
 			for (Notification notification : notifications) {
-				System.out.println(notification);
+				System.out.println(notification.getRaison());
 			}
 		}
+		afficherMenu(acheteur);
 	}
 
 
@@ -356,7 +349,7 @@ public class Acheteur extends Utilisateur {
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
 			revendeursLikes.add(revendeur);
-			revendeur.acheteurQuiAime.add(acheteur);
+			revendeur.acheteurQuiAime.add(acheteur); // ajout des acheteurs qui ont like
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}
@@ -506,7 +499,7 @@ public class Acheteur extends Utilisateur {
 	 * 
 	 * @param utilisateur un certain acheteur sélectionné
 	 */
-	protected void afficherMetriques(Acheteur utilisateur){
+	protected void afficherMetriques(Acheteur utilisateur) throws FileNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 		int nbCommandes = utilisateur.historiqueCommandes.size();
 
@@ -540,11 +533,7 @@ public class Acheteur extends Utilisateur {
 		int gestionChoix = Integer.parseInt(scanner.nextLine());
 
 		if (gestionChoix == 1) {
-		try {
 			afficherMenu(utilisateur);
-			} catch (FileNotFoundException e) {
-			System.out.println("Une erreur c'est produite veuilles réessayer.");
-			}
 
 		}
 	}

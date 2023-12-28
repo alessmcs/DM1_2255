@@ -41,7 +41,7 @@ public class Notification {
 		return nouvelleNotification;
 	}
 
-	private RaisonsNotif getRaison() {
+	public RaisonsNotif getRaison() {
 		return raison;
 	}
 

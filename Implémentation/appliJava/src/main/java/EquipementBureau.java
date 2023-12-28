@@ -65,7 +65,8 @@ public class EquipementBureau extends Produit {
 						super.verifier(util);
 						break;
 					case "3":
-						super.liker();
+						Revendeur revendeur = getRevendeur();
+						super.liker((Acheteur) util , revendeur);
 						break;
 					case "4":
 						super.demanderAjoutPanier((Acheteur) util);

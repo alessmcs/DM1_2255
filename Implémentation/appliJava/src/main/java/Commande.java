@@ -259,6 +259,13 @@ public class Commande {
 		System.out.println("\nLivré au : " + acheteur.getAdresseExpedition().toString());
 		System.out.println("Contact : " + acheteur.getCourriel() + ", " + acheteur.getTelephone());
 
+		for(Produit produit : p.getArticles()){
+			Revendeur revendeur = produit.getRevendeur();
+			Notification notification = new Notification(RaisonsNotif.NOUVELLE_COMMANDE_RECUE);
+			revendeur.ajouterNotification(notification);
+
+		}
+
 		// retourner au catalogue
 		System.out.println("\n1: Retourner au catalogue \n2: Retourner au menu");
 		String exitChoix = s.nextLine();
