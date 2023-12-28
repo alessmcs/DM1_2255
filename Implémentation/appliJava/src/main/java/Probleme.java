@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Probleme {
 	private LocalDate dateEmission;
@@ -13,7 +14,7 @@ public class Probleme {
 	 * @param acheteur  L'acheteur qui signale un problème encontré avec le produit
 	 * @param revendeur Le renvendeur traitant le problème
 	 */
-	public void signalerProbleme(Acheteur acheteur, Revendeur revendeur) {
+	public void signalerProbleme(Acheteur acheteur, ArrayList<Revendeur> revendeurs) {
 
 		// Initialiser les champs nécessaires dans la méthode
 		LocalDate dateEmission = LocalDate.now();
@@ -35,11 +36,18 @@ public class Probleme {
 		// Créer un billet de signalement
 		billet = new BilletDeSignalement(acheteur, descriptionProbleme);
 
-		// Envoyer le billet au profil du revendeur
-		revendeur.recevoirBilletDeSignalement(billet);
+		Notification notification = new Notification(RaisonsNotif.PROBLEME_SIGNALE);
 
-		// Traiter le billet de signalement
-		revendeur.gererProbleme(revendeur, new Probleme(), billet);
+		for(Revendeur revendeur : revendeurs) {
+			// Envoyer le billet au profil du revendeur
+			revendeur.recevoirBilletDeSignalement(billet);
+
+			// Traiter le billet de signalement
+			revendeur.gererProbleme(revendeur, new Probleme(), billet);
+
+			// Envoie la notification au revendeur
+			revendeur.ajouterNotification(notification);
+		}
 	}
 	public LocalDate getDateEmission() {
 		return dateEmission;

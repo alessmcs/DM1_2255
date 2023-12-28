@@ -410,7 +410,7 @@ public abstract class Utilisateur {
 							}
 						}
 						Probleme probleme = new Probleme();
-						probleme.signalerProbleme(listeRevendeurs);
+						probleme.signalerProbleme(acheteur, listeRevendeurs);
 					}
 				}
 				case 3 -> {

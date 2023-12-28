@@ -1,8 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import java.io.*;
 import java.util.ArrayList;
 
 public class TestPanier {
@@ -17,7 +17,7 @@ public class TestPanier {
     Commande commande;
     Acheteur acheteur;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         panierTest = new Panier();
         listeProduits = new ArrayList<>();
