@@ -25,6 +25,17 @@ public abstract class Produit {
 	String coeur;
 	String review;
 
+
+	/**
+	 * Constructeur de la classe Produit
+	 * 
+	 * @param titre titre du produit
+	 * @param prix prix du produit
+	 * @param qte quantité du produit
+	 * @param cat catégorie du produit
+	 * @param nbPoints nombre de points du produit
+	 * @param description description du produit
+	 */
 	public Produit(String titre, double prix, int qte, String cat, int nbPoints, String description) {
 		this.titre = titre;
 		this.prix = (float) prix;
@@ -41,6 +52,11 @@ public abstract class Produit {
 	}
 
 
+	/**
+	 * Permet de voir les évaluations laisser sur un produit
+	 * 
+	 * @param util utilisateur 
+	 */
 	public void voirEval(Utilisateur util) {
 		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete(util);
 
@@ -55,6 +71,12 @@ public abstract class Produit {
 		System.out.println("Like: " + coeur);
 	}
 
+
+	/**
+	 * Permet d'évaluer un produit  
+	 * 
+	 * @return évaluation
+	 */
 	public String evaluer() {
         System.out.println("Combien d'étoiles aimeriez-vous donner au produit?");
         System.out.println("1. *");
@@ -94,6 +116,11 @@ public abstract class Produit {
 
 
 
+	/**
+	 * Permet de liker un produit 
+	 * 
+	 * @return un like ou pa de like
+	 */
 	public String liker() {
 		System.out.println("Voulez-vous aimer ce produit?");
 		System.out.println("1. Oui");
@@ -121,6 +148,12 @@ public abstract class Produit {
 
 
 
+	/**
+	 * Permet de commenter un produit
+	 * 
+	 * @param util utilisateur
+	 * @return le commentaire laisser sur un produit 
+	 */
 	public String commenter(Utilisateur util) {
 		review = "";
 
@@ -155,6 +188,13 @@ public abstract class Produit {
 
 	}
 
+
+	/**
+	 * Permet de vérfier les données recuillies
+	 * 
+	 * @param util utilisateur 
+	 * @return un string validant les données
+	 */
 	public String verifier(Utilisateur util) { 
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
@@ -215,6 +255,12 @@ public abstract class Produit {
 	}
 
 
+	/**
+	 * Permet d'avoir toute l'évaluation laisser sur un produit
+	 * 
+	 * @param util utlisateur
+	 * @return une liste de commentaires
+	 */
 	public ArrayList<ArrayList<String>> enregistrerEvalComplete(Utilisateur util) {
 		ArrayList<String> evalComplete = new ArrayList<String>();
 
@@ -253,32 +299,36 @@ public abstract class Produit {
 	}
 
 	/**
+	 * Met à jour la description d'un produit
 	 * 
-	 * @param d
+	 * @param d description d'un produit
 	 */
 	public void setDescription(String d) {
 		this.description = d;
 	}
 
 	/**
+	 * Met à jour le nombre de points d'un produit
 	 * 
-	 * @param points
+	 * @param points nombre de points d'un produit
 	 */
 	public void setPoints(int points) {
 		// TODO - implement Produit.setPoints
 	}
 
 	/**
+	 * Met à jour le titre du produit
 	 * 
-	 * @param t
+	 * @param t titre du produit
 	 */
 	public void setTitre(String t) {
 		this.titre = t;
 	}
 
 	/**
+	 * Met à jour le prix du produit
 	 * 
-	 * @param prix
+	 * @param prix prix du produit
 	 */
 	public void setPrix(double prix) {
 		this.prix = prix;
@@ -311,6 +361,12 @@ public abstract class Produit {
 	public void voirDetails(Utilisateur util) {
 	}
 
+
+	/**
+	 * Ajoute au panier le produit selectionné
+	 * 
+	 * @param ach l'acheteur qui ajoute le produit à son panier
+	 */
 	public void demanderAjoutPanier(Acheteur ach){
 		Scanner s = new Scanner(System.in);
 

@@ -9,6 +9,19 @@ public class RessourcesApprentissage extends Produit {
 	private String sousCategorie;
 
 	// Constructeur
+	/**
+	 * Constructeur de la classe RessourcesApprentissage
+	 * 
+	 * @param titre titre du produit
+	 * @param prix prix du produit
+	 * @param qte quantité du produit
+	 * @param cat catégorie du produit
+	 * @param nbPoints nombre de points du produit
+	 * @param description description du produit
+	 * @param marque marque du produit
+	 * @param modele modèle du produit
+	 * @param sousCategorie sous-catégorie du produit
+	 */
 	public RessourcesApprentissage(String titre, double prix, int qte, String cat, int nbPoints, String description,
 								   String marque, String modele, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);

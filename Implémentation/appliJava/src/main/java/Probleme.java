@@ -3,6 +3,9 @@ public class Probleme {
 	private String Date;
 	private String descriptionProbleme;
 
+	/**
+	 * Permet de signaler des problèmes provenant d'UniShop
+	 */
 	public void signalerProbleme() {
 		Scanner scanner = new Scanner(System.in);
 
