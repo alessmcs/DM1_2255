@@ -1,9 +1,7 @@
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public abstract class Utilisateur {
@@ -338,6 +336,7 @@ public abstract class Utilisateur {
 			System.out.println("7. Rechercher un acheteur");
 			System.out.println("8. Rechercher un revendeur");
 			System.out.println("9. Promouvoir un produit");
+			System.out.println("10. Changer l'état d'une commande");
 			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
@@ -359,15 +358,42 @@ public abstract class Utilisateur {
 				}
 				case 9 -> {
 					revendeur.montrerInventaire(revendeur);
+				}case 10 -> {
+					for (Map.Entry<UUID, Colis> entry : Colis.colisMap.entrySet()) {
+						UUID numSuivi = entry.getKey();
+						Colis colis = entry.getValue();
+						System.out.println("Numéro de suivi : " + numSuivi);
+						System.out.println("Statut du colis : " + colis.getStatut());
+						System.out.println("------------------------------");
+					}
+					System.out.println("Quels articules souhaitez vous modifier? ");
+					UUID numSuivi = UUID.fromString(scanner.nextLine());
+					System.out.println("Selectionner le nouveau statut");
+					System.out.println("1. en_production");
+					System.out.println("2. en_chemin");
+					System.out.println("3. livree");
+					int choix = scanner.nextInt();
+					switch (choix) {
+						case 1 -> {
+							revendeur.changerEtat(numSuivi, StatutCommande.en_production, revendeur);
+						}
+						case 2 -> {
+							revendeur.changerEtat(numSuivi, StatutCommande.en_chemin, revendeur);
+						}
+						case 3 -> {
+							revendeur.changerEtat(numSuivi, StatutCommande.livree, revendeur);
+						}
+						default -> {
+							System.out.println("Veuillez sélectionner 1, 2 ou 3");
+						}
+					}
 				}
 				case 0 -> {
 					revendeur.seDeconnecter(revendeur);
+				}default -> {System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");}
+
 				}
-
-				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
-			}
-
-		} else if (utilisateur instanceof Acheteur) {
+			} else if (utilisateur instanceof Acheteur) {
 			Scanner scannerUn = new Scanner((System.in));
 
 			System.out.println("Menu principal, que souhaitez-vous ouvrir?");
@@ -382,6 +408,7 @@ public abstract class Utilisateur {
 			System.out.println("9. Voir mes notifications");
 			System.out.println("10. Chercher un acheteur");
 			System.out.println("11. Chercher/Liker  un revendeur");
+			System.out.println("12. Vérifier l'état de la commande. ");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
@@ -474,6 +501,10 @@ public abstract class Utilisateur {
 						System.out.println("Aucun revendeur n'a été trouvé.");
 						afficherMenu(acheteur);
 					}
+				}case 12 ->{
+					System.out.println("Veuillez indiquer le numéro de suivi.");
+					UUID numSuivi = UUID.fromString(scanner.nextLine());
+					acheteur.suivreEtat(numSuivi, acheteur);
 				}
 
 				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");

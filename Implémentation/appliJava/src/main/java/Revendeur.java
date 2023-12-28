@@ -16,6 +16,7 @@ public class Revendeur extends Utilisateur {
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
 	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
 	protected ArrayList<Notification> notifications = new ArrayList<>();
+	protected  ArrayList<Acheteur> acheteurLikeProd = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
@@ -44,7 +45,12 @@ public class Revendeur extends Utilisateur {
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}
-
+	protected ArrayList<Acheteur> getAcheteurLikeProd() {
+		return acheteurLikeProd;
+	}
+	protected void setAcheteurLikeProd(ArrayList<Acheteur> acheteurLikeProd) {
+		this.acheteurLikeProd = acheteurLikeProd;
+	}
 
 	/**
 	 * Ajoute la commande retournée aux retours
@@ -520,6 +526,31 @@ public class Revendeur extends Utilisateur {
 	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
 		BilletDeSignalement.ajouterBillet(billet);
 	}
+	/**
+	 * Permete de changer l'état du colis en utilisant le numéro de suivi
+	 * @param numSuivi Le numéro de suivi du colis
+	 * @param nouveauStatut Le nouveau statut attrubuer au colis
+	 */
+	public void changerEtat(UUID numSuivi, StatutCommande nouveauStatut, Revendeur revendeur) throws FileNotFoundException {
+		Colis colis = Colis.colisMap.get(numSuivi);
+		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
+			Commande commande = colis.getCommande();
+			if(commande != null){
+				colis.setStatut(nouveauStatut);
+				commande.setEtatCommande(nouveauStatut);
+				System.out.println("Le statut du colis ayant le numéro : " + numSuivi + " a été changé à " + nouveauStatut);
+				Acheteur acheteur = commande.getAcheteur();
+				Notification notification = new Notification(RaisonsNotif.ETAT_COMMANDE);
+				acheteur.ajouterNotification(notification);
+			} else {
+				System.out.println("Aucune commande associée au colis avec le numéro de suivi : " + numSuivi);
+			}
+		}else {
+			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
+		}
+		Utilisateur.afficherMenu(revendeur);
+	}
+
 
 
 }
