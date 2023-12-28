@@ -133,10 +133,6 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-	public void gererProbleme() {
-		// TODO - implement Revendeur.gérerProbleme
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * Mets à jour l'inventaire d'un certain produit

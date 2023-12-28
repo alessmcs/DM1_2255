@@ -12,7 +12,7 @@ public class Probleme {
 	 * Cette méthode permet à un acheteur qui est dissatisfait avec un produit livré de reporter un problème.
 	 *
 	 * @param acheteur  L'acheteur qui signale un problème encontré avec le produit
-	 * @param revendeur Le renvendeur traitant le problème
+	 * @param revendeurs Le renvendeur traitant le problème
 	 */
 	public void signalerProbleme(Acheteur acheteur, ArrayList<Revendeur> revendeurs) {
 
