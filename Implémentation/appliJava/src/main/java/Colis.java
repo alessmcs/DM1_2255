@@ -1,3 +1,7 @@
+import jdk.jshell.execution.Util;
+
+import java.io.FileNotFoundException;
+import java.nio.channels.AsynchronousChannelGroup;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -56,22 +60,25 @@ public class Colis {
 	 * @return Le statut actuel du colis ou null s'il n'est pas trouvé
 	 */
 
-	public static StatutCommande suivreEtat(UUID numSuivi) {
+	public static void suivreEtat(UUID numSuivi, Acheteur acheteur) throws FileNotFoundException {
 		Colis colis = colisMap.get(numSuivi);
-		if (colis != null && colis.getNumSuivi() == numSuivi){
-			return colis.getStatut();
-		}else {
+		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
+			System.out.println("Le statut du colis avec le numéro de suivi " + numSuivi + " : " + colis.getStatut());
+
+		} else {
 			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
-			return null;
+
+		}
+		Utilisateur.afficherMenu(acheteur);
 	}
-	}
+
 
 	/**
 	 * Permete de changer l'état du colis en utilisant le numéro de suivi
 	 * @param numSuivi Le numéro de suivi du colis
 	 * @param nouveauStatut Le nouveau statut attrubuer au colis
 	 */
-	public void changerEtat(UUID numSuivi, StatutCommande nouveauStatut) {
+	public void changerEtat(UUID numSuivi, StatutCommande nouveauStatut, Revendeur revendeur) throws FileNotFoundException {
 		Colis colis = colisMap.get(numSuivi);
 		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
 			Commande commande = colis.getCommande();
@@ -85,8 +92,9 @@ public class Colis {
 		}
 	}else {
 		System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
-		}
 
+		}
+		Utilisateur.afficherMenu(revendeur);
 
 
 	}
