@@ -22,7 +22,6 @@ public class Adresse {
         this.country = country;
     }
 
-    // Getters and setters for each field
     /**
      * Retourne la rue de l'acheteur
      * 
