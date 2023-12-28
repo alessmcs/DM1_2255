@@ -200,13 +200,12 @@ public class Acheteur extends Utilisateur {
 				for(Commande c : historiqueCommandes){
 					if ( Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree ){
 						c.setEtatCommande(StatutCommande.livree);
-						break;
-					} else if( c.getStatutCommande() == StatutCommande.livree ) {
-						System.out.println("Cette commande est deja livrée");
 
 						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
 						acheteur.ajouterNotification(nouvelleNotification);
-
+						break;
+					} else if( c.getStatutCommande() == StatutCommande.livree ) {
+						System.out.println("Cette commande est deja livrée");
 
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");

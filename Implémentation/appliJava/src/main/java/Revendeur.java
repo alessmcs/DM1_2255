@@ -100,6 +100,7 @@ public class Revendeur extends Utilisateur {
 
 			if (commande.getId() == ID) {
 				commande.setEtatCommande(StatutCommande.retour_recu);
+				
 				SystemePaiement.rembourserMontant(numeroCarte,commande);
 				idCorrect = true;
 				break; // Sortir de la boucle une fois que la commande a été trouvée
