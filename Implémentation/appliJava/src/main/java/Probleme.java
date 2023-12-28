@@ -16,8 +16,8 @@ public class Probleme {
 	public void signalerProbleme(Acheteur acheteur, Revendeur revendeur) {
 
 		// Initialiser les champs nécessaires dans la méthode
-		this.dateEmission = LocalDate.now();
-		this.dateLimiteSignalement = dateEmission.plus(365, ChronoUnit.DAYS);
+		LocalDate dateEmission = LocalDate.now();
+		LocalDate dateLimiteSignalement = dateEmission.plus(365, ChronoUnit.DAYS);
 
 		// Vérifier la validité de la demande
 		if (LocalDate.now().isAfter(dateLimiteSignalement)) {
@@ -33,9 +33,12 @@ public class Probleme {
 		// Afficher un message pour indiquer que le signalement a été créé
 		System.out.println("Votre signalement a été crée.");
 		// Créer un billet de signalement
-		billet = new BilletDeSignalement(descriptionProbleme);
+		billet = new BilletDeSignalement(acheteur, descriptionProbleme);
 
 		// Envoyer le billet au profil du revendeur
 		revendeur.recevoirBilletDeSignalement(billet);
+	}
+	public LocalDate getDateEmission() {
+		return dateEmission;
 	}
 }

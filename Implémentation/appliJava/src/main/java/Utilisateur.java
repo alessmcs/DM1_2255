@@ -75,26 +75,26 @@ public abstract class Utilisateur {
 		int choix = Integer.parseInt(scanner.nextLine());
 
 		switch (choix) {
-			case 1:
+			case 1 -> {
 				Revendeur revendeur = new Revendeur(telephone, courriel, motDePasse);
 				revendeur.inscrireRevendeur();
 				BaseDonnees.revendeursList.add(revendeur);
 				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respecrtez pas le delais," +
 						" le compte sera annuler ");
 				afficherMenu(revendeur);
-				break;
-			case 2:
+			}
+			case 2 -> {
 				Acheteur acheteur = new Acheteur(telephone, courriel, motDePasse);
 				acheteur.inscrireAcheteur();
-
 				BaseDonnees.acheteursList.add(acheteur);
-				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le delais," +
+				System.out.println("Vous avez 24 heures pour vous connecter. Si vous ne respectez pas le délais," +
 						" le compte sera désactivé ");
 				afficherMenu(acheteur);
-				break;
-			default:
-				System.out.println("Choix invalide veuillez selectionner 1 ou 2.");
+			}
+			default -> {
+				System.out.println("Choix invalide veuillez sélectionner 1 ou 2.");
 				choix = Integer.parseInt(scanner.nextLine());
+			}
 		}
 	}
 

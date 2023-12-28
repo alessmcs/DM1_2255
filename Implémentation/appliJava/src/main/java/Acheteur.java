@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Acheteur extends Utilisateur {
@@ -43,7 +44,7 @@ public class Acheteur extends Utilisateur {
 	public void retirerAcheteur(Acheteur suiveur) {
 		this.listeSuiveurs.remove(suiveur);
 	}
-	public void acheteurSuiviPar(Acheteur acheteur){
+	public void acheteurSuiviPar(Acheteur acheteur) throws FileNotFoundException {
 		Scanner scannerUn = new Scanner((System.in));
 
 		System.out.println("Que voulez-vous faire? ");
@@ -360,7 +361,7 @@ public class Acheteur extends Utilisateur {
 						throw new InputMismatchException();
 					}
 				}
-			} catch (InputMismatchException e){
+			} catch (InputMismatchException | FileNotFoundException e){
 				System.out.println("Svp entrez 0!");
 			}
 		} while (!validInput);
@@ -378,6 +379,43 @@ public class Acheteur extends Utilisateur {
 		return commandesLivrees;
 	}
 
-	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
+	/**
+	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée
+	 * @param scanner l'objet scanner qui lit l'entrée utilisateur
+	 * @return true si l'utilisateur accepte, sinon false.
+	 */
+	public boolean acheteurAccepteSolution(Scanner scanner) {
+		int choixAcheteur = 0;
+		do {
+			try {
+				System.out.print("Voulez-vous accepter la solution proposée ?");
+				System.out.println("1. Oui");
+				System.out.println("2. Non");
+
+				choixAcheteur = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixAcheteur == 1) {
+					return true;
+				} else if (choixAcheteur == 2) {
+					return false;
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		} while (choixAcheteur != 1 && choixAcheteur != 2);
+
+		return false;
+	}
+
+	/**
+	 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
+	 * @param billet le billet de signalement de l'acheteur
+	 */
+	public void consulterBilletDeSignalement(BilletDeSignalement billet) {
+		BilletDeSignalement.ajouterBillet(billet);
 	}
 }

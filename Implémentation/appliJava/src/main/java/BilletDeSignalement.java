@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BilletDeSignalement {
 
 	private Acheteur acheteur;
@@ -8,9 +11,23 @@ public class BilletDeSignalement {
 	private int numSuiviRemplacement;
 	private boolean confirmationLivraisonRemplacement;
 
-	public BilletDeSignalement(String descriptionProbleme) {
+	public BilletDeSignalement(Acheteur acheteur, String descriptionProbleme) {
+		this.acheteur = acheteur;
 		this.descriptionProbleme = descriptionProbleme;
 	}
+
+	public BilletDeSignalement(Acheteur acheteur, String descriptionProbleme, String descriptionSolution,boolean
+			confirmationLivraison, String descriptionRemplacement, int numSuiviRemplacement, boolean
+			confirmationLivraisonRemplacement) {
+		this.acheteur = acheteur;
+		this.descriptionProbleme = descriptionProbleme;
+		this.descriptionSolution = descriptionSolution;
+		this.confirmationLivraison = confirmationLivraison;
+		this.descriptionRemplacement = descriptionRemplacement;
+		this.numSuiviRemplacement = numSuiviRemplacement;
+		this.confirmationLivraisonRemplacement = confirmationLivraisonRemplacement;
+	}
+
 	public Acheteur getAcheteur() {
 		return acheteur;
 	}
@@ -47,12 +64,12 @@ public class BilletDeSignalement {
 		this.descriptionRemplacement = descriptionRemplacement;
 	}
 
-	public int getNumSuiviRemplacement() {
-		return numSuiviRemplacement;
+	public void setNumSuiviRemplacement(int NumSuiviRemplacement) {
+		this.descriptionRemplacement = descriptionRemplacement;
 	}
 
-	public void setNumSuiviRemplacement(int numSuiviRemplacement) {
-		this.numSuiviRemplacement = numSuiviRemplacement;
+	public int getNumSuiviRemplacement() {
+		return numSuiviRemplacement;
 	}
 
 	public boolean isConfirmationLivraisonRemplacement() {
@@ -61,5 +78,14 @@ public class BilletDeSignalement {
 
 	public void setConfirmationLivraisonRemplacement(boolean confirmationLivraisonRemplacement) {
 		this.confirmationLivraisonRemplacement = confirmationLivraisonRemplacement;
+	}
+	private static final List<BilletDeSignalement> billets = new ArrayList<>();
+
+	public static void ajouterBillet(BilletDeSignalement billet) {
+		billets.add(billet);
+	}
+
+	public static List<BilletDeSignalement> getBillets() {
+		return new ArrayList<>(billets);
 	}
 }

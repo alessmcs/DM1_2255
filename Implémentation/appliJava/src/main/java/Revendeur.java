@@ -117,22 +117,12 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-	/**
-	 * La méthode suivante permet au revendeurs de traiter les billets de signalement
-	 *
-	 * @param revendeur Le revendeur qui reçoit le billet de signalement
-	 * @return
-	 */
-	public BilletDeSignalement gererProbleme(Revendeur revendeur) {
+	public BilletDeSignalement gererProbleme(Revendeur revendeur, Probleme probleme, BilletDeSignalement billet) {
 		Scanner scanner = new Scanner(System.in);
-		BilletDeSignalement billet = new BilletDeSignalement();
+		Acheteur acheteur = billet.getAcheteur();
+		retourEchange retourEchange = new retourEchange();
 
-		if (billet == null) {
-			System.out.println("Aucun problème signalé.");
-			return billet;
-		} else {
-			System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
-		}
+		System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
 
 		boolean solutionAcceptee = false;
 		while (!solutionAcceptee) {
@@ -142,13 +132,38 @@ public class Revendeur extends Utilisateur {
 			System.out.println("2. Retour et remboursement");
 			System.out.println("3. Échange");
 
-			int choixSolution = scanner.nextInt();
-			scanner.nextLine();
+			int choixSolution = 0;
+			try {
+				choixSolution = scanner.nextInt();
+				scanner.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1, 2, ou 3.");
+				scanner.nextLine();
+				continue;
+			}
 
 			switch (choixSolution) {
-				case 1 -> billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
-				case 2 -> billet.setDescriptionSolution("Le revendeur a proposé de le retour du produit défectueux");
-				case 3 -> billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+				case 1 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					// Réexpédier le produit au revendeur
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 2 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
+					// Exécuter un retour
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 3 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					// Exécuter un échange
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerEchange(acheteur);
+					}
+				}
 				default -> {
 					System.out.println("Choix invalide. Aucune action n'a été prise.");
 					return billet;
@@ -156,61 +171,44 @@ public class Revendeur extends Utilisateur {
 			}
 
 			// Envoyer le billet avec la solution à l'acheteur
-			Acheteur acheteur = billet.getAcheteur();
-			acheteur.recevoirBilletDeSignalement(billet);
+			acheteur.consulterBilletDeSignalement(billet);
 
-			// L'acheteur peut accepter ou refuser la solution
-			int choixAcheteur = 0;
-			do {
-				try {
-					System.out.print("Voulez-vous accepter la solution proposée ?");
-					System.out.println("1. Oui");
-					System.out.println("2. Non");
+			// Mise à jour de solutionAcceptee en fonction de la réponse de l'acheteur
+			solutionAcceptee = acheteur.acheteurAccepteSolution(scanner);
 
-					choixAcheteur = scanner.nextInt();
-					scanner.nextLine();
-
-					if (choixAcheteur == 1) {
-						billet.setDescriptionSolution("L'acheteur a accepté la solution.");
-						solutionAcceptee = true;
-					} else if (choixAcheteur == 2) {
-						billet.setDescriptionSolution("La solution a été refusée. Veuillez proposer une autre solution.");
-					} else {
-						System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
-					}
-				} catch (InputMismatchException e) {
-					System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
-					scanner.nextLine();
-				}
-			} while (choixAcheteur != 1 && choixAcheteur != 2);
 		}
 
 		// Annuler automatiquement la demande de réexpédition après 30 jours
+		LocalDate dateEmission = probleme.getDateEmission();
 		if (billet.getNumSuiviRemplacement() != 0 &&
-				LocalDate.now().isAfter(billet.getDateLivraison().plus(30, ChronoUnit.DAYS))) {
+				LocalDate.now().isAfter(dateEmission.plus(30, ChronoUnit.DAYS))) {
 			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
 			billet.setNumSuiviRemplacement(0);
 		}
 		return billet;
 	}
 
-		public void updateInventaire(Produit p) throws FileNotFoundException
-		{ // lorsqu'on on ajoute un produit à l'inventaire on le met à jour
-			inventaire.add(p);
-			try {
-				Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-
+	/**
+	 * Cette méthode met à jour l'inventaire à l'ajout de nouveaux produits.
+	 * @param p le produit dont l'inventaire est modifié
+	 * @throws FileNotFoundException lorsque la liste de produits est introuvable
+	 */
+	public void updateInventaire(Produit p) throws FileNotFoundException {
+		inventaire.add(p);
+		try {
+			Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 
+	}
 
-		public void afficherInventaire () {
-			for (Produit p : inventaire) {
-				System.out.println(p); // uses toString method from produit
-			}
+
+	public void afficherInventaire () {
+		for (Produit p : inventaire) {
+			System.out.println(p); // uses toString method from produit
 		}
+	}
 
 	/**
 	 * @param Utilisateur Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
@@ -271,6 +269,8 @@ public class Revendeur extends Utilisateur {
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Svp entrez 0!");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
 			}
 		} while (!validInput);
 	}
@@ -284,7 +284,12 @@ public class Revendeur extends Utilisateur {
 
 	}
 
+	/**
+	 * Cette méthode permet aux revendeurs de recevoir un billet de signalement provenant de l'acheteur.
+	 * @param billet le billet de signalement envoyé au revendeur
+	 */
 	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
+		BilletDeSignalement.ajouterBillet(billet);
 	}
 }
 

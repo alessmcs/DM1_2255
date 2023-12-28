@@ -141,18 +141,17 @@ public class Plateforme {
 		String choice = scanner.nextLine();
 
 		switch (choice) {
-			case "1":
+			case "1" -> {
 				System.out.print("Veuillez entrer le URL de votre média à ajouter :");
 				scanner.nextLine();
 				String mediaLink = scanner.nextLine();
-				break;
-			case "2":
-				System.out.print("Aucun média ne sera ajouté.");
-				break;
-			default:
+			}
+			case "2" -> System.out.print("Aucun média ne sera ajouté.");
+			default -> {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
+			}
 		}
 
 		// Demander au revendeur d'entrer une quantité
