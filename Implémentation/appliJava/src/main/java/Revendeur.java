@@ -307,8 +307,14 @@ public class Revendeur extends Utilisateur {
 
 		System.out.println("Vous avez choisi de promouvoir " + prodAPromouvoir.getTitre() + ". Le prix initial est " + prodAPromouvoir.getPrix() +
 		"\nVeuillez entrer le nouveau prix désiré");
+		
+		for (Acheteur acheteur : rev.acheteurLikeProd) {
+			Notification notification = new Notification(RaisonsNotif.PROMOTION);
+			acheteur.ajouterNotification(notification);
+		}
 
-		boolean validInput2 = false;
+
+				boolean validInput2 = false;
 		do{
 			try{
 				String choix = s.nextLine();
