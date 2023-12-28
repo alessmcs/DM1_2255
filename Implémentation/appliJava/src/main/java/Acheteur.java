@@ -17,6 +17,7 @@ public class Acheteur extends Utilisateur {
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
+	protected ArrayList<Produit> produitLiked = new ArrayList<>();
 
 	/**
 	 * 
@@ -55,10 +56,13 @@ public class Acheteur extends Utilisateur {
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
 
-
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
 					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					for (Produit produit : acheteurAjouter.getProduitLiked()) {
+						this.ajouterProduitLiked(produit);
+					}
 
 					afficherMenu(acheteur);
 
@@ -69,6 +73,19 @@ public class Acheteur extends Utilisateur {
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
 			}
+	}
+
+	private ArrayList<Produit> getProduitLiked() {
+		return produitLiked;
+	}
+
+	public void ajouterProduitLiked(Produit produit) {
+		if (!produitLiked.contains(produit)) {
+			produitLiked.add(produit);
+			System.out.println("Vous avez aimé le produit : " + produit.getTitre());
+		} else {
+			System.out.println("Vous avez déjà aimé ce produit.");
+		}
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class EquipementBureau extends Produit {
 		@param util l'utilisateur connecté
 	 */
 	@Override
-	public void voirDetails(Utilisateur util){
+	public void voirDetails(Utilisateur util, Produit produit){
 		Scanner scanChoix = new Scanner(System.in);
 
 		System.out.println("\nID: " + ID + "\nTitre: " + titre + "\n" + categorie + "\n" + description + prix + "\nMarque:" + marque + "\nModèle: " + modele
@@ -66,7 +66,7 @@ public class EquipementBureau extends Produit {
 						super.verifier(util,revendeur);
 						break;
 					case "3":
-						super.liker((Acheteur) util , revendeur);
+						super.liker((Acheteur) util , revendeur, produit);
 						break;
 					case "4":
 						super.demanderAjoutPanier((Acheteur) util);

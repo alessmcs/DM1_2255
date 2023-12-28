@@ -307,11 +307,15 @@ public class Revendeur extends Utilisateur {
 
 		System.out.println("Vous avez choisi de promouvoir " + prodAPromouvoir.getTitre() + ". Le prix initial est " + prodAPromouvoir.getPrix() +
 		"\nVeuillez entrer le nouveau prix désiré");
-		
-		for (Acheteur acheteur : rev.acheteurLikeProd) {
-			Notification notification = new Notification(RaisonsNotif.PROMOTION);
-			acheteur.ajouterNotification(notification);
+
+		Notification notification = new Notification(RaisonsNotif.PROMOTION);
+
+		for (Acheteur acheteur : BaseDonnees.acheteursList) {
+			if (acheteur.produitLiked.contains(prodAPromouvoir) || rev.acheteurLikeProd.contains(acheteur)) {
+				acheteur.ajouterNotification(notification);
+			}
 		}
+
 
 
 				boolean validInput2 = false;
