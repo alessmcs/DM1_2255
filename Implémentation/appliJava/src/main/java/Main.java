@@ -17,6 +17,9 @@ public class Main {
 
     }
 
+    /**
+     * Permet d'afficher l'accueil du site Unishop ainsi que le menu
+     */
     public static void accueil(){
         Scanner scanner = new Scanner(System.in);
 

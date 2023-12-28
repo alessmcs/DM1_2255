@@ -25,6 +25,17 @@ public abstract class Produit {
 	String coeur;
 	String review;
 
+
+	/**
+	 * Constructeur de la classe Produit
+	 * 
+	 * @param titre titre du produit
+	 * @param prix prix du produit
+	 * @param qte quantité du produit
+	 * @param cat catégorie du produit
+	 * @param nbPoints nombre de points du produit
+	 * @param description description du produit
+	 */
 	public Produit(String titre, double prix, int qte, String cat, int nbPoints, String description) {
 		this.titre = titre;
 		this.prix = (float) prix;
@@ -41,6 +52,11 @@ public abstract class Produit {
 	}
 
 
+	/**
+	 * Permet de voir les évaluations laisser sur un produit
+	 * 
+	 * @param util utilisateur 
+	 */
 	public void voirEval(Utilisateur util) {
 		ArrayList<ArrayList<String>> listeComplete = enregistrerEvalComplete(util);
 
@@ -55,7 +71,15 @@ public abstract class Produit {
 		System.out.println("Like: " + coeur);
 	}
 
-	public String evaluer() {
+
+
+	/**
+	 * Permet d'évaluer un produit  
+	 * 
+	 * @return évaluation
+	 */
+	public String evaluer(Revendeur revendeur) {
+
         System.out.println("Combien d'étoiles aimeriez-vous donner au produit?");
         System.out.println("1. *");
         System.out.println("2. **");
@@ -86,15 +110,21 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les cinq options données.");
 				System.out.println();
-                evaluer();
+                evaluer(revendeur);
         }
-
+		Notification notification = new Notification(RaisonsNotif.NOUVELLE_EVALUATION);
+		revendeur.ajouterNotification(notification);
         return "Vous avez choisi de mettre " + "\u001B[1m" + evalEtoile + "\u001B[0m" + " étoile(s) au produit!";
 	}
 
 
 
-	public String liker() {
+	/**
+	 * Permet de liker un produit 
+	 * 
+	 * @return un like ou pa de like
+	 */
+	public String liker(Acheteur acheteur, Revendeur revendeur) {
 		System.out.println("Voulez-vous aimer ce produit?");
 		System.out.println("1. Oui");
 		System.out.println("2. Non");
@@ -113,7 +143,7 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données");
 				System.out.println();
-				liker();
+				liker(acheteur,revendeur);
 		}
 
 		return "Vous avez choisi de " + "\u001B[1m" + coeur + "\u001B[0m" + " le produit!";
@@ -121,6 +151,12 @@ public abstract class Produit {
 
 
 
+	/**
+	 * Permet de commenter un produit
+	 * 
+	 * @param util utilisateur
+	 * @return le commentaire laisser sur un produit 
+	 */
 	public String commenter(Utilisateur util) {
 		review = "";
 
@@ -155,7 +191,14 @@ public abstract class Produit {
 
 	}
 
-	public String verifier(Utilisateur util) { 
+
+	/**
+	 * Permet de vérfier les données recuillies
+	 * 
+	 * @param util utilisateur 
+	 * @return un string validant les données
+	 */
+	public String verifier(Utilisateur util, Revendeur revendeur) {
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
 		//System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
@@ -186,8 +229,8 @@ public abstract class Produit {
 
 				switch (modification) {
 					case "1":
-						evaluer();
-						verifier(util);
+						evaluer(revendeur);
+						verifier(util,revendeur);
 						break;
 					//case "2":
 					//	liker();
@@ -195,7 +238,7 @@ public abstract class Produit {
 					//	break;
 					case "3": 
 						commenter(util);
-						verifier(util);
+						verifier(util, revendeur);
 						break;
 					default:
 						System.out.println();
@@ -208,13 +251,19 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				verifier(util);
+				verifier(util,revendeur);
 				break;
 		}
 		return "Vos données ont été enregistrées!";
 	}
 
 
+	/**
+	 * Permet d'avoir toute l'évaluation laisser sur un produit
+	 * 
+	 * @param util utlisateur
+	 * @return une liste de commentaires
+	 */
 	public ArrayList<ArrayList<String>> enregistrerEvalComplete(Utilisateur util) {
 		ArrayList<String> evalComplete = new ArrayList<String>();
 
@@ -253,32 +302,36 @@ public abstract class Produit {
 	}
 
 	/**
+	 * Met à jour la description d'un produit
 	 * 
-	 * @param d
+	 * @param d description d'un produit
 	 */
 	public void setDescription(String d) {
 		this.description = d;
 	}
 
 	/**
+	 * Met à jour le nombre de points d'un produit
 	 * 
-	 * @param points
+	 * @param points nombre de points d'un produit
 	 */
 	public void setPoints(int points) {
 		// TODO - implement Produit.setPoints
 	}
 
 	/**
+	 * Met à jour le titre du produit
 	 * 
-	 * @param t
+	 * @param t titre du produit
 	 */
 	public void setTitre(String t) {
 		this.titre = t;
 	}
 
 	/**
+	 * Met à jour le prix du produit
 	 * 
-	 * @param prix
+	 * @param prix prix du produit
 	 */
 	public void setPrix(double prix) {
 		this.prix = prix;
@@ -311,6 +364,12 @@ public abstract class Produit {
 	public void voirDetails(Utilisateur util) {
 	}
 
+
+	/**
+	 * Ajoute au panier le produit selectionné
+	 * 
+	 * @param ach l'acheteur qui ajoute le produit à son panier
+	 */
 	public void demanderAjoutPanier(Acheteur ach){
 		Scanner s = new Scanner(System.in);
 

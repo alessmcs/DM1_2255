@@ -30,6 +30,12 @@ public class SystemePaiement {
 	}
 
 
+	/**
+	 * Rembourse le montant dû sur la carte de crédit d'un acheteur
+	 * 
+	 * @param carteCredit carte de crédit 
+	 * @param commande la commande concernée
+	 */
 	public static void rembourserMontant(CarteCredit carteCredit, Commande commande) {
 		double montantRemb = 0.0;
 		for (Produit produit: commande.getArticles()){

@@ -9,6 +9,19 @@ public class RessourcesApprentissage extends Produit {
 	private String sousCategorie;
 
 	// Constructeur
+	/**
+	 * Constructeur de la classe RessourcesApprentissage
+	 * 
+	 * @param titre titre du produit
+	 * @param prix prix du produit
+	 * @param qte quantité du produit
+	 * @param cat catégorie du produit
+	 * @param nbPoints nombre de points du produit
+	 * @param description description du produit
+	 * @param marque marque du produit
+	 * @param modele modèle du produit
+	 * @param sousCategorie sous-catégorie du produit
+	 */
 	public RessourcesApprentissage(String titre, double prix, int qte, String cat, int nbPoints, String description,
 								   String marque, String modele, String sousCategorie) {
 		super(titre, prix, qte, cat, nbPoints, description);
@@ -52,6 +65,7 @@ public class RessourcesApprentissage extends Produit {
 				System.out.println("4. Ajouter au panier le produit");
 				System.out.println("5. Revenir au catalogue");
 
+				Revendeur revendeur = getRevendeur();
 				String choix = scanChoix.nextLine();
 				switch(choix){
 					case "1":
@@ -63,11 +77,11 @@ public class RessourcesApprentissage extends Produit {
 						break;
 					case "2":
 						super.commenter(util);
-						super.evaluer();
-						super.verifier(util);
+						super.evaluer(revendeur);
+						super.verifier(util,revendeur);
 						break;
 					case "3":
-						super.liker();
+						super.liker((Acheteur) util, revendeur);
 						break;
 					case "4":
 						super.demanderAjoutPanier((Acheteur) util);

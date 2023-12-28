@@ -1,47 +1,27 @@
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Probleme {
-	private LocalDate dateEmission;
-	private LocalDate dateLimiteSignalement;
+	private String Date;
 	private String descriptionProbleme;
-	private BilletDeSignalement billet;
 
 	/**
-	 * Cette méthode permet à un acheteur qui est dissatisfait avec un produit livré de reporter un problème.
-	 *
-	 * @param acheteur  L'acheteur qui signale un problème encontré avec le produit
-	 * @param revendeur Le renvendeur traitant le problème
+	 * Permet de signaler des problèmes provenant d'UniShop
 	 */
-	public void signalerProbleme(Acheteur acheteur, Revendeur revendeur) {
-
-		// Initialiser les champs nécessaires dans la méthode
-		LocalDate dateEmission = LocalDate.now();
-		LocalDate dateLimiteSignalement = dateEmission.plus(365, ChronoUnit.DAYS);
-
-		// Vérifier la validité de la demande
-		if (LocalDate.now().isAfter(dateLimiteSignalement)) {
-			System.out.println("Désolé, vous avez dépasser la période de 365 jours pour signaler un problème.");
-			return;
-		}
-
+	public void signalerProbleme(ArrayList<Revendeur> listeRevendeurs) {
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.print("Veuillez décrire le problème que vous avez rencontré : ");
-		String descriptionProbleme = scanner.nextLine();
+		// Demander à l'acheteur de décrire le problème
+		System.out.print("Décrivez le problème rencontré : ");
+		this.descriptionProbleme = scanner.nextLine();
 
 		// Afficher un message pour indiquer que le signalement a été créé
-		System.out.println("Votre signalement a été crée.");
-		// Créer un billet de signalement
-		billet = new BilletDeSignalement(acheteur, descriptionProbleme);
+		System.out.println("Le signalement a été créé avec succès.");
+		BilletDeSignalement billet = new BilletDeSignalement(descriptionProbleme);
 
-		// Envoyer le billet au profil du revendeur
-		revendeur.recevoirBilletDeSignalement(billet);
+		Notification notification = new Notification(RaisonsNotif.PROBLEME_SIGNALE);
+		for (Revendeur revendeur: listeRevendeurs){
+			revendeur.ajouterNotification(notification);
+		}
 
-		// Traiter le billet de signalement
-		revendeur.gererProbleme(revendeur, new Probleme(), billet);
-	}
-	public LocalDate getDateEmission() {
-		return dateEmission;
 	}
 }
