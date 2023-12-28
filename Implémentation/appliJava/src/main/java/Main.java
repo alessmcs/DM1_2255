@@ -52,7 +52,7 @@ public class Main {
         } while(!validInput);
     }
 
-    /*
+    /**
         Vérifie si un String donné contient des nombres (important lorsqu'on vérifie l'adresse, le numéro de téléphone,
         les informations de paiement, etc.)
 
@@ -63,7 +63,7 @@ public class Main {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
-    /*
+    /**
         Ajoute les informations d'une nouvelle commande dans le fichier commandes.csv
 
         @param commande la nouvelle commande
@@ -91,7 +91,7 @@ public class Main {
         }
     }
 
-    /*
+    /**
       Ajoute les informations d'un nouveau revendeur dans le fichier revendeurs.csv
 
       @param revendeur le nouveau revendeur
@@ -114,7 +114,7 @@ public class Main {
 
     }
 
-    /*
+    /**
        Ajoute les informations d'un nouvel acheteur dans le fichier acheteurs.csv
 
        @param acheteur le nouvel acheteur
@@ -137,7 +137,7 @@ public class Main {
         }
     }
 
-    /*
+    /**
        Écrit les infomations du produit, selon son type, dans le fichier listeProduits.csv, lorsqu'un revendeur le rajoute à la plateform
 
       @param p le produit à marquer
@@ -182,7 +182,7 @@ public class Main {
         }
     }
 
-    /*
+    /**
         Initialise les bases de donnés à chaque fois que le programme débute. Ajoute les instances nécessaires aux arrayLists
         de la classe BaseDonnees pour pouvoir les manipuler plus tard.
      */
@@ -370,7 +370,6 @@ public class Main {
         revendeur5.updateInventaire(article1);
         article1.setRevendeur(revendeur5);
         BaseDonnees.revendeursList.add(revendeur5);
-        //BaseDonnees.creerListeRevendeurs();
 
         // initialiser 3 paniers
         BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteur1)).ajouterAuPanier(livre1);

@@ -41,7 +41,7 @@ public abstract class Utilisateur {
 	}
 
 	/**
-	 * Mets à jour le courriel de l'utilisateur
+	 * Met à jour le courriel de l'utilisateur
 	 * 
 	 * @param courriel
 	 */
@@ -50,7 +50,7 @@ public abstract class Utilisateur {
 	}
 
 	/**
-	 * Mets à jour le mot de passe de l'utilisateur
+	 * Met à jour le mot de passe de l'utilisateur
 	 * 
 	 * @param motDePasse
 	 */
@@ -273,14 +273,13 @@ public abstract class Utilisateur {
 			Scanner s = new Scanner(System.in);
 
 			System.out.println("Autres options:\n1 : Accéder à vos produits\n0: Retourner au menu principal");
+			System.out.println("Note: pour promouvoir un produit, il faut accéder à l'inventaire en entrant 1");
 			int choix = Integer.parseInt(s.nextLine());
 			switch(choix){
 				case 1 :
-					//TODO: offrir l'option de modifier un produit à partir de l'inventaire
-
 					// afficher la liste de produits offerts par le revendeur
 					System.out.println("Votre inventaire: ");
-					((Revendeur) utilisateur).afficherInventaire();
+					Revendeur.montrerInventaire((Revendeur) utilisateur);
 
 					System.out.println("Voulez-vous... \n1: Retourner au profil\n0 : Retourner au menu");
 					int choix2 = Integer.parseInt(s.nextLine());
@@ -305,7 +304,7 @@ public abstract class Utilisateur {
 
 
 	/**
-	 * Afficher les métriques d'un utlisateur
+	 * Afficher les métriques d'un utilisateur
 	 * 
 	 * @param <T> paramètre provenant de la classe Utilisateur
 	 * @param utilisateur
@@ -338,6 +337,7 @@ public abstract class Utilisateur {
 			System.out.println("6. Voir mes notifications");
 			System.out.println("7. Rechercher un acheteur");
 			System.out.println("8. Rechercher un revendeur");
+			System.out.println("9. Promouvoir un produit");
 			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
@@ -357,6 +357,12 @@ public abstract class Utilisateur {
 				case 8 -> {
 					Revendeur revendeur1 = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
 				}
+				case 9 -> {
+					revendeur.montrerInventaire(revendeur);
+				}
+				case 0 -> {
+					revendeur.seDeconnecter(revendeur);
+				}
 
 				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
 			}
@@ -372,10 +378,10 @@ public abstract class Utilisateur {
 			System.out.println("5. Voir mon panier");
 			System.out.println("6. Afficher les métriques de mes activités");
 			System.out.println("7. Voir mon profil");
-			System.out.println("8. Gérer mes suivreurs");
+			System.out.println("8. Gérer mes suiveurs");
 			System.out.println("9. Voir mes notifications");
 			System.out.println("10. Chercher un acheteur");
-			System.out.println("11. Chercher/Liké  un revendeur");
+			System.out.println("11. Chercher/Liker  un revendeur");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
@@ -702,6 +708,12 @@ public abstract class Utilisateur {
 			}
 		} while (!validInput);
 	}
+
+	/**
+	 * Affiche les notifications de l'utilisateur
+	 * @param utilisateur l'utilisateur connecté
+	 * @param <T>
+	 */
 	public  <T extends Utilisateur> void afficherNotification(T utilisateur){
 		try {
 			if (utilisateur instanceof Revendeur) {

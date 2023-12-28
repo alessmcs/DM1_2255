@@ -282,12 +282,6 @@ public class Produit {
 		return listCommentaires;
 	}
 
-
-
-	public void promouvoir() {
-		// TODO - implement Produit.promouvoir
-	}
-
 	public Revendeur getRevendeur() {
 		return revendeur;
 	}

@@ -26,7 +26,7 @@ public class EquipementBureau extends Produit {
 		return sousCategorie;
 	}
 
-	/*
+	/**
 		Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
 
 		@param util l'utilisateur connecté

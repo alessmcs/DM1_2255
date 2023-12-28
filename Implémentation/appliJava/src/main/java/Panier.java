@@ -9,7 +9,7 @@ public class Panier {
 	private int nbPoints;
 	private ArrayList<Produit> articles = new ArrayList<>();
 
-	/*
+	/**
 		Ajouter un article au panier sans directement accéder à l'objet
 
 		@param le produit à ajouter
@@ -22,7 +22,7 @@ public class Panier {
 		return articles;
 	}
 
-	/*
+	/**
 		Indirectement accéder à la liste des produits du panier
 
 		@return la liste des articles du panier
@@ -31,7 +31,7 @@ public class Panier {
 		return articles;
 	}
 
-	/*
+	/**
 		Réinitialise le panier
 	 */
 	public void nouvPanier(){
@@ -40,7 +40,7 @@ public class Panier {
 		nbPoints = 0;
 	}
 
-	/*
+	/**
 		Indirectement accéder au montant total du panier
 
 		@return le montant à payer
@@ -49,7 +49,7 @@ public class Panier {
 		return montantAPayer;
 	}
 
-	/*
+	/**
 		Affiche le panier de l'acheteur et lui donne des options pour le gérer (passer la commande ou
 		retirer un article)
 
@@ -112,7 +112,7 @@ public class Panier {
 
 	}
 
-	/*
+	/**
 		Permet à l'utilisateur de retirer un article de son panier
 
 		@param ach l'acheteur connecté
