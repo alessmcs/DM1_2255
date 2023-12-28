@@ -79,14 +79,17 @@ public class Acheteur extends Utilisateur {
 		return produitLiked;
 	}
 
+	/**
+	 * Ajoute un produit à la liste des produits aimés de l'acheteur, pou que l'acheteur recois une notification
+	 * quand un produit liké est en rabais
+	 *
+	 * @param produit
+	 */
 	public void ajouterProduitLiked(Produit produit) {
 		if (!produitLiked.contains(produit)) {
 			produitLiked.add(produit);
-			System.out.println("Vous avez aimé le produit : " + produit.getTitre());
-		} else {
-			System.out.println("Vous avez déjà aimé ce produit.");
 		}
-	}
+		}
 
 	/**
 	 * Permet d'ajouter à une liste de "suiveur" 
