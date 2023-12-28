@@ -20,6 +20,7 @@ public class Acheteur extends Utilisateur {
 	private CarteCredit carteCredit;
 
 
+
 	public void suivreAcheteur(Acheteur acheteur) {
 		Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
 		if (acheteurAjouter != null) {
@@ -28,6 +29,53 @@ public class Acheteur extends Utilisateur {
 				System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
 
 				BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param telephone Le numéro de téléphone de l'acheteur
+	 * @param courriel Le  courriel de l'acheteur
+	 * @param motDePasse Le mot de passe relié au compte de l'achateur
+	 */
+	public Acheteur(String telephone, String courriel, String motDePasse) {
+		super(telephone,courriel,motDePasse);
+		this.prenom= prenom;
+		this.nom= nom;
+		panier = new Panier();
+		this.notifications = new ArrayList<>();
+	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
+	
+	/**
+	 * Permet à un acheteur d'en suivre un autre
+	 * 
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
+	public void suivreAcheteur(Acheteur acheteur) throws FileNotFoundException {
+			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+			if(acheteurAjouter != null){
+				if(!this.listeSuiveurs.contains(acheteurAjouter)){
+					this.listeSuiveurs.add(acheteurAjouter);
+					System.out.println("Vous suivez maintennat " + acheteurAjouter.getPseudo());
+
+					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
+
+
+
+					acheteurAjouter.ajouterSuiveur(this);
+					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
+					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					afficherMenu(acheteur);
 
 
 			} else {
@@ -36,9 +84,10 @@ public class Acheteur extends Utilisateur {
 		} else {
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
-		}
 
+		}
 	}
+
 
 	public void ajouterSuiveur(Acheteur suiveur) {
 		this.listeSuiveurs.add(suiveur);
@@ -59,8 +108,15 @@ public class Acheteur extends Utilisateur {
 
 		switch (choix) {
 			case 1 -> {
-				System.out.println(acheteur.listeSuiveurs);
-				acheteurSuiviPar(acheteur);
+				if (!listeSuiveurs.isEmpty()){
+				for (Acheteur acheteur1 : listeSuiveurs){
+				System.out.println(acheteur1.getPseudo());
+				}
+					acheteurSuiviPar(acheteur);
+				} else{
+					System.out.println("Vous n'avez aucun suiveur.");
+					acheteurSuiviPar(acheteur);
+				}
 			}
 			case 2 -> {
 				System.out.println("Que voulez-vous faire pour gérer vos suiveurs?");
@@ -74,6 +130,7 @@ public class Acheteur extends Utilisateur {
 						suivreAcheteur(acheteur);
 					}
 					case 2 -> {
+
 						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
 						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
 						String acheteurPseudoSupp = scannerUn.nextLine();
@@ -85,6 +142,11 @@ public class Acheteur extends Utilisateur {
 							System.out.println("Achteur" + acheteurPseudoSupp + " retirer de votre liste de suiveurs");
 
 							acheteurSupp.retirerAcheteur(this);
+
+						if (listeSuiveurs.isEmpty()) {
+							System.out.println("Votre liste de suiveurs est vide. Retour au menu principal.");
+							afficherMenu(acheteur);
+
 						} else {
 							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
 						}
@@ -93,13 +155,18 @@ public class Acheteur extends Utilisateur {
 						afficherMenu(acheteur);
 					}
 				}
+			}case 0 -> {
+					afficherMenu(acheteur);
+				}
 			}
 			case 0 -> {
 				afficherMenu(acheteur);
 			}
 
+
 		}
 	}
+
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
 		super(telephone, courriel, motDePasse);
@@ -116,7 +183,17 @@ public class Acheteur extends Utilisateur {
 		listeCommentaires.add(c);
 	}
 
+
 	public boolean confirmerReceptionCommande() {
+
+	/**
+	 * Retourne un booléan qui confirme ou 
+	 * infirme la réception d'une commande
+	 * 
+	 * @return Un booléan 
+	 */
+	public boolean confirmerReceptionCommande(Acheteur acheteur) {
+
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
@@ -131,10 +208,18 @@ public class Acheteur extends Utilisateur {
 				for (Commande c : historiqueCommandes) {
 					if (Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree) {
 						c.setEtatCommande(StatutCommande.livree);
+
+						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+						acheteur.ajouterNotification(nouvelleNotification);
 						break;
 					} else if (c.getStatutCommande() == StatutCommande.livree) {
 						System.out.println("Cette commande est deja livrée");
+
 					} else if (c.getStatutCommande() == StatutCommande.en_production) {
+
+
+					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
+
 						System.out.println("Cette commande n'a pas encore été envoyée.");
 					} else {
 						continue;
@@ -223,7 +308,23 @@ public class Acheteur extends Utilisateur {
 	public void afficherNotifications() {
 		for (Notification notification : notifications) {
 			System.out.println(notification);
+
+	/**
+	 * Affiche les notifications d'un acheteur
+	 *
+	 * @param acheteur Acheteur venant de la liste d'acheteurs existant
+	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé
+	 */
+	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
+		if (notifications.isEmpty()) {
+			System.out.println("Vous n'avez aucune notification");
+		} else {
+			for (Notification notification : notifications) {
+				System.out.println(notification.getRaison());
+			}
+
 		}
+		afficherMenu(acheteur);
 	}
 
 	public void payerDifference(double difference) {
@@ -234,11 +335,16 @@ public class Acheteur extends Utilisateur {
 	/**
 	 * @param
 	 */
+
 	public void likeRevendeur(Revendeur revendeur) {
 		if (revendeursLikes.contains(revendeur)) {
+
+	public void likeRevendeur(Revendeur revendeur, Acheteur acheteur) {
+		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else {
 			revendeursLikes.add(revendeur);
+			revendeur.acheteurQuiAime.add(acheteur);
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}
@@ -324,135 +430,151 @@ public class Acheteur extends Utilisateur {
 
 		@param utilisateur l'acheteur connecté
 	 */
-	protected void afficherMetriques(Acheteur utilisateur) {
-		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 
-		ArrayList<String> produitsAchetes = new ArrayList<>();
-		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-		for (Commande c : ((Acheteur) utilisateur).historiqueCommandes) {
-			//voir les produits achetés
-			ArrayList<Produit> produits = c.getArticles();
-			for (Produit p : produits) {
-				if (!produitsAchetes.contains(p)) {
-					produitsAchetes.add(p.toString());
-				}
-			}
-		}
+	protected void afficherMetriques(Acheteur utilisateur){
+				int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 
-		System.out.println("Vos métriques d'acheteur: ");
-		System.out.println("Nombre de commandes : " + nbCommandes);
-		System.out.println("Produits achetés");
-		for (String s : produitsAchetes) {
-			System.out.println(s);
-		}
-		System.out.println("Nombre total: " + produitsAchetes.size());
-		System.out.println("Vos commentaires: ");
-		for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
-			System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
-			System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
-			System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
-		}
-		Scanner s = new Scanner(System.in);
-		boolean validInput = false;
-		do {
-			try {
-				System.out.println("Entrez 0 pour retourner au menu principal");
+				protected void afficherMetriques (Acheteur utilisateur) throws FileNotFoundException {
+					Scanner scanner = new Scanner(System.in);
+					int nbCommandes = utilisateur.historiqueCommandes.size();
 
-				String choix = s.nextLine();
-				if (!Main.isNumeric(choix)) {
-					throw new InputMismatchException();
-				} else {
-					if (choix.equals("0")) {
-						validInput = true;
-						Utilisateur.afficherMenu(utilisateur);
-						break;
+
+					ArrayList<String> produitsAchetes = new ArrayList<>();
+					ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
+					for (Commande c : ((Acheteur) utilisateur).historiqueCommandes) {
+						//voir les produits achetés
+						ArrayList<Produit> produits = c.getArticles();
+						for (Produit p : produits) {
+							if (!produitsAchetes.contains(p)) {
+								produitsAchetes.add(p.toString());
+							}
+						}
 					}
-					if (!validInput) {
-						throw new InputMismatchException();
+
+					System.out.println("Vos métriques d'acheteur: ");
+					System.out.println("Nombre de commandes : " + nbCommandes);
+					System.out.println("Produits achetés");
+					for (String s : produitsAchetes) {
+						System.out.println(s);
 					}
+					System.out.println("Nombre total: " + produitsAchetes.size());
+					System.out.println("Vos commentaires: ");
+					for (ArrayList<String> com : ((Acheteur) utilisateur).listeCommentaires) {
+						System.out.println("\u001B[1m" + "Étoile(s): " + "\u001B[0m" + com.get(0));
+						System.out.println("\u001B[1m" + "Like: " + "\u001B[0m" + com.get(1));
+						System.out.println("\u001B[1m" + "Commentaire: " + "\u001B[0m" + com.get(2));
+					}
+					Scanner s = new Scanner(System.in);
+					boolean validInput = false;
+					do {
+						try {
+							System.out.println("Entrez 0 pour retourner au menu principal");
+
+
+							String choix = s.nextLine();
+							if (!Main.isNumeric(choix)) {
+								throw new InputMismatchException();
+							} else {
+								if (choix.equals("0")) {
+									validInput = true;
+									Utilisateur.afficherMenu(utilisateur);
+									break;
+								}
+								if (!validInput) {
+									throw new InputMismatchException();
+								}
+							}
+						} catch (InputMismatchException | FileNotFoundException e) {
+							System.out.println("Svp entrez 0!");
+						}
+					} while (!validInput);
+
+					System.out.println("Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non");
+					int gestionChoix = Integer.parseInt(scanner.nextLine());
+
+					if (gestionChoix == 1) {
+						afficherMenu(utilisateur);
+
+					}
+
 				}
-			} catch (InputMismatchException | FileNotFoundException e) {
-				System.out.println("Svp entrez 0!");
-			}
-		} while (!validInput);
-	}
 
-	public ArrayList<Commande> obtenirCommandesLivrees() {
-		ArrayList<Commande> commandesLivrees = new ArrayList<>();
+				public ArrayList<Commande> obtenirCommandesLivrees () {
+					ArrayList<Commande> commandesLivrees = new ArrayList<>();
 
-		for (Commande commande : historiqueCommandes) {
-			if (commande.getStatutCommande() == StatutCommande.livree) {
-				commandesLivrees.add(commande);
-			}
-		}
+					for (Commande commande : historiqueCommandes) {
+						if (commande.getStatutCommande() == StatutCommande.livree) {
+							commandesLivrees.add(commande);
+						}
+					}
 
-		return commandesLivrees;
-	}
+					return commandesLivrees;
+				}
 
-	/**
-	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée à un problème signalé
-	 *
-	 * @param scanner l'objet scanner qui lit l'entrée utilisateur
-	 * @return true si l'utilisateur accepte, sinon false.
-	 */
-	public boolean acheteurAccepteSolution(Scanner scanner) {
-		int choixAcheteur = 0;
-		do {
-			try {
-				System.out.print("Voulez-vous accepter la solution proposée ?");
-				System.out.println("1. Oui");
-				System.out.println("2. Non");
+				/**
+				 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée à un problème signalé
+				 *
+				 * @param scanner l'objet scanner qui lit l'entrée utilisateur
+				 * @return true si l'utilisateur accepte, sinon false.
+				 */
+				public boolean acheteurAccepteSolution (Scanner scanner){
+					int choixAcheteur = 0;
+					do {
+						try {
+							System.out.print("Voulez-vous accepter la solution proposée ?");
+							System.out.println("1. Oui");
+							System.out.println("2. Non");
 
-				choixAcheteur = scanner.nextInt();
-				scanner.nextLine();
+							choixAcheteur = scanner.nextInt();
+							scanner.nextLine();
 
-				if (choixAcheteur == 1) {
-					return true;
-				} else if (choixAcheteur == 2) {
+							if (choixAcheteur == 1) {
+								return true;
+							} else if (choixAcheteur == 2) {
+								return false;
+							} else {
+								System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+							}
+						} catch (InputMismatchException e) {
+							System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+							scanner.nextLine();
+						}
+					} while (choixAcheteur != 1 && choixAcheteur != 2);
+
 					return false;
-				} else {
-					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 				}
-			} catch (InputMismatchException e) {
-				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
-				scanner.nextLine();
+
+
+				/**
+				 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
+				 *
+				 * @param billet le billet de signalement de l'acheteur
+				 */
+				public void consulterBilletDeSignalement (BilletDeSignalement billet){
+
+					Scanner scanner = new Scanner(System.in);
+
+					System.out.println("Description du problème : " + billet.getDescriptionProbleme());
+
+					// Donner à l'acheteur la possibilité de confirmer la livraison du produit de remplacement
+					if (billet.getNumSuiviRemplacement() != 0 && billet.getDescriptionSolution().contains("Le revendeur a " +
+							"proposé un échange du produit défectueux")) {
+						System.out.println("Voulez-vous confirmer la livraison du produit de remplacement ?");
+						System.out.println("1. Oui");
+						System.out.println("2. Non");
+
+						int choixConfirmationLivraisonRemplacement = scanner.nextInt();
+						scanner.nextLine();
+
+						if (choixConfirmationLivraisonRemplacement == 1) {
+							billet.setConfirmationLivraisonRemplacement(true);
+							System.out.println("La livraison du produit de remplacement est confirmée.");
+						} else {
+							billet.setConfirmationLivraisonRemplacement(false);
+							System.out.println("La livraison du produit de remplacement n'est pas confirmée.");
+						}
+
+					}
+
+				}
 			}
-		} while (choixAcheteur != 1 && choixAcheteur != 2);
-
-		return false;
-	}
-
-
-	/**
-	 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
-	 *
-	 * @param billet le billet de signalement de l'acheteur
-	 */
-	public void consulterBilletDeSignalement(BilletDeSignalement billet) {
-
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("Description du problème : " + billet.getDescriptionProbleme());
-
-		// Donner à l'acheteur la possibilité de confirmer la livraison du produit de remplacement
-		if (billet.getNumSuiviRemplacement() != 0 && billet.getDescriptionSolution().contains("Le revendeur a " +
-				"proposé un échange du produit défectueux")) {
-			System.out.println("Voulez-vous confirmer la livraison du produit de remplacement ?");
-			System.out.println("1. Oui");
-			System.out.println("2. Non");
-
-			int choixConfirmationLivraisonRemplacement = scanner.nextInt();
-			scanner.nextLine();
-
-			if (choixConfirmationLivraisonRemplacement == 1) {
-				billet.setConfirmationLivraisonRemplacement(true);
-				System.out.println("La livraison du produit de remplacement est confirmée.");
-			} else {
-				billet.setConfirmationLivraisonRemplacement(false);
-				System.out.println("La livraison du produit de remplacement n'est pas confirmée.");
-			}
-
-		}
-
-	}
-}

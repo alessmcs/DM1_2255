@@ -6,6 +6,11 @@ public class Colis {
 	private String dateArriveeEst;
 	private StatutCommande statut;
 
+	/**
+	 * Permet de mettre à jour le colis selon le statut de la commande
+	 * 
+	 * @param statutCommande statut de la commande 
+	 */
 	public Colis(StatutCommande statutCommande) {
 		this.statut = statutCommande;
 	}

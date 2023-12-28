@@ -12,12 +12,18 @@ public class Revendeur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
+	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
+	protected ArrayList<Notification> notifications = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
 		super(telephone, courriel, motDePasse);
 		inventaire = new ArrayList<>();
 	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
 
 	public void setPseudo (String pseudo){
 		this.pseudo = pseudo;
@@ -34,6 +40,17 @@ public class Revendeur extends Utilisateur {
 		this.adresse = adresse;
 	}
 
+
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
+	protected ArrayList<Acheteur> getAcheteurQuiAime() {
+		return acheteurQuiAime;
+	}
+	protected void setAcheteurQuiAime(ArrayList<Acheteur> acheteurQuiAime) {
+		this.acheteurQuiAime = acheteurQuiAime;
+	}
 
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
@@ -105,7 +122,12 @@ public class Revendeur extends Utilisateur {
 
 			if (commande.getId() == ID) {
 				commande.setEtatCommande(StatutCommande.retour_recu);
+
 				SystemePaiement.rembourserMontant(numeroCarte, commande);
+
+
+				SystemePaiement.rembourserMontant(numeroCarte,commande);
+
 				idCorrect = true;
 				break; // Sortir de la boucle une fois que la commande a été trouvée
 			}

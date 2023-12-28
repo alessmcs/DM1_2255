@@ -11,6 +11,7 @@ public class BilletDeSignalement {
 	private int numSuiviRemplacement;
 	private boolean confirmationLivraisonRemplacement;
 
+
 	public BilletDeSignalement(Acheteur acheteur, String descriptionProbleme) {
 		this.acheteur = acheteur;
 		this.descriptionProbleme = descriptionProbleme;
@@ -31,6 +32,22 @@ public class BilletDeSignalement {
 	public Acheteur getAcheteur() {
 		return acheteur;
 	}
+
+
+	/**
+	 * Constructeur de la classe BilletDeSignalement
+	 * 
+	 * @param descriptionProbleme description du problème selon le type de billet de signalement
+	 */
+	public BilletDeSignalement(String descriptionProbleme){
+		this.descriptionProbleme = descriptionProbleme;
+	}
+
+	/**
+	 * Retourne la descprition du problème
+	 * 
+	 * @return descrpition du problème
+	 */
 
 	public String getDescriptionProbleme() {
 		return descriptionProbleme;

@@ -256,7 +256,17 @@ public class Plateforme {
 		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
+
 		// Permettre à l'utilisateur d'offrir un nouveau produit ou de quitter la fonction
+
+		for (Acheteur acheteur : revendeur.acheteurQuiAime) {
+
+			Notification notificationNew = new Notification(RaisonsNotif.NOUVEAU_PRODUIT);
+			acheteur.ajouterNotification(notificationNew);
+		}
+
+
+
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");
 		String choix = scanner.nextLine();
@@ -303,6 +313,5 @@ public class Plateforme {
 		}
 
 		return null;
-
 	}
 }
