@@ -630,6 +630,23 @@ public class Acheteur extends Utilisateur {
 		}
 
 	}
+	/**
+	 * Permet de suivre l'état du colis en utilisant le numéro de suivi
+	 * @param numSuivi Le numéro de suivi du colis
+	 * @return Le statut actuel du colis ou null s'il n'est pas trouvé
+	 */
+
+	public static void suivreEtat(UUID numSuivi, Acheteur acheteur) throws FileNotFoundException {
+		Colis colis = Colis.colisMap.get(numSuivi);
+		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
+			System.out.println("Le statut du colis avec le numéro de suivi " + numSuivi + " : " + colis.getStatut());
+
+		} else {
+			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
+
+		}
+		Utilisateur.afficherMenu(acheteur);
+	}
 
 
 }

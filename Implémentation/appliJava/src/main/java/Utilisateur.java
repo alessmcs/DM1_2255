@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public abstract class Utilisateur {
@@ -338,6 +339,7 @@ public abstract class Utilisateur {
 			System.out.println("6. Voir mes notifications");
 			System.out.println("7. Rechercher un acheteur");
 			System.out.println("8. Rechercher un revendeur");
+			System.out.println("9. Changer le statut d'un colis");
 			System.out.println("0. Déconnexion");
 
 			int choixUn = Integer.parseInt(scanner.nextLine());
@@ -356,6 +358,26 @@ public abstract class Utilisateur {
 				}
 				case 8 -> {
 					Revendeur revendeur1 = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
+				} case 9 -> {
+					for (Produit produit : revendeur.getCommandes()){
+						System.out.println(produit.titre);
+					}
+					System.out.println("Quels articules souhaitez vous modifier? ");
+					UUID numSuivi = UUID.fromString(scanner.nextLine());
+
+					System.out.println("Selectionner le nouveau statut");
+					System.out.println("1. en_production");
+					System.out.println("2. en_chemin");
+					System.out.println("3. livree");
+					int choix = scanner.nextInt();
+
+					switch (choix){
+						case 1 ->{revendeur.changerEtat(numSuivi, StatutCommande.en_production,revendeur );}
+						case 2 ->{revendeur.changerEtat(numSuivi, StatutCommande.en_chemin,revendeur );  }
+						case 3 ->{revendeur.changerEtat(numSuivi, StatutCommande.livree,revendeur );  }
+						default -> {System.out.println("Veuillez sélectionner 1, 2 ou 3");}
+					}
+
 				}
 
 				default -> System.out.println("Choix invalide veuillez sélectionner 1, 2, 3 ou 4");
@@ -376,6 +398,7 @@ public abstract class Utilisateur {
 			System.out.println("9. Voir mes notifications");
 			System.out.println("10. Chercher un acheteur");
 			System.out.println("11. Chercher/Liké  un revendeur");
+			System.out.println("12. Vérifier l'état de la commande. ");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
@@ -468,6 +491,11 @@ public abstract class Utilisateur {
 						System.out.println("Aucun revendeur n'a été trouvé.");
 						afficherMenu(acheteur);
 					}
+				}case 12 ->{
+					System.out.println("Veuillez indiquer le numéro de suivi.");
+					UUID numSuivi = UUID.fromString(scanner.nextLine());
+
+					acheteur.suivreEtat(numSuivi, acheteur);
 				}
 
 				default -> System.out.println("Choix invalide veuillez sélection 1, 2, 3, 4, 5, ou 6");
