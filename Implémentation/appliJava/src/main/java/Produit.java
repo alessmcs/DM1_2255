@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Produit {
+public class Produit {
 
 	protected String titre;
 	protected double prix;
@@ -124,7 +124,7 @@ public abstract class Produit {
 	 * 
 	 * @return un like ou pa de like
 	 */
-	public String liker(Acheteur acheteur, Revendeur revendeur, Produit produit) {
+	public String liker(Acheteur acheteur, Revendeur revendeur) {
 		System.out.println("Voulez-vous aimer ce produit?");
 		System.out.println("1. Oui");
 		System.out.println("2. Non");
@@ -136,7 +136,6 @@ public abstract class Produit {
 			case "1":
 				coeur = "liker";
 				revendeur.acheteurLikeProd.add((acheteur));
-				acheteur.produitLiked.add(produit);
 				break;
 			case "2":
 				coeur = "ne pas liker";
@@ -145,7 +144,7 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données");
 				System.out.println();
-				liker(acheteur,revendeur, produit);
+				liker(acheteur,revendeur);
 		}
 
 		return "Vous avez choisi de " + "\u001B[1m" + coeur + "\u001B[0m" + " le produit!";
@@ -394,5 +393,4 @@ public abstract class Produit {
 		return ("ID : " + ID + ", Titre: " + titre + "\n" + prix);
 	}
 
-	public abstract void voirDetails(Utilisateur util, Produit produit);
 }

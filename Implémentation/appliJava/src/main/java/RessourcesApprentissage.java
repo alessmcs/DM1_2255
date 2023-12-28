@@ -48,7 +48,7 @@ public class RessourcesApprentissage extends Produit {
 		@param util l'utilisateur connecté
 	 */
 	@Override
-	public void voirDetails(Utilisateur util, Produit produit){
+	public void voirDetails(Utilisateur util){
 		Scanner scanChoix = new Scanner(System.in);
 
 		System.out.println("\nID: " + ID + "\nTitre : " + titre + "\n" + categorie + "\n" + description + prix + "\n" + marque + "\n" + modele + "," + marque + "," + modele);
@@ -80,7 +80,7 @@ public class RessourcesApprentissage extends Produit {
 						super.verifier(util,revendeur);
 						break;
 					case "3":
-						super.liker((Acheteur) util, revendeur, produit);
+						super.liker((Acheteur) util, revendeur);
 						break;
 					case "4":
 						super.demanderAjoutPanier((Acheteur) util);
