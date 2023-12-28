@@ -1,3 +1,4 @@
+
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +14,7 @@ public class Revendeur extends Utilisateur {
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
 	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
 	protected ArrayList<Notification> notifications = new ArrayList<>();
+	protected ArrayList<Acheteur> acheteurLikeProd = new ArrayList<>();
 
 
 
@@ -42,6 +44,12 @@ public class Revendeur extends Utilisateur {
 	}
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
+	}
+	protected ArrayList<Acheteur> getAcheteurLikeProd() {
+		return acheteurLikeProd;
+	}
+	protected void setAcheteurLikeProd(ArrayList<Acheteur> acheteurLikeProd) {
+		this.acheteurLikeProd = acheteurLikeProd;
 	}
 
 	/**
