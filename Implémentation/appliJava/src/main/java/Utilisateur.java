@@ -327,7 +327,7 @@ public abstract class Utilisateur {
 			System.out.println("8. Gérer mes suivreurs");
 			System.out.println("9. Voir mes notifications");
 			System.out.println("10. Chercher un acheteur");
-			System.out.println("11. Chercher un revendeur");
+			System.out.println("11. Chercher/Liké  un revendeur");
 			System.out.println("0. Déconnexion");
 
 			int choix1 = Integer.parseInt(scannerUn.nextLine());
@@ -366,6 +366,7 @@ public abstract class Utilisateur {
 				}
 				case 10 -> {
 					Acheteur acheteurChercher = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+					if (acheteurChercher != null){
 					System.out.println("Voulez-vous suivre cet acheteur?" + acheteurChercher);
 					System.out.println("1. Oui ");
 					System.out.println("2. Non");
@@ -374,10 +375,14 @@ public abstract class Utilisateur {
 					switch (choix){
 						case 1 -> acheteur.suivreAcheteur(acheteurChercher);
 						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}}else {
+						System.out.println("Aucun revendeur n'a été trouvé.");
+						afficherMenu(acheteur);
 					}
 				}case 11 ->{
 					Revendeur revendeurChercher = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
-					System.out.println("Voulez-vous liké cet acheteur?" + revendeurChercher);
+					if (revendeurChercher != null){
+					System.out.println("Voulez-vous liké ce revendeur?" + revendeurChercher);
 					System.out.println("1. Oui ");
 					System.out.println("2. Non");
 					System.out.println("0. Retour au Menu ");
@@ -385,6 +390,9 @@ public abstract class Utilisateur {
 					switch (choix){
 						case 1 -> acheteur.likeRevendeur(revendeurChercher, acheteur );
 						case 2,0 -> acheteur.afficherMenu(acheteur);
+					}}else {
+						System.out.println("Aucun revendeur n'a été trouvé.");
+						afficherMenu(acheteur);
 					}
 				}
 

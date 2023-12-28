@@ -202,7 +202,9 @@ public class Plateforme {
 		Catalogue.ajouterProduit(produit);
 
 		for (Acheteur acheteur : revendeur.acheteurQuiAime) {
+
 			Notification notificationNew = new Notification(RaisonsNotif.NOUVEAU_PRODUIT);
+			acheteur.ajouterNotification(notificationNew);
 		}
 
 
@@ -252,6 +254,5 @@ public class Plateforme {
 		}
 
 		return null;
-
 	}
 }
