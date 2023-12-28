@@ -30,7 +30,7 @@ public class Panier {
 	public ArrayList<Produit> getArticles(){
 		return articles;
 	}
-	
+
 	/*
 		Réinitialise le panier
 	 */
