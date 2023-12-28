@@ -334,7 +334,7 @@ public abstract class Utilisateur {
 			Acheteur acheteur = (Acheteur) utilisateur;
 			switch (choix1) {
 
-				case 1 -> acheteur.confirmerReceptionCommande();
+				case 1 -> acheteur.confirmerReceptionCommande(acheteur);
 				case 2 -> {
 					Probleme probleme = new Probleme();
 					probleme.signalerProbleme();

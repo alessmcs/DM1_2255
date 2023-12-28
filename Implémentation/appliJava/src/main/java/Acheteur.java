@@ -29,6 +29,7 @@ public class Acheteur extends Utilisateur {
 		this.prenom= prenom;
 		this.nom= nom;
 		panier = new Panier();
+		this.notifications = new ArrayList<>();
 	}
 	public void ajouterNotification(Notification notification) {
 		notifications.add(notification);
@@ -49,13 +50,17 @@ public class Acheteur extends Utilisateur {
 			if(acheteurAjouter != null){
 				if(!this.listeSuiveurs.contains(acheteurAjouter)){
 					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintennat" + acheteurAjouter.getPseudo());
+					System.out.println("Vous suivez maintennat " + acheteurAjouter.getPseudo());
+
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
-					afficherMenu(acheteur);
+
 
 
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
+					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					afficherMenu(acheteur);
 
 				}else{
 						System.out.println("Vous etes déjà abonné a cet acheteur");
@@ -106,7 +111,6 @@ public class Acheteur extends Utilisateur {
 				if (!listeSuiveurs.isEmpty()){
 				for (Acheteur acheteur1 : listeSuiveurs){
 				System.out.println(acheteur1.getPseudo());
-
 				}
 					acheteurSuiviPar(acheteur);
 				} else{
@@ -181,7 +185,7 @@ public class Acheteur extends Utilisateur {
 	 * 
 	 * @return Un booléan 
 	 */
-	public boolean confirmerReceptionCommande() {
+	public boolean confirmerReceptionCommande(Acheteur acheteur) {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
@@ -199,7 +203,9 @@ public class Acheteur extends Utilisateur {
 						break;
 					} else if( c.getStatutCommande() == StatutCommande.livree ) {
 						System.out.println("Cette commande est deja livrée");
+
 						Notification nouvelleNotification = new Notification(RaisonsNotif.LIVRAISON_CONFIRMEE);
+						acheteur.ajouterNotification(nouvelleNotification);
 
 
 					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
@@ -312,16 +318,14 @@ public class Acheteur extends Utilisateur {
 	 * @throws FileNotFoundException Exception quand l'acheteur n'est pas trouvé 
 	 */
 	public void afficherNotifications(Acheteur acheteur) throws FileNotFoundException {
-
 		if (notifications.isEmpty()) {
 			System.out.println("Vous n'avez aucune notification");
-			afficherMenu(acheteur);
-
 		} else {
 			for (Notification notification : notifications) {
-				System.out.println(notification);
+				System.out.println(notification.getRaison());
 			}
 		}
+		afficherMenu(acheteur);
 	}
 
 
