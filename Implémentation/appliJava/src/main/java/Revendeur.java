@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Revendeur extends Utilisateur {
@@ -266,5 +268,123 @@ public class Revendeur extends Utilisateur {
 		System.out.println(commandes.size() + " commandes reçues");
 
 	}
+
+	/**
+	 * Cette méthode permet à un revendeur de traiter les billets de signalements issus par l'acheteur.
+	 * @param revendeur le revendeur qui répond aux problèmes
+	 * @param probleme L'instance de la classe Probleme associée au billet de signalement
+	 * @param billet  L'instance de la classe BilletDeSignalement à traiter
+	 */
+	public void gererProbleme(Revendeur revendeur, Probleme probleme, BilletDeSignalement billet) {
+		Scanner scanner = new Scanner(System.in);
+		Acheteur acheteur = billet.getAcheteur();
+		retourEchange retourEchange = new retourEchange();
+
+		System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
+
+		// Demander au revendeur de spécifier le statut de livraison du produit défectueux
+		boolean choixConfirmationLivraisonValide = false; // Boucle jusqu'à entrée valide
+		while (!choixConfirmationLivraisonValide) {
+			System.out.println("Étape 1. Est-ce que ce produit a été livré?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			try {
+				int choixConfirmationLivraison = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixConfirmationLivraison == 1) {
+					billet.setConfirmationLivraison(true);
+					choixConfirmationLivraisonValide = true; // Sortir de la boucle si l'entrée est valide
+				} else if (choixConfirmationLivraison == 2) {
+					billet.setConfirmationLivraison(false);
+					return; // Sortir de la méthode si le produit n'a pas été livré
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		}
+
+		boolean solutionAcceptee = false;
+		while (!solutionAcceptee) {
+			// Demander au revendeur de donner une solution
+			System.out.println("Étape 2. Choisissez une des options de solution :");
+			System.out.println("1. Réparation du produit défectueux");
+			System.out.println("2. Retour et remboursement");
+			System.out.println("3. Échange");
+
+			int choixSolution = 0;
+			try {
+				choixSolution = scanner.nextInt();
+				scanner.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1, 2, ou 3.");
+				scanner.nextLine();
+				continue;
+			}
+
+			switch (choixSolution) {
+				case 1 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					// Réexpédier le produit au revendeur
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 2 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
+					// Effectuer un retour
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						retourEchange.effectuerRetour(acheteur);
+					}
+				}
+				case 3 -> {
+					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					// Effectuer un échange
+					if (acheteur.acheteurAccepteSolution(scanner)) {
+						// Demander au revendeur de fournir plus de détails.
+						System.out.println("Veuillez spécifier la description du produit de remplacement : ");
+						String descriptionRemplacement = scanner.nextLine();
+						billet.setDescriptionRemplacement(descriptionRemplacement);
+
+						System.out.println("Entrez son numéro de suivi : ");
+						int numSuiviRemplacement = scanner.nextInt();
+						billet.setNumSuiviRemplacement(numSuiviRemplacement);
+					}
+				}
+				default -> {
+					System.out.println("Choix invalide. Aucune action n'a été prise.");
+					return;
+				}
+			}
+
+			// Envoyer le billet avec la solution à l'acheteur
+			acheteur.consulterBilletDeSignalement(billet);
+
+			// Mise à jour de solutionAcceptee en fonction de la réponse de l'acheteur
+			solutionAcceptee = acheteur.acheteurAccepteSolution(scanner);
+		}
+
+		// Annuler automatiquement la demande de réexpédition après 30 jours
+		LocalDate dateEmission = probleme.getDateEmission();
+		if (billet.getNumSuiviRemplacement() != 0 &&
+				LocalDate.now().isAfter(dateEmission.plus(30, ChronoUnit.DAYS))) {
+			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
+			billet.setNumSuiviRemplacement(0);
+		}
+	}
+
+
+	/**
+	 * Cette méthode permet aux revendeurs de recevoir un billet de signalement provenant de l'acheteur.
+	 * @param billet le billet de signalement envoyé au revendeur
+	 */
+	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
+		BilletDeSignalement.ajouterBillet(billet);
+	}
+
 
 }

@@ -564,4 +564,72 @@ public class Acheteur extends Utilisateur {
 		return listeSuiveurs;
 	}
 
+	/**
+	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée à un problème signalé
+	 *
+	 * @param scanner l'objet scanner qui lit l'entrée utilisateur
+	 * @return true si l'utilisateur accepte, sinon false.
+	 */
+	public boolean acheteurAccepteSolution (Scanner scanner){
+		int choixAcheteur = 0;
+		do {
+			try {
+				System.out.print("Voulez-vous accepter la solution proposée ?");
+				System.out.println("1. Oui");
+				System.out.println("2. Non");
+
+				choixAcheteur = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixAcheteur == 1) {
+					return true;
+				} else if (choixAcheteur == 2) {
+					return false;
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		} while (choixAcheteur != 1 && choixAcheteur != 2);
+
+		return false;
+	}
+
+
+	/**
+	 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
+	 *
+	 * @param billet le billet de signalement de l'acheteur
+	 */
+	public void consulterBilletDeSignalement (BilletDeSignalement billet){
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Description du problème : " + billet.getDescriptionProbleme());
+
+		// Donner à l'acheteur la possibilité de confirmer la livraison du produit de remplacement
+		if (billet.getNumSuiviRemplacement() != 0 && billet.getDescriptionSolution().contains("Le revendeur a " +
+				"proposé un échange du produit défectueux")) {
+			System.out.println("Voulez-vous confirmer la livraison du produit de remplacement ?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			int choixConfirmationLivraisonRemplacement = scanner.nextInt();
+			scanner.nextLine();
+
+			if (choixConfirmationLivraisonRemplacement == 1) {
+				billet.setConfirmationLivraisonRemplacement(true);
+				System.out.println("La livraison du produit de remplacement est confirmée.");
+			} else {
+				billet.setConfirmationLivraisonRemplacement(false);
+				System.out.println("La livraison du produit de remplacement n'est pas confirmée.");
+			}
+
+		}
+
+	}
+
+
 }
