@@ -1,10 +1,7 @@
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 
 
 public abstract class Utilisateur {
@@ -359,23 +356,34 @@ public abstract class Utilisateur {
 				case 8 -> {
 					Revendeur revendeur1 = Plateforme.rechercheRevendeur(BaseDonnees.revendeursList);
 				} case 9 -> {
-					for (Produit produit : revendeur.getCommandes()){
-						System.out.println(produit.titre);
+					for (Map.Entry<UUID, Colis> entry : Colis.colisMap.entrySet()) {
+						UUID numSuivi = entry.getKey();
+						Colis colis = entry.getValue();
+
+						System.out.println("Numéro de suivi : " + numSuivi);
+						System.out.println("Statut du colis : " + colis.getStatut());
+
+						System.out.println("------------------------------");
 					}
-					System.out.println("Quels articules souhaitez vous modifier? ");
+
+					System.out.println("Quels articules souhaitez vous modifier? Veuillez entrer le numéro de suivi ");
 					UUID numSuivi = UUID.fromString(scanner.nextLine());
 
-					System.out.println("Selectionner le nouveau statut");
-					System.out.println("1. en_production");
-					System.out.println("2. en_chemin");
-					System.out.println("3. livree");
-					int choix = scanner.nextInt();
+					if (Colis.colisMap.containsKey(numSuivi)) {
+						System.out.println("Sélectionnez le nouveau statut :");
+						System.out.println("1. en_production");
+						System.out.println("2. en_chemin");
+						System.out.println("3. livree");
 
-					switch (choix){
-						case 1 ->{revendeur.changerEtat(numSuivi, StatutCommande.en_production,revendeur );}
-						case 2 ->{revendeur.changerEtat(numSuivi, StatutCommande.en_chemin,revendeur );  }
-						case 3 ->{revendeur.changerEtat(numSuivi, StatutCommande.livree,revendeur );  }
-						default -> {System.out.println("Veuillez sélectionner 1, 2 ou 3");}
+						int choix = scanner.nextInt();
+						switch (choix) {
+							case 1 -> revendeur.changerEtat(numSuivi, StatutCommande.en_production, revendeur);
+							case 2 -> revendeur.changerEtat(numSuivi, StatutCommande.en_chemin, revendeur);
+							case 3 -> revendeur.changerEtat(numSuivi, StatutCommande.livree, revendeur);
+							default -> System.out.println("Veuillez sélectionner 1, 2 ou 3");
+						}
+					} else {
+						System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
 					}
 
 				}
