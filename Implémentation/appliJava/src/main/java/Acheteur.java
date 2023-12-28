@@ -349,7 +349,7 @@ public class Acheteur extends Utilisateur {
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
 			revendeursLikes.add(revendeur);
-			revendeur.acheteurQuiAime.add(acheteur);
+			revendeur.acheteurQuiAime.add(acheteur); // ajout des acheteurs qui ont like
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}

@@ -94,7 +94,7 @@ public abstract class Produit {
 
 
 
-	public String liker() {
+	public String liker(Acheteur acheteur, Revendeur revendeur) {
 		System.out.println("Voulez-vous aimer ce produit?");
 		System.out.println("1. Oui");
 		System.out.println("2. Non");
@@ -105,6 +105,7 @@ public abstract class Produit {
 		switch(like) {
 			case "1":
 				coeur = "liker";
+				revendeur.acheteurLikeProd.add((acheteur));
 				break;
 			case "2":
 				coeur = "ne pas liker";
@@ -113,7 +114,7 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données");
 				System.out.println();
-				liker();
+				liker(acheteur,revendeur);
 		}
 
 		return "Vous avez choisi de " + "\u001B[1m" + coeur + "\u001B[0m" + " le produit!";

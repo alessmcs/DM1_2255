@@ -9,6 +9,10 @@ public class Revendeur extends Utilisateur {
 	private String pseudo;
 	protected ArrayList<Produit> commandes = new ArrayList<>();
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
+
+	// Liste des acheteurs qui ont like le revendeur ou bien un produit des revendeurs
+	protected ArrayList<Acheteur> acheteurLikeProd = new ArrayList<>();
+
 	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
 	protected ArrayList<Notification> notifications = new ArrayList<>();
 
@@ -27,12 +31,20 @@ public class Revendeur extends Utilisateur {
 	protected ArrayList<Acheteur> getAcheteurQuiAime() {
 		return acheteurQuiAime;
 	}
+	protected ArrayList<Acheteur> getAcheteurLikeProd() {
+		return acheteurLikeProd;
+	}
+
+	protected void setAcheteurLikeProd(ArrayList<Acheteur> acheteurLikeProd) {
+		this.acheteurLikeProd = acheteurLikeProd;
+	}
 	protected void setAcheteurQuiAime(ArrayList<Acheteur> acheteurQuiAime) {
 		this.acheteurQuiAime = acheteurQuiAime;
 	}
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}
+
 
 
 	public void ajouterCommandeRetournee(Commande commande, CarteCredit carteCredit) {
