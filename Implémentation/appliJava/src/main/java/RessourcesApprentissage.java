@@ -78,7 +78,7 @@ public class RessourcesApprentissage extends Produit {
 					case "2":
 						super.commenter(util);
 						super.evaluer(revendeur);
-						super.verifier(util);
+						super.verifier(util,revendeur);
 						break;
 					case "3":
 						super.liker((Acheteur) util, revendeur);

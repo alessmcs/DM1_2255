@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Probleme {
 	private String Date;
@@ -6,7 +7,7 @@ public class Probleme {
 	/**
 	 * Permet de signaler des problèmes provenant d'UniShop
 	 */
-	public void signalerProbleme() {
+	public void signalerProbleme(ArrayList<Revendeur> listeRevendeurs) {
 		Scanner scanner = new Scanner(System.in);
 
 		// Demander à l'acheteur de décrire le problème

@@ -72,15 +72,13 @@ public abstract class Produit {
 	}
 
 
-	public String evaluer(Revendeur revendeur) {
-
 
 	/**
 	 * Permet d'évaluer un produit  
 	 * 
 	 * @return évaluation
 	 */
-	public String evaluer() {
+	public String evaluer(Revendeur revendeur) {
 
         System.out.println("Combien d'étoiles aimeriez-vous donner au produit?");
         System.out.println("1. *");
@@ -126,7 +124,7 @@ public abstract class Produit {
 	 * 
 	 * @return un like ou pa de like
 	 */
-	public String liker() {
+	public String liker(Acheteur acheteur, Revendeur revendeur) {
 		System.out.println("Voulez-vous aimer ce produit?");
 		System.out.println("1. Oui");
 		System.out.println("2. Non");
@@ -145,7 +143,7 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données");
 				System.out.println();
-				liker();
+				liker(acheteur,revendeur);
 		}
 
 		return "Vous avez choisi de " + "\u001B[1m" + coeur + "\u001B[0m" + " le produit!";
@@ -200,7 +198,7 @@ public abstract class Produit {
 	 * @param util utilisateur 
 	 * @return un string validant les données
 	 */
-	public String verifier(Utilisateur util) { 
+	public String verifier(Utilisateur util, Revendeur revendeur) {
 		System.out.println("Voici les données recueillies: ");
 		System.out.println("Étoile(s): " + "\u001B[1m" + evalEtoile + "\u001B[0m");
 		//System.out.println("Like: " + "\u001B[1m" + coeur + "\u001B[0m");
@@ -231,8 +229,8 @@ public abstract class Produit {
 
 				switch (modification) {
 					case "1":
-						evaluer();
-						verifier(util);
+						evaluer(revendeur);
+						verifier(util,revendeur);
 						break;
 					//case "2":
 					//	liker();
@@ -240,7 +238,7 @@ public abstract class Produit {
 					//	break;
 					case "3": 
 						commenter(util);
-						verifier(util);
+						verifier(util, revendeur);
 						break;
 					default:
 						System.out.println();
@@ -253,7 +251,7 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les deux options données.");
 				System.out.println();
-				verifier(util);
+				verifier(util,revendeur);
 				break;
 		}
 		return "Vos données ont été enregistrées!";
