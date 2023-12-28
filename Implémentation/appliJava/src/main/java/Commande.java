@@ -276,7 +276,8 @@ public class Commande {
 		}
 
 		// nouveau colis généré avec la commande
-		Colis colis = new Colis(commande.getStatutCommande());
+		Colis colis = new Colis(commande);
+		System.out.println("Votre numéro de suivi est : " + colis.getNumSuivi());
 
 		return commande;
 	}

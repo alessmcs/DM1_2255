@@ -113,7 +113,7 @@ public class retourEchange {
 				if (differenceTot == 0) {
 					Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 					acheteur.addHistorique(commande1); // ajouter la commande à l'historique de commandes
-					Colis colis = new Colis(commande.getStatutCommande());
+					Colis colis = new Colis(commande);
 				} else{
 					System.out.println("Différence de prix détectée : " + differenceTot);
 
@@ -124,12 +124,12 @@ public class retourEchange {
 						acheteur.payerDifference(differenceTot);
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
-						Colis colis = new Colis(commande.getStatutCommande());
+						Colis colis = new Colis(commande);
 					} else if (differenceTot < 0) {
 						Commande commande1 = new Commande(acheteur,StatutCommande.en_production, adresseLivraison, produitAEchanger.getId(), panierEchange);
 						acheteur.addHistorique(commande1);
 						SystemePaiement.rembourserMontant(carteCredit,commande1);
-						Colis colis = new Colis(commande.getStatutCommande());
+						Colis colis = new Colis(commande);
 					}else{
 						System.out.println("Solde insuffisant sur la carte de crédit.");
 					}
