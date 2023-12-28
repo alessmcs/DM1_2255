@@ -18,6 +18,10 @@ public class Probleme {
 		System.out.println("Le signalement a été créé avec succès.");
 		BilletDeSignalement billet = new BilletDeSignalement(descriptionProbleme);
 
+		Notification notification = new Notification(RaisonsNotif.PROBLEME_SIGNALE);
+		for (Revendeur revendeur: listeRevendeurs){
+			revendeur.ajouterNotification(notification);
+		}
 
 	}
 }
