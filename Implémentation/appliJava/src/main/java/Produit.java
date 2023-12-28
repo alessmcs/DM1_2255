@@ -55,7 +55,7 @@ public abstract class Produit {
 		System.out.println("Like: " + coeur);
 	}
 
-	public String evaluer() {
+	public String evaluer(Revendeur revendeur) {
         System.out.println("Combien d'étoiles aimeriez-vous donner au produit?");
         System.out.println("1. *");
         System.out.println("2. **");
@@ -86,9 +86,10 @@ public abstract class Produit {
 				System.out.println();
 				System.out.println("Veuillez choisir entre les cinq options données.");
 				System.out.println();
-                evaluer();
+                evaluer(revendeur);
         }
-
+		Notification notification = new Notification(RaisonsNotif.NOUVELLE_EVALUATION);
+		revendeur.ajouterNotification(notification);
         return "Vous avez choisi de mettre " + "\u001B[1m" + evalEtoile + "\u001B[0m" + " étoile(s) au produit!";
 	}
 

@@ -50,6 +50,7 @@ public class EquipementBureau extends Produit {
 				System.out.println("4. Ajouter au panier le produit");
 				System.out.println("5. Revenir au catalogue");
 
+				Revendeur revendeur = getRevendeur();
 				String choix = scanChoix.nextLine();
 				switch(choix){
 					case "1":
@@ -61,11 +62,10 @@ public class EquipementBureau extends Produit {
 						break;
 					case "2":
 						super.commenter(util);
-						super.evaluer();
+						super.evaluer(revendeur);
 						super.verifier(util);
 						break;
 					case "3":
-						Revendeur revendeur = getRevendeur();
 						super.liker((Acheteur) util , revendeur);
 						break;
 					case "4":
