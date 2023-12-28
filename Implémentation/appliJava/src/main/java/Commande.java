@@ -14,7 +14,15 @@ public class Commande {
 	private static double montant;
 
 
-	// Constructeur de commande
+	/**
+	 * Constructeur de la classe Commande
+	 * 
+	 * @param acheteur acheteur
+	 * @param status statut de la commande
+	 * @param adresse adresse de livraison
+	 * @param id numéro d'identification du produit
+	 * @param panier panier de l'acheteur
+	 */
 	public Commande(Acheteur acheteur, StatutCommande status, Adresse adresse, int id, Panier panier){
 		this.acheteur = acheteur;
 		this.statut = status;

@@ -5,9 +5,10 @@ public class CarteCredit {
     private double solde;
 
     /**
+     * Constructeur de la classe CarteCredit
      * 
-     * @param numeroCarte
-     * @param solde
+     * @param numeroCarte numéro de la carte de crédit de l'utilisateur 
+     * @param solde solde de la carte de crédit de l'utilisateur
      */
     public CarteCredit(String numeroCarte, double solde){
         this.numeroCarte = numeroCarte;
@@ -23,14 +24,16 @@ public class CarteCredit {
     }
 
     /**
+     * Retourne le solde de la carte de crédit
      * 
-     * @return
+     * @return le solde de la carte de cérdit
      */
     public double getSolde(){
         return solde;
     }
 
     /**
+     * Met à jour le solde de la carte de crédit
      * 
      * @param solde
      */
@@ -39,8 +42,9 @@ public class CarteCredit {
     }
 
     /**
+     * Retourne le numéro de carte de cérdit de l'utilisateur
      * 
-     * @return
+     * @return numéro de carte de crédit
      */
     public String getNumeroCarte() {
         return numeroCarte;
