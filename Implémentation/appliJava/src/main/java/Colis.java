@@ -16,7 +16,7 @@ public class Colis {
 	private UUID numSuivi;
 	private String dateArriveeEst;
 	private StatutCommande statut;
-	private static Map<UUID, Colis> colisMap = new HashMap<>();
+	static Map<UUID, Colis> colisMap = new HashMap<>();
 	protected Commande commande;
 
 	/**
@@ -54,57 +54,15 @@ public class Colis {
 		return statut;
 	}
 
-	/**
-	 * Permet de suivre l'état du colis en utilisant le numéro de suivi
-	 * @param numSuivi Le numéro de suivi du colis
-	 * @return Le statut actuel du colis ou null s'il n'est pas trouvé
-	 */
-
-	public static void suivreEtat(UUID numSuivi, Acheteur acheteur) throws FileNotFoundException {
-		Colis colis = colisMap.get(numSuivi);
-		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
-			System.out.println("Le statut du colis avec le numéro de suivi " + numSuivi + " : " + colis.getStatut());
-
-		} else {
-			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
-
-		}
-		Utilisateur.afficherMenu(acheteur);
-	}
 
 
-	/**
-	 * Permete de changer l'état du colis en utilisant le numéro de suivi
-	 * @param numSuivi Le numéro de suivi du colis
-	 * @param nouveauStatut Le nouveau statut attrubuer au colis
-	 */
-	public void changerEtat(UUID numSuivi, StatutCommande nouveauStatut, Revendeur revendeur) throws FileNotFoundException {
-		Colis colis = colisMap.get(numSuivi);
-		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
-			Commande commande = colis.getCommande();
-			if(commande != null){
-			colis.setStatut(nouveauStatut);
-			commande.setEtatCommande(nouveauStatut);
-			System.out.println("Le statut du colis ayant le numéro : " + numSuivi + " a été changé à " + nouveauStatut);
-
-		} else {
-			System.out.println("Aucune commande associée au colis avec le numéro de suivi : " + numSuivi);
-		}
-	}else {
-		System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
-
-		}
-		Utilisateur.afficherMenu(revendeur);
-
-
-	}
 
 	/**
 	 * Obtient la commande associée au colis
 	 * @return La commande associée au colis
 	 */
 
-	private Commande getCommande() {
+	Commande getCommande() {
 		return commande;
 	}
 
@@ -113,7 +71,7 @@ public class Colis {
 	 * @param nouveauStatut
 	 */
 
-	private void setStatut(StatutCommande nouveauStatut) {
+	void setStatut(StatutCommande nouveauStatut) {
 		this.statut = nouveauStatut;
 	}
 

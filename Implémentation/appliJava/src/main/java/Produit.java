@@ -135,6 +135,7 @@ public class Produit {
 		switch(like) {
 			case "1":
 				coeur = "liker";
+				revendeur.acheteurLikeProd.add((acheteur));
 				break;
 			case "2":
 				coeur = "ne pas liker";
