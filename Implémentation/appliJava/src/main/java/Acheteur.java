@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Scanner;
 
 public class Acheteur extends Utilisateur {
 
@@ -20,30 +21,33 @@ public class Acheteur extends Utilisateur {
 
 
 	public void suivreAcheteur(Acheteur acheteur) {
-			Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
-			if(acheteurAjouter != null){
-				if(!this.listeSuiveurs.contains(acheteurAjouter)){
-					this.listeSuiveurs.add(acheteurAjouter);
-					System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
+		Acheteur acheteurAjouter = Plateforme.rechercherAcheteur(BaseDonnees.acheteursList);
+		if (acheteurAjouter != null) {
+			if (!this.listeSuiveurs.contains(acheteurAjouter)) {
+				this.listeSuiveurs.add(acheteurAjouter);
+				System.out.println("Vous suivez maintenant " + acheteurAjouter.getPseudo());
 
-					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
+				BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
 
-				}else{
-						System.out.println("Vous êtes déjà abonné a cet acheteur");
-					}
-		} else{
+			} else {
+				System.out.println("Vous êtes déjà abonné a cet acheteur");
+			}
+		} else {
 			System.out.println("Aucun acheteur trouvé avec ce pseudo");
 			suivreAcheteur(acheteur);
-			}
+		}
 
 	}
+
 	public void ajouterSuiveur(Acheteur suiveur) {
-			this.listeSuiveurs.add(suiveur);
+		this.listeSuiveurs.add(suiveur);
 	}
+
 	public void retirerAcheteur(Acheteur suiveur) {
 		this.listeSuiveurs.remove(suiveur);
 	}
+
 	public void acheteurSuiviPar(Acheteur acheteur) throws FileNotFoundException {
 		Scanner scannerUn = new Scanner((System.in));
 
@@ -51,9 +55,9 @@ public class Acheteur extends Utilisateur {
 		System.out.println("1. Voir vos suiveurs");
 		System.out.println("2. Gérer ses suiveurs");
 		System.out.println("0. Retour au menu ");
-		int choix= Integer.parseInt(scannerUn.nextLine());
+		int choix = Integer.parseInt(scannerUn.nextLine());
 
-		switch (choix){
+		switch (choix) {
 			case 1 -> {
 				System.out.println(acheteur.listeSuiveurs);
 				acheteurSuiviPar(acheteur);
@@ -68,26 +72,29 @@ public class Acheteur extends Utilisateur {
 				switch (gestionChoix) {
 					case 1 -> {
 						suivreAcheteur(acheteur);
-					} case 2 -> {
+					}
+					case 2 -> {
 						System.out.println("Voici la liste de vos suiveurs actuels: " + listeSuiveurs);
 						System.out.println("Veuillez indiquer le pseudo de l'acheteur à supprimer.");
 						String acheteurPseudoSupp = scannerUn.nextLine();
 
-						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs );
+						Acheteur acheteurSupp = Plateforme.rechercherAcheteur(listeSuiveurs);
 
-						if (acheteurSupp != null ){
+						if (acheteurSupp != null) {
 							acheteur.listeSuiveurs.remove(acheteurSupp);
-							System.out.println("Achteur" + acheteurPseudoSupp+" retirer de votre liste de suiveurs");
+							System.out.println("Achteur" + acheteurPseudoSupp + " retirer de votre liste de suiveurs");
 
 							acheteurSupp.retirerAcheteur(this);
-						}else {
+						} else {
 							System.out.println("Aucun acheteur trouvé avec ce pseudo dans la liste de suiveurs" + acheteurPseudoSupp);
 						}
-					}case 0 -> {
+					}
+					case 0 -> {
 						afficherMenu(acheteur);
 					}
 				}
-			}case 0 -> {
+			}
+			case 0 -> {
 				afficherMenu(acheteur);
 			}
 
@@ -95,17 +102,17 @@ public class Acheteur extends Utilisateur {
 	}
 
 	public Acheteur(String telephone, String courriel, String motDePasse) {
-		super(telephone,courriel,motDePasse);
-		this.prenom= prenom;
-		this.nom= nom;
+		super(telephone, courriel, motDePasse);
+		this.prenom = prenom;
+		this.nom = nom;
 		panier = new Panier();
 	}
 
-	public void ajouterAuPanier(Produit p){
+	public void ajouterAuPanier(Produit p) {
 		this.panier.ajouterArticle(p);
 	}
 
-	public void addListeCommentaires(ArrayList<String> c){
+	public void addListeCommentaires(ArrayList<String> c) {
 		listeCommentaires.add(c);
 	}
 
@@ -113,24 +120,23 @@ public class Acheteur extends Utilisateur {
 		Scanner s = new Scanner(System.in);
 
 		System.out.println("Entrez l'ID de la commande que vous voulez confirmer");
-		for(Commande c : historiqueCommandes){
+		for (Commande c : historiqueCommandes) {
 			c.commandeToString();
 		}
-		while(true){
+		while (true) {
 			String choix = s.nextLine();
-			if (! Main.isNumeric(choix) ){
+			if (!Main.isNumeric(choix)) {
 				System.out.println("Svp entrez un chiffre pour l'ID!");
 			} else {
-				for(Commande c : historiqueCommandes){
-					if ( Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree ){
+				for (Commande c : historiqueCommandes) {
+					if (Integer.parseInt(choix) == c.getId() && c.getStatutCommande() != StatutCommande.livree) {
 						c.setEtatCommande(StatutCommande.livree);
 						break;
-					} else if( c.getStatutCommande() == StatutCommande.livree ) {
+					} else if (c.getStatutCommande() == StatutCommande.livree) {
 						System.out.println("Cette commande est deja livrée");
-					} else if ( c.getStatutCommande() == StatutCommande.en_production) {
+					} else if (c.getStatutCommande() == StatutCommande.en_production) {
 						System.out.println("Cette commande n'a pas encore été envoyée.");
-					}
-					else {
+					} else {
 						continue;
 					}
 				}
@@ -197,6 +203,7 @@ public class Acheteur extends Utilisateur {
 		}
 
 	}
+
 	public CarteCredit getCarteCredit() {
 		return carteCredit;
 	}
@@ -205,13 +212,14 @@ public class Acheteur extends Utilisateur {
 		this.carteCredit = carteCredit;
 	}
 
-	public void montrerProfil(){
+	public void montrerProfil() {
 		// afficher les informations
 		System.out.println("Profil de : " + pseudo);
 		System.out.println(prenom + nom);
 		System.out.println(listeSuiveurs.size() + " suiveurs");
 		System.out.println(listeCommentaires.size() + " commentaires rédigés");
 	}
+
 	public void afficherNotifications() {
 		for (Notification notification : notifications) {
 			System.out.println(notification);
@@ -224,13 +232,12 @@ public class Acheteur extends Utilisateur {
 
 
 	/**
-	 * 
 	 * @param
 	 */
 	public void likeRevendeur(Revendeur revendeur) {
-		if(revendeursLikes.contains(revendeur)){
+		if (revendeursLikes.contains(revendeur)) {
 			System.out.println("Vous avez déjà liké ce revendeur.");
-		} else{
+		} else {
 			revendeursLikes.add(revendeur);
 			System.out.println("Revendeur Liké avec succès.");
 		}
@@ -248,14 +255,16 @@ public class Acheteur extends Utilisateur {
 	public String getPrenom() {
 		return prenom;
 	}
+
 	public int getPoints() {
 		return this.points;
 	}
+
 	public Adresse getAdresseExpedition() {
 		return this.adresseExpedition;
 	}
 
-	public Acheteur getAcheteur(){
+	public Acheteur getAcheteur() {
 		return this;
 	}
 
@@ -266,14 +275,16 @@ public class Acheteur extends Utilisateur {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public void setAdresseExpedition(Adresse adresseExpedition) {
 		this.adresseExpedition = adresseExpedition;
 	}
+
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
 
-	public void setPoints(int points){
+	public void setPoints(int points) {
 		this.points = points;
 	}
 
@@ -287,26 +298,25 @@ public class Acheteur extends Utilisateur {
 
 		@return l'historique des commandes de l'acheteur
 	 */
-	protected String afficherHistorique(){
+	protected String afficherHistorique() {
 		// parse the csv de toutes les commandes & only keep the ones with the correct username
 		// System.out.println(Arrays.toString(value.split(",(?=\")"))); regex to parse the string
 		String message = null;
-		if (historiqueCommandes.size() == 0){
+		if (historiqueCommandes.size() == 0) {
 			message = "Vous n'avez passé aucune commande pour le moment!";
 			System.out.println(message);
 			return message;
 		}
-		for(Commande c : historiqueCommandes){
+		for (Commande c : historiqueCommandes) {
 			c.commandeToString();
 			System.out.println("\n");
 		}
 		return null;
 	}
 
-	public ArrayList<Commande> getHistoriqueCommandes(){
+	public ArrayList<Commande> getHistoriqueCommandes() {
 		return historiqueCommandes;
 	}
-
 
 
 	/*
@@ -314,16 +324,16 @@ public class Acheteur extends Utilisateur {
 
 		@param utilisateur l'acheteur connecté
 	 */
-	protected void afficherMetriques(Acheteur utilisateur){
+	protected void afficherMetriques(Acheteur utilisateur) {
 		int nbCommandes = ((Acheteur) utilisateur).historiqueCommandes.size();
 
 		ArrayList<String> produitsAchetes = new ArrayList<>();
 		ArrayList<String> commentairesDonnes = new ArrayList<>(); //2e elem du arrayList
-		for(Commande c : ( (Acheteur) utilisateur).historiqueCommandes ){
+		for (Commande c : ((Acheteur) utilisateur).historiqueCommandes) {
 			//voir les produits achetés
 			ArrayList<Produit> produits = c.getArticles();
-			for (Produit p : produits){
-				if (!produitsAchetes.contains(p)){
+			for (Produit p : produits) {
+				if (!produitsAchetes.contains(p)) {
 					produitsAchetes.add(p.toString());
 				}
 			}
@@ -332,7 +342,7 @@ public class Acheteur extends Utilisateur {
 		System.out.println("Vos métriques d'acheteur: ");
 		System.out.println("Nombre de commandes : " + nbCommandes);
 		System.out.println("Produits achetés");
-		for (String s : produitsAchetes){
+		for (String s : produitsAchetes) {
 			System.out.println(s);
 		}
 		System.out.println("Nombre total: " + produitsAchetes.size());
@@ -344,24 +354,24 @@ public class Acheteur extends Utilisateur {
 		}
 		Scanner s = new Scanner(System.in);
 		boolean validInput = false;
-		do{
-			try{
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
+		do {
+			try {
+				System.out.println("Entrez 0 pour retourner au menu principal");
 
 				String choix = s.nextLine();
-				if ( ! Main.isNumeric(choix)){
+				if (!Main.isNumeric(choix)) {
 					throw new InputMismatchException();
 				} else {
-					if (choix.equals("0")){
+					if (choix.equals("0")) {
 						validInput = true;
 						Utilisateur.afficherMenu(utilisateur);
 						break;
 					}
-					if(!validInput){
+					if (!validInput) {
 						throw new InputMismatchException();
 					}
 				}
-			} catch (InputMismatchException | FileNotFoundException e){
+			} catch (InputMismatchException | FileNotFoundException e) {
 				System.out.println("Svp entrez 0!");
 			}
 		} while (!validInput);
@@ -380,7 +390,8 @@ public class Acheteur extends Utilisateur {
 	}
 
 	/**
-	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée
+	 * Cette méthode demande à l'acheteur d'accepter ou de refuser la solution proposée à un problème signalé
+	 *
 	 * @param scanner l'objet scanner qui lit l'entrée utilisateur
 	 * @return true si l'utilisateur accepte, sinon false.
 	 */
@@ -411,11 +422,37 @@ public class Acheteur extends Utilisateur {
 		return false;
 	}
 
+
 	/**
 	 * Cette méthode permet aux acheteurs de consulter leurs billets de signalement.
+	 *
 	 * @param billet le billet de signalement de l'acheteur
 	 */
 	public void consulterBilletDeSignalement(BilletDeSignalement billet) {
-		BilletDeSignalement.ajouterBillet(billet);
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Description du problème : " + billet.getDescriptionProbleme());
+
+		// Donner à l'acheteur la possibilité de confirmer la livraison du produit de remplacement
+		if (billet.getNumSuiviRemplacement() != 0 && billet.getDescriptionSolution().contains("Le revendeur a " +
+				"proposé un échange du produit défectueux")) {
+			System.out.println("Voulez-vous confirmer la livraison du produit de remplacement ?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			int choixConfirmationLivraisonRemplacement = scanner.nextInt();
+			scanner.nextLine();
+
+			if (choixConfirmationLivraisonRemplacement == 1) {
+				billet.setConfirmationLivraisonRemplacement(true);
+				System.out.println("La livraison du produit de remplacement est confirmée.");
+			} else {
+				billet.setConfirmationLivraisonRemplacement(false);
+				System.out.println("La livraison du produit de remplacement n'est pas confirmée.");
+			}
+
+		}
+
 	}
 }

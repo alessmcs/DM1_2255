@@ -135,10 +135,9 @@ public class Plateforme {
 		System.out.print("Voulez-vous diffuser un média avec votre produit? : ");
 		System.out.print("1. Oui");
 		System.out.print("2. Non");
-		scanner.nextLine();
 
-		System.out.print("Entrez votre choix: ");
 		String choice = scanner.nextLine();
+		scanner.nextLine();
 
 		switch (choice) {
 			case "1" -> {
@@ -224,7 +223,7 @@ public class Plateforme {
 					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non..");
 				scanner.nextLine();
 			}
 		} while (choixPts != 1 && choixPts != 2);

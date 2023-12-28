@@ -37,6 +37,9 @@ public class Probleme {
 
 		// Envoyer le billet au profil du revendeur
 		revendeur.recevoirBilletDeSignalement(billet);
+
+		// Traiter le billet de signalement
+		revendeur.gererProbleme(revendeur, new Probleme(), billet);
 	}
 	public LocalDate getDateEmission() {
 		return dateEmission;

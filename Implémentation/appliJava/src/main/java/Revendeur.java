@@ -116,18 +116,49 @@ public class Revendeur extends Utilisateur {
 		}
 	}
 
-
-	public BilletDeSignalement gererProbleme(Revendeur revendeur, Probleme probleme, BilletDeSignalement billet) {
+	/**
+	 * Cette méthode permet à un revendeur de traiter les billets de signalements issus par l'acheteur.
+	 * @param revendeur le revendeur qui répond aux problèmes
+	 * @param probleme L'instance de la classe Probleme associée au billet de signalement
+	 * @param billet  L'instance de la classe BilletDeSignalement à traiter
+	 */
+	public void gererProbleme(Revendeur revendeur, Probleme probleme, BilletDeSignalement billet) {
 		Scanner scanner = new Scanner(System.in);
 		Acheteur acheteur = billet.getAcheteur();
 		retourEchange retourEchange = new retourEchange();
 
 		System.out.println("Nouveau billet de signalement reçu : " + billet.getDescriptionProbleme());
 
+		// Demander au revendeur de spécifier le statut de livraison du produit défectueux
+		boolean choixConfirmationLivraisonValide = false; // Boucle jusqu'à entrée valide
+		while (!choixConfirmationLivraisonValide) {
+			System.out.println("Étape 1. Est-ce que ce produit a été livré?");
+			System.out.println("1. Oui");
+			System.out.println("2. Non");
+
+			try {
+				int choixConfirmationLivraison = scanner.nextInt();
+				scanner.nextLine();
+
+				if (choixConfirmationLivraison == 1) {
+					billet.setConfirmationLivraison(true);
+					choixConfirmationLivraisonValide = true; // Sortir de la boucle si l'entrée est valide
+				} else if (choixConfirmationLivraison == 2) {
+					billet.setConfirmationLivraison(false);
+					return; // Sortir de la méthode si le produit n'a pas été livré
+				} else {
+					System.out.println("Choix invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Entrée invalide. Veuillez choisir 1 pour Oui ou 2 pour Non.");
+				scanner.nextLine();
+			}
+		}
+
 		boolean solutionAcceptee = false;
 		while (!solutionAcceptee) {
 			// Demander au revendeur de donner une solution
-			System.out.println("Options de solution :");
+			System.out.println("Étape 2. Choisissez une des options de solution :");
 			System.out.println("1. Réparation du produit défectueux");
 			System.out.println("2. Retour et remboursement");
 			System.out.println("3. Échange");
@@ -152,21 +183,28 @@ public class Revendeur extends Utilisateur {
 				}
 				case 2 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
-					// Exécuter un retour
+					// Effectuer un retour
 					if (acheteur.acheteurAccepteSolution(scanner)) {
 						retourEchange.effectuerRetour(acheteur);
 					}
 				}
 				case 3 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
-					// Exécuter un échange
+					// Effectuer un échange
 					if (acheteur.acheteurAccepteSolution(scanner)) {
-						retourEchange.effectuerEchange(acheteur);
+						// Demander au revendeur de fournir plus de détails.
+						System.out.println("Veuillez spécifier la description du produit de remplacement : ");
+						String descriptionRemplacement = scanner.nextLine();
+						billet.setDescriptionRemplacement(descriptionRemplacement);
+
+						System.out.println("Entrez son numéro de suivi : ");
+						int numSuiviRemplacement = scanner.nextInt();
+						billet.setNumSuiviRemplacement(numSuiviRemplacement);
 					}
 				}
 				default -> {
 					System.out.println("Choix invalide. Aucune action n'a été prise.");
-					return billet;
+					return;
 				}
 			}
 
@@ -175,7 +213,6 @@ public class Revendeur extends Utilisateur {
 
 			// Mise à jour de solutionAcceptee en fonction de la réponse de l'acheteur
 			solutionAcceptee = acheteur.acheteurAccepteSolution(scanner);
-
 		}
 
 		// Annuler automatiquement la demande de réexpédition après 30 jours
@@ -185,7 +222,6 @@ public class Revendeur extends Utilisateur {
 			System.out.println("La demande de réexpédition est annulée car le produit n'a pas été reçu à temps.");
 			billet.setNumSuiviRemplacement(0);
 		}
-		return billet;
 	}
 
 	/**
@@ -211,10 +247,10 @@ public class Revendeur extends Utilisateur {
 	}
 
 	/**
-	 * @param Utilisateur Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 * Sert à afficher les commentaires d'un produit qui appartient à un certain revendeur
+	 * @param utilisateur le revendeur auquel on souhaite consulter les commentaires
 	 */
-
-	public void afficherCommentaires(Revendeur Utilisateur utilisateur) {
+	public void afficherCommentaires(Revendeur utilisateur) {
 		for (Produit p : ((Revendeur) utilisateur).inventaire) {
 			for (ArrayList<String> commentaire : p.listCommentaires) {
 				System.out.println("Produit: " + p.titre);
