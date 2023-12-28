@@ -201,6 +201,11 @@ public class Plateforme {
 		Main.ecrireProduitCSV(produit, "src/main/data/listeProduits.csv");
 		Catalogue.ajouterProduit(produit);
 
+		for (Acheteur acheteur : revendeur.acheteurQuiAime) {
+			Notification notificationNew = new Notification(RaisonsNotif.NOUVEAU_PRODUIT);
+		}
+
+
 		System.out.println("Pour quitter le formulaire d'offre, entrez 0");
 		System.out.println("Pour offrir un autre produit, entrez 1");
 		String choix = scanner.nextLine();

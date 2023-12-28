@@ -30,6 +30,13 @@ public class Acheteur extends Utilisateur {
 		this.nom= nom;
 		panier = new Panier();
 	}
+	public void ajouterNotification(Notification notification) {
+		notifications.add(notification);
+	}
+
+	public ArrayList<Notification> getNotifications() {
+		return notifications;
+	}
 	
 	/**
 	 * Permet à un acheteur d'en suivre un autre
@@ -344,11 +351,12 @@ public class Acheteur extends Utilisateur {
 	 * 
 	 * @param revendeur un utilsateur qui vend des articles sur UniShop
 	 */
-	public void likeRevendeur(Revendeur revendeur) {
+	public void likeRevendeur(Revendeur revendeur, Acheteur acheteur) {
 		if(revendeursLikes.contains(revendeur)){
 			System.out.println("Vous avez déjà liké ce revendeur.");
 		} else{
 			revendeursLikes.add(revendeur);
+			revendeur.acheteurQuiAime.add(acheteur);
 			System.out.println("Revendeur Liké avec succès.");
 		}
 	}
