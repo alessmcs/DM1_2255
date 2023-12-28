@@ -321,17 +321,20 @@ public class Revendeur extends Utilisateur {
 				scanner.nextLine();
 				continue;
 			}
-
+			Notification notification = new Notification(RaisonsNotif.SOLUTION_PROBLEME);
 			switch (choixSolution) {
 				case 1 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Réexpédier le produit au revendeur
 					if (acheteur.acheteurAccepteSolution(scanner)) {
+
 						retourEchange.effectuerRetour(acheteur);
 					}
 				}
 				case 2 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Effectuer un retour
 					if (acheteur.acheteurAccepteSolution(scanner)) {
 						retourEchange.effectuerRetour(acheteur);
@@ -339,6 +342,7 @@ public class Revendeur extends Utilisateur {
 				}
 				case 3 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Effectuer un échange
 					if (acheteur.acheteurAccepteSolution(scanner)) {
 						// Demander au revendeur de fournir plus de détails.
