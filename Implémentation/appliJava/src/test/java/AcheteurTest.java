@@ -148,7 +148,7 @@ class AcheteurTest {
 
         System.setOut(System.out);
 
-        assertTrue(outContent.toString().contains("Le statut du colis avec le numéro de suivi " + numSuivi + " : En production"));
+        assertTrue(outContent.toString().contains("Le statut du colis avec le numéro de suivi " + numSuivi + StatutCommande.en_chemin));
     }
 
     @Test
