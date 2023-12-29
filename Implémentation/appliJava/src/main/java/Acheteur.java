@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Collections;
+
 
 public class Acheteur extends Utilisateur {
 
@@ -17,6 +19,7 @@ public class Acheteur extends Utilisateur {
 	protected ArrayList<Acheteur> listeSuiveurs = new ArrayList<>();
 	private Set<Revendeur> revendeursLikes = new HashSet<>();
 	private CarteCredit carteCredit;
+	protected ArrayList<Produit> produitLiked = new ArrayList<>();
 
 	/**
 	 * 
@@ -38,6 +41,10 @@ public class Acheteur extends Utilisateur {
 	public ArrayList<Notification> getNotifications() {
 		return notifications;
 	}
+
+	protected ArrayList<ArrayList<String>> getListeCommentaires() {
+		return listeCommentaires;
+	}
 	
 	/**
 	 * Permet à un acheteur d'en suivre un autre
@@ -55,10 +62,13 @@ public class Acheteur extends Utilisateur {
 					BaseDonnees.acheteursList.get(BaseDonnees.acheteursList.indexOf(acheteurAjouter)).ajouterSuiveur(this);
 
 
-
 					acheteurAjouter.ajouterSuiveur(this);
 					Notification nouvelleNotification = new Notification(RaisonsNotif.NOUVEL_ABONNE);
 					acheteurAjouter.ajouterNotification(nouvelleNotification);
+
+					for (Produit produit : acheteurAjouter.getProduitLiked()) {
+						this.ajouterProduitLiked(produit);
+					}
 
 					afficherMenu(acheteur);
 
@@ -70,6 +80,22 @@ public class Acheteur extends Utilisateur {
 			suivreAcheteur(acheteur);
 			}
 	}
+
+	private ArrayList<Produit> getProduitLiked() {
+		return produitLiked;
+	}
+
+	/**
+	 * Ajoute un produit à la liste des produits aimés de l'acheteur, pou que l'acheteur recois une notification
+	 * quand un produit liké est en rabais
+	 *
+	 * @param produit
+	 */
+	public void ajouterProduitLiked(Produit produit) {
+		if (!produitLiked.contains(produit)) {
+			produitLiked.add(produit);
+		}
+		}
 
 	/**
 	 * Permet d'ajouter à une liste de "suiveur" 
@@ -630,6 +656,32 @@ public class Acheteur extends Utilisateur {
 		}
 
 	}
+	/**
+	 * Permet de suivre l'état du colis en utilisant le numéro de suivi
+	 * @param numSuivi Le numéro de suivi du colis
+	 * @return Le statut actuel du colis ou null s'il n'est pas trouvé
+	 */
+
+	public static void suivreEtat(UUID numSuivi, Acheteur acheteur) throws FileNotFoundException {
+		Colis colis = Colis.colisMap.get(numSuivi);
+		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
+			System.out.println("Le statut du colis avec le numéro de suivi " + numSuivi + " : " + colis.getStatut());
+
+		} else {
+			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
+
+		}
+		Utilisateur.afficherMenu(acheteur);
+	}
 
 
+	public void setHistoriqueCommandes(ArrayList<Commande> historiqueCommandes) {
+	}
+
+	public void setRevendeursLikes(ArrayList<Object> objects) {
+	}
+
+	public Collection<Object> getRevendeursLikes() {
+		return revendeursLikes != null ? Collections.singleton(revendeursLikes) : Collections.emptyList();
+	}
 }

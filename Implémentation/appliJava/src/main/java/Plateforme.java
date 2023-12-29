@@ -283,10 +283,6 @@ public class Plateforme {
 	}
 
 
-	public static void rechercheProduit(){
-
-	}
-
 	/**
 	 * Permet de rechercher un acheteur sur le Unishop
 	 * 

@@ -4,7 +4,7 @@ public class Facture {
 	private String date;
 	private static double rabais;
 
-	/*
+	/**
 		Définir le montant de la facture & le conserver dans une variable locale
 
 		@param montant le montant total de la facture
@@ -13,7 +13,7 @@ public class Facture {
 		this.montant = montant;
 	}
 
-	/*
+	/**
 		Changer le montant total d'une commande et la conserver dans une variable pour l'afficher dans la facture
 
 		@param rabais le rabais qu'on souhaite appliquer au montant
@@ -23,7 +23,7 @@ public class Facture {
 		montant -= rabais;
 	}
 
-	/*
+	/**
 		Obtenir le montant total du panier
 
 		@return le montant total du panier

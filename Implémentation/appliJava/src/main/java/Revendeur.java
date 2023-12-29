@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -13,6 +16,7 @@ public class Revendeur extends Utilisateur {
 	protected Map<Commande, CarteCredit> retours = new HashMap<>();
 	protected ArrayList<Acheteur> acheteurQuiAime = new ArrayList<>();
 	protected ArrayList<Notification> notifications = new ArrayList<>();
+	protected  ArrayList<Acheteur> acheteurLikeProd = new ArrayList<>();
 
 
 	public Revendeur(String telephone, String courriel, String motDePasse) {
@@ -41,7 +45,12 @@ public class Revendeur extends Utilisateur {
 	public Map<Commande, CarteCredit> getCommandesRetournees() {
 		return retours;
 	}
-
+	protected ArrayList<Acheteur> getAcheteurLikeProd() {
+		return acheteurLikeProd;
+	}
+	protected void setAcheteurLikeProd(ArrayList<Acheteur> acheteurLikeProd) {
+		this.acheteurLikeProd = acheteurLikeProd;
+	}
 
 	/**
 	 * Ajoute la commande retournée aux retours
@@ -133,10 +142,6 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-	public void gererProbleme() {
-		// TODO - implement Revendeur.gérerProbleme
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * Mets à jour l'inventaire d'un certain produit
@@ -226,27 +231,39 @@ public class Revendeur extends Utilisateur {
 			}
 		}
 		System.out.println("Nombre de commandes retournées: " + retours.size());
+	}
 
+	/**
+	 * Affiche chaque article dans l'inventaire du revendeur
+	 * @param rev le revendeur connecté
+	 */
+	public static void montrerInventaire(Revendeur rev){
+		for (Produit p : rev.inventaire){
+			System.out.println(p.toString());
+		}
 		Scanner s = new Scanner(System.in);
 		boolean validInput = false;
 		do{
 			try{
-				System.out.println( "Entrez 0 pour retourner au menu principal" );
-
+				System.out.println("1. Promouvoir un produit");
+				System.out.println("0. Retourner au menu principal" );
 				String choix = s.nextLine();
 				if ( ! Main.isNumeric(choix)){
 					throw new InputMismatchException();
 				} else {
 					if (choix.equals("0")) {
-						validInput = true;
 						try {
-							Utilisateur.afficherMenu(utilisateur);
+							Utilisateur.afficherMenu(rev);
+							break;
 						} catch (FileNotFoundException e) {
 							System.out.println("Une erreur s'est produite veuillez réessayer");
 						}
 						break;
+					} else if (choix.equals("1")){
+						validInput = true;
+						promouvoir(rev);
+						break;
 					}
-
 					if(!validInput){
 						throw new InputMismatchException();
 					}
@@ -258,7 +275,137 @@ public class Revendeur extends Utilisateur {
 	}
 
 	/**
-	 * Montre le profil du revendeur
+	 * Permet au revendeur de promouvoir un produit en entrant un nouveau prix
+	 * @param rev le revendeur connecté
+	 */
+	public static void promouvoir(Revendeur rev){
+		Produit prodAPromouvoir = null;
+		System.out.println("Svp entrez l'ID du produit que vous souhaitez promouvoir");
+		Scanner s = new Scanner(System.in);
+		boolean validInput = false;
+		do{
+			try{
+				String choix = s.nextLine();
+				if ( ! Main.isNumeric(choix)){
+					throw new InputMismatchException();
+				} else {
+					for (Produit p : rev.inventaire){
+						if(Integer.parseInt(choix) == p.getId()){
+							validInput = true;
+							prodAPromouvoir = p;
+							break;
+						}
+					}
+					if(!validInput){
+						throw new InputMismatchException();
+					}
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Svp entrez un ID valide!");
+			}
+		} while (!validInput);
+
+		System.out.println("Vous avez choisi de promouvoir " + prodAPromouvoir.getTitre() + ". Le prix initial est " + prodAPromouvoir.getPrix() +
+		"\nVeuillez entrer le nouveau prix désiré");
+
+		Notification notification = new Notification(RaisonsNotif.PROMOTION);
+
+		for (Acheteur acheteur : BaseDonnees.acheteursList) {
+			if (acheteur.produitLiked.contains(prodAPromouvoir) || rev.acheteurLikeProd.contains(acheteur)) {
+				acheteur.ajouterNotification(notification);
+			}
+		}
+
+
+
+				boolean validInput2 = false;
+		do{
+			try{
+				String choix = s.nextLine();
+				if ( ! Main.isNumeric(choix)){
+					throw new InputMismatchException();
+				} else {
+					validInput2 = true;
+					double nouvPrix = Double.parseDouble(choix);
+					prodAPromouvoir.setPrix(nouvPrix);
+					modPrix(prodAPromouvoir, nouvPrix);
+					System.out.println("Le prix est maintenant " + prodAPromouvoir.getPrix());
+
+					System.out.println("0. Retourner au menu principal \n1. Promouvoir un autre produit");
+					boolean validInput3 = false;
+					do{
+						try{
+							String choix2 = s.nextLine();
+							if ( ! Main.isNumeric(choix)){
+								throw new InputMismatchException();
+							} else {
+								if (choix2.equals("0")) {
+									validInput3 = true;
+									try {
+										Utilisateur.afficherMenu(rev);
+									} catch (FileNotFoundException e) {
+										System.out.println("Une erreur s'est produite veuillez réessayer");
+									}
+									break;
+								} else if (choix2.equals("1")){
+									validInput3 = true;
+									promouvoir(rev);
+								}
+								if(!validInput3){
+									throw new InputMismatchException();
+								}
+							}
+						} catch (InputMismatchException e){
+							System.out.println("Svp entrez 0 ou 1!");
+						}
+					} while (!validInput3);
+
+					if(!validInput2){
+						throw new InputMismatchException();
+					}
+					break;
+				}
+			} catch (InputMismatchException e){
+				System.out.println("Svp entrez un prix valide!");
+			}
+		} while (!validInput2);
+	}
+
+	/**
+	 * Modifie le prix du produit dans les bases de données
+	 * @param prod le produit à promouvoir
+	 * @param nouvPrix le nouveau prix
+	 */
+	private static void modPrix(Produit prod, double nouvPrix){
+		// les points de l'acheteur sont mis à jour dans passerCommande mais pas dans le csv des acheteurs
+
+		// modifier dans le arrayList de la base de données
+		for (Produit p : Catalogue.getProduits()){
+			if ( prod == p ){
+				p.setPrix(nouvPrix);
+			}
+		}
+
+		File file = new File("src/main/data/listeProduits.csv");
+
+		// supprimer le contenu existant
+		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+			outputStream.getChannel().truncate(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// le remplacer par le contenu à jour
+		for (Produit p : Catalogue.getProduits() ){
+			try {
+				Main.ecrireProduitCSV(p, "src/main/data/listeProduits.csv");
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	/**
+	 * Montre le profil d'un revendeur
 	 */
 	public void montrerProfil(){
 		// afficher les informations
@@ -325,17 +472,20 @@ public class Revendeur extends Utilisateur {
 				scanner.nextLine();
 				continue;
 			}
-
+			Notification notification = new Notification(RaisonsNotif.SOLUTION_PROBLEME);
 			switch (choixSolution) {
 				case 1 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé de réparer votre produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Réexpédier le produit au revendeur
 					if (acheteur.acheteurAccepteSolution(scanner)) {
+
 						retourEchange.effectuerRetour(acheteur);
 					}
 				}
 				case 2 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé le retour du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Effectuer un retour
 					if (acheteur.acheteurAccepteSolution(scanner)) {
 						retourEchange.effectuerRetour(acheteur);
@@ -343,6 +493,7 @@ public class Revendeur extends Utilisateur {
 				}
 				case 3 -> {
 					billet.setDescriptionSolution("Le revendeur a proposé un échange du produit défectueux");
+					acheteur.ajouterNotification(notification); // L'acheteur recois une réponse de la part du revendeur
 					// Effectuer un échange
 					if (acheteur.acheteurAccepteSolution(scanner)) {
 						// Demander au revendeur de fournir plus de détails.
@@ -385,6 +536,33 @@ public class Revendeur extends Utilisateur {
 	public void recevoirBilletDeSignalement(BilletDeSignalement billet) {
 		BilletDeSignalement.ajouterBillet(billet);
 	}
+	/**
+	 * Permete de changer l'état du colis en utilisant le numéro de suivi
+	 * @param numSuivi Le numéro de suivi du colis
+	 * @param nouveauStatut Le nouveau statut attrubuer au colis
+	 */
+	public void changerEtat(UUID numSuivi, StatutCommande nouveauStatut, Revendeur revendeur) throws FileNotFoundException {
+		Colis colis = Colis.colisMap.get(numSuivi);
+		if (colis != null && colis.getNumSuivi().equals(numSuivi)) {
+			Commande commande = colis.getCommande();
+			if(commande != null){
+				colis.setStatut(nouveauStatut);
+				commande.setEtatCommande(nouveauStatut);
+				System.out.println("Le statut du colis ayant le numéro : " + numSuivi + " a été changé à " + nouveauStatut);
+				Acheteur acheteur = commande.getAcheteur();
+				Notification notification = new Notification(RaisonsNotif.ETAT_COMMANDE);
+				acheteur.ajouterNotification(notification);
+			} else {
+				System.out.println("Aucune commande associée au colis avec le numéro de suivi : " + numSuivi);
+			}
+		}else {
+			System.out.println("Aucun colis trouvé avec le numéro de suivi : " + numSuivi);
+		}
+		Utilisateur.afficherMenu(revendeur);
+	}
 
 
+	public Collection<Object> getAcheteursQuiAime() {
+		return acheteurQuiAime != null ? Collections.singleton(acheteurQuiAime) : Collections.emptyList();
+	}
 }

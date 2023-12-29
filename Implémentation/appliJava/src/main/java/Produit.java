@@ -135,6 +135,7 @@ public class Produit {
 		switch(like) {
 			case "1":
 				coeur = "liker";
+				revendeur.acheteurLikeProd.add((acheteur));
 				break;
 			case "2":
 				coeur = "ne pas liker";
@@ -280,12 +281,6 @@ public class Produit {
 			((Acheteur) util).addListeCommentaires(c.getContenu());
 		}
 		return listCommentaires;
-	}
-
-
-
-	public void promouvoir() {
-		// TODO - implement Produit.promouvoir
 	}
 
 	public Revendeur getRevendeur() {

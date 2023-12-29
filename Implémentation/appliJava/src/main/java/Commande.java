@@ -32,7 +32,7 @@ public class Commande {
 		this.montant = panier.getTotal();
 	}
 
-	/*
+	/**
 		Permet d'assigner un acheteur à un objet Commande, pour qu'on puisse y accéder depuis l'acheteur.
 
 		@param a l'acheteur auquel on veut associer la commande
@@ -41,7 +41,7 @@ public class Commande {
 		acheteur = a;
 	}
 
-	/*
+	/**
 		Propose à l'acheteur de remplir un formulaire pour qu'il passe la commande contenant les produits de son panier.
 		Cette méthode ne retourne rien, mais elle instancie un objet de type "Commande" pour l'ajouter à l'historique
 		des commandes de l'acheteur. Elle écrit également les informations de la commande dans le fichier commandes.csv.
@@ -276,13 +276,14 @@ public class Commande {
 		}
 
 		// nouveau colis généré avec la commande
-		Colis colis = new Colis(commande.getStatutCommande());
+		Colis colis = new Colis(commande);
+		System.out.println("Votre numéro de suivi est : " + colis.getNumSuivi());
 
 		return commande;
 	}
 
 
-	/*
+	/**
 		Modifie la quantité des produits dans le csv et dans la liste des produits du catalogue
 
 		@param panier le panier contenant les produits
@@ -316,7 +317,7 @@ public class Commande {
 		}
 	}
 
-	/*
+	/**
 		Modifie le nombre de points de l'acheteur dans la base de donnés (arrayList & csv)
 
 		@param ach l'acheteur qui a fait la commande
@@ -349,7 +350,7 @@ public class Commande {
 		}
 	}
 
-	/*
+	/**
 		Cette méthode prend en entrée un objet de StatutCommande, qui est, en fait, un String.
 		Elle permet de modifier le statut d'une commande.
 
@@ -359,7 +360,7 @@ public class Commande {
 		this.statut = e;
 	}
 
-	/*
+	/**
 		Cette méthode permet à un utilisateur de recevoir le statut de la commande sans directement accéder à l'objet
 
 		@return statut de la commande sur laquelle on appelle la méthode
@@ -368,7 +369,7 @@ public class Commande {
 		return statut;
 	}
 
-	/*
+	/**
 		Cette méthode permet de recevoir l'ID unique de la commande
 
 		@return ID de la commande sur laquelle on appelle la méthode
@@ -377,7 +378,7 @@ public class Commande {
 		return id;
 	}
 
-	/*
+	/**
 		Cette méthode permet de recevoir la liste des articles compris dans la commande
 
 		@return liste des articles (de type ArrayList<Produit>)
@@ -398,7 +399,7 @@ public class Commande {
 		return acheteur;
 	}
 
-	/*
+	/**
 		Cette méthode formate simplement la commande pour qu'elle soit affichée correctement
 	 */
 	public String commandeToString(){
@@ -440,4 +441,9 @@ public class Commande {
 	}
 
 
+	public void setStatutCommande(StatutCommande enChemin) {
+	}
+
+	public void setId(int i) {
+	}
 }
