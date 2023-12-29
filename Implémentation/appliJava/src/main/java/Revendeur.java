@@ -562,5 +562,7 @@ public class Revendeur extends Utilisateur {
 	}
 
 
-
+	public Collection<Object> getAcheteursQuiAime() {
+		return acheteurQuiAime != null ? Collections.singleton(acheteurQuiAime) : Collections.emptyList();
+	}
 }

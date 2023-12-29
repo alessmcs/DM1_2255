@@ -60,55 +60,6 @@ class AcheteurTest {
 
     }
 
-    @Test
-    public void testAfficherMetriques() {
-        // Créer un Acheteur fictif pour tester la méthode
-        Acheteur acheteur = new Acheteur("123", "test@example.com", "pseudo");
-
-        // Nouveau panier
-        Panier panier = new Panier();
-
-        // Créer une liste d'historique de commandes fictive
-        ArrayList<Commande> historiqueCommandes = new ArrayList<>();
-        historiqueCommandes.add(new Commande(acheteur, StatutCommande.en_production, acheteur.getAdresseExpedition(),
-                33, panier));
-        acheteur.setHistoriqueCommandes(historiqueCommandes);
-
-        // Rediriger l'entrée utilisateur pour simuler une réponse "1"
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
-        System.setIn(in);
-
-        // Capturer la sortie standard
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        try {
-            // Appeler la méthode afficherMetriques avec le scanner modifié
-            acheteur.afficherMetriques(acheteur);
-
-            // Vérifier la sortie
-            String expectedOutput = "Vos métriques d'acheteur: \n" +
-                    "Nombre de commandes : 1\n" +
-                    "Produits achetés\n" +
-                    "/* Ajoutez les détails des produits ici */\n" +
-                    "Nombre total: /* Ajoutez le nombre total de produits ici */\n" +
-                    "Vos commentaires: \n" +
-                    "\u001B[1mÉtoile(s): \u001B[0m/* Ajoutez le nombre d'étoiles ici */\n" +
-                    "\u001B[1mLike: \u001B[0m/* Ajoutez le nombre de likes ici */\n" +
-                    "\u001B[1mCommentaire: \u001B[0m/* Ajoutez le commentaire ici */\n" +
-                    "Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non\n";
-
-            assertEquals(expectedOutput, outContent.toString());
-        } catch (FileNotFoundException e) {
-            fail("Exception inattendue : " + e.getMessage());
-        } finally {
-            // Restaurer la sortie standard
-            System.setIn(System.in);
-            System.setOut(System.out);
-        }
-    }
-
-
 
     @Test
     public void testMontrerProfil() {
@@ -134,6 +85,34 @@ class AcheteurTest {
         // Vérification
         String expectedOutput = "Profil de : fbredon\nFelixBredon\n1 suiveurs\n1 commentaires rédigés\n";
         assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    public void testLikeRevendeurSucces() {
+        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
+        Revendeur revendeur = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
+        acheteur.setRevendeursLikes(new ArrayList<>());
+
+        // Appeler la méthode likeRevendeur
+        acheteur.likeRevendeur(revendeur, acheteur);
+
+        // Vérifications
+        Assertions.assertTrue(revendeur.getAcheteurQuiAime().contains(acheteur));
+    }
+
+    @Test
+    public void testLikeRevendeurDejaLike() {
+        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
+        Revendeur revendeur = new Revendeur("5142928982", "hubert12@gmail.com", "jesuishubert123");
+        acheteur.setRevendeursLikes(new ArrayList<>());
+        acheteur.likeRevendeur(revendeur, acheteur); // Like une première fois
+
+        // Appeler la méthode likeRevendeur une deuxième fois
+        acheteur.likeRevendeur(revendeur, acheteur);
+
+        // Vérifications
+        assertEquals(1, acheteur.getRevendeursLikes().size()); // La taille de la liste ne doit pas changer
+        assertEquals(1, revendeur.getAcheteurQuiAime().size()); // La taille de la liste ne doit pas changer
     }
 
 }

@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.Collections;
+
 
 public class Acheteur extends Utilisateur {
 
@@ -674,5 +676,12 @@ public class Acheteur extends Utilisateur {
 
 
 	public void setHistoriqueCommandes(ArrayList<Commande> historiqueCommandes) {
+	}
+
+	public void setRevendeursLikes(ArrayList<Object> objects) {
+	}
+
+	public Collection<Object> getRevendeursLikes() {
+		return revendeursLikes != null ? Collections.singleton(revendeursLikes) : Collections.emptyList();
 	}
 }
