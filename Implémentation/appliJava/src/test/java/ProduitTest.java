@@ -1,15 +1,15 @@
-import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
-import org.junit.Before;
-import org.junit.Test;
 
 public class ProduitTest {
     private Produit produit;
     private static final Utilisateur Utilisateur = null;
 
     
-    @Before
+    @BeforeEach
     public void setup(){
         this.produit = new Produit("Écouteurs SONY WH-1000XM4", 409.98, 2, "Matériel informatique", 20, "Écouteurs");
     }
