@@ -21,6 +21,8 @@ Java 19, Maven 3.8.1
 
 *À partir de IntelliJ:*
 Configuration: Main.java (point d'entrée)
+
+*Note sur l'implémentation:* Le fichier .jar existe mais il n'est pas exécutable, car nous avons eu des erreurs avec le fichier resources, vous pouvez donc seulement le run à partir de Main.java
   
 *À partir du terminal:* 
 
