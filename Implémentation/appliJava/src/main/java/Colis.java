@@ -1,5 +1,4 @@
 import jdk.jshell.execution.Util;
-
 import java.io.FileNotFoundException;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.util.HashMap;
@@ -75,4 +74,6 @@ public class Colis {
 		this.statut = nouveauStatut;
 	}
 
+	public void setNumSuivi(UUID numSuivi) {
+	}
 }
