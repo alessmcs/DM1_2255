@@ -38,6 +38,10 @@ public class Acheteur extends Utilisateur {
 	public ArrayList<Notification> getNotifications() {
 		return notifications;
 	}
+
+	protected ArrayList<ArrayList<String>> getListeCommentaires() {
+		return listeCommentaires;
+	}
 	
 	/**
 	 * Permet à un acheteur d'en suivre un autre
