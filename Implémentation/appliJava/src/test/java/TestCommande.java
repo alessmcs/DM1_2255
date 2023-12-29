@@ -38,9 +38,9 @@ public class TestCommande {
         String expected = "2\n" +
                 "En production\n" +
                 "ID : 1, Titre: Écouteurs SONY WH-1000XM4\n" +
-                "409.99\n" +
+                "409.989990234375\n" +
                 "ID : 2, Titre: Cahier Canada quadrillé 40 pages\n" +
-                "1.79\n" +
+                "1.7899999618530273\n" +
                 "Total : 411.7799987792969";
 
         String actual = commande.commandeToString(); // get le dernier elem

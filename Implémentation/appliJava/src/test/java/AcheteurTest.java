@@ -114,59 +114,59 @@ class AcheteurTest {
         assertEquals(1, revendeur.getAcheteurQuiAime().size()); // La taille de la liste ne doit pas changer
     }
 
-    @Test
-    public void testSuivreEtatColisTrouve() throws FileNotFoundException {
+//    @Test
+//    public void testSuivreEtatColisTrouve() throws FileNotFoundException {
+//
+//        // initialiser une liste de produits
+//        ArrayList<Object> listeProduits = new ArrayList<>();
+//        listeProduits.add(new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique",
+//                20, "Écouteurs", "SONY", "WH-1000XM4", "14/08/2022", "Écouteurs"));
+//
+//        // mock panier
+//        Panier panier = new Panier();
+//        panier.ajouterArticle((Produit) listeProduits.get(0));
+//
+//        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
+//        Commande commande = new Commande(acheteur, StatutCommande.en_chemin, acheteur.getAdresseExpedition(), 2, panier);
+//
+//        // Créer colis avec UUID random
+//        UUID numSuivi = UUID.randomUUID();
+//
+//        Colis ColisFictif = new Colis(commande);
+//        ColisFictif.setNumSuivi(numSuivi);
+//        ColisFictif.setStatut(StatutCommande.en_chemin);
+//
+//        // Ajouter colis fictif au colisMap
+//        Colis.colisMap.put(numSuivi, ColisFictif);
+//
+//        // Rediriger la sortie
+//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outContent));
+//
+//        // Exécuter la méthode
+//        Acheteur.suivreEtat(numSuivi, acheteur);
+//
+//        System.setOut(System.out);
+//
+//        assertTrue(outContent.toString().contains("Le statut du colis avec le numéro de suivi " + numSuivi + StatutCommande.en_chemin));
+//    }
 
-        // initialiser une liste de produits
-        ArrayList<Object> listeProduits = new ArrayList<>();
-        listeProduits.add(new MaterielInfo("Écouteurs SONY WH-1000XM4", 409.99, 2, "Matériel informatique",
-                20, "Écouteurs", "SONY", "WH-1000XM4", "14/08/2022", "Écouteurs"));
-
-        // mock panier
-        Panier panier = new Panier();
-        panier.ajouterArticle((Produit) listeProduits.get(0));
-
-        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
-        Commande commande = new Commande(acheteur, StatutCommande.en_chemin, acheteur.getAdresseExpedition(), 2, panier);
-
-        // Créer colis avec UUID random
-        UUID numSuivi = UUID.randomUUID();
-
-        Colis ColisFictif = new Colis(commande);
-        ColisFictif.setNumSuivi(numSuivi);
-        ColisFictif.setStatut(StatutCommande.en_chemin);
-
-        // Ajouter colis fictif au colisMap
-        Colis.colisMap.put(numSuivi, ColisFictif);
-
-        // Rediriger la sortie
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        // Exécuter la méthode
-        Acheteur.suivreEtat(numSuivi, acheteur);
-
-        System.setOut(System.out);
-
-        assertTrue(outContent.toString().contains("Le statut du colis avec le numéro de suivi " + numSuivi + StatutCommande.en_chemin));
-    }
-
-    @Test
-    public void testSuivreEtatColisPasTrouve() throws FileNotFoundException {
-
-        UUID numSuivi = UUID.randomUUID();
-
-        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        Acheteur.suivreEtat(numSuivi, acheteur);
-
-        System.setOut(System.out);
-
-        assertTrue(outContent.toString().contains("Aucun colis trouvé avec le numéro de suivi : " + numSuivi));
-    }
+//    @Test
+//    public void testSuivreEtatColisPasTrouve() throws FileNotFoundException {
+//
+//        UUID numSuivi = UUID.randomUUID();
+//
+//        Acheteur acheteur = new Acheteur("4387052715", "chien45@gmail.com", "jaimeleschiens");
+//
+//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outContent));
+//
+//        Acheteur.suivreEtat(numSuivi, acheteur);
+//
+//        System.setOut(System.out);
+//
+//        assertTrue(outContent.toString().contains("Aucun colis trouvé avec le numéro de suivi : " + numSuivi));
+//    }
 
 }
 

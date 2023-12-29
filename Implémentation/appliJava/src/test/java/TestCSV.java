@@ -12,7 +12,7 @@ public class TestCSV {
     public void setUp() {
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter("src/main/data/acheteursTEST.csv");
+            writer = new PrintWriter("src/main/resources/acheteursTEST.csv");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
@@ -37,8 +37,8 @@ public class TestCSV {
     @Test
     public void testerAddAcheteur(){ // tester Main.ecrireAcheteurCSV
         try {
-            Main.ecrireAcheteurCSV(a1, "src/main/data/acheteursTEST.csv");
-            Main.ecrireAcheteurCSV(a2, "src/main/data/acheteursTEST.csv");
+            Main.ecrireAcheteurCSV(a1, "src/main/resources/acheteursTEST.csv");
+            Main.ecrireAcheteurCSV(a2, "src/main/resources/acheteursTEST.csv");
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -46,7 +46,7 @@ public class TestCSV {
 
         String line = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/data/acheteursTEST.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/acheteursTEST.csv"));
             while ((line = br.readLine()) != null)
             {
                 String[] ach = line.split(",");
