@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 public class TestCSV {
 
     Acheteur a1; Acheteur a2; ArrayList<Acheteur> acheteurs;
-    @Before
+    @BeforeEach
     public void setUp() {
         PrintWriter writer = null;
         try {

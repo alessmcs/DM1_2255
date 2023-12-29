@@ -8,7 +8,6 @@ public class RessourcesApprentissage extends Produit {
 	private String modele;
 	private String sousCategorie;
 
-	// Constructeur
 	/**
 	 * Constructeur de la classe RessourcesApprentissage
 	 * 
@@ -43,7 +42,7 @@ public class RessourcesApprentissage extends Produit {
 	}
 
 
-	/*
+	/**
 		Voir la page du produit & donner l'option à l'utilisateur de liker/commenter le produit ou l'ajouter au panier.
 
 		@param util l'utilisateur connecté

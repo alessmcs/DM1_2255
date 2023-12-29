@@ -11,7 +11,7 @@ public class Catalogue {
 		this.produits = produits;
 	}
 
-	 /*
+	 /**
         Cette méthode permet d'ajouter un produit à la liste des produits sans directement accéder à l'objet
 
         @param produit le produit à ajouter
@@ -24,11 +24,11 @@ public class Catalogue {
 		return produits;
 	}
 
-	/*
+	/**
     	Cette méthode permet à l'utilisateur de voir la liste des produits disponibles, et éventuellement d'en
     	choisir un pour voir ses détails
 
-    	@param util l'utilisateur connecté (peut être un revendeur ou un acheteur)
+    	@param acheteur l'utilisateur connecté (peut être un revendeur ou un acheteur)
  	*/
 	public static ArrayList<Produit> catalogueProduits(Acheteur acheteur){
 		Scanner s = new Scanner(System.in);
@@ -84,7 +84,7 @@ public class Catalogue {
 		return produits;
 	}
 
-	/*
+	/**
 		Cette méthode affiche le menu du catalogue et donne à l'utilisateur le choix de voir la liste d'acheteurs,
 		la liste de revendeurs, le catalogue des produits ou de retourner au menu principal
 
@@ -135,11 +135,11 @@ public class Catalogue {
 
 	}
 
-	/*
+	/**
 		Cette méthode affiche le catalogue des acheteurs à partir de la liste des acheteurs (acheteurs.csv) et donne
 		l'option de voir le profil d'un des acheteurs en entrant son pseudo.
 
-		@param util l'utilisateur connecté (peut être un acheteur ou un revendeur)
+		@param acheteur l'utilisateur connecté (peut être un acheteur ou un revendeur)
 	 */
 	public static void catalogueAcheteurs(Acheteur acheteur){
 		// afficher la liste des pseudos des acheteurs à partir du CSV, afficher le profil d'un acheteur choisi
@@ -207,7 +207,7 @@ public class Catalogue {
 		} while(!validInput);
 	}
 
-	/*
+	/**
     Cette méthode affiche le catalogue des revendeurs à partir de la liste des revendeurs (revendeurs.csv) et donne
     l'option de voir le profil d'un des revendeurs en entrant son pseudo.
 

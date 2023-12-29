@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Produit {
+public class Produit {
 
 	protected String titre;
 	protected double prix;
@@ -135,6 +135,7 @@ public abstract class Produit {
 		switch(like) {
 			case "1":
 				coeur = "liker";
+				revendeur.acheteurLikeProd.add((acheteur));
 				break;
 			case "2":
 				coeur = "ne pas liker";
@@ -280,12 +281,6 @@ public abstract class Produit {
 			((Acheteur) util).addListeCommentaires(c.getContenu());
 		}
 		return listCommentaires;
-	}
-
-
-
-	public void promouvoir() {
-		// TODO - implement Produit.promouvoir
 	}
 
 	public Revendeur getRevendeur() {
