@@ -441,4 +441,9 @@ public class Commande {
 	}
 
 
+	public void setStatutCommande(StatutCommande enChemin) {
+	}
+
+	public void setId(int i) {
+	}
 }
