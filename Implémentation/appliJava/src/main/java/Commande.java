@@ -32,6 +32,10 @@ public class Commande {
 		this.montant = panier.getTotal();
 	}
 
+	public void setStatutCommande(StatutCommande statutCommande) {
+		this.statut = statutCommande;
+	}
+
 	/*
 		Permet d'assigner un acheteur à un objet Commande, pour qu'on puisse y accéder depuis l'acheteur.
 
@@ -440,4 +444,6 @@ public class Commande {
 	}
 
 
+	public void setId(int i) {
+	}
 }
