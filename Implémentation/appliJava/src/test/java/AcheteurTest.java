@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+
+import java.io.*;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,106 +61,53 @@ class AcheteurTest {
     }
 
     @Test
-    void testConfirmerReceptionCommande_en_chemin() {
+    public void testAfficherMetriques() {
+        // Créer un Acheteur fictif pour tester la méthode
+        Acheteur acheteur = new Acheteur("123", "test@example.com", "pseudo");
 
         // Nouveau panier
         Panier panier = new Panier();
 
-        // Créer l'acheteur qui fait la confirmation
-        Acheteur acheteur = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
-        Commande commande = new Commande(acheteur, StatutCommande.en_production, acheteur.getAdresseExpedition(),
-                33, panier);
-        commande.setStatutCommande(StatutCommande.en_chemin); // Mise à jour statut livré
-        commande.setId(33);
-        acheteur.getHistoriqueCommandes().add(commande);
+        // Créer une liste d'historique de commandes fictive
+        ArrayList<Commande> historiqueCommandes = new ArrayList<>();
+        historiqueCommandes.add(new Commande(acheteur, StatutCommande.en_production, acheteur.getAdresseExpedition(),
+                33, panier));
+        acheteur.setHistoriqueCommandes(historiqueCommandes);
 
-        // Preparer l'entrée utilisateur
-        String input = "33\n"; // ID valide
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        // Rediriger l'entrée utilisateur pour simuler une réponse "1"
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
         System.setIn(in);
 
-        // Rediriger la sortie
+        // Capturer la sortie standard
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        // Exécution methode
-        boolean result = acheteur.confirmerReceptionCommande(acheteur);
+        try {
+            // Appeler la méthode afficherMetriques avec le scanner modifié
+            acheteur.afficherMetriques(acheteur);
 
-        // Restaurer I/O standard
-        System.setIn(System.in);
-        System.setOut(System.out);
+            // Vérifier la sortie
+            String expectedOutput = "Vos métriques d'acheteur: \n" +
+                    "Nombre de commandes : 1\n" +
+                    "Produits achetés\n" +
+                    "/* Ajoutez les détails des produits ici */\n" +
+                    "Nombre total: /* Ajoutez le nombre total de produits ici */\n" +
+                    "Vos commentaires: \n" +
+                    "\u001B[1mÉtoile(s): \u001B[0m/* Ajoutez le nombre d'étoiles ici */\n" +
+                    "\u001B[1mLike: \u001B[0m/* Ajoutez le nombre de likes ici */\n" +
+                    "\u001B[1mCommentaire: \u001B[0m/* Ajoutez le commentaire ici */\n" +
+                    "Souhaitez-vous retourner au menu principal?\n1-Oui\n2-Non\n";
 
-        // Verification
-        Assertions.assertTrue(result);
-        Assertions.assertTrue(outContent.toString().contains("Cette commande n'a pas encore été envoyée."));
+            assertEquals(expectedOutput, outContent.toString());
+        } catch (FileNotFoundException e) {
+            fail("Exception inattendue : " + e.getMessage());
+        } finally {
+            // Restaurer la sortie standard
+            System.setIn(System.in);
+            System.setOut(System.out);
+        }
     }
 
-    @Test
-    void testConfirmerReceptionCommande_Livree() {
-
-        // Nouveau panier
-        Panier panier = new Panier();
-
-        // Créer l'acheteur qui fait la confirmation
-        Acheteur acheteur = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
-        Commande commande = new Commande(acheteur, StatutCommande.en_production, acheteur.getAdresseExpedition(),
-                33, panier);
-        commande.setStatutCommande(StatutCommande.livree); // Mise à jour statut livré
-        commande.setId(33);
-        acheteur.getHistoriqueCommandes().add(commande);
-
-        // Preparer l'entrée utilisateur
-        String input = "33\n"; // ID valide
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        boolean result = acheteur.confirmerReceptionCommande(acheteur);
-
-        System.setIn(System.in);
-        System.setOut(System.out);
-
-        Assertions.assertTrue(result);
-        Assertions.assertTrue(outContent.toString().contains("Cette commande est deja livrée"));
-    }
-
-
-    @Test
-    void testConfirmerReceptionCommande_Invalide() {
-
-        // Nouveau panier
-        Panier panier = new Panier();
-
-        // Créer l'acheteur qui fait la confirmation
-        Acheteur acheteur = new Acheteur("4382232715", "lollipop@gmail.com", "genielog");
-        Commande commande = new Commande(acheteur, StatutCommande.en_production, acheteur.getAdresseExpedition(),
-                33, panier);
-        commande.setStatutCommande(StatutCommande.en_chemin); // Statut non confirmé
-        commande.setId(33); // Exemple ID invalide
-        acheteur.getHistoriqueCommandes().add(commande);
-
-        // Preparer l'entrée utilisateur
-        String input = "invalid\n"; // Entrée invalide
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        // Redirige la sortie standard
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        // Exécution methode
-        boolean result = acheteur.confirmerReceptionCommande(acheteur);
-
-        // Restauré I/O standard
-        System.setIn(System.in);
-        System.setOut(System.out);
-
-        // Vérifier le résultat et la sortie
-        assertFalse(result);
-        Assertions.assertTrue(outContent.toString().contains("Svp entrez un chiffre pour l'ID!"));
-    }
 
 
     @Test

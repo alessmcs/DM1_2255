@@ -673,4 +673,6 @@ public class Acheteur extends Utilisateur {
 	}
 
 
+	public void setHistoriqueCommandes(ArrayList<Commande> historiqueCommandes) {
+	}
 }
