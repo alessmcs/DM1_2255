@@ -69,8 +69,9 @@ public class Main {
         @param commande la nouvelle commande
      */
     public static void ecrireCommandeCSV(Commande commande) throws FileNotFoundException {
-        File csvFile = new File("src/main/data/commandes.csv");
+        File csvFile = new File("src/main/resources/commandes.csv");
         FileWriter out = null;
+
         try {
             out = new FileWriter(csvFile, true);
         } catch (IOException e) {
@@ -97,7 +98,7 @@ public class Main {
       @param revendeur le nouveau revendeur
    */
     public static void ecrireRevendeurCSV(Revendeur revendeur) throws FileNotFoundException{
-        File csvFile = new File("src/main/data/revendeurs.csv");
+        File csvFile = new File("src/main/resources/revendeurs.csv");
         FileWriter out = null;
         try {
             out = new FileWriter(csvFile, true);
@@ -190,7 +191,7 @@ public class Main {
         // fichiers .csv doivent être vides au début
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter("src/main/data/listeProduits.csv");
+            writer = new PrintWriter("src/main/resources/listeProduits.csv");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
@@ -199,7 +200,7 @@ public class Main {
         }
 
         try {
-            writer = new PrintWriter("src/main/data/acheteurs.csv");
+            writer = new PrintWriter("src/main/resources/acheteurs.csv");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
@@ -207,7 +208,7 @@ public class Main {
         }
 
         try {
-            writer = new PrintWriter("src/main/data/revendeurs.csv");
+            writer = new PrintWriter("src/main/resources/revendeurs.csv");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
@@ -300,16 +301,16 @@ public class Main {
         acheteur10.setPseudo("souris88");
         acheteur10.setAdresseExpedition(new Adresse("100 rue Rembouillet", "Montréal", "b8k6h1", "QC", "Canada"));
 
-        ecrireAcheteurCSV(acheteur1, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur2, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur3, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur4, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur5, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur6, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur7, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur8, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur9, "src/main/data/acheteurs.csv");
-        ecrireAcheteurCSV(acheteur10, "src/main/data/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur1, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur2, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur3, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur4, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur5, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur6, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur7, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur8, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur9, "src/main/resources/acheteurs.csv");
+        ecrireAcheteurCSV(acheteur10, "src/main/resources/acheteurs.csv");
 
         BaseDonnees.acheteursList.add(acheteur1);
         BaseDonnees.acheteursList.add(acheteur2);
